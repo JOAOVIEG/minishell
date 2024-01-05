@@ -6,40 +6,51 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/03 16:32:18 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:35:47 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static bool	start_check(t_data *data, int ac, char **av)
+void	display_prompt(void)
 {
-	if (ac != 1 && ac != 3)
-		return (usage_message(false));
-	if (ac == 3)
+	printf("minishell> ");
+}
+
+char	*read_input(void)
+{
+	char	*line;
+
+	line = readline("");
+	if (line && *line)
+		add_history(line);
+	return (line);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char *line;
+	int status;
+
+	(void)argc;
+	(void)argv;
+	(void)envp;
+	status = 1;
+	while (status)
 	{
-		data->interactive = false;
-		if (!av[1] || (av[1] && ft_strcmp(av[1], "-c") != 0))
-			return (usage_message(false));
-		else if (!av[2] || (av[2] && av[2][0] == '\0'))
-			return (usage_message(false));
+		display_prompt();
+		line = read_input();
+		if (ft_strcmp(line, "exit") == 0)
+		{
+			free(line);
+			break ;
+		}
+		if (ft_strcmp(line, "pwd") == 0)
+		{
+			ft_putstr_fd(getcwd(NULL, 0), 1);
+			ft_putstr_fd("\n", 1);
+		}
+		free(line);
 	}
-	else
-		data->interactive = true;
-	return (true);
+	return (0);
 }
-
-int	main(int ac, char **av, char **env)
-{
-	t_data	data;
-
-	ft_memset(&data, 0, sizeof(t_data));
-	if (!start_check(&data, ac, av))
-		exit_shell(NULL, EXIT_FAILURE);
-	if (!init_data(&data, env))
-		exit_shell(NULL, EXIT_FAILURE);;
-	
-}
-
-
-// need implement a free function for data

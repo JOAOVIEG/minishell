@@ -15,7 +15,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS)  $(OBJ) -o $(NAME) -L$(LIBFT_DIR) -lft
+	@$(CC) $(CFLAGS)  $(OBJ) -o $(NAME) -L$(LIBFT_DIR) -lft -lreadline
 	@echo "minishell compiled"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
