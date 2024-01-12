@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/12 18:26:58 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/12 18:24:18 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/12 18:26:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include "./libft/includes/libft.h"
-# include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-
-typedef struct s_prompt
+t_prompt	*set_prompt(char *str)
 {
-	char	*prompt_name;
-}			t_prompt;
+	t_prompt	*p;
 
-
-// prompt.c
-t_prompt	*set_prompt(char *str);
-
-#endif
+	p = (t_prompt *)malloc(sizeof(t_prompt));
+	if (!p)
+	{
+		printf("Error, malloc failed at prompt.c\n");
+		exit(EXIT_FAILURE);
+	}
+	p->prompt_name = ft_strdup(str);
+	return (p);
+}
