@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/16 13:36:11 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:56:52 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*read_input(t_shell *minishell)
 	minishell->line = readline("minishell> ");
 	if (!minishell->line)
 	{
-		// Handle Ctrl+D or other read errors
+		// Handle Ctrl+D
 		exit(EXIT_SUCCESS);
 	}
 	return (minishell->line);
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	while (status)
 	{
 		line = read_input(minishell);
+		
 		if (strcmp(line, "exit") == 0)
 		{
 			free(line);
@@ -79,9 +80,5 @@ int	main(int argc, char **argv, char **envp)
 	free(minishell);
 	return (EXIT_SUCCESS);
 }
-
-// criar uma struct principal para o minishell  com um ponteiro para a struct prompt
-
-// na minha strcuct principal armazenar o input do user
 
 // criar uma funcao que limpe a minha struct principal
