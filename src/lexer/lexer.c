@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 18:24:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/12 18:26:30 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/17 14:59:13 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/lexer.h"
 
-t_prompt	*set_prompt(char *str)
+
+t_lexer_state init_lexer_state(char *input)
 {
-	t_prompt	*p;
-
-	p = (t_prompt *)malloc(sizeof(t_prompt));
-	if (!p)
-	{
-		printf("Error, malloc failed at prompt.c\n");
-		exit(EXIT_FAILURE);
-	}
-	p->prompt_name = ft_strdup(str);
-	return (p);
+    t_lexer_state state;
+    state.input = input;
+    state.current_position = 0;
+    return state;
 }

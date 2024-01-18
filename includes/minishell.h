@@ -6,7 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/18 13:41:07 by joaocard         ###   ########.fr       */
+=======
+/*   Updated: 2024/01/17 15:44:32 by wiferrei         ###   ########.fr       */
+>>>>>>> 281550cd5d156162cfbeb31c181e38837bb70219
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +26,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <signal.h>
+# include  "lexer.h"
 
 typedef struct s_env 
 {
@@ -32,16 +38,15 @@ typedef struct s_env
 
 typedef	struct s_minishell
 {
-	t_env	*v_env;
+
 }	t_minishell;
 
-typedef struct s_prompt
+typedef struct s_shell
 {
-	char	*prompt_name;
-}			t_prompt;
-
-
-// prompt.c
-t_prompt	*set_prompt(char *str);
+	t_env	*v_env;
+	char	*line;
+	bool	signal_set;
+	//t_lexer_state lx_state;
+}			t_shell;
 
 #endif
