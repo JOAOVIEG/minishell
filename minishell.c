@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/17 15:47:00 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:52:13 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		status;
 	t_shell	*minishell;
-	t_lexer lexer;
+	//t_lexer lexer;
 	char	*line;
 
 	(void)argc;
