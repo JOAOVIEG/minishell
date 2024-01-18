@@ -3,30 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 14:52:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:15:48 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_shell	*init_shell(void)
+t_minishell		*shell(void)
 {
-	t_shell	*shell;
+	static	t_minishell minishell;
 
-	shell = malloc(sizeof(t_shell));
-	if (!shell)
-	{
-		printf("Error allocating memory\n");
-		exit(EXIT_FAILURE);
-	}
-	shell->line = NULL;
-	shell->signal_set = false;
-	//Thi part is not working
-	//shell->lx_state = init_lexer_state(NULL);
-	return (shell);
+	return (&minishell);
 }
 
 void	ignore_signals(t_shell *minishell)
@@ -53,15 +43,15 @@ char	*read_input(t_shell *minishell)
 
 int	main(int argc, char **argv, char **envp)
 {
-	int		status;
-	t_shell	*minishell;
-	//t_lexer lexer;
-	char	*line;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	minishell = init_shell();
+	char		*line;
+	int			status;
+	t_prompt	*shell_prompt;
+	
+	shell()->v_env = env_cpy(envp);
+	// (void)argc;
+	// (void)argv;
+	// (void)envp;
+	env_init(envp, shell);
 	ignore_signals(minishell);
 	status = 1;
 	while (status)
