@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/18 16:09:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:43:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	cd(char *path)
 		if (!path)
 		{
 			perror("cd: HOME not set\n");
-			return (EXIT_FAILURE);
+			return ;
 		}
 	}
 	if (chdir(path) == -1)

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:26:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/18 14:02:25 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:57:18 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*add_env_var(t_env *env, char *name, char *value)
 	if (new_node == NULL)
 	{
 		perror("malloc failed");
-		return (EXIT_FAILURE);
+		// return (EXIT_FAILURE);
 	}
 	new_node->name = ft_strdup(name);
 	new_node->value = ft_strdup(value);

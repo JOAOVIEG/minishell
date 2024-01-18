@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 16:11:56 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:07:18 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	shell()->v_env = env_cpy(envp);
 	ignore_signals(shell());
 	status = 1;

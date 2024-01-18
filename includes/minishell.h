@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 15:53:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:42:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ void	pwd(void);
 t_env	*add_env_var(t_env *env, char *name, char *value);
 t_env	*find_env_var(t_env *env, char *name);
 t_env	*env_cpy(char **envp);
-
+void	ignore_signals(t_shell *minishell);
+char	*read_input();
+t_shell	*shell(void);
 #endif
