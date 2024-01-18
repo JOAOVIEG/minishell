@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 17:25:04 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 20:15:11 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ t_shell		*shell(void)
 {
 	static	t_shell minishell;
 
+	if (!minishell.lexer)
+		minishell.lexer = init_lexer();
+		
+
 	return (&minishell);
 }
 
@@ -24,8 +28,6 @@ void	ignore_signals(t_shell *minishell)
 	minishell->signal_set = true;
 	// ignore "Ctrl+C"
 	signal(SIGINT, SIG_IGN);
-	// ignore "Ctrl+Z"
-	signal(SIGTSTP, SIG_IGN);
 	// ignore "Ctrl+\"
 	signal(SIGQUIT, SIG_IGN);
 }
@@ -54,6 +56,11 @@ int	main(int argc, char **argv, char **envp)
 	while (status)
 	{
 		read_input();
+		init_lexer_state(&shell()->lexer->state, shell()->line);
+		// printing the input saved  in the lexer
+		// Now I need start split the tokens
+		printf("%s\n", shell()->lexer->state.input);
+
 	}
 	return (EXIT_SUCCESS);
 }

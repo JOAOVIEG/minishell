@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 16:39:41 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:00:43 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_shell
 	t_env	*v_env;
 	char	*line;
 	bool	signal_set;
-	//t_lexer_state lx_state;
+	t_lexer *lexer;
 }			t_shell;
 
 void	cd(char *path);
