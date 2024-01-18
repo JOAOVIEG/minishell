@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 11:10:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:41:07 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;	
 }	t_env;
+
+typedef	struct s_minishell
+{
+	t_env	*v_env;
+}	t_minishell;
 
 typedef struct s_prompt
 {

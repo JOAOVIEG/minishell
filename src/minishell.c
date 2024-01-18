@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/12 18:58:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:40:56 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_minishell		*shell(void)
+{
+	static	t_minishell minishell;
+
+	return (&minishell);
+}
 
 char	*read_input(void)
 {
@@ -27,10 +34,12 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	int			status;
 	t_prompt	*shell_prompt;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
+	
+	shell()->v_env = env_cpy(envp);
+	// (void)argc;
+	// (void)argv;
+	// (void)envp;
+	env_init(envp, shell);
 	status = 1;
 	shell_prompt = set_prompt("minishell$ ");
 	while (status)
