@@ -1,12 +1,17 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g -Iincludes/
+CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Iincludes/libft/includes
 
 INC_DIR = includes
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/lexer/*.c) $(wildcard $(SRC_DIR)/execute/built_ins/*.c) $(wildcard$(SRC_DIR)/execute/env/*.c)
+# Update the SRC variable to include the necessary source files
+SRC = $(wildcard $(SRC_DIR)/*.c) \
+      $(wildcard $(SRC_DIR)/lexer/*.c) \
+      $(wildcard $(SRC_DIR)/execute/built_ins/*.c) \
+      $(wildcard $(SRC_DIR)/execute/env/*.c)
+
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 LIBFT_DIR = ./includes/libft

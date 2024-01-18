@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 16:38:08 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:25:04 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	main(int argc, char **argv, char **envp)
 	
 	(void)argc;
 	(void)argv;
-	shell()->v_env = env_cpy(envp);
+	(void)envp;
+	//shell()->v_env = env_cpy(envp);
 	ignore_signals(shell());
 	status = 1;
 	while (status)
