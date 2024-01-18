@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 15:02:43 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/17 15:43:21 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/18 12:43:55 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/18 12:50:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	echo(char **cmd)
+char	*ft_strndup(const char *s, size_t n)
 {
-	int	newline;
-	int	i;
-
-	newline = 1;
-	i = 1;
-	if (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
+	size_t	len;
+	char	*new;
+	int		i;
+	len = 0;
+	i = 0;
+	while (len < n && s[len])
+		len++;
+	new = malloc(len + 1);
+	if (new == NULL)
+		return (NULL);
+	while (i < len)
 	{
-		newline = 0;
+		new[i] = s[i];
 		i++;
 	}
-	while (cmd && cmd[i])
-	{
-		printf("%s", cmd[i]);
-		if (cmd[i + 1] && (cmd + i + 1))
-			printf(" ");
-		i++;
-	}
-	if (newline)
-		printf("\n");
-	/*I need to have a shell return status for this successfull func*/
+	new[i] = '\0';
+	return (new);
 }
