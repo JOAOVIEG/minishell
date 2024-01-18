@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 15:49:21 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:38:08 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,39 +30,30 @@ void	ignore_signals(t_shell *minishell)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-char	*read_input(t_shell *minishell)
+char	*read_input()
 {
-	minishell->line = readline("minishell> ");
-	if (!minishell->line)
+	shell()->line = readline("minishell> ");
+	if (!shell()->line)
 	{
 		// Handle Ctrl+D
 		exit(EXIT_SUCCESS);
 	}
-	return (minishell->line);
+	return (shell()->line);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	int			status;
 	
-	//shell()->v_env = env_cpy(envp);
-
-	//env_init(envp, shell);
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	shell()->v_env = env_cpy(envp);
 	ignore_signals(shell());
 	status = 1;
 	while (status)
 	{
-		read_input(shell());
-
-		
-
-		
-		
+		read_input();
 	}
 	return (EXIT_SUCCESS);
 }
 
-// criar uma funcao que limpe a minha struct principal

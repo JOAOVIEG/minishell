@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 15:30:54 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:37:02 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_env
 	struct s_env	*next;	
 }	t_env;
 
-
 typedef struct s_shell
 {
 	t_env	*v_env;
@@ -40,5 +39,12 @@ typedef struct s_shell
 	bool	signal_set;
 	//t_lexer_state lx_state;
 }			t_shell;
+
+void	cd(char *path);
+void	echo(char **cmd);
+void	pwd(void);
+t_env	*add_env_var(t_env *env, char *name, char *value);
+t_env	*find_env_var(t_env *env, char *name);
+t_env	*env_cpy(char **envp);
 
 #endif
