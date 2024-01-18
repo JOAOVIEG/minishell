@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/18 13:41:07 by joaocard         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/17 15:44:32 by wiferrei         ###   ########.fr       */
->>>>>>> 281550cd5d156162cfbeb31c181e38837bb70219
+/*   Updated: 2024/01/18 15:30:54 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +32,6 @@ typedef struct s_env
 	struct s_env	*next;	
 }	t_env;
 
-typedef	struct s_minishell
-{
-
-}	t_minishell;
 
 typedef struct s_shell
 {

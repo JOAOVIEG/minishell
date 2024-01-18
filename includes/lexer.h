@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/17 15:40:27 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:15:35 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum s_token_type
     CHAR_AMPERSAND = '&',
     CHAR_SINGLE_QUOTE = '\'',
     CHAR_DOUBLE_QUOTE = '\"',
-    CHAR_SEMICOLON = ';',
+   // CHAR_SEMICOLON = ';',
     CHAR_WHITESPACE = ' ',
     CHAR_ESCAPE_SEQUENCE = '\\',
     CHAR_TAB = '\t',

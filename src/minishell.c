@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 15:15:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:49:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_minishell		*shell(void)
+t_shell		*shell(void)
 {
-	static	t_minishell minishell;
+	static	t_shell minishell;
 
 	return (&minishell);
 }
@@ -43,37 +43,25 @@ char	*read_input(t_shell *minishell)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*line;
 	int			status;
-	t_prompt	*shell_prompt;
 	
-	shell()->v_env = env_cpy(envp);
-	// (void)argc;
-	// (void)argv;
-	// (void)envp;
-	env_init(envp, shell);
-	ignore_signals(minishell);
+	//shell()->v_env = env_cpy(envp);
+
+	//env_init(envp, shell);
+	(void)argc;
+	(void)argv;
+	(void)envp;
+	ignore_signals(shell());
 	status = 1;
 	while (status)
 	{
-		line = read_input(minishell);
+		read_input(shell());
 
 		
 
 		
-		if (strcmp(line, "exit") == 0)
-		{
-			free(line);
-			exit(EXIT_SUCCESS);
-		}
-		if (strcmp(line, "pwd") == 0)
-		{
-			ft_putstr_fd(getcwd(NULL, 0), 1);
-			ft_putstr_fd("\n", 1);
-		}
-		free(line);
+		
 	}
-	free(minishell);
 	return (EXIT_SUCCESS);
 }
 

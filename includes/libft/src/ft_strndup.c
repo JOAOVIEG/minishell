@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:43:55 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/18 12:50:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:50:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strndup(const char *s, size_t n)
 {
 	size_t	len;
 	char	*new;
-	int		i;
+	size_t	i;
 	len = 0;
 	i = 0;
 	while (len < n && s[len])
