@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:43:55 by joaocard          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/18 15:50:48 by joaocard         ###   ########.fr       */
+=======
+/*   Updated: 2024/01/18 15:50:25 by wiferrei         ###   ########.fr       */
+>>>>>>> 34ab0d7 (changed structure)
 /*                                                                            */
 /* ************************************************************************** */
 
