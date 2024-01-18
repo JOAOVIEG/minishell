@@ -6,11 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/18 13:41:07 by joaocard         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/17 15:44:32 by wiferrei         ###   ########.fr       */
->>>>>>> 281550cd5d156162cfbeb31c181e38837bb70219
+/*   Updated: 2024/01/18 15:53:33 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +32,6 @@ typedef struct s_env
 	struct s_env	*next;	
 }	t_env;
 
-typedef	struct s_minishell
-{
-
-}	t_minishell;
-
 typedef struct s_shell
 {
 	t_env	*v_env;
@@ -48,5 +39,12 @@ typedef struct s_shell
 	bool	signal_set;
 	//t_lexer_state lx_state;
 }			t_shell;
+
+void	cd(char *path);
+void	echo(char **cmd);
+void	pwd(void);
+t_env	*add_env_var(t_env *env, char *name, char *value);
+t_env	*find_env_var(t_env *env, char *name);
+t_env	*env_cpy(char **envp);
 
 #endif

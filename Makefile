@@ -6,7 +6,7 @@ INC_DIR = includes
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/lexer/*.c)
+SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/lexer/*.c) $(wildcard $(SRC_DIR)/execute/built_ins/*.c) $(wildcard$(SRC_DIR)/execute/env/*.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 LIBFT_DIR = ./includes/libft
