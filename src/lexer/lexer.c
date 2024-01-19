@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 20:08:23 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:33:42 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,36 @@ void print_input(const  t_lx_state *lexer_state)
 
        // add_current_position(&lexer_state);
     }
+}
+
+void tokenize_pipe(t_lexer  *lexer)
+{
+    (void)lexer;
+    printf("Need implement the function to tokenize a PIPE\n");
+}
+
+void tokenize_whitespace(t_lexer *lexer)
+{
+    (void)lexer;
+    printf("Need implement the function to tokenize a WHITESPACE\n");
+}
+
+
+void tokenize_input(t_lexer *lexer)
+{
+    char current;
+
+    while (current_char(&(lexer->state)) != '\0')
+    {
+        current = current_char(&(lexer->state));
+        if ((current == CHAR_WHITESPACE))
+        tokenize_whitespace(lexer);
+    else if (current == CHAR_PIPE)  
+        tokenize_pipe(lexer);
+
+        else 
+            printf("Command not found\n");
+         add_current_position(&(lexer->state)); 
+    }
+    
 }

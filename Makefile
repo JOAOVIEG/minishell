@@ -5,8 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Iincludes/libft/includes
 INC_DIR = includes
 SRC_DIR = src
 OBJ_DIR = obj
-
-# Update the SRC variable to include the necessary source files
+		
 SRC = $(wildcard $(SRC_DIR)/*.c) \
       $(wildcard $(SRC_DIR)/lexer/*.c) \
       $(wildcard $(SRC_DIR)/execute/built_ins/*.c) \

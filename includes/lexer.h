@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 19:51:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:22:20 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_token
 {
 	t_token_type type;
 	char *value;
+    int precedence;
 }	t_token;
 
 typedef struct s_lexer
@@ -52,7 +53,7 @@ typedef struct s_lexer
     t_lx_state state;
 } t_lexer;
 
-
+void tokenize_input(t_lexer *lexer);
 t_lexer *init_lexer(void);
 void init_lexer_state(t_lx_state *lexer_state, char *input);
 void    add_current_position(t_lx_state *lexer_state);
