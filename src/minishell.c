@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/18 17:07:18 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:09:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,41 @@
 t_shell		*shell(void)
 {
 	static	t_shell minishell;
-
+	
 	return (&minishell);
 }
 
-void	ignore_signals(t_shell *minishell)
+void	ignore_signals()
 {
-	minishell->signal_set = true;
-	// ignore "Ctrl+C"
+	shell()->signal_set = true;
 	signal(SIGINT, SIG_IGN);
-	// ignore "Ctrl+Z"
 	signal(SIGTSTP, SIG_IGN);
-	// ignore "Ctrl+\"
 	signal(SIGQUIT, SIG_IGN);
 }
 
-char	*read_input()
+void	read_input()
 {
 	shell()->line = readline("minishell> ");
 	if (!shell()->line)
-	{
-		// Handle Ctrl+D
-		exit(EXIT_SUCCESS);
-	}
-	return (shell()->line);
+		exit(shell()->status);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int			status;
-	
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	shell()->v_env = env_cpy(envp);
-	ignore_signals(shell());
-	status = 1;
-	while (status)
+	if (argc > 1)
 	{
-		read_input();
+		if (access(argv[1], F_OK) == -1)
+		{
+			printf("minishell: %s: %s\n", argv[1], strerror(errno));
+			return (EXIT_FAILURE);
+		}
 	}
-	return (EXIT_SUCCESS);
+    shell()->v_env = env_cpy(envp);
+	shell()->status = 0;
+	ignore_signals();
+    while (1)
+    {
+        read_input();
+    }
+    return (EXIT_SUCCESS);
 }
-
