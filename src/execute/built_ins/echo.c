@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:02:43 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/18 10:05:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:52:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	echo(char **cmd)
 	int	i;
 
 	newline = 1;
-	i = 1;
+	i = 0;
 	if (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
 	{
 		newline = 0;
@@ -33,5 +33,4 @@ void	echo(char **cmd)
 	}
 	if (newline)
 		printf("\n");
-	/*I need to have a shell return status for this successfull func*/
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/18 16:43:44 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:53:05 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ void	cd(char *path)
 	}
 	if (chdir(path) == -1)
 			perror("cd");
-	/*If the directory change is successful, cd sets the value of the PWD environment
-	variable to the new directory name, and sets the OLDPWD environment variable
-	to the value of the current working directory before the change.
-	The return status is zero if the directory is successfully changed, non-zero oth-
-	erwise.*/
 	pwd = find_env_var(shell()->v_env, "PWD");
 	oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
 	if (pwd)

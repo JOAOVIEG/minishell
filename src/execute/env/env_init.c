@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:26:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/19 16:04:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:27:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,12 @@ void	get_var(t_env *new, char *envp, char *equal_pos)
 	new->next = NULL;
 }
 
-void new_var(t_env *head, t_env *tail, t_env *new)
+void new_var(t_env **head, t_env *tail, t_env *new)
 {
 	if (tail)
-	{
 		tail->next = new;
-		(void)head;
-	}
 	else
-		head = new;
+		*head = new;
 }
 
 void check_new_malloc(t_env *new)
@@ -57,15 +54,15 @@ t_env	*env_cpy(char **envp)
 
 	head = NULL;
 	tail = NULL;
-	new = malloc(sizeof(t_env));
-	check_new_malloc(new);
 	while (*envp)
 	{
+		new = malloc(sizeof(t_env));
+		check_new_malloc(new);
 		equal_pos = ft_strchr(*envp, '=');
 		if (equal_pos)
 		{
 			get_var(new, *envp, equal_pos);
-			new_var(head, tail, new);
+			new_var(&head, tail, new);
 			tail = new;
 		}
 		else

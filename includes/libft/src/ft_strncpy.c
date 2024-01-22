@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 15:02:48 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/22 11:17:29 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/22 13:32:47 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/22 13:40:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	env(void)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	t_env *tmp;
-	
-	tmp = shell()->v_env;
-	while (tmp)
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < n)
 	{
-		printf("%s=%s\n", tmp->name, tmp->value);
-		tmp = tmp->next;
+		dest[i] = src[i];
+		i++;
 	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+	}
+	return (dest);
 }
