@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 18:07:14 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:00:02 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,131 +104,20 @@ int	get_char_type(char c)
 
 void	tokenize_input(t_lexer *lexer)
 {
-	char	current;
-	int		i;
-	int		j;
-	int		state;
-	int		char_type;
 	t_token	*token;
 
-	i = 0;
-	j = 0;
-	state = STATE_IN_GENERAL;
-	lexer->tokens = (t_token *)malloc(sizeof(t_token));
-	if (!lexer->tokens)
-	{
-		perror("Error allocating memory for tokens\n");
-		exit(EXIT_FAILURE);
-	}
+	lexer->tokens = new_token();
 	token = lexer->tokens;
 	token_init(token);
-	token->value = (char *)malloc(MAX_TOKEN_SIZE);
-	while (lexer->state.input[i] != '\0')
-	{
-		current = lexer->state.input[i];
-		char_type = get_char_type(current);
-		if (state == STATE_IN_GENERAL)
-		{
-			if (char_type == CHAR_SINGLE_QUOTE)
-			{
-				state = STATE_IN_SQUOTE;
-				token->value[j++] = CHAR_SINGLE_QUOTE;
-				token->type = TOKEN;
-			}
-			else if (char_type == CHAR_DOUBLE_QUOTE)
-			{
-				state = STATE_IN_DQUOTE;
-				token->value[j++] = CHAR_DOUBLE_QUOTE;
-				token->type = TOKEN;
-			}
-			else if (char_type == CHAR_ESCAPE_SEQUENCE)
-			{
-				token->value[j++] = lexer->state.input[++i];
-				token->type = TOKEN;
-			}
-			else if (char_type == CHAR_GENERAL)
-			{
-				token->value[j++] = lexer->state.input[i];
-				token->type = TOKEN;
-			}
-			else if (char_type == CHAR_WHITESPACE)
-			{
-				if (j > 0)
-				{
-					token->value[j] = 0;
-					token->next = (t_token *)malloc(sizeof(t_token));
-					if (!token->next)
-					{
-						perror("Error allocating memory for tokens\n");
-						exit(EXIT_FAILURE);
-					}
-					token = token->next;
-					token_init(token);
-					token->value = (char *)malloc(MAX_TOKEN_SIZE);
-					j = 0;
-				}
-			}
-			else if (char_type == CHAR_GREATER || char_type == CHAR_LESSER
-				|| char_type == CHAR_AMPERSAND || char_type == CHAR_PIPE)
-			{
-				if (j > 0)
-				{
-					token->value[j] = 0;
-					token->next = (t_token *)malloc(sizeof(t_token));
-					if (!token->next)
-					{
-						perror("Error allocating memory for tokens\n");
-						exit(EXIT_FAILURE);
-					}
-					token = token->next;
-					token_init(token);
-					token->value = (char *)malloc(MAX_TOKEN_SIZE);
-					j = 0;
-				}
-				token->value[0] = char_type;
-				token->value[1] = 0;
-				token->type = char_type;
-				token->next = (t_token *)malloc(sizeof(t_token));
-				if (!token->next)
-				{
-					perror("Error allocating memory for tokens\n");
-					exit(EXIT_FAILURE);
-				}
-				token = token->next;
-				token_init(token);
-				token->value = (char *)malloc(MAX_TOKEN_SIZE);
-			}
-		}
-		else if (state == STATE_IN_DQUOTE)
-		{
-			token->value[j++] = current;
-			if (char_type == CHAR_DOUBLE_QUOTE)
-				state = STATE_IN_GENERAL;
-		}
-		else if (state == STATE_IN_SQUOTE)
-		{
-			token->value[j++] = current;
-			if (char_type == CHAR_SINGLE_QUOTE)
-				state = STATE_IN_GENERAL;
-		}
-		if (char_type == CHAR_NULL)
-		{
-			if (j > 0)
-			{
-				token->value[j] = 0;
-				lexer->ntoks++;
-				j = 0;
-			}
-		}
-		i++;
-	}
-	// my code not are incrementig the number of tokens
-	// printf("Number of tokens: %d\n", lexer->ntoks);
+	token = build_token(lexer, token);
 	printf("Tokens:\n");
 	token = lexer->tokens;
 	while (token != NULL)
 	{
 		printf("Token: %s\n", token->value);
+		lexer->ntoks++;
 		token = token->next;
 	}
+	printf("Number of tokens: %d\n", lexer->ntoks);
+	// This function need change to return a list of tokens
 }

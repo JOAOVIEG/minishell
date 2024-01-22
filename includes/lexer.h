@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 17:59:21 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:17:05 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,16 @@ void				init_lexer_state(t_lx_state *lexer_state, char *input);
 void				add_current_position(t_lx_state *lexer_state);
 char				current_char(const t_lx_state *lexer_state);
 void				print_input(const t_lx_state *lexer_state);
+void				token_init(t_token *token);
+int					get_char_type(char c);
 
-#ifndef MAX_TOKEN_SIZE
-# define MAX_TOKEN_SIZE 1024
-#endif
+// tokens functions
+t_token				*new_token(void);
+t_token				*build_token(t_lexer *lexer, t_token *token);
+void	handle_state_general(t_token *token, t_lexer *lexer, int state,	int char_type);
+
+# ifndef MAX_TOKEN_SIZE
+#  define MAX_TOKEN_SIZE 1024
+# endif
 
 #endif
