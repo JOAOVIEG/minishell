@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 20:17:05 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:15:22 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ typedef struct s_lx_state
 	size_t			current_position;
 }					t_lx_state;
 
+typedef struct s_tk_buffer
+{
+	int				i;
+	int				j;
+	int				state;
+	char			current;
+	int				char_type;
+}					t_tk_buffer;
+
 typedef struct s_token
 {
 	t_token_type	type;
@@ -76,7 +85,14 @@ int					get_char_type(char c);
 // tokens functions
 t_token				*new_token(void);
 t_token				*build_token(t_lexer *lexer, t_token *token);
-void	handle_state_general(t_token *token, t_lexer *lexer, int state,	int char_type);
+t_token				*handle_state_general(t_token *token, t_lexer *lexer,
+						t_tk_buffer *buffer);
+t_token				*handle_state_in_dquote(t_token *token, t_lexer *lexer,
+						t_tk_buffer *buffer);
+t_token				*handle_state_in_squote(t_token *token, t_lexer *lexer,
+						t_tk_buffer *buffer);
+t_token				*handle_null(t_token *token, t_lexer *lexer,
+						t_tk_buffer *buffer);
 
 # ifndef MAX_TOKEN_SIZE
 #  define MAX_TOKEN_SIZE 1024
