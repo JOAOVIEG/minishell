@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   export_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 15:02:43 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/23 17:00:24 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/23 16:20:24 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/23 17:00:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/builtins.h"
 
-void	echo(char **cmd)
+char	*get_var_value(t_env *env, char *name)
 {
-	int	newline;
-	int	i;
+	t_env	*check_var;
+	char	*value;
 
-	newline = 1;
-	i = 0;
-	if (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
+	check_var = find_env_var(env, name);
+	if (check_var)
+		value = ft_strdup(check_var->value);
+	else
+		value = NULL;
+	return (value);
+}
+
+void	display_exp_var(t_env *env)
+{
+	while (env)
 	{
-		newline = 0;
-		i++;
+		printf("declare -x %s=\"%s\"\n", env->name, env->value);
+		env = env->next;
 	}
-	while (cmd && cmd[i])
-	{
-		printf("%s", cmd[i]);
-		if (cmd[i + 1] && (cmd + i + 1))
-			printf(" ");
-		i++;
-	}
-	if (newline)
-		printf("\n");
 }

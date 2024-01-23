@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:02:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/18 10:05:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:00:50 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../includes/builtins.h"
 
 void	pwd(void)
 {
@@ -24,8 +24,8 @@ void	pwd(void)
 	}
 	else
 	{
-		perror("error\n");
-		/*shell exit status set to 1*/
+		printf("minishell: %s\n", strerror(errno));
+		shell()->status = 1;
 	}
-	/*shell exit status set to 0*/
+	shell()->status = 0;
 }

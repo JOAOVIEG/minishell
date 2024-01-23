@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:03:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/23 12:41:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:00:55 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../includes/builtins.h"
 
 void	unset(char *arg)
 {
@@ -28,15 +28,24 @@ void	unset(char *arg)
 			else
 				shell()->v_env = head->next;
 			free(head->name);
-			head->name = NULL;
-			free(head->value);
-			head->value = NULL;
-			free(head);
-			head = NULL;
+			unset_var(head);
 			shell()->status = 0;
 			return ;
 		}
 		tail = head;
 		head = head->next;
 	}
+	printf("minishell: %s\n", strerror(errno));
+	shell()->status = 1;
+}
+
+t_env	*unset_var(t_env *head)
+{
+	free(head->name);
+	head->name = NULL;
+	free(head->value);
+	head->value = NULL;
+	free(head);
+	head = NULL;
+	return (head);
 }

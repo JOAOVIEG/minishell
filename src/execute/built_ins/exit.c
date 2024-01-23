@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:02:51 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/22 12:22:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:00:33 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../includes/builtins.h"
 
 void	exit_shell(char *arg)
 {

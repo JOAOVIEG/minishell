@@ -6,11 +6,12 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 12:39:56 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:01:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../../../includes/builtins.h"
 
 t_shell		*shell(void)
 {

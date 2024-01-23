@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 14:24:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:59:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,6 @@ typedef struct s_shell
 	//t_lexer_state lx_state;
 }			t_shell;
 
-void	cd(char *path);
-void	echo(char **cmd);
-void	pwd(void);
-void	env(void);
-void	exit_shell(char *arg);
-void	free_env(void);
-void	export(char *arg);
-void	unset(char *arg);
 t_env	*find_env_var(t_env *env, char *name);
 t_env	*env_cpy(char **envp);
 void	check_new_malloc(t_env *new);
