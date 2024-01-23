@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 20:00:02 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:27:26 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,6 @@ void	print_input(const t_lx_state *lexer_state)
 		printf("Current character: %c\n", current_char(lexer_state));
 		// add_current_position(&lexer_state);
 	}
-}
-
-void	tokenize_pipe(t_lexer *lexer)
-{
-	(void)lexer;
-	printf("Need implement the function to tokenize a PIPE\n");
-}
-
-void	tokenize_whitespace(t_lexer *lexer)
-{
-	(void)lexer;
-	printf("Need implement the function to tokenize a WHITESPACE\n");
 }
 
 void	token_init(t_token *token)

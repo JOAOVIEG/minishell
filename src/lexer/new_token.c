@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 18:58:59 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 19:29:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:10:11 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 t_token	*new_token(void)
 {
-	t_token *token = (t_token *)malloc(sizeof(t_token));
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
 	{
 		perror("Error allocating memory for tokens\n");

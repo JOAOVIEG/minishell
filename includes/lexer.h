@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:15:22 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:07:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,19 @@ int					get_char_type(char c);
 // tokens functions
 t_token				*new_token(void);
 t_token				*build_token(t_lexer *lexer, t_token *token);
+void				handle_single_quote_char(t_token *token,
+						t_tk_buffer *buffer);
+void				handle_double_quote_char(t_token *token,
+						t_tk_buffer *buffer);
+void				handle_escape_sequence_char(t_token *token, t_lexer *lexer,
+						t_tk_buffer *buffer);
+void				handle_general_char(t_token *token, t_lexer *lexer,
+						t_tk_buffer *buffer);
+void				handle_general_char(t_token *token, t_lexer *lexer,
+						t_tk_buffer *buffer);
+void				handle_whitespace_char(t_token **token,
+						t_tk_buffer *buffer);
+void				handle_special_char(t_token **token, t_tk_buffer *buffer);
 t_token				*handle_state_general(t_token *token, t_lexer *lexer,
 						t_tk_buffer *buffer);
 t_token				*handle_state_in_dquote(t_token *token, t_lexer *lexer,
