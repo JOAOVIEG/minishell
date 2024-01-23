@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 14:35:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:39:56 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	read_input()
 
 int	main(int argc, char **argv, char **envp)
 {
-	// char **str = ft_split("hello ", ' ');
-	// char *path = "includes";
 	if (argc > 1)
 	{
 		if (access(argv[1], F_OK) == -1)
@@ -48,19 +46,10 @@ int	main(int argc, char **argv, char **envp)
 	}
     shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
-	// ignore_signals();
-    // while (1)
-    // {
-        // read_input();
-		// echo(str);
-		// pwd();
-		// cd(path);
-		// pwd();
-		// env();
-		// export("LOGNAME=will");
-		unset("PATH");
-		env();
-		exit('\0');
-    // }
+	ignore_signals();
+    while (1)
+    {
+        read_input();
+    }
     return (EXIT_SUCCESS);
 }

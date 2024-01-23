@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:03:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/22 14:37:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:41:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	unset(char *arg)
 
 	head = shell()->v_env;
 	tail = NULL;
-
 	while (head)
 	{
 		if (ft_strcmp(head->name, arg) == 0)
@@ -30,12 +29,12 @@ void	unset(char *arg)
 				shell()->v_env = head->next;
 			free(head->name);
 			head->name = NULL;
-			free(head->next);
-			head->next = NULL;
+			free(head->value);
+			head->value = NULL;
 			free(head);
 			head = NULL;
 			shell()->status = 0;
-			break ;
+			return ;
 		}
 		tail = head;
 		head = head->next;
