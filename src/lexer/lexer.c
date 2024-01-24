@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 17:27:49 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/24 15:58:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	get_char_type(char c)
 void	tokenize_input(t_lexer *lexer)
 {
 	t_token	*token;
-	int i;
+	int		i;
 
 	lexer->tokens = new_token();
 	token = lexer->tokens;
@@ -110,5 +110,4 @@ void	tokenize_input(t_lexer *lexer)
 	}
 	lexer->ntoks = i;
 	printf("Number of tokens: %d\n", lexer->ntoks);
-	// This function need change to return a list of tokens
 }

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 18:29:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:31:05 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "./libft/includes/libft.h"
 # include "lexer.h"
+# include "parser.h"
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -38,6 +39,7 @@ typedef struct s_shell
 	char			*line;
 	bool			signal_set;
 	t_lexer			*lexer;
+	t_parser		*parser;
 }					t_shell;
 
 void				cd(char *path);

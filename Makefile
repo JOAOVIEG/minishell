@@ -8,6 +8,7 @@ OBJ_DIR = obj
 		
 SRC = $(wildcard $(SRC_DIR)/*.c) \
       $(wildcard $(SRC_DIR)/lexer/*.c) \
+      $(wildcard $(SRC_DIR)/parser/*.c) \
       $(wildcard $(SRC_DIR)/execute/built_ins/*.c) \
       $(wildcard $(SRC_DIR)/execute/env/*.c)
 

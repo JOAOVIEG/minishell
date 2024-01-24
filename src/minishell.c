@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 18:29:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:34:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_shell	*shell(void)
 
 	if (!minishell.lexer)
 		minishell.lexer = init_lexer();
+	if (!minishell.parser)
+		minishell.parser = init_parser();
 	return (&minishell);
 }
 
