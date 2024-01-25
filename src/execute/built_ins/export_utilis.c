@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   export_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/23 16:20:24 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/23 17:00:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../../includes/builtins.h"
 
-char	*ft_strdup(char *src)
+char	*get_var_value(t_env *env, char *name)
 {
-	char	*cpy;
-	int		i;
+	t_env	*check_var;
+	char	*value;
 
-	i = -1;
-	if (src == NULL)
+	check_var = find_env_var(env, name);
+	if (check_var)
+		value = ft_strdup(check_var->value);
+	else
+		value = NULL;
+	return (value);
+}
+
+void	display_exp_var(t_env *env)
+{
+	while (env)
 	{
-		return (NULL);
+		printf("declare -x %s=\"%s\"\n", env->name, env->value);
+		env = env->next;
 	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
-	{
-		return (0);
-	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
 }

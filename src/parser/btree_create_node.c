@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   btree_create_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/24 16:41:03 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/25 15:20:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strdup(char *src)
+t_btree	*btree_create_node(void *item)
 {
-	char	*cpy;
-	int		i;
+	t_btree	*node;
 
-	i = -1;
-	if (src == NULL)
-	{
+	node = (t_btree *)malloc(sizeof(t_btree));
+	if (node == NULL)
 		return (NULL);
-	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
-	{
-		return (0);
-	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	node->item = item;
+	node->left = 0;
+	node->right = 0;
+	return (node);
 }
+

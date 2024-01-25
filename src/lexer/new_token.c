@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/22 18:58:59 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/25 15:30:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strdup(char *src)
+t_token	*new_token(void)
 {
-	char	*cpy;
-	int		i;
+	t_token	*token;
 
-	i = -1;
-	if (src == NULL)
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
 	{
-		return (NULL);
+		perror("Error allocating memory for tokens\n");
+		exit(EXIT_FAILURE);
 	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
-	{
-		return (0);
-	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	token_init(token);
+	return (token);
 }

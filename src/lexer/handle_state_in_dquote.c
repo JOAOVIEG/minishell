@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   handle_state_in_dquote.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/23 10:28:18 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/25 15:28:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strdup(char *src)
+t_token	*handle_state_in_dquote(t_token *token, t_lexer *lexer,
+		t_tk_buffer *buffer)
 {
-	char	*cpy;
-	int		i;
-
-	i = -1;
-	if (src == NULL)
-	{
-		return (NULL);
-	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
-	{
-		return (0);
-	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	(void)lexer;
+	token->value[buffer->j++] = buffer->current;
+	if (buffer->char_type == CHAR_DOUBLE_QUOTE)
+		buffer->state = STATE_IN_GENERAL;
+	return (token);
 }

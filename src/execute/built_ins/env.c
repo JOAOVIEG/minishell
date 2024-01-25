@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/25 15:13:14 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/25 15:13:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../../includes/builtins.h"
 
-char	*ft_strdup(char *src)
+void	env(void)
 {
-	char	*cpy;
-	int		i;
-
-	i = -1;
-	if (src == NULL)
+	t_env *tmp;
+	
+	tmp = shell()->v_env;
+	while (tmp)
 	{
-		return (NULL);
+		printf("%s=%s\n", tmp->name, tmp->value);
+		tmp = tmp->next;
 	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
-	{
-		return (0);
-	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
 }

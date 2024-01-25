@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/18 12:43:55 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/18 16:37:10 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char	*ft_strdup(char *src)
+char	*ft_strndup(const char *s, size_t n)
 {
-	char	*cpy;
-	int		i;
-
-	i = -1;
-	if (src == NULL)
-	{
+	size_t	len;
+	char	*new;
+	size_t	i;
+	len = 0;
+	i = 0;
+	while (len < n && s[len])
+		len++;
+	new = malloc(len + 1);
+	if (new == NULL)
 		return (NULL);
-	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
+	while (i < len)
 	{
-		return (0);
+		new[i] = s[i];
+		i++;
 	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	new[i] = '\0';
+	return (new);
 }

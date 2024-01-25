@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/25 15:31:08 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/25 15:31:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../../includes/builtins.h"
 
-char	*ft_strdup(char *src)
+void	pwd(void)
 {
-	char	*cpy;
-	int		i;
-
-	i = -1;
-	if (src == NULL)
+	char	*buffer;
+	
+	buffer = getcwd(NULL, 0);
+	if (buffer)
 	{
-		return (NULL);
+		printf("%s\n", buffer);
+		free(buffer);
 	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
+	else
 	{
-		return (0);
+		printf("minishell: %s\n", strerror(errno));
+		shell()->status = 1;
 	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	shell()->status = 0;
 }

@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/24 16:01:18 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/25 15:13:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/minishell.h"
 
-char	*ft_strdup(char *src)
+t_parser	*init_parser(void)
 {
-	char	*cpy;
-	int		i;
+	t_parser	*parser;
 
-	i = -1;
-	if (src == NULL)
+	parser = (t_parser *)malloc(sizeof(t_parser));
+	if (!parser)
 	{
-		return (NULL);
+		perror("Error allocating memory for parser\n");
+		exit(EXIT_FAILURE);
 	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
-	{
-		return (0);
-	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	parser->ast = NULL;
+	return (parser);
 }

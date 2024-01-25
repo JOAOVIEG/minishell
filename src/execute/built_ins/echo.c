@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 17:48:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 15:31:11 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/17 15:02:43 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/23 17:00:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../../includes/builtins.h"
 
-char	*ft_strdup(char *src)
+void	echo(char **cmd)
 {
-	char	*cpy;
-	int		i;
+	int	newline;
+	int	i;
 
-	i = -1;
-	if (src == NULL)
+	newline = 1;
+	i = 0;
+	if (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
 	{
-		return (NULL);
+		newline = 0;
+		i++;
 	}
-	cpy = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (cpy == NULL)
+	while (cmd && cmd[i])
 	{
-		return (0);
+		printf("%s", cmd[i]);
+		if (cmd[i + 1] && (cmd + i + 1))
+			printf(" ");
+		i++;
 	}
-	while (src[++i])
-	{
-		cpy[i] = src[i];
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	if (newline)
+		printf("\n");
 }
