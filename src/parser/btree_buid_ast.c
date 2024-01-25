@@ -6,35 +6,35 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 17:12:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/24 17:56:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:23:10 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_btree	*btree_build_ast(t_token *tokens)
-{
-	t_btree	*root;
-	t_token	*token;
-	t_token	*left_start;
-	t_token	*right_start;
+// t_btree	*btree_build_ast(t_token *tokens)
+// {
+// 	t_btree	*root;
+// 	t_token	*token;
+// 	t_token	*left_start;
+// 	t_token	*right_start;
 
-	root = NULL;
-	token = tokens;
-	left_start = tokens;
-	right_start = NULL;
+// 	root = NULL;
+// 	token = tokens;
+// 	left_start = tokens;
+// 	right_start = NULL;
 
-	while (token != NULL)
-	{
-		if (ft_strcmp(token->value, "|") == 0)
-		{
-			root = btree_create_node(token);
-			right_start = token->next;
-			break;
-		}
-	}
+// 	while (token != NULL)
+// 	{
+// 		if (ft_strcmp(token->value, "|") == 0)
+// 		{
+// 			root = btree_create_node(token);
+// 			right_start = token->next;
+// 			break;
+// 		}
+// 	}
 	
-}
+// }
 
 // t_btree *build_ast(t_token *tokens) {
 //     t_btree *root = NULL;
