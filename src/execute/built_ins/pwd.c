@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_null.c                                      :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 13:08:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/25 15:27:21 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/25 15:31:08 by joaocard          #+#    #+#             */
+/*   Updated: 2024/01/25 15:31:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/builtins.h"
 
-t_token	*handle_null(t_token *token, t_lexer *lexer, t_tk_buffer *buffer)
+void	pwd(void)
 {
-	if (buffer->j > 0)
+	char	*buffer;
+	
+	buffer = getcwd(NULL, 0);
+	if (buffer)
 	{
-		token->value[buffer->j] = 0;
-		lexer->ntoks++;
-		buffer->j = 0;
+		printf("%s\n", buffer);
+		free(buffer);
 	}
-	return (token);
+	else
+	{
+		printf("minishell: %s\n", strerror(errno));
+		shell()->status = 1;
+	}
+	shell()->status = 0;
 }

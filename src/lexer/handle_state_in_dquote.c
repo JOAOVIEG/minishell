@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_state_in_dquote.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 10:28:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:09:32 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:28:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

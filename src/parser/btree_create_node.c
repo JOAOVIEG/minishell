@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_create_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:41:03 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/24 16:45:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:20:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,4 @@ t_btree	*btree_create_node(void *item)
 	node->right = 0;
 	return (node);
 }
+
