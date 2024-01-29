@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ast_free_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:01:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 15:53:46 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/29 15:31:44 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/29 15:32:18 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-t_parser	*init_parser(void)
+void	ast_free_node(t_astree *node)
 {
-	t_parser	*parser;
-
-	parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!parser)
-	{
-		perror("Error allocating memory for parser\n");
-		exit(EXIT_FAILURE);
-	}
-	parser->ast = NULL;
-	return (parser);
-}
-
-int parse(t_lexer *lexer, t_parser *parser)
-{
-	(void)lexer;
-	(void)parser;
-	return (0);
+	if (node == NULL)
+		return ;
+	ast_free_node(node->left);
+	ast_free_node(node->right);
+	free(node);
 }

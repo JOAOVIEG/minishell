@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   get_rightmost_node.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:01:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 15:53:46 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/29 16:51:59 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/29 16:54:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-t_parser	*init_parser(void)
+t_astree	*get_rightmost_node(t_astree *node)
 {
-	t_parser	*parser;
-
-	parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!parser)
-	{
-		perror("Error allocating memory for parser\n");
-		exit(EXIT_FAILURE);
-	}
-	parser->ast = NULL;
-	return (parser);
-}
-
-int parse(t_lexer *lexer, t_parser *parser)
-{
-	(void)lexer;
-	(void)parser;
-	return (0);
+	if (node == NULL)
+		return (NULL);
+	else if (node->right == NULL)
+		return (node);
+	else
+		return (get_rightmost_node(node->right));
 }

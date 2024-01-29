@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:07:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:04:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char				current_char(const t_lx_state *lexer_state);
 void				print_input(const t_lx_state *lexer_state);
 void				token_init(t_token *token);
 int					get_char_type(char c);
+//_token_type		get_token_type(t_token *token);
 
 // tokens functions
 t_token				*new_token(void);
