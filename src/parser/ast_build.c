@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 15:45:50 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 18:55:55 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:04:11 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_astree	*build_ast(t_token *tokens)
 		}
 		else
 		{
-			node = ast_create_node(token, get_token_type(token));
-			if (root == NULL)
+			node = ast_create_node(token, NODE_DATA);
+			if (root == NULL && node->type != NODE_PIPE)
 				root = node;
 			else
 			{
@@ -46,8 +46,7 @@ t_astree	*build_ast(t_token *tokens)
 		}
 		token = token->next;
 	}
+	printf("root->data: %s\n", (char *)root->data);
 	return (root);
 }
-
-
 

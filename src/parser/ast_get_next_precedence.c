@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ast_get_next_precedence.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:01:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 10:13:08 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/30 10:03:35 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/30 10:09:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-t_parser	*init_parser(void)
+int	ast_get_next_precedence(t_token_type op)
 {
-	t_parser	*parser;
-
-	parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!parser)
-	{
-		perror("Error allocating memory for parser\n");
-		exit(EXIT_FAILURE);
-	}
-	parser->ast = NULL;
-	return (parser);
-}
-
-int parse(t_lexer *lexer, t_parser *parser)
-{
-	t_token		*tokens;
-
-	tokens = lexer->tokens;
-	parser->ast = build_ast(tokens);
-	return (0);
+	if (op == NODE_PIPE)
+		return (1);
+	else if (op == NODE_REDIRECT_IN || op == NODE_REDIRECT_OUT)
+		return (2);
+	else if (op == NODE_CMDPATH)
+		return (3);
+	else if (op == NODE_ARGUMENT)
+		return (4);
+	else if (op == NODE_DATA)
+		return (5);
+	else
+		return (-1);
 }

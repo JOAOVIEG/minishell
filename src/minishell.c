@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 18:43:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:00:06 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		tokenize_input(shell()->lexer);
 		shell()->parser->ast = build_ast(shell()->lexer->tokens);
 		printf("AST built\n");
-		printf("AST Root: %s\n", shell()->parser->ast->item ? (char *)shell()->parser->ast->item : "NULL");
-printf("AST Left: %s\n", shell()->parser->ast->left && shell()->parser->ast->left->item ? (char *)shell()->parser->ast->left->item : "NULL");
-printf("AST Right: %s\n", shell()->parser->ast->right && shell()->parser->ast->right->item ? (char *)shell()->parser->ast->right->item : "NULL");
+		printf("Root node: %s\n ", (char *)shell()->parser->ast->data);
 	}
 	return (EXIT_SUCCESS);
 }
