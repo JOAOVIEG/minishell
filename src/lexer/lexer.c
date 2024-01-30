@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/24 15:58:21 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:33:32 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,11 @@ void	tokenize_input(t_lexer *lexer)
 	token = lexer->tokens;
 	token_init(token);
 	token = build_token(lexer, token);
-	printf("Tokens:\n");
 	token = lexer->tokens;
 	i = 0;
 	while (token != NULL)
 	{
-		printf("Token: %s\n", token->value);
+		//printf("Token: %s\n", token->value);
 		token = token->next;
 		i++;
 	}

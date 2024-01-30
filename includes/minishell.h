@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/25 14:52:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:18:55 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./libft/includes/libft.h"
 # include "lexer.h"
 # include "parser.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -25,9 +26,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <signal.h>
-#include <errno.h>
-# include  "lexer.h"
 
 typedef struct s_env
 {
@@ -46,12 +44,12 @@ typedef struct s_shell
 	t_parser		*parser;
 }					t_shell;
 
-t_env	*find_env_var(t_env *env, char *name);
-t_env	*env_cpy(char **envp);
-void	check_new_malloc(t_env *new);
-void	new_var(t_env **head, t_env *tail, t_env *new);
-void	get_var(t_env *new, char *envp, char *equal_pos);
-void	ignore_signals();
-void	read_input();
-t_shell	*shell(void);
+t_env				*find_env_var(t_env *env, char *name);
+t_env				*env_cpy(char **envp);
+void				check_new_malloc(t_env *new);
+void				new_var(t_env **head, t_env *tail, t_env *new);
+void				get_var(t_env *new, char *envp, char *equal_pos);
+void				ignore_signals(void);
+void				read_input(void);
+t_shell				*shell(void);
 #endif

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_create_node.c                                :+:      :+:    :+:   */
+/*   get_rightmost_node.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:41:03 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/25 15:20:49 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/29 16:51:59 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/29 16:54:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_btree	*btree_create_node(void *item)
+t_astree	*get_rightmost_node(t_astree *node)
 {
-	t_btree	*node;
-
-	node = (t_btree *)malloc(sizeof(t_btree));
 	if (node == NULL)
 		return (NULL);
-	node->item = item;
-	node->left = 0;
-	node->right = 0;
-	return (node);
+	else if (node->right == NULL)
+		return (node);
+	else
+		return (get_rightmost_node(node->right));
 }
-

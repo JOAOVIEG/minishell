@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ast_create_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:01:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 10:13:08 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/29 15:22:22 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/29 19:46:46 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-t_parser	*init_parser(void)
+t_astree	*ast_create_node(void *item, t_node_type type)
 {
-	t_parser	*parser;
+	t_astree	*node;
 
-	parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!parser)
-	{
-		perror("Error allocating memory for parser\n");
-		exit(EXIT_FAILURE);
-	}
-	parser->ast = NULL;
-	return (parser);
-}
-
-int parse(t_lexer *lexer, t_parser *parser)
-{
-	t_token		*tokens;
-
-	tokens = lexer->tokens;
-	parser->ast = build_ast(tokens);
-	return (0);
+	node = (t_astree *)malloc(sizeof(t_astree));
+	if (node == NULL)
+		return (NULL);
+	node->data = item;
+	node->type = type;
+	node->left = NULL;
+	node->right = NULL;
+	return (node);
 }
