@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 20:00:06 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/30 11:43:25 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ int	main(int argc, char **argv, char **envp)
 	}
 	shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
-	ignore_signals();
+	// ignore_signals();
 	while (1)
-	{
-		read_input();
-		init_lexer_state(&shell()->lexer->state, shell()->line);
-		tokenize_input(shell()->lexer);
-		shell()->parser->ast = build_ast(shell()->lexer->tokens);
-		printf("AST built\n");
-		printf("Root node: %s\n ", (char *)shell()->parser->ast->data);
-	}
+    {
+        read_input();
+        add_history(shell()->line);
+        init_lexer_state(&shell()->lexer->state, shell()->line);
+        tokenize_input(shell()->lexer);
+        shell()->parser->ast = build_ast(shell()->lexer->tokens);
+        // printf("AST built\n");
+        // printf("Root node: %s\n ", (char *)shell()->parser->ast->data);
+    }
+    rl_clear_history();
 	return (EXIT_SUCCESS);
 }
