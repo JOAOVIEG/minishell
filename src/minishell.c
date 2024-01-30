@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 11:43:25 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:33:11 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,27 @@ void	ignore_signals(void)
 
 void	read_input(void)
 {
-	shell()->line = readline("minishell>");
+	char *str;
+
+	// char *home;
+	// str = getcwd(NULL, 0);
+	// home = getenv("HOME");
+	// if (home && !ft_strncmp(str, home, ft_strlen(home)))
+	// {
+	// 	str += ft_strlen(home);
+	// 	str = ft_strjoin("minishell:~", str);	
+	// }
+	// else
+	// 	str = ft_strjoin("minishell:", str);
+	// str = ft_strjoin(str, "$ ");
+	str = "minishell> ";
+	shell()->line = readline(str);
 	if (!shell()->line)
+	{
+		write_history(".msh_hist");
+		rl_clear_history();
 		exit(shell()->status);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -49,6 +67,7 @@ int	main(int argc, char **argv, char **envp)
 			return (EXIT_FAILURE);
 		}
 	}
+	read_history(".msh_hist"); // ILLEGAL FUNCTIONS
 	shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
 	// ignore_signals();
@@ -58,10 +77,30 @@ int	main(int argc, char **argv, char **envp)
         add_history(shell()->line);
         init_lexer_state(&shell()->lexer->state, shell()->line);
         tokenize_input(shell()->lexer);
-        shell()->parser->ast = build_ast(shell()->lexer->tokens);
+		ft_execute();
+		free_tokens();
+        // shell()->parser->ast = build_ast(shell()->lexer->tokens);
         // printf("AST built\n");
         // printf("Root node: %s\n ", (char *)shell()->parser->ast->data);
     }
+	write_history(".msh_hist"); // ILLEGAL FUNCTIONS
     rl_clear_history();
 	return (EXIT_SUCCESS);
+}
+
+void	free_tokens()
+{
+	t_token	*curr;
+	t_token	*tmp;
+	
+	curr = shell()->lexer->tokens;
+	while (curr)
+	{
+		tmp = curr->next;
+		free(curr->value);
+		curr->value = 0;
+		free(curr);
+		curr = tmp;
+	}
+	shell()->lexer->tokens = NULL;
 }

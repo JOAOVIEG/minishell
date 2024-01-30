@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 17:33:32 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:19:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,18 @@ void	tokenize_input(t_lexer *lexer)
 
 	lexer->tokens = new_token();
 	token = lexer->tokens;
-	token_init(token);
+	// token_init(token);
 	token = build_token(lexer, token);
-	token = lexer->tokens;
+	// token = lexer->tokens;
 	i = 0;
+	//antes
 	while (token != NULL)
 	{
-		//printf("Token: %s\n", token->value);
+		printf("Token: %s\n", token->value);
 		token = token->next;
 		i++;
 	}
 	lexer->ntoks = i;
 	printf("Number of tokens: %d\n", lexer->ntoks);
 }
+
