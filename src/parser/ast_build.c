@@ -6,47 +6,29 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 15:45:50 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 20:04:11 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/30 14:16:54 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_astree	*build_ast(t_token *tokens)
+void	ast_handle_pipes(t_token *tokens, t_parser *parser)
 {
-	t_astree	*root;
-	t_astree	*node;
-	t_astree	*rightmost;
-	t_token		*token;
+	char	*delimiter;
 
-	root = NULL;
-	node = NULL;
-	rightmost = NULL;
-	token = tokens;
-	while (token != NULL)
-	{
-		if (token->type == CHAR_PIPE)
-		{
-			node = ast_create_node(token, NODE_PIPE);
-			node->left = root;
-			node->right = build_ast(token->next);
-			root = node;
-			break ;
-		}
-		else
-		{
-			node = ast_create_node(token, NODE_DATA);
-			if (root == NULL && node->type != NODE_PIPE)
-				root = node;
-			else
-			{
-				rightmost = get_rightmost_node(root);
-				rightmost->right = node;
-			}
-		}
-		token = token->next;
-	}
-	printf("root->data: %s\n", (char *)root->data);
-	return (root);
+	delimiter = "|";
+	parser->buffer = malloc(sizeof(t_parser_buffer));
+	if (parser->nbr_pipes == 1)
+		split_token_list(tokens, parser, delimiter);
 }
 
+void	build_ast(t_token *tokens, t_parser *parser)
+{
+	// t_astree *root;
+	count_pipes_and_redirections(parser, tokens);
+	printf("nbr pipes: %d\n", parser->nbr_pipes);
+	if (parser->nbr_pipes > 0)
+	{
+		ast_handle_pipes(tokens, parser);
+	}
+}

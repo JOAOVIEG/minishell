@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 18:58:59 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/25 15:30:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:34:20 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,29 @@ t_token	*new_token(void)
 	}
 	token_init(token);
 	return (token);
+}
+
+
+t_token *create_new_token(char *value) {
+    t_token *token = malloc(sizeof(t_token));
+    if (token == NULL) {
+        // Handle error
+        return NULL;
+    }
+
+    // Allocate enough space for the string and the null terminator
+    token->value = malloc(strlen(value) + 1);
+    if (token->value == NULL) {
+        // Handle error
+        free(token);
+        return NULL;
+    }
+
+    // Copy the string and add the null terminator
+    strcpy(token->value, value);
+    token->value[strlen(value)] = '\0';
+
+    token->next = NULL;
+
+    return token;
 }

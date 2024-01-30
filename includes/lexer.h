@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 17:04:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:35:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int					get_char_type(char c);
 
 // tokens functions
 t_token				*new_token(void);
+
+t_token 			*create_new_token(char *value);
 t_token				*build_token(t_lexer *lexer, t_token *token);
 void				handle_single_quote_char(t_token *token,
 						t_tk_buffer *buffer);
@@ -107,6 +109,12 @@ t_token				*handle_state_in_squote(t_token *token, t_lexer *lexer,
 						t_tk_buffer *buffer);
 t_token				*handle_null(t_token *token, t_lexer *lexer,
 						t_tk_buffer *buffer);
+
+
+
+// free functions
+void				free_lexer(t_lexer *lexer);
+void				free_token_list(t_token *token);
 
 # ifndef MAX_TOKEN_SIZE
 #  define MAX_TOKEN_SIZE 1024

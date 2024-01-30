@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_get_next_precedence.c                          :+:      :+:    :+:   */
+/*   free_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 10:03:35 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 10:52:39 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/30 17:47:57 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/30 18:30:47 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ast_get_next_precedence(t_node_type op)
+void free_token_list(t_token *token)
 {
-	if (op == NODE_PIPE)
-		return (1);
-	else if (op == NODE_REDIRECT_IN || op == NODE_REDIRECT_OUT)
-		return (2);
-	else if (op == NODE_CMDPATH)
-		return (3);
-	else if (op == NODE_ARGUMENT)
-		return (4);
-	else if (op == NODE_DATA)
-		return (5);
-	else
-		return (-1);
+    t_token *tmp;
+
+    while (token)
+    {
+        tmp = token->next;
+        if (token->value)
+            free(token->value);
+        free(token); 
+        token = tmp;
+    }
+}
+
+
+void	free_lexer(t_lexer *lexer)
+{
+
+	if (lexer->tokens)
+		free_token_list(lexer->tokens);
+	free(lexer);
 }

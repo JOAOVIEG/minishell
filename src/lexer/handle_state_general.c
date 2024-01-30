@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:03:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:10:47 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:42:17 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	handle_escape_sequence_char(t_token *token, t_lexer *lexer,
 
 void	handle_general_char(t_token *token, t_lexer *lexer, t_tk_buffer *buffer)
 {
-	token->value[buffer->j++] = lexer->state.input[buffer->i];
-	token->type = TOKEN;
+	if (buffer->j < MAX_TOKEN_SIZE - 1) {
+        token->value[buffer->j++] = lexer->state.input[buffer->i];
+    }
+    token->value[buffer->j] = '\0';  // Null terminate the string
+    token->type = TOKEN;
 }
 
 void	handle_whitespace_char(t_token **token, t_tk_buffer *buffer)

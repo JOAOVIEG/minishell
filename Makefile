@@ -42,4 +42,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+valgrind: $(NAME)
+	@cat readline.supp  >  /dev/null
+	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+
+.PHONY: all clean fclean re valgrind

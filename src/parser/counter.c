@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   counter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:01:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 12:30:30 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/30 12:07:06 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/30 12:08:38 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-t_parser	*init_parser(void)
+void	count_pipes_and_redirections(t_parser *parser, t_token *tokens)
 {
-	t_parser	*parser;
+	t_token *current;
 
-	parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!parser)
-	{
-		perror("Error allocating memory for parser\n");
-		exit(EXIT_FAILURE);
-	}
-	parser->ast = NULL;
-	parser->buffer = NULL;
+	current = tokens;
 	parser->nbr_pipes = 0;
 	parser->nbr_redir_in = 0;
 	parser->nbr_redir_out = 0;
-	return (parser);
+	while (current != NULL)
+	{
+		if ((ft_strcmp(current->value, "|")) == 0)
+			parser->nbr_pipes++;
+		if ((ft_strcmp(current->value, "<")) == 0)
+			parser->nbr_redir_in++;
+		if ((ft_strcmp(current->value, ">")) == 0)
+			parser->nbr_redir_out++;
+		current = current->next;
+	}
 }
-
-// int parse(t_lexer *lexer, t_parser *parser)
-// {
-// 	t_token		*tokens;
-
-// 	tokens = lexer->tokens;
-// 	parser->ast = build_ast(tokens);
-// 	return (0);
-// }
