@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:59:55 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 10:39:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:34:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@
 
 typedef enum s_node_type
 {
-	NODE_PIPE = (1 << 0),
-	NODE_REDIRECT_IN = (1 << 1),
-	NODE_REDIRECT_OUT = (1 << 2),
-	NODE_CMDPATH = (1 << 3),
-	NODE_ARGUMENT = (1 << 4),
-
-	NODE_DATA = (1 << 5),
+	NODE_PIPE,
+	NODE_REDIRECT_IN,
+	NODE_REDIRECT_OUT,
+	NODE_CMDPATH,
+	NODE_ARGUMENT,
+	NODE_DATA,
 }					t_node_type;
 
 typedef struct s_astree

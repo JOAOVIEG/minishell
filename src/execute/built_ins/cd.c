@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/30 15:36:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:28:37 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	cd(char *path)
 {
 	char	*oldpwd;
-	// t_env	*pwd;
-	// t_env	*oldpwd_var;
+	t_env	*pwd;
+	t_env	*oldpwd_var;
 
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
@@ -28,12 +28,12 @@ void	cd(char *path)
 		perror("cd");
 		shell()->status = 1;
 	}
-	// pwd = find_env_var(shell()->v_env, "PWD");
-	// oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
-	// if (pwd)
-	// 	update_pwd(pwd);
-	// if (oldpwd_var)
-	// 	update_oldpwd(oldpwd_var, oldpwd);
+	pwd = find_env_var(shell()->v_env, "PWD");
+	oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
+	if (pwd)
+		update_pwd(pwd);
+	if (oldpwd_var)
+		update_oldpwd(oldpwd_var, oldpwd);
 	free(oldpwd);
 }
 

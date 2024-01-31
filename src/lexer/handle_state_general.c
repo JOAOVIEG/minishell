@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_state_general.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 20:03:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:10:47 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:36:48 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	handle_escape_sequence_char(t_token *token, t_lexer *lexer,
 
 void	handle_general_char(t_token *token, t_lexer *lexer, t_tk_buffer *buffer)
 {
-	token->value[buffer->j++] = lexer->state.input[buffer->i];
+	// if (token->value[buffer->j]  != '\0')
+		token->value[buffer->j++] = lexer->state.input[buffer->i];
 	token->type = TOKEN;
 }
 
@@ -45,7 +46,7 @@ void	handle_whitespace_char(t_token **token, t_tk_buffer *buffer)
 		(*token)->value[buffer->j] = 0;
 		(*token)->next = new_token();
 		*token = (*token)->next;
-		(*token)->value = (char *)malloc(MAX_TOKEN_SIZE);
+		(*token)->value = (char *)ft_calloc(1, MAX_TOKEN_SIZE);
 		buffer->j = 0;
 	}
 }
@@ -88,3 +89,5 @@ t_token	*handle_state_general(t_token *token, t_lexer *lexer,
 		handle_special_char(&token, buffer);
 	return (token);
 }
+
+
