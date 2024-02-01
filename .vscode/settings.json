@@ -3,6 +3,8 @@
 		"minishell.h": "c",
 		"iterator": "c",
 		"ostream": "c",
-		"streambuf": "c"
+		"streambuf": "c",
+		"builtins.h": "c",
+		"lexer.h": "c"
 	}
 }

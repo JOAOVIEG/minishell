@@ -6,107 +6,45 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 18:36:35 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:26:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	init_lexer_state(t_lx_state *lexer_state, char *input)
-{
-	lexer_state->input = input;
-	lexer_state->current_position = 0;
-}
-
 t_lexer	*init_lexer(void)
 {
 	t_lexer	*lexer;
 
-	lexer = (t_lexer *)malloc(sizeof(t_lexer));
+	lexer = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
 	if (!lexer)
 	{
 		perror("Error allocating memory for lexer\n");
 		exit(EXIT_FAILURE);
 	}
 	lexer->ntoks = 0;
+	lexer->input = NULL;
 	lexer->tokens = NULL;
-	init_lexer_state(&(lexer->state), NULL);
+	lexer->input_size = 0;
 	return (lexer);
 }
 
-void	add_current_position(t_lx_state *lexer_state)
-{
-	lexer_state->current_position++;
-}
 
-// Function to get the current character from the lexer state
-char	current_char(const t_lx_state *lexer_state)
-{
-	return (lexer_state->input[lexer_state->current_position]);
-}
 
-void	print_input(const t_lx_state *lexer_state)
+void	tokenize_input(char *input, t_lexer *lexer)
 {
-	while (current_char(lexer_state) != '\0')
-	{
-		printf("Current character: %c\n", current_char(lexer_state));
-		// add_current_position(&lexer_state);
-	}
-}
+	int	i;
 
-void	token_init(t_token *token)
-{
-	token->type = TOKEN;
-	token->value = NULL;
-	token->precedence = 0;
-	token->next = NULL;
-}
-
-int	get_char_type(char c)
-{
-	if (c == CHAR_PIPE)
-		return (CHAR_PIPE);
-	else if (c == CHAR_AMPERSAND)
-		return (CHAR_AMPERSAND);
-	else if (c == CHAR_SINGLE_QUOTE)
-		return (CHAR_SINGLE_QUOTE);
-	else if (c == CHAR_DOUBLE_QUOTE)
-		return (CHAR_DOUBLE_QUOTE);
-	else if (c == CHAR_WHITESPACE)
-		return (CHAR_WHITESPACE);
-	else if (c == CHAR_ESCAPE_SEQUENCE)
-		return (CHAR_ESCAPE_SEQUENCE);
-	else if (c == CHAR_TAB)
-		return (CHAR_TAB);
-	else if (c == CHAR_NEWLINE)
-		return (CHAR_NEWLINE);
-	else if (c == CHAR_GREATER)
-		return (CHAR_GREATER);
-	else if (c == CHAR_LESSER)
-		return (CHAR_LESSER);
-	else if (c == CHAR_NULL)
-		return (CHAR_NULL);
-	else
-		return (CHAR_GENERAL);
-}
-
-void	tokenize_input(t_lexer *lexer)
-{
-	t_token	*token;
-	int		i;
-
-	lexer->tokens = new_token()	;
-	token = lexer->tokens;
-	token_init(token);
-	token = build_token(lexer, token);
-	token = lexer->tokens;
+	lexer->input = ft_strdup(input);
+	lexer->input_size = ft_strlen(lexer->input);
+	lexer->tokens = split_into_tokens(lexer);
 	i = 0;
-	while (token != NULL)
+	while (lexer->tokens[i] != NULL)
 	{
-		printf("Token: %s\n", token->value);
-		token = token->next;
+		printf("Token: %s\n", lexer->tokens[i]);
+		lexer->ntoks++;
 		i++;
 	}
-	lexer->ntoks = i;
 	printf("Number of tokens: %d\n", lexer->ntoks);
+	free(input);
 }

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 18:29:38 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:14:44 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,17 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	(void)envp;
-	//shell()->v_env = env_cpy(envp);
+	// shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
 	ignore_signals();
 	while (1)
 	{
 		read_input();
-		init_lexer_state(&shell()->lexer->state, shell()->line);
-		tokenize_input(shell()->lexer);
-		free_token_list(shell()->lexer->tokens);
-		free(shell()->line);
+		tokenize_input(shell()->line, shell()->lexer);
+
+		//after executing a command, the shell should free the tokens
+		free_tokens(shell()->lexer);
+		
 	}
 	return (EXIT_SUCCESS);
 }
