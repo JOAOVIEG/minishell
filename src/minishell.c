@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/01 20:14:44 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:56:04 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_shell	*shell(void)
 
 	if (!minishell.lexer)
 		minishell.lexer = init_lexer();
-	// if (!minishell.parser)
-	// 	minishell.parser = init_parser();
+	if (!minishell.parser)
+		minishell.parser = init_parser();
 	return (&minishell);
 }
 
@@ -57,9 +57,13 @@ int	main(int argc, char **argv, char **envp)
 	{
 		read_input();
 		tokenize_input(shell()->line, shell()->lexer);
+		parse_to_list(shell()->lexer, shell()->parser);
+		print_list(shell()->parser->tokens);
 
 		//after executing a command, the shell should free the tokens
-		free_tokens(shell()->lexer);
+		//free_tokens(shell()->lexer);
+		//I moved the free_tokens function to the parse_to_list.c file
+
 		
 	}
 	return (EXIT_SUCCESS);

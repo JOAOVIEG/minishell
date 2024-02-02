@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_shell.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 16:48:34 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/02 16:19:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	end_shell(void)
+t_parser	*init_parser(void)
 {
-	// free(shell()->v_env);
-	// free(shell()->line);
-	if (shell()->lexer)
-		free(shell()->lexer);
-	
-	exit(shell()->status);
+	t_parser	*parser;
+
+	parser = (t_parser *)ft_calloc(1, sizeof(t_parser));
+	if (!parser)
+	{
+		perror("Error allocating memory for parser\n");
+		exit(EXIT_FAILURE);
+	}
+	parser->tokens = NULL;
+	return (parser);
 }

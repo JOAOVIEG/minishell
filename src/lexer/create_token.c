@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_shell.c                                        :+:      :+:    :+:   */
+/*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 16:48:34 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/02/02 15:17:31 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/02 15:18:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	end_shell(void)
+char	*create_token(char *input, int start, int end)
 {
-	// free(shell()->v_env);
-	// free(shell()->line);
-	if (shell()->lexer)
-		free(shell()->lexer);
-	
-	exit(shell()->status);
+	int		token_length;
+	char	*token;
+
+	token_length = end - start;
+	token = ft_calloc(token_length + 1, sizeof(char));
+	ft_memcpy(token, &input[start], token_length);
+	token[token_length] = '\0';
+	return (token);
 }

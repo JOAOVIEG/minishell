@@ -6,13 +6,13 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:47:57 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/01 20:19:58 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:58:24 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_tokens(t_lexer *lexer)
+void	free_lexer_tokens(t_lexer *lexer)
 {
 	int	i;
 
@@ -35,5 +35,6 @@ void	free_lexer(t_lexer *lexer)
 		free(lexer->input);
 		lexer->input = NULL;
 	}
-	free(lexer);
+	if (lexer)
+		free(lexer);
 }

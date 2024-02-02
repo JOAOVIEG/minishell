@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/01 20:22:51 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:58:14 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ typedef struct s_lexer
 t_lexer		*init_lexer(void);
 void		tokenize_input(char *input, t_lexer *lexer);
 int			is_whitespace(char c);
+int			skip_whitespace(char *input, int i);
+char		**allocate_memory_for_tokens(int input_size);
+char		*create_token(char *input, int start, int end);
+int			process_pipe_token(char *input, int i);
+int			process_quoted_token(char *input, int i, char quote_type);
+int			process_unquoted_token(char *input, int i);
+
 char		**split_into_tokens(t_lexer *lexer);
 
 // free functions
 void		free_lexer(t_lexer *lexer);
-void		free_tokens(t_lexer *lexer);
-
+void		free_lexer_tokens(t_lexer *lexer);
 #endif

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/01 20:26:07 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:03:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ t_lexer	*init_lexer(void)
 	return (lexer);
 }
 
-
-
 void	tokenize_input(char *input, t_lexer *lexer)
 {
 	int	i;
@@ -41,7 +39,7 @@ void	tokenize_input(char *input, t_lexer *lexer)
 	i = 0;
 	while (lexer->tokens[i] != NULL)
 	{
-		printf("Token: %s\n", lexer->tokens[i]);
+		//printf("Token: %s\n", lexer->tokens[i]);
 		lexer->ntoks++;
 		i++;
 	}
