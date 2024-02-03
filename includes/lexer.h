@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 18:58:14 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/03 18:25:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-typedef enum s_token_type
+typedef enum e_char_type
 {
 	CHAR_PIPE = '|',
 	CHAR_SINGLE_QUOTE = '\'',
@@ -30,7 +30,7 @@ typedef enum s_token_type
 	CHAR_GENERAL,
 	TOKEN = -1,
 
-}			t_token_type;
+}		t_char_type;
 
 typedef struct s_lexer
 {
