@@ -5,6 +5,7 @@
 		"ostream": "c",
 		"streambuf": "c",
 		"builtins.h": "c",
-		"lexer.h": "c"
+		"lexer.h": "c",
+		"stdbool.h": "c"
 	}
 }

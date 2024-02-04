@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 18:56:04 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:40:28 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		read_input();
-		tokenize_input(shell()->line, shell()->lexer);
-		parse_to_list(shell()->lexer, shell()->parser);
-		print_list(shell()->parser->tokens);
 
-		//after executing a command, the shell should free the tokens
-		//free_tokens(shell()->lexer);
-		//I moved the free_tokens function to the parse_to_list.c file
-
+		parser(shell());
 		
 	}
 	return (EXIT_SUCCESS);

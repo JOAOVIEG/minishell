@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/03 18:50:28 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:41:35 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,12 @@ typedef struct s_parser
 }						t_parser;
 
 t_parser				*init_parser(void);
+
 void					parse_to_list(t_lexer *lexer, t_parser *parser);
+
+void					define_type(t_lst_tokens *current, t_lst_tokens *prev);
 void					get_token_type(t_lst_tokens *tokens);
+
 void					print_list(t_lst_tokens *head);
 
 // free_parser

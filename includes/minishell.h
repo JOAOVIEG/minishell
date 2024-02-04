@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 17:22:10 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:38:12 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void				get_var(t_env *new, char *envp, char *equal_pos);
 void				ignore_signals(void);
 void				read_input(void);
 t_shell				*shell(void);
+void				parser(t_shell *shell);
 
 void				end_shell(void);
 #endif

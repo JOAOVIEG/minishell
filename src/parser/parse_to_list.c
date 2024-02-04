@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/03 20:01:39 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:17:42 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,4 @@ void	parse_to_list(t_lexer *lexer, t_parser *parser)
 	parser->tokens = head;
 	get_token_type(parser->tokens);
 	free_lexer_tokens(lexer);
-
-	//Need buiid a function to verify is a token is a command
 }
