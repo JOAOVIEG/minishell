@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/04 17:17:42 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:15:09 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,29 @@ t_lst_tokens	*new_node(char *data)
 
 void	add_to_end(t_lst_tokens **head, char *data)
 {
-	t_lst_tokens	*newNode;
+	t_lst_tokens	*node;
 	t_lst_tokens	*temp;
 
-	newNode = new_node(data);
-	if (!newNode)
+	node = new_node(data);
+	if (!node)
 		return ;
 	if (!*head)
 	{
-		*head = newNode;
+		*head = node;
 		return ;
 	}
 	temp = *head;
 	while (temp->next)
 		temp = temp->next;
-	temp->next = newNode;
+	temp->next = node;
 }
 void	parse_to_list(t_lexer *lexer, t_parser *parser)
 {
-	t_lst_tokens *head = NULL;
-	int i = 0;
+	t_lst_tokens	*head;
+	int				i;
+
+	head = NULL;
+	i = 0;
 	while (lexer->tokens[i] != NULL)
 	{
 		add_to_end(&head, lexer->tokens[i]);

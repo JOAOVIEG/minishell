@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/04 17:30:28 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:26:31 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	parser(t_shell *shell)
 {
 	tokenize_input(shell->line, shell->lexer);
 	parse_to_list(shell->lexer, shell->parser);
-	print_list(shell->parser->tokens);
+	grammar_check(shell->parser);
+	
 }

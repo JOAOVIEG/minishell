@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 18:03:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:51:18 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	tokenize_input(char *input, t_lexer *lexer)
 		lexer->ntoks++;
 		i++;
 	}
-	printf("Number of tokens: %d\n", lexer->ntoks);
+	//printf("Number of tokens: %d\n", lexer->ntoks);
 	free(input);
 }
