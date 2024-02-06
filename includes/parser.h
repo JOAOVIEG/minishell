@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/05 19:06:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:50:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "minishell.h"
+# include <stdbool.h>
 
 typedef enum e_token_type
 {
@@ -49,12 +50,17 @@ void					get_token_type(t_lst_tokens *tokens);
 void					print_list(t_lst_tokens *head);
 
 // grammar
-void					job(t_parser *parser);
+void					command_line(t_parser *parser);
 void					command(t_parser *parser);
 void					token_list(t_parser *parser);
+void					redir_out(t_parser *parser);
+void					redir_in(t_parser *parser);
+void					redirection(t_parser *parser);
+void					quotes(t_parser *parser);
+void					sequence(t_parser *parser);
 void					grammar_check(t_parser *parser);
 // free_parser
-void 					reset_parser(t_parser *parser);
+void					reset_parser(t_parser *parser);
 void					free_parser(t_parser *parser);
 
 #endif

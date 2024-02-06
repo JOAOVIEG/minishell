@@ -1,5 +1,5 @@
 NAME = minishell
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Iincludes/libft/includes
 
 INC_DIR = includes

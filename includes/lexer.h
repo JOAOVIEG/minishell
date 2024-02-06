@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/03 18:25:59 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:38:36 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef enum e_char_type
 	CHAR_GENERAL,
 	TOKEN = -1,
 
-}		t_char_type;
+}			t_char_type;
 
 typedef struct s_lexer
 {
@@ -53,6 +53,7 @@ int			process_unquoted_token(char *input, int i);
 char		**split_into_tokens(t_lexer *lexer);
 
 // free functions
+void		reset_lexer(t_lexer *lexer);
 void		free_lexer(t_lexer *lexer);
 void		free_lexer_tokens(t_lexer *lexer);
 #endif

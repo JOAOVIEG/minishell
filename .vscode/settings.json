@@ -6,6 +6,7 @@
 		"streambuf": "c",
 		"builtins.h": "c",
 		"lexer.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"stdlib.h": "c"
 	}
 }

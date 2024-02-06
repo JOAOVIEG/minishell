@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 17:21:06 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:45:27 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**allocate_memory_for_tokens(int input_size)
 	int	token_size;
 
 	if (input_size > 0)
-		token_size = input_size;
+		token_size = input_size + 1;
 	else
 		token_size = 1;
 	return (ft_calloc(token_size, sizeof(char *)));
