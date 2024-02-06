@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 15:33:11 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/06 10:58:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ int	main(int argc, char **argv, char **envp)
         tokenize_input(shell()->lexer);
 		ft_execute();
 		free_tokens();
-        // shell()->parser->ast = build_ast(shell()->lexer->tokens);
-        // printf("AST built\n");
-        // printf("Root node: %s\n ", (char *)shell()->parser->ast->data);
     }
+	free_env();
 	write_history(".msh_hist"); // ILLEGAL FUNCTIONS
     rl_clear_history();
 	return (EXIT_SUCCESS);

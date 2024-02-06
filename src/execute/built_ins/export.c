@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/25 15:27:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:15:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,31 @@ void	export(char *arg)
 	char	*name;
 	char	*value;
 	char	*equal;
+	int		i;
 
+	i = 1;
 	env = shell()->v_env;
-	if (!arg)
+	if (!arg[i])
 		display_exp_var(env);
 	else
 	{
-		new = malloc(sizeof(t_env));
-		equal = get_equal(arg);
-		if (equal)
+		while (arg[i])
 		{
-			name = get_var_name(arg, equal);
-			value = ft_strdup(equal + 1);
+			new = malloc(sizeof(t_env));
+			equal = get_equal(arg[i]);
+			if (equal)
+			{
+				name = get_var_name(arg[i], equal);
+				value = ft_strdup(equal + 1);
+			}
+			else
+			{
+				name = ft_strdup(arg[i]);
+				value = get_var_value(env, name);
+			}
+			update_envl(env, new, name, value);
+			i++;	
 		}
-		else
-		{
-			name = ft_strdup(arg);
-			value = get_var_value(env, name);
-		}
-		update_envl(env, new, name, value);
 	}
 }
 
@@ -52,13 +58,13 @@ t_env	*create_var(t_env *new, char *name, char *value)
 	return (new);
 }
 
-char	*get_var_name(char *arg, char *equal)
+char	*get_var_name(char **arg, char *equal)
 {
 	char *name;
 	
-	name = malloc(sizeof(char) * ((equal - arg) + 1));
-	ft_strncpy(name, arg, equal - arg);
-	name[equal - arg] = '\0';
+	name = malloc(sizeof(char) * ((equal - *arg) + 1));
+	ft_strncpy(name, *arg, equal - *arg);
+	name[equal - *arg] = '\0';
 	return (name);
 }
 
@@ -73,10 +79,10 @@ t_env	*update_envl(t_env *env, t_env *new, char *name, char *value)
 	return (env);
 }
 
-char	*get_equal(char *arg)
+char	*get_equal(char **arg)
 {
 	char	*equal;
 	
-	equal = ft_strchr(arg, '=');
+	equal = ft_strchr(*arg, '=');
 	return (equal);
 }

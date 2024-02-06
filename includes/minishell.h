@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 14:50:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:28:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,22 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_node
+{
+	char			**arg;
+	char			*path;
+	struct s_node	*left;
+	struct s_node	*right;
+}			t_node;
+
+
 typedef struct s_shell
 {
 	t_env			*v_env;
 	int				status;
 	char			*line;
 	bool			signal_set;
+	t_node			*node;
 	t_lexer			*lexer;
 	t_parser		*parser;
 }					t_shell;

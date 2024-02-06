@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:26:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/22 11:27:58 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/06 11:04:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,23 @@ t_env	*env_cpy(char **envp)
 		envp++;
 	}
 	return (head);
+}
+
+void	free_env()
+{
+	t_env	*current;
+	t_env	*next;
+	
+	current = shell()->v_env;
+	while (current)
+	{
+		next = current->next;
+		free(current->name);
+		current->name = NULL;
+		free(current->value);
+		current->value = NULL;
+		free(current);
+		current = next;
+	}
+	shell()->v_env = NULL;
 }
