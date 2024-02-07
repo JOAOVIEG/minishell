@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 14:28:24 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:39:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-
-typedef struct s_env
-{
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
-
-typedef struct s_node
-{
-	char			**arg;
-	char			*path;
-	struct s_node	*left;
-	struct s_node	*right;
-}			t_node;
-
+# include <sys/types.h>
+# include <sys/wait.h>
+# include "execute.h"
+# include "builtins.h"
 
 typedef struct s_shell
 {

@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:28:42 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/06 14:02:15 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:21:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 void	exit_shell(char **arg)
 {
@@ -29,15 +29,4 @@ void	exit_shell(char **arg)
 	}
 	free_env();
 	exit(shell()->status);
-}
-
-void	free_env(void)
-{
-	while (shell()->v_env)
-	{
-		free(shell()->v_env->name);
-		free(shell()->v_env->value);
-		shell()->v_env = shell()->v_env->next;
-	}
-	free(shell()->v_env);
 }

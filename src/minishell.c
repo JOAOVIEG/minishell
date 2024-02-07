@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 10:58:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:24:50 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	main(int argc, char **argv, char **envp)
     {
         read_input();
         add_history(shell()->line);
-        init_lexer_state(&shell()->lexer->state, shell()->line);
-        tokenize_input(shell()->lexer);
+        // init_lexer_state(&shell()->lexer->state, shell()->line);
+        // tokenize_input(shell()->lexer);
 		ft_execute();
-		free_tokens();
+		// free_tokens();
     }
-	free_env();
+	// free_env();
 	write_history(".msh_hist"); // ILLEGAL FUNCTIONS
     rl_clear_history();
 	return (EXIT_SUCCESS);

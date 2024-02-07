@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:20:24 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/23 17:00:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:45:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 char	*get_var_value(t_env *env, char *name)
 {

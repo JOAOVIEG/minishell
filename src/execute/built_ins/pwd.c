@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:31:08 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/30 14:52:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:45:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 void	pwd(void)
 {

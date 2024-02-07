@@ -6,15 +6,15 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/06 14:15:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:57:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 // // TODO: The return status is zero unless an invalid option is supplied, one of the names
 // is not a valid shell variable name.
-void	export(char *arg)
+void	export(char **arg)
 {
 	t_env	*env;
 	t_env	*new;
@@ -58,13 +58,13 @@ t_env	*create_var(t_env *new, char *name, char *value)
 	return (new);
 }
 
-char	*get_var_name(char **arg, char *equal)
+char	*get_var_name(char *arg, char *equal)
 {
 	char *name;
 	
-	name = malloc(sizeof(char) * ((equal - *arg) + 1));
-	ft_strncpy(name, *arg, equal - *arg);
-	name[equal - *arg] = '\0';
+	name = malloc(sizeof(char) * ((equal - arg) + 1));
+	ft_strncpy(name, arg, equal - arg);
+	name[equal - arg] = '\0';
 	return (name);
 }
 
@@ -79,10 +79,10 @@ t_env	*update_envl(t_env *env, t_env *new, char *name, char *value)
 	return (env);
 }
 
-char	*get_equal(char **arg)
+char	*get_equal(char *arg)
 {
 	char	*equal;
 	
-	equal = ft_strchr(*arg, '=');
+	equal = ft_strchr(arg, '=');
 	return (equal);
 }
