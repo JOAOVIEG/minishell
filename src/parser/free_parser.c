@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:20:44 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/05 19:17:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:10:51 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,25 @@ void	free_parser_tokens(t_lst_tokens *tokens)
 	}
 }
 
+// void	free_buffer(t_pbuffer *buffer)
+// {
+// 	if (!buffer)
+// 		return ;
+// 	if (buffer->head)
+// 		free_parser_tokens(buffer->head);
+// 	if (buffer->lst_after)
+// 		free_parser_tokens(buffer->lst_after);
+// 	if (buffer->lst_before)
+// 		free_parser_tokens(buffer->lst_before);
+// 	free(buffer);
+// }
+
 void	reset_parser(t_parser *parser)
 {
 	if (parser->tokens)
 		free_parser_tokens(parser->tokens);
 	parser->tokens = NULL;
+	parser->pipe_count = 0;
 }
 void	free_parser(t_parser *parser)
 {

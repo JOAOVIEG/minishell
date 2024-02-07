@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 16:50:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:23:16 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,32 @@ typedef struct s_lst_tokens
 	struct s_lst_tokens	*next;
 }						t_lst_tokens;
 
+typedef struct s_ASTree
+{
+	char				**data;
+	struct s_ASTree		*left;
+	struct s_ASTree		*right;
+}						t_ASTree;
+
+typedef struct s_buffer
+{
+	t_lst_tokens		*lst_tok;
+	t_lst_tokens		*next;
+}						t_buffer;
+
 typedef struct s_parser
 {
 	t_lst_tokens		*tokens;
+	t_ASTree			*tree;
+	int					pipe_count;
+	t_buffer			*buffer;
 
 }						t_parser;
 
 t_parser				*init_parser(void);
 
 void					parse_to_list(t_lexer *lexer, t_parser *parser);
+void					add_to_end(t_lst_tokens **head, char *data);
 
 void					define_type(t_lst_tokens *current, t_lst_tokens *prev);
 void					get_token_type(t_lst_tokens *tokens);
@@ -58,7 +75,13 @@ void					redir_in(t_parser *parser);
 void					redirection(t_parser *parser);
 void					quotes(t_parser *parser);
 void					sequence(t_parser *parser);
-void					grammar_check(t_parser *parser);
+bool					grammar_check(t_parser *parser);
+
+// AST
+void					build_ast(t_parser *parser);
+void					split_list(t_parser *parser);
+void					tree_simple_command(t_parser *parser);
+
 // free_parser
 void					reset_parser(t_parser *parser);
 void					free_parser(t_parser *parser);

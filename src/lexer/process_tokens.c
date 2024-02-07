@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:24:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/02 17:17:24 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/07 13:15:49 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int	is_whitespace(char c)
 {
 	if (c == CHAR_WHITESPACE || c == CHAR_TAB || c == CHAR_NEWLINE)
+		return (1);
+	return (0);
+}
+
+int	is_quote(char c)
+{
+	if (c == CHAR_SINGLE_QUOTE || c == CHAR_DOUBLE_QUOTE)
 		return (1);
 	return (0);
 }
@@ -32,30 +39,29 @@ int	process_quoted_token(char *input, int i, char quote_type)
 	while (input[i] != '\0')
 	{
 		if (input[i] == CHAR_ESCAPE_SEQUENCE && quote_type == CHAR_DOUBLE_QUOTE)
-		{
 			i += 2;
-			continue ;
-		}
-		if (input[i] == quote_type)
+		else if (input[i] == quote_type)
 		{
 			i++;
 			break ;
 		}
-		i++;
+		else
+			i++;
 	}
 	return (i);
 }
 
-int process_unquoted_token(char *input, int i)
+int	process_unquoted_token(char *input, int i)
 {
-    while (!is_whitespace(input[i]) && input[i] != '\0' && input[i] != '|')
-        i++;
-    return i;
+	while (!is_whitespace(input[i]) && !is_quote(input[i]) && input[i] != '\0'
+		&& input[i] != '|')
+		i++;
+	return (i);
 }
 
-int process_pipe_token(char *input, int i)
+int	process_pipe_token(char *input, int i)
 {
-    if (input[i] == CHAR_PIPE)
-        i++;
-    return i;
+	if (input[i] == CHAR_PIPE)
+		i++;
+	return (i);
 }

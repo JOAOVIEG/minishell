@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 17:00:26 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:22:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,39 +60,25 @@
 
  */
 
-// typedef enum e_token_type
-// {
-// 	TYPE_PIPE,
-// 	TYPE_COMMAND,
-// 	TYPE_ARG,
-// 	TYPE_REDIRECT,
-// 	TYPE_HEREDOC,
-// 	TYPE_QUOTES,
-// 	TYPE_ENV_VAR
-// }						t_token_type;
-
 void	command_line(t_parser *parser)
 {
-	if (parser->tokens && parser->tokens->type == TYPE_PIPE)
+	if (!parser->tokens)
+		return ;
+	if (parser->tokens->type == TYPE_PIPE)
 	{
 		printf("Syntax error: unexpected token `|'\n");
 		return ;
 	}
 	command(parser);
+	if (!parser->tokens || parser->tokens->type != TYPE_PIPE)
+		return ;
+	parser->tokens = parser->tokens->next;
 	if (!parser->tokens)
 	{
+		printf("Syntax error: expected a command after the pipe\n");
 		return ;
 	}
-	if (parser->tokens->type == TYPE_PIPE)
-	{
-		parser->tokens = parser->tokens->next;
-		if (!parser->tokens)
-		{
-			printf("Syntax error: expected a command after the pipe\n");
-			return ;
-		}
-		command_line(parser);
-	}
+	command_line(parser);
 }
 
 void	command(t_parser *parser)
@@ -103,27 +89,26 @@ void	token_list(t_parser *parser)
 {
 	if (!parser->tokens)
 		return ;
-	if (parser->tokens && parser->tokens->type == TYPE_COMMAND)
+	if (parser->tokens->type == TYPE_COMMAND || parser->tokens->type == TYPE_ARG
+		|| parser->tokens->type == TYPE_QUOTES
+		|| parser->tokens->type == TYPE_ENV_VAR)
 	{
-        quotes(parser);
+		quotes(parser);
 		parser->tokens = parser->tokens->next;
 		token_list(parser);
 	}
-	else if (parser->tokens && parser->tokens->type == TYPE_REDIRECT)
+	else if (parser->tokens->type == TYPE_REDIRECT)
 	{
 		redirection(parser);
 		token_list(parser);
 	}
-	else if (parser->tokens && parser->tokens->type == TYPE_ARG)
+	else
 	{
-		quotes(parser);
-		// printf("need to implement quotes\n");
-		parser->tokens = parser->tokens->next;
-		token_list(parser);
+		return ;
 	}
 }
 
-void	redir_out(t_parser *parser)
+void	redirection(t_parser *parser)
 {
 	if (!parser->tokens)
 	{
@@ -133,7 +118,6 @@ void	redir_out(t_parser *parser)
 	if (parser->tokens->type == TYPE_REDIRECT)
 	{
 		parser->tokens = parser->tokens->next;
-		// Check if the next token is an argument
 		if (!parser->tokens || parser->tokens->type != TYPE_ARG)
 		{
 			printf("Syntax error: expected a file after redirection\n");
@@ -141,32 +125,6 @@ void	redir_out(t_parser *parser)
 		}
 		parser->tokens = parser->tokens->next;
 	}
-}
-
-void	redir_in(t_parser *parser)
-{
-	if (parser->tokens && parser->tokens->type == TYPE_REDIRECT)
-	{
-		parser->tokens = parser->tokens->next;
-		if (parser->tokens && parser->tokens->type == TYPE_ARG)
-		{
-			parser->tokens = parser->tokens->next;
-		}
-		else
-			printf("Syntax error: expected a file after redirection\n");
-	}
-}
-
-void	redirection(t_parser *parser)
-{
-	if (ft_strcmp(parser->tokens->data, ">") == 0
-		|| ft_strcmp(parser->tokens->data, ">>") == 0)
-		redir_out(parser);
-	else if (ft_strcmp(parser->tokens->data, "<") == 0
-		|| ft_strcmp(parser->tokens->data, "<<") == 0)
-		redir_in(parser);
-	if (!parser->tokens)
-		return ;
 }
 
 void	quotes(t_parser *parser)
@@ -193,13 +151,19 @@ void	quotes(t_parser *parser)
 	}
 }
 
-void	grammar_check(t_parser *parser)
+bool	grammar_check(t_parser *parser)
 {
 	t_lst_tokens	*head;
 
 	head = parser->tokens;
 	command_line(parser);
 	if (parser->tokens)
+	{
 		printf("Syntax error\n");
+		return (false);
+	}
 	parser->tokens = head;
+	return (true);
 }
+
+// For now I'm ignoring the env_var and the $ variable, later i will implement it the functions to handle it

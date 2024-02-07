@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 16:40:58 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:32:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,41 @@ t_parser	*init_parser(void)
 		exit(EXIT_FAILURE);
 	}
 	parser->tokens = NULL;
+	parser->tree = NULL;
+	parser->buffer = NULL;
+	parser->pipe_count = 0;
 	return (parser);
+}
+
+void	remove_quotes(t_parser *parser)
+{
+	t_lst_tokens	*current;
+	t_lst_tokens	*head;
+
+	head = parser->tokens;
+	current = head;
+	while (current)
+	{
+		if (current->type == TYPE_ARG || current->type == TYPE_COMMAND)
+		{
+			if (current->data[0] == '\'' || current->data[0] == '\"')
+				current->data = ft_strtrim(current->data, "\'\"");
+		}
+		current = current->next;
+	}
+	parser->tokens = head;
 }
 
 void	parser(t_shell *shell)
 {
 	tokenize_input(shell->line, shell->lexer);
 	parse_to_list(shell->lexer, shell->parser);
-	print_list(shell->parser->tokens);
-	grammar_check(shell->parser);
-	
+
+	if (grammar_check(shell->parser))
+	{
+		remove_quotes(shell->parser);
+		//tree_simple_command(shell->parser);
+		//split_list(shell->parser);
+	}
+	// print_list(shell->parser->tokens);
 }
