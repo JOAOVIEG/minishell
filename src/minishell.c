@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 14:14:40 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:30:51 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int	main(int argc, char **argv, char **envp)
 		read_input();
 
 		parser(shell());
-		// afeter executing the command, should reset the parser to avoid memory leaks
-		reset_parser(shell()->parser);
+		reset_tree();
 		
 	}
 	return (EXIT_SUCCESS);

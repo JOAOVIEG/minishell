@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 13:03:45 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:10:10 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./libft/includes/libft.h"
+# include "execute.h"
 # include "lexer.h"
 # include "parser.h"
 # include <errno.h>
@@ -40,6 +41,7 @@ typedef struct s_shell
 	int				status;
 	char			*line;
 	bool			signal_set;
+	t_node			*node;
 	t_lexer			*lexer;
 	t_parser		*parser;
 }					t_shell;
@@ -52,7 +54,15 @@ void				get_var(t_env *new, char *envp, char *equal_pos);
 void				ignore_signals(void);
 void				read_input(void);
 t_shell				*shell(void);
-void				parser(t_shell *shell);
 
+// for use  of the parser
+void				parser(t_shell *shell);
+void				build_tree(t_shell *shell);
+void				build_tree_simple_command(t_shell *shell);
+
+// Free shell
+void				reset_tree(void);
+void				free_tree_cmd(t_cmd *cmd);
+void				free_tree_node(t_node **tree_node);
 void				end_shell(void);
 #endif

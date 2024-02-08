@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_shell.c                                        :+:      :+:    :+:   */
+/*   ft_free_str_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/08 18:16:54 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/02/08 17:37:51 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/08 17:39:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	end_shell(void)
+void	ft_free_str_array(char **str)
 {
-	// free(shell()->v_env);
-	// free(shell()->line);
-	if (shell()->lexer)
-		free_lexer(shell()->lexer);
-	if (shell()->parser)
-		free_parser(shell()->parser);
-	if (shell()->node)
-		free_tree_node(&shell()->node);
-	exit(shell()->status);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 10:12:52 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 13:59:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:40:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,8 @@ void				ft_putadd(unsigned long int nbr, long int *chr_total,
 void				ft_putnbr(int nbr, long int *chr_total);
 void				ft_putstr(char *str, long int *chr_total);
 void				ft_unsgint(unsigned int nbr, long int *chr_total);
+
+// Free functions
+void				ft_free_str_array(char **str);
 
 #endif

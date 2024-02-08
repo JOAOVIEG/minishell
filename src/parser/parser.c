@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/07 17:32:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:58:45 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_parser	*init_parser(void)
 		exit(EXIT_FAILURE);
 	}
 	parser->tokens = NULL;
-	parser->tree = NULL;
+	// parser->tree = NULL;
 	parser->buffer = NULL;
 	parser->pipe_count = 0;
 	return (parser);
@@ -56,8 +56,9 @@ void	parser(t_shell *shell)
 	if (grammar_check(shell->parser))
 	{
 		remove_quotes(shell->parser);
-		//tree_simple_command(shell->parser);
-		//split_list(shell->parser);
+		build_tree(shell);
+		
 	}
+	reset_parser(shell->parser);
 	// print_list(shell->parser->tokens);
 }

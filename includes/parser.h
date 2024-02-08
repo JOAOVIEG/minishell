@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/07 17:23:16 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:27:08 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ typedef struct s_lst_tokens
 	struct s_lst_tokens	*next;
 }						t_lst_tokens;
 
-typedef struct s_ASTree
-{
-	char				**data;
-	struct s_ASTree		*left;
-	struct s_ASTree		*right;
-}						t_ASTree;
-
 typedef struct s_buffer
 {
 	t_lst_tokens		*lst_tok;
@@ -50,7 +43,6 @@ typedef struct s_buffer
 typedef struct s_parser
 {
 	t_lst_tokens		*tokens;
-	t_ASTree			*tree;
 	int					pipe_count;
 	t_buffer			*buffer;
 
@@ -78,7 +70,6 @@ void					sequence(t_parser *parser);
 bool					grammar_check(t_parser *parser);
 
 // AST
-void					build_ast(t_parser *parser);
 void					split_list(t_parser *parser);
 void					tree_simple_command(t_parser *parser);
 
