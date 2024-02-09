@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/07 17:17:56 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 10:12:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_simple_cmds()
 	if (is_builtin())
 		exec_builtin();
 	else
-		exec_cmd();
+		// exec_cmd(shell()->node->fd_in, shell()->node->fd_out);
 }
 
 
@@ -62,9 +62,10 @@ void	exec_builtin()
 		env();
 }
 
-void	exec_cmd()
+void	exec_cmd(int fd_in, int fd_out)
 {
 	char	**env;
+	int		status;
 	pid_t	pid;
 	
 	env = env_list_to_arr();
@@ -86,6 +87,7 @@ void	exec_cmd()
 			free_c_env(env);
 			exit(EXIT_FAILURE);
 		}
+		// redirections(fd_in, fd_out);
 		if (execve(shell()->node->cmd->valid_cmd_path, shell()->node->cmd->arg, env) < 0)
 		{
 			free_env();
@@ -95,7 +97,8 @@ void	exec_cmd()
 	}
 	else
 	{
-		wait(NULL);
+		// close_fds();
+		waitpid(pid, &status, 0);
 		free_env();
 		free_c_env(env);
 	}
@@ -232,6 +235,10 @@ char	*validate_cmd(char **cmd_paths, char *cmd)
 
 void	ft_execute(void)
 {
+	/*Initializing the new variables fd_in and out. Already taking into account pipe
+	and other cases than simple commands*/
+	shell()->node->fd_in = STDIN_FILENO;
+	shell()->node->fd_out = STDOUT_FILENO;
 	/*if node is of type cmd*/
 	ft_simple_cmds();
 }

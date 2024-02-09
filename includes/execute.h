@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/07 17:19:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/08 14:53:48 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef	struct s_cmd
 typedef struct s_node
 {
 	t_cmd			*cmd;
+	int				fd_in;
+	int				fd_out;
 	struct s_node	*left;
 	struct s_node	*right;
 }			t_node;
