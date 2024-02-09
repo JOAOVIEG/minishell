@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/07 16:39:28 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:12:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void				new_var(t_env **head, t_env *tail, t_env *new);
 void				get_var(t_env *new, char *envp, char *equal_pos);
 void				ignore_signals(void);
 void				read_input(void);
-void				ft_execute(void);
 void				free_tokens();
 t_shell				*shell(void);
 #endif

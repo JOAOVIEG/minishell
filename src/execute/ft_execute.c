@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 10:12:44 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:29:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 // # include "../../includes/parser.h"
 # include "../../includes/minishell.h"
 
-void ft_simple_cmds()
+void ft_simple_cmds(t_node *node)
 {	
 	/*if is a bultin executes builtin.
 	else, ecxecutes form path*/
-	if (is_builtin())
-		exec_builtin();
+	if (is_builtin(node))
+		exec_builtin(node);
 	else
-		// exec_cmd(shell()->node->fd_in, shell()->node->fd_out);
+		exec_cmd(node);
 }
 
 
-int	is_builtin()
+int	is_builtin(t_node *node)
 {
 	char *cmd;
 
-	cmd = shell()->node->cmd->arg[0];
+	cmd = node->cmd->arg[0];
 	if (ft_strcmp(cmd, "cd") == 0 || \
 			ft_strcmp(cmd, "pwd") == 0 || \
 			ft_strcmp(cmd, "echo") == 0 || \
@@ -41,11 +41,11 @@ int	is_builtin()
 	return (0);
 }
 
-void	exec_builtin()
+void	exec_builtin(t_node *node)
 {
 	char **cmd;
 
-	cmd = shell()->node->cmd->arg;
+	cmd = node->cmd->arg;
 	if (ft_strcmp(cmd[0], "cd") == 0)
 		cd (cmd[1]);
 	if (ft_strcmp(cmd[0], "pwd") == 0)
@@ -62,7 +62,7 @@ void	exec_builtin()
 		env();
 }
 
-void	exec_cmd(int fd_in, int fd_out)
+void	exec_cmd(t_node *node)
 {
 	char	**env;
 	int		status;
@@ -87,7 +87,7 @@ void	exec_cmd(int fd_in, int fd_out)
 			free_c_env(env);
 			exit(EXIT_FAILURE);
 		}
-		// redirections(fd_in, fd_out);
+		redirections(node->fd_in, node->fd_out);
 		if (execve(shell()->node->cmd->valid_cmd_path, shell()->node->cmd->arg, env) < 0)
 		{
 			free_env();
@@ -97,12 +97,57 @@ void	exec_cmd(int fd_in, int fd_out)
 	}
 	else
 	{
-		// close_fds();
+		close_fds(node->fd_in, node->fd_out);
 		waitpid(pid, &status, 0);
 		free_env();
 		free_c_env(env);
 	}
 	exit(EXIT_SUCCESS);
+}
+
+void	close_fds(int fd_i, int fd_o)
+{
+	if (fd_i != STDIN_FILENO)
+		close(fd_i);
+	if (fd_o != STDOUT_FILENO)
+		close(fd_o);
+}
+
+int	redirections(int fd_i, int fd_o)
+{
+	if (redirect_in(fd_i) == -1 || redirect_out(fd_o) == -1)
+		return (-1);
+	return (0);
+}
+
+int	redirect_in(int fd_i)
+{
+	int red_i;
+	
+	if (fd_i == STDIN_FILENO)
+		return (STDIN_FILENO);
+	else
+	{
+		if ((red_i = dup2(fd_i, STDIN_FILENO)) < 0)
+			return (-1);
+		close(fd_i);
+	}
+	return (red_i);
+}
+
+int	redirect_out(int fd_o)
+{
+	int red_o;
+	
+	if (fd_o == STDOUT_FILENO)
+		return (STDOUT_FILENO);
+	else
+	{
+		if ((red_o = dup2(fd_o, STDOUT_FILENO)) < 0)
+			return (-1);
+		close(fd_o);
+	}
+	return (red_o);
 }
 
 void	free_c_env(char **env)
@@ -233,12 +278,13 @@ char	*validate_cmd(char **cmd_paths, char *cmd)
 	return (NULL);
 }
 
-void	ft_execute(void)
+void	ft_execute(t_node *node)
 {
-	/*Initializing the new variables fd_in and out. Already taking into account pipe
+	/*Initializing the new variables fd_in and out for the
+	simpliest case: one node cmd. Already taking into account pipe
 	and other cases than simple commands*/
 	shell()->node->fd_in = STDIN_FILENO;
 	shell()->node->fd_out = STDOUT_FILENO;
 	/*if node is of type cmd*/
-	ft_simple_cmds();
+	ft_simple_cmds(node);
 }

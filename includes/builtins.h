@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/07 17:21:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:19:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,4 @@ char	*get_var_value(t_env *env, char *name);
 void	display_exp_var(t_env *env);
 void	unset(char **arg);
 t_env	*unset_var(t_env *head);
-int		is_builtin();
-void	exec_builtin();
 #endif
