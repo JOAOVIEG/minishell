@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/08 18:10:10 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:38:51 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "./libft/includes/libft.h"
-# include "execute.h"
 # include "lexer.h"
 # include "parser.h"
 # include <errno.h>
@@ -27,13 +26,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-
-typedef struct s_env
-{
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
+# include <sys/types.h>
+# include <sys/wait.h>
+# include "execute.h"
+# include "builtins.h"
 
 typedef struct s_shell
 {

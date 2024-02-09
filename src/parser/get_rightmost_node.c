@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   get_rightmost_node.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 15:13:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:01 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/29 16:51:59 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/29 16:54:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	env(void)
+t_astree	*get_rightmost_node(t_astree *node)
 {
-	t_env *tmp;
-	
-	tmp = shell()->v_env;
-	while (tmp)
-	{
-		printf("%s=%s\n", tmp->name, tmp->value);
-		tmp = tmp->next;
-	}
+	if (node == NULL)
+		return (NULL);
+	else if (node->right == NULL)
+		return (node);
+	else
+		return (get_rightmost_node(node->right));
 }

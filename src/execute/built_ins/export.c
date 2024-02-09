@@ -6,40 +6,46 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/25 15:27:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:36:23 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 // // TODO: The return status is zero unless an invalid option is supplied, one of the names
 // is not a valid shell variable name.
-void	export(char *arg)
+void	export(char **arg)
 {
 	t_env	*env;
 	t_env	*new;
 	char	*name;
 	char	*value;
 	char	*equal;
+	int		i;
 
+	i = 1;
 	env = shell()->v_env;
-	if (!arg)
+	if (!arg[i])
 		display_exp_var(env);
 	else
 	{
-		new = malloc(sizeof(t_env));
-		equal = get_equal(arg);
-		if (equal)
+		while (arg[i])
 		{
-			name = get_var_name(arg, equal);
-			value = ft_strdup(equal + 1);
+			new = malloc(sizeof(t_env));
+			equal = get_equal(arg[i]);
+			if (equal)
+			{
+				name = get_var_name(arg[i], equal);
+				value = ft_strdup(equal + 1);
+			}
+			else
+			{
+				name = ft_strdup(arg[i]);
+				value = get_var_value(env, name);
+			}
+			update_envl(env, new, name, value);
+			i++;	
 		}
-		else
-		{
-			name = ft_strdup(arg);
-			value = get_var_value(env, name);
-		}
-		update_envl(env, new, name, value);
 	}
 }
 

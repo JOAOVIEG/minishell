@@ -6,34 +6,40 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:20:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/25 15:21:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:36:37 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
-void	unset(char *arg)
+void	unset(char **arg)
 {
 	t_env *head;
 	t_env *tail;
-
+	int		i;
+	
+	i = 1;
 	head = shell()->v_env;
 	tail = NULL;
 	while (head)
 	{
-		if (ft_strcmp(head->name, arg) == 0)
+		while (arg[i])
 		{
-			if (tail)
-				tail->next = head->next;
-			else
-				shell()->v_env = head->next;
-			free(head->name);
-			unset_var(head);
-			shell()->status = 0;
-			return ;
+			if (ft_strcmp(head->name, arg[i]) == 0)
+			{
+				if (tail)
+					tail->next = head->next;
+				else
+					shell()->v_env = head->next;
+				free(head->name);
+				unset_var(head);
+				shell()->status = 0;
+				return ;
+			}
+			tail = head;
+			head = head->next;
+			i++;
 		}
-		tail = head;
-		head = head->next;
 	}
 	printf("minishell: %s\n", strerror(errno));
 	shell()->status = 1;

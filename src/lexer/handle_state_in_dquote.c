@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utilis.c                                    :+:      :+:    :+:   */
+/*   handle_state_in_dquote.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 16:20:24 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:17 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/23 10:28:18 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/25 15:28:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*get_var_value(t_env *env, char *name)
+t_token	*handle_state_in_dquote(t_token *token, t_lexer *lexer,
+		t_tk_buffer *buffer)
 {
-	t_env	*check_var;
-	char	*value;
-
-	check_var = find_env_var(env, name);
-	if (check_var)
-		value = ft_strdup(check_var->value);
-	else
-		value = NULL;
-	return (value);
-}
-
-void	display_exp_var(t_env *env)
-{
-	while (env)
-	{
-		printf("declare -x %s=\"%s\"\n", env->name, env->value);
-		env = env->next;
-	}
+	(void)lexer;
+	token->value[buffer->j++] = buffer->current;
+	if (buffer->char_type == CHAR_DOUBLE_QUOTE)
+		buffer->state = STATE_IN_GENERAL;
+	return (token);
 }

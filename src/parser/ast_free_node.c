@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ast_free_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 15:13:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:01 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/29 15:31:44 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/29 19:22:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	env(void)
+void	ast_free_node(t_astree *node)
 {
-	t_env *tmp;
-	
-	tmp = shell()->v_env;
-	while (tmp)
-	{
-		printf("%s=%s\n", tmp->name, tmp->value);
-		tmp = tmp->next;
-	}
+	if (node == NULL)
+		return ;
+	if (node->type && NODE_DATA)
+		free(node->data);
+	ast_free_node(node->left);
+	ast_free_node(node->right);
+	free(node);
 }

@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utilis.c                                    :+:      :+:    :+:   */
+/*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 16:20:24 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:17 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/22 18:58:59 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/30 15:26:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*get_var_value(t_env *env, char *name)
+t_token	*new_token(void)
 {
-	t_env	*check_var;
-	char	*value;
+	t_token	*token;
 
-	check_var = find_env_var(env, name);
-	if (check_var)
-		value = ft_strdup(check_var->value);
-	else
-		value = NULL;
-	return (value);
-}
-
-void	display_exp_var(t_env *env)
-{
-	while (env)
+	token = (t_token *)calloc(sizeof(t_token), 1);
+	if (!token)
 	{
-		printf("declare -x %s=\"%s\"\n", env->name, env->value);
-		env = env->next;
+		perror("Error allocating memory for tokens\n");
+		exit(EXIT_FAILURE);
 	}
+	token_init(token);
+	return (token);
 }

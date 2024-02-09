@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/06 14:38:36 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:33:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
+# include "minishell.h"
 # include "minishell.h"
 
 typedef enum e_char_type

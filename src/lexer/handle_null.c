@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utilis.c                                    :+:      :+:    :+:   */
+/*   handle_null.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 16:20:24 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:17 by joaocard         ###   ########.fr       */
+/*   Created: 2024/01/23 13:08:24 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/01/25 15:27:21 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*get_var_value(t_env *env, char *name)
+t_token	*handle_null(t_token *token, t_lexer *lexer, t_tk_buffer *buffer)
 {
-	t_env	*check_var;
-	char	*value;
-
-	check_var = find_env_var(env, name);
-	if (check_var)
-		value = ft_strdup(check_var->value);
-	else
-		value = NULL;
-	return (value);
-}
-
-void	display_exp_var(t_env *env)
-{
-	while (env)
+	if (buffer->j > 0)
 	{
-		printf("declare -x %s=\"%s\"\n", env->name, env->value);
-		env = env->next;
+		token->value[buffer->j] = 0;
+		lexer->ntoks++;
+		buffer->j = 0;
 	}
+	return (token);
 }
