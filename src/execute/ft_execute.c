@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:22:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:29:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	exec_cmd(t_node *node)
 		free_env();
 		free_c_env(env);
 	}
-	exit(EXIT_SUCCESS);
 }
 
 void	close_fds(int fd_i, int fd_o)
