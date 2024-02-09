@@ -1,5 +1,5 @@
 NAME = minishell
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -Iincludes -Iincludes/libft/includes
 
 INC_DIR = includes
@@ -10,7 +10,8 @@ SRC = $(wildcard $(SRC_DIR)/*.c) \
       $(wildcard $(SRC_DIR)/lexer/*.c) \
       $(wildcard $(SRC_DIR)/parser/*.c) \
       $(wildcard $(SRC_DIR)/execute/built_ins/*.c) \
-      $(wildcard $(SRC_DIR)/execute/env/*.c)
+      $(wildcard $(SRC_DIR)/execute/env/*.c) \
+	  $(wildcard $(SRC_DIR)/execute/*.c)
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
@@ -42,4 +43,16 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+valgrind: re $(NAME)
+	@cat readline.supp  >  /dev/null
+	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+
+.PHONY: all clean fclean re valgrind
+run: re
+	@./$(NAME)
+
+v: re
+	valgrind --leak-check=full ./$(NAME)
+# @./$(NAME) | cat -e
+
+.PHONY: all clean fclean re v

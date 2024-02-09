@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 15:59:55 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/30 10:39:03 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/09 16:04:02 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,67 @@
 # define PARSER_H
 
 # include "minishell.h"
+# include <stdbool.h>
 
-typedef enum s_node_type
+typedef enum e_token_type
 {
-	NODE_PIPE = (1 << 0),
-	NODE_REDIRECT_IN = (1 << 1),
-	NODE_REDIRECT_OUT = (1 << 2),
-	NODE_CMDPATH = (1 << 3),
-	NODE_ARGUMENT = (1 << 4),
+	TYPE_PIPE,
+	TYPE_COMMAND,
+	TYPE_ARG,
+	TYPE_REDIRECT,
+	TYPE_HEREDOC,
+	TYPE_QUOTES,
+	TYPE_ENV_VAR
+}						t_token_type;
 
-	NODE_DATA = (1 << 5),
-}					t_node_type;
-
-typedef struct s_astree
+typedef struct s_lst_tokens
 {
-	t_node_type		type;
-	char			*data;
-	struct s_astree	*left;
-	struct s_astree	*right;
-}					t_astree;
+	char				*data;
+	t_token_type		type;
+	struct s_lst_tokens	*next;
+}						t_lst_tokens;
+
+typedef struct s_buffer
+{
+	t_lst_tokens		*lst_tok;
+	t_lst_tokens		*next;
+}						t_buffer;
 
 typedef struct s_parser
 {
-	t_astree		*ast;
-}					t_parser;
+	t_lst_tokens		*tokens;
+	int					pipe_count;
+	t_buffer			*buffer;
 
-t_parser			*init_parser(void);
+}						t_parser;
 
-// tree functions
-t_astree			*ast_create_node(void *item, t_node_type type);
-void				ast_free_node(t_astree *node);
-t_astree			*build_ast(t_token *tokens);
-t_node_type			get_token_type(t_token *token);
-t_astree			*get_rightmost_node(t_astree *node);
-int					ast_get_next_precedence(t_token_type op);
+t_parser				*init_parser(void);
+
+void					parse_to_list(t_lexer *lexer, t_parser *parser);
+void					add_to_end(t_lst_tokens **head, char *data);
+
+void					define_type(t_lst_tokens *current, t_lst_tokens *prev);
+void					get_token_type(t_lst_tokens *tokens);
+
+void					print_list(t_lst_tokens *head);
+
+// grammar
+void					command_line(t_parser *parser);
+void					command(t_parser *parser);
+void					token_list(t_parser *parser);
+void					redir_out(t_parser *parser);
+void					redir_in(t_parser *parser);
+void					redirection(t_parser *parser);
+void					quotes(t_parser *parser);
+void					sequence(t_parser *parser);
+bool					grammar_check(t_parser *parser);
+
+// AST
+void					split_list(t_parser *parser);
+void					tree_simple_command(t_parser *parser);
+
+// free_parser
+void					reset_parser(t_parser *parser);
+
 
 #endif

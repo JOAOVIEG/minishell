@@ -1,48 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   free_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/05 18:51:18 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/01/30 17:47:57 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/06 15:50:36 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_lexer	*init_lexer(void)
+void	reset_lexer(t_lexer *lexer)
 {
-	t_lexer	*lexer;
-
-	lexer = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
-	if (!lexer)
-	{
-		perror("Error allocating memory for lexer\n");
-		exit(EXIT_FAILURE);
-	}
-	lexer->ntoks = 0;
-	lexer->input = NULL;
+	if (lexer->tokens)
+		free_lexer_tokens(lexer);
 	lexer->tokens = NULL;
+	lexer->input = NULL;
 	lexer->input_size = 0;
-	return (lexer);
+	lexer->ntoks = 0;
 }
 
-void	tokenize_input(char *input, t_lexer *lexer)
+void	free_lexer_tokens(t_lexer *lexer)
 {
 	int	i;
 
-	lexer->input = ft_strdup(input);
-	lexer->input_size = ft_strlen(lexer->input);
-	lexer->tokens = split_into_tokens(lexer);
 	i = 0;
 	while (lexer->tokens[i] != NULL)
 	{
-		//printf("Token: %s\n", lexer->tokens[i]);
-		lexer->ntoks++;
+		free(lexer->tokens[i]);
+		lexer->tokens[i] = NULL;
 		i++;
 	}
-	//printf("Number of tokens: %d\n", lexer->ntoks);
-	free(input);
+	lexer->ntoks = 0;
+	lexer->input_size = 0;
+	free(lexer->input);
+	lexer->input = NULL;
+	free(lexer->tokens);
+	lexer->tokens = NULL;
+}
+
+void	free_lexer(t_lexer *lexer)
+{
+	if (lexer->input)
+	{
+		free(lexer->input);
+		lexer->input = NULL;
+	}
+	if (lexer->tokens)
+		free_lexer_tokens(lexer);
+	if (lexer)
+		free(lexer);
 }

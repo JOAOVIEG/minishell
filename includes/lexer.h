@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/29 17:04:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:33:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define LEXER_H
 
 # include "minishell.h"
+# include "minishell.h"
 
-typedef enum s_token_type
+typedef enum e_char_type
 {
 	CHAR_PIPE = '|',
-	CHAR_AMPERSAND = '&',
 	CHAR_SINGLE_QUOTE = '\'',
 	CHAR_DOUBLE_QUOTE = '\"',
 	CHAR_WHITESPACE = ' ',
@@ -31,85 +31,30 @@ typedef enum s_token_type
 	CHAR_GENERAL,
 	TOKEN = -1,
 
-}					t_token_type;
-
-enum
-{
-	STATE_IN_DQUOTE,
-	STATE_IN_SQUOTE,
-	STATE_IN_SCAEPE_SEQUENCE,
-	STATE_IN_GENERAL,
-
-};
-
-typedef struct s_lx_state
-{
-	char			*input;
-	size_t			current_position;
-}					t_lx_state;
-
-typedef struct s_tk_buffer
-{
-	int				i;
-	int				j;
-	int				state;
-	char			current;
-	int				char_type;
-}					t_tk_buffer;
-
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-	int				precedence;
-	struct s_token	*next;
-
-}					t_token;
+}			t_char_type;
 
 typedef struct s_lexer
 {
-	int				ntoks;
-	t_token			*tokens;
-	t_lx_state		state;
-}					t_lexer;
+	int		ntoks;
+	char	*input;
+	size_t	input_size;
+	char	**tokens;
+}			t_lexer;
 
-void				tokenize_input(t_lexer *lexer);
-t_lexer				*init_lexer(void);
-void				init_lexer_state(t_lx_state *lexer_state, char *input);
-void				add_current_position(t_lx_state *lexer_state);
-char				current_char(const t_lx_state *lexer_state);
-void				print_input(const t_lx_state *lexer_state);
-void				token_init(t_token *token);
-int					get_char_type(char c);
-//_token_type		get_token_type(t_token *token);
+t_lexer		*init_lexer(void);
+void		tokenize_input(char *input, t_lexer *lexer);
+int			is_whitespace(char c);
+int			skip_whitespace(char *input, int i);
+char		**allocate_memory_for_tokens(int input_size);
+char		*create_token(char *input, int start, int end);
+int			process_pipe_token(char *input, int i);
+int			process_quoted_token(char *input, int i, char quote_type);
+int			process_unquoted_token(char *input, int i);
 
-// tokens functions
-t_token				*new_token(void);
-t_token				*build_token(t_lexer *lexer, t_token *token);
-void				handle_single_quote_char(t_token *token,
-						t_tk_buffer *buffer);
-void				handle_double_quote_char(t_token *token,
-						t_tk_buffer *buffer);
-void				handle_escape_sequence_char(t_token *token, t_lexer *lexer,
-						t_tk_buffer *buffer);
-void				handle_general_char(t_token *token, t_lexer *lexer,
-						t_tk_buffer *buffer);
-void				handle_general_char(t_token *token, t_lexer *lexer,
-						t_tk_buffer *buffer);
-void				handle_whitespace_char(t_token **token,
-						t_tk_buffer *buffer);
-void				handle_special_char(t_token **token, t_tk_buffer *buffer);
-t_token				*handle_state_general(t_token *token, t_lexer *lexer,
-						t_tk_buffer *buffer);
-t_token				*handle_state_in_dquote(t_token *token, t_lexer *lexer,
-						t_tk_buffer *buffer);
-t_token				*handle_state_in_squote(t_token *token, t_lexer *lexer,
-						t_tk_buffer *buffer);
-t_token				*handle_null(t_token *token, t_lexer *lexer,
-						t_tk_buffer *buffer);
+char		**split_into_tokens(t_lexer *lexer);
 
-# ifndef MAX_TOKEN_SIZE
-#  define MAX_TOKEN_SIZE 1024
-# endif
-
+// free functions
+void		reset_lexer(t_lexer *lexer);
+void		free_lexer(t_lexer *lexer);
+void		free_lexer_tokens(t_lexer *lexer);
 #endif

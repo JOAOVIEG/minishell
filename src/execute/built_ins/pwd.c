@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:31:08 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/25 15:31:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:36:29 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
+#include "../../../includes/minishell.h"
 
 void	pwd(void)
 {
@@ -18,14 +18,13 @@ void	pwd(void)
 	
 	buffer = getcwd(NULL, 0);
 	if (buffer)
-	{
 		printf("%s\n", buffer);
-		free(buffer);
-	}
 	else
 	{
-		printf("minishell: %s\n", strerror(errno));
+		// printf("minishell: %s\n", strerror(errno));
+		perror("getcwd");
 		shell()->status = 1;
 	}
+	free(buffer);
 	shell()->status = 0;
 }

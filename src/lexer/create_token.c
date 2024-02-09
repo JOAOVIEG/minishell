@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_state_in_squote.c                           :+:      :+:    :+:   */
+/*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 11:12:41 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/23 16:09:29 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/02/02 15:17:31 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/02 15:18:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_token	*handle_state_in_squote(t_token *token, t_lexer *lexer,
-		t_tk_buffer *buffer)
+char	*create_token(char *input, int start, int end)
 {
-	(void)lexer;
-	token->value[buffer->j++] = buffer->current;
-	if (buffer->char_type == CHAR_SINGLE_QUOTE)
-		buffer->state = STATE_IN_GENERAL;
+	int		token_length;
+	char	*token;
+
+	token_length = end - start;
+	token = ft_calloc(token_length + 1, sizeof(char));
+	ft_memcpy(token, &input[start], token_length);
+	token[token_length] = '\0';
 	return (token);
 }

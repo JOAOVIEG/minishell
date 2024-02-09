@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 10:12:52 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/22 13:59:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:35:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *str, const char *to_find, size_t n);
 void				ft_error_handler(char *message);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
+char				*ft_strncpy(char *dest, const char *src, size_t n);
 
 void				*ft_memset(void *s, int c, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
@@ -62,6 +63,7 @@ void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);
 void				*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 char				*ft_strdup(char *src);
+char				*ft_strndup(const char *s, size_t n);
 char				*ft_strndup(const char *s, size_t n);
 
 char				*ft_substr(char const *s, unsigned int start, size_t len);
@@ -102,5 +104,8 @@ void				ft_putadd(unsigned long int nbr, long int *chr_total,
 void				ft_putnbr(int nbr, long int *chr_total);
 void				ft_putstr(char *str, long int *chr_total);
 void				ft_unsgint(unsigned int nbr, long int *chr_total);
+
+// Free functions
+void				ft_free_str_array(char **str);
 
 #endif

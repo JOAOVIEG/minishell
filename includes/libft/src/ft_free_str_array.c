@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_null.c                                      :+:      :+:    :+:   */
+/*   ft_free_str_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 13:08:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/01/25 15:27:21 by joaocard         ###   ########.fr       */
+/*   Created: 2024/02/08 17:37:51 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/08 17:39:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/libft.h"
 
-t_token	*handle_null(t_token *token, t_lexer *lexer, t_tk_buffer *buffer)
+void	ft_free_str_array(char **str)
 {
-	if (buffer->j > 0)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		token->value[buffer->j] = 0;
-		lexer->ntoks++;
-		buffer->j = 0;
+		free(str[i]);
+		i++;
 	}
-	return (token);
+	free(str);
 }
