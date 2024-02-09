@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 14:29:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:22:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,8 +283,8 @@ void	ft_execute(t_node *node)
 	/*Initializing the new variables fd_in and out for the
 	simpliest case: one node cmd. Already taking into account pipe
 	and other cases than simple commands*/
-	shell()->node->fd_in = STDIN_FILENO;
-	shell()->node->fd_out = STDOUT_FILENO;
+	shell()->node->fd_in = dup(STDIN_FILENO);
+	shell()->node->fd_out = dup(STDOUT_FILENO);
 	/*if node is of type cmd*/
 	ft_simple_cmds(node);
 }
