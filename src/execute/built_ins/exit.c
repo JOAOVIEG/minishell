@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:28:42 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/10 16:39:40 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ void	exit_shell(char **arg)
 		i++;
 	}
 	free_env();
-	exit(shell()->status);
+	end_shell();
 }

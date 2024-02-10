@@ -1,1 +1,132 @@
 pwd
+ls
+echo pedro
+echo william
+ls
+echo william
+echo pedro
+echo william | pwd
+pwd | ls
+pwd | ls
+ls | ls
+echo william | pwd
+echo william | pwd
+echo william ferrreira rocha | ls -l
+cat text.txt | tr -s ' ' '\n' | sort | uniq
+cat text.txt | tr -s ' ' '\n' | sort | uniq
+cat text.txt | tr -s ' ' '\n' | sort | uniq
+cat file.txt | wc -l
+ls -l | ls -p
+>
+ls -l | ls -p
+>
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+void build_subtree(t_node *parent, t_lst_tokens *tokens)
+{
+    t_lst_tokens *pipe_token;
+    t_lst_tokens *left_tokens;
+    t_lst_tokens *right_tokens;
+    if (tokens == NULL)
+        return;
+    // Find the next pipe token
+    pipe_token = find_next_pipe(tokens);
+    // Extract tokens for the left command
+    left_tokens = extract_left_tokens(tokens, pipe_token);
+    // Construct the left sub-tree
+    parent->left = new_tree_node(left_tokens);
+    if (pipe_token != NULL)
+    {
+        // If the next token is a pipe, recursively build the right subtree
+        if (pipe_token->next != NULL && pipe_token->next->type == TYPE_PIPE)
+        {
+            parent->right = init_pipe_node();
+            if (pipe_token->next->next != NULL) {
+                build_subtree(parent->right, pipe_token->next->next);
+            }
+        }
+        else
+        {
+            // Otherwise, extract tokens for the right command
+            right_tokens = extract_right_tokens(pipe_token->next);
+            // Construct the right sub-tree
+            parent->right = new_tree_node(right_tokens);
+        }
+    }
+}
+void build_subtree(t_node *parent, t_lst_tokens *tokens)
+{
+    t_lst_tokens *pipe_token;
+    t_lst_tokens *left_tokens;
+    t_lst_tokens *right_tokens;
+    if (tokens == NULL)
+        return;
+    // Find the next pipe token
+    pipe_token = find_next_pipe(tokens);
+    // Extract tokens for the left command
+    left_tokens = extract_left_tokens(tokens, pipe_token);
+    // Construct the left sub-tree
+    parent->left = new_tree_node(left_tokens);
+    if (pipe_token != NULL)
+    {
+        // If the next token is a pipe, recursively build the right subtree
+        if (pipe_token->next != NULL && pipe_token->next->type == TYPE_PIPE)
+        {
+            parent->right = init_pipe_node();
+            if (pipe_token->next->next != NULL) {
+                build_subtree(parent->right, pipe_token->next->next);
+            }
+        }
+        else
+        {
+            // Otherwise, extract tokens for the right command
+            right_tokens = extract_right_tokens(pipe_token->next);
+            // Construct the right sub-tree
+            parent->right = new_tree_node(right_tokens);
+        }
+    }
+}
+void build_subtree(t_node *parent, t_lst_tokens *tokens)
+{
+    t_lst_tokens *pipe_token;
+    t_lst_tokens *left_tokens;
+    t_lst_tokens *right_tokens;
+    if (tokens == NULL)
+        return;
+    // Find the next pipe token
+    pipe_token = find_next_pipe(tokens);
+    // Extract tokens for the left command
+    left_tokens = extract_left_tokens(tokens, pipe_token);
+    // Construct the left sub-tree
+    parent->left = new_tree_node(left_tokens);
+    if (pipe_token != NULL)
+    {
+        // If the next token is a pipe, recursively build the right subtree
+        if (pipe_token->next != NULL && pipe_token->next->type == TYPE_PIPE)
+        {
+            parent->right = init_pipe_node();
+            if (pipe_token->next->next != NULL) {
+                build_subtree(parent->right, pipe_token->next->next);
+            }
+        }
+        else
+        {
+            // Otherwise, extract tokens for the right command
+            right_tokens = extract_right_tokens(pipe_token->next);
+            // Construct the right sub-tree
+            parent->right = new_tree_node(right_tokens);
+        }
+    }
+}
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+ls -l | ls -p
+1
+ls -l | ls -p

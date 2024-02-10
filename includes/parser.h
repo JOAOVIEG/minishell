@@ -6,13 +6,14 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/09 16:04:02 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:16:33 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
+# include "lexer.h"
 # include "minishell.h"
 # include <stdbool.h>
 
@@ -75,6 +76,6 @@ void					tree_simple_command(t_parser *parser);
 
 // free_parser
 void					reset_parser(t_parser *parser);
-
+void					free_lst_tokens(t_lst_tokens *tokens);
 
 #endif

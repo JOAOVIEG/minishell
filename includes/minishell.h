@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/09 16:04:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/10 16:58:39 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
 
 typedef struct s_shell
 {
