@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/12 14:25:15 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:03:42 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	exec_cmd(t_node *node)
 	if (pid < 0)
 	{
 		perror("Error forking");
-		free_env();
+		// free_env();
 		free_c_env(env);
 		exit(EXIT_FAILURE);
 	}
@@ -87,15 +87,21 @@ void	exec_cmd(t_node *node)
 		if ((shell()->node->cmd->valid_cmd_path = get_cmd(shell()->node->cmd->cmd_path, \
 				shell()->node->cmd->arg[0])) == NULL)
 		{
-			free_env();
+			// free_env();
 			free_c_env(env);
+			// free_cmd_paths(shell()->node->cmd->cmd_path);
+			free(shell()->node->cmd->valid_cmd_path);
+			shell()->node->cmd->valid_cmd_path = NULL;
 			exit(EXIT_FAILURE);
 		}
 		redirections(node->fd_in, node->fd_out);
 		if (execve(shell()->node->cmd->valid_cmd_path, shell()->node->cmd->arg, env) < 0)
 		{
-			free_env();
+			// free_env();
 			free_c_env(env);
+			free_cmd_paths(shell()->node->cmd->cmd_path);
+			free(shell()->node->cmd->valid_cmd_path);
+			shell()->node->cmd->valid_cmd_path = NULL;
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -103,8 +109,15 @@ void	exec_cmd(t_node *node)
 	{
 		close_fds(node->fd_in, node->fd_out);
 		waitpid(pid, &status, 0);
-		free_env();
+		// free_env();
 		free_c_env(env);
+		if (shell()->node->cmd->cmd_path)
+			free_cmd_paths(shell()->node->cmd->cmd_path);
+		if (shell()->node->cmd->valid_cmd_path)
+		{
+			free(shell()->node->cmd->valid_cmd_path);
+			shell()->node->cmd->valid_cmd_path = NULL;
+		}
 	}
 }
 
@@ -197,7 +210,7 @@ char	**env_list_to_arr()
 		if (!envp[i])
 		{
 			perror("malloc envp[i]");
-			free_env();
+			// free_env();
 			free_c_env(envp);
 			exit(EXIT_FAILURE);
 		}
@@ -223,7 +236,7 @@ char	*get_path(char **env)
 	if (*env == NULL)
 	{
 		perror("ERROR env at path");
-		free_env();
+		// free_env();
 		free_c_env(env);
 		exit(EXIT_FAILURE);
 	}
@@ -234,7 +247,7 @@ char	*get_path(char **env)
 		if (*env == NULL)
 		{
 			perror("ERROR finding PATH");
-			free_env();
+			// free_env();
 			free_c_env(env);
 			exit(EXIT_FAILURE);
 		}
@@ -291,9 +304,11 @@ void	free_cmd_paths(char **cmd_paths)
 	while (cmd_paths[i])
 	{
 		free(cmd_paths[i]);
+		cmd_paths[i] = NULL;
 		i++;
 	}
 	free(cmd_paths);
+	cmd_paths = NULL;
 }
 
 void	ft_execute(t_node *node)
