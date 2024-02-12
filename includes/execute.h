@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:32:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:25:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_simple_cmds(t_node *node);
 int		is_builtin(t_node *node);
 void	exec_builtin(t_node *node);
 void	exec_cmd(t_node *node);
+void	free_cmd_paths(char **cmd_paths);
 char	**env_list_to_arr();
 int		redirections(int fd_i, int fd_o);
 int		redirect_in(int fd_i);

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:28:42 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:42:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	exit_shell(char **arg)
 		i++;
 	}
 	free_env();
+	end_shell();
 	exit(shell()->status);
 }

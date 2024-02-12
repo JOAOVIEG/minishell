@@ -1,2 +1,7 @@
 pwd
 pwd
+env
+ls
+ls -l
+env
+ls -l

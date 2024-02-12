@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 16:29:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:25:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void ft_simple_cmds(t_node *node)
 {	
 	/*if is a bultin executes builtin.
 	else, ecxecutes form path*/
-	if (is_builtin(node))
+	if (is_builtin(node) == 1)
 		exec_builtin(node);
-	else
+	else if (is_builtin(node) == 0)
+		return ;
+	else if (is_builtin(node) == 2)
 		exec_cmd(node);
 }
 
@@ -30,6 +32,8 @@ int	is_builtin(t_node *node)
 	char *cmd;
 
 	cmd = node->cmd->arg[0];
+    if (cmd == NULL)
+		return (0);
 	if (ft_strcmp(cmd, "cd") == 0 || \
 			ft_strcmp(cmd, "pwd") == 0 || \
 			ft_strcmp(cmd, "echo") == 0 || \
@@ -38,7 +42,7 @@ int	is_builtin(t_node *node)
 			ft_strcmp(cmd, "env") == 0 || \
 			ft_strcmp(cmd, "exit") == 0)
 		return (1);
-	return (0);
+	return (2);
 }
 
 void	exec_builtin(t_node *node)
@@ -274,7 +278,22 @@ char	*validate_cmd(char **cmd_paths, char *cmd)
 		free(tmp2);
 		i++;
 	}
+	printf("%s: command not found\n", cmd);
+	free_cmd_paths(cmd_paths);
 	return (NULL);
+}
+
+void	free_cmd_paths(char **cmd_paths)
+{
+	int i;
+
+	i = 0;
+	while (cmd_paths[i])
+	{
+		free(cmd_paths[i]);
+		i++;
+	}
+	free(cmd_paths);
 }
 
 void	ft_execute(t_node *node)
