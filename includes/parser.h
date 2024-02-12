@@ -6,15 +6,19 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/10 18:16:33 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:07:22 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
+# include "./libft/includes/libft.h"
+# include "builtins.h"
+# include "execute.h"
 # include "lexer.h"
 # include "minishell.h"
+# include "parser.h"
 # include <stdbool.h>
 
 typedef enum e_token_type
@@ -71,6 +75,7 @@ void					sequence(t_parser *parser);
 bool					grammar_check(t_parser *parser);
 
 // AST
+
 void					split_list(t_parser *parser);
 void					tree_simple_command(t_parser *parser);
 

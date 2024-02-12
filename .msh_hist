@@ -130,3 +130,8 @@ ls -l | ls -p
 ls -l | ls -p
 1
 ls -l | ls -p
+ls 
+make ls
+echo william ferreira rocha | ls -l
+lx
+echo william ferreira rocha | ls -l
