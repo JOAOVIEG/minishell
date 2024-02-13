@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:31:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:22:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*get_var_name(char *arg, char *equal);
 t_env	*update_envl(t_env *env, t_env *new, char *name, char *value);
 char	*get_var_value(t_env *env, char *name);
 void	display_exp_var(t_env *env);
-void	unset(char **arg);
-t_env	*unset_var(t_env *head);
+int		unset(char **arg);
+void	backshift(char **env, int start);
+void	update_env_list(char **env);
 #endif
