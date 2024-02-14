@@ -164,3 +164,46 @@ cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
 cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
 cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
 cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+ls -l
+ls -l | cat pwd
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william| ls
+ls -l | cat pwd | echo william| ls
+ls -l | cat pwd | echo william| ls
+ls -l | cat pwd | echo william| ls| ls
+ls -l | cat pwd | echo william| ls| ls
+ls -l | cat pwd | echo william| ls| ls
+ls -l | cat pwd | echo william| ls| ls
+ls -l | cat pwd | echo william| ls| ls
+ls -l | cat pwd
+ls -l | cat pwd
+ls -l | cat pwd
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william | ls
+ls -l | cat pwd | echo william | ls
+ls -l | cat pwd | echo william | ls
+ls -l | cat pwd | echo william | ls | p
+ls -l | cat pwd | echo william | ls | p
+ls -l | cat pwd | echo william | ls | p
+ls -l | cat pwd | echo william | ls | p
+ls -l | cat pwd | echo william | ls | p
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+ls -l | cat pwd | echo william
+echo william | pwd
+echo william | pwd
+echo william | pwd | ls -l
+echo william | pwd | ls -l

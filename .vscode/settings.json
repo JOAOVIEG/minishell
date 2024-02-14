@@ -7,6 +7,7 @@
 		"builtins.h": "c",
 		"lexer.h": "c",
 		"stdbool.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"cstdlib": "c"
 	}
 }

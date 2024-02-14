@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/07 13:58:28 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:36:05 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ t_lst_tokens	*new_node(char *data)
 {
 	t_lst_tokens	*node;
 
-	node = ft_calloc(1, sizeof(t_lst_tokens));
-	if (!node)
-		return (NULL);
+	node = (t_lst_tokens *)ft_calloc_memory(1, sizeof(t_lst_tokens));
 	node->data = ft_strdup(data);
 	if (!node->data)
 	{
