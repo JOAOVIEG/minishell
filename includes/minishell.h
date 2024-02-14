@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/12 18:06:22 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:00:48 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void			build_tree_pipe(t_shell *shell);
 void			free_parser(t_parser *parser);
 t_node			*new_tree_node(t_lst_tokens *tokens);
 t_cmd			*create_cmd_from_string(char *str);
+void			test_build_pipe_tree(t_shell *shell);
 
 // Free shell
 void			reset_tree(void);

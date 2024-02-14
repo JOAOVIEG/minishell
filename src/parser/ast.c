@@ -60,22 +60,34 @@ t_node	*new_tree_node(t_lst_tokens *tokens)
 	tree_node->right = NULL;
 	return (tree_node);
 }
-void	print_tree_node(t_node *tree_node)
-{
-	int	i;
 
-	if (tree_node == NULL || tree_node->cmd == NULL)
-	{
-		printf("Error: tree_node or tree_node->cmd is NULL\n");
-		return ;
-	}
-	i = 0;
-	while (tree_node->cmd->arg[i])
-	{
-		printf("%s\n", tree_node->cmd->arg[i]);
-		i++;
-	}
+
+void print_tree(t_node *node, int depth, char* side)
+{
+    if (node == NULL)
+        return;
+
+    // Print the indentation
+    for (int i = 0; i < depth; i++)
+        printf("\t");
+
+    // Print the side (left or right)
+    printf("├──%s(", side);
+
+    // Print the command
+    for (int i = 0; node->cmd->arg[i] != NULL; i++)
+    {
+        printf("%s ", node->cmd->arg[i]);
+    }
+
+    printf(")\n");
+
+    // Recursively print the left and right children
+    print_tree(node->left, depth + 1, "left");
+    print_tree(node->right, depth + 1, "right");
 }
+
+
 
 void	build_tree_simple_command(t_shell *shell)
 {
@@ -95,11 +107,6 @@ void	build_tree(t_shell *shell)
     if (shell->parser->pipe_count == 0)
         build_tree_simple_command(shell);
     else if (shell->parser->pipe_count > 0)
-        build_tree_pipe(shell); 
-    printf("Root node:\n");
-    print_tree_node(shell->node);
-    printf("left node:\n");
-    print_tree_node(shell->node->left);
-    printf("right node:\n");
-    print_tree_node(shell->node->right);
+        test_build_pipe_tree(shell);
+    print_tree(shell->node, 0, "root");
 }

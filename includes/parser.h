@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/12 18:07:22 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:56:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_token_type
 	TYPE_QUOTES,
 	TYPE_ENV_VAR
 }						t_token_type;
+
 
 typedef struct s_lst_tokens
 {

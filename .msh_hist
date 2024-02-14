@@ -135,3 +135,32 @@ make ls
 echo william ferreira rocha | ls -l
 lx
 echo william ferreira rocha | ls -l
+ls -l
+ls =l | echo william
+ls l | echo william
+ls -l | grep ".txt"
+ps aux | sort -nrk 3,3 | head -n 5
+ls -l | grep ".txt"
+ls -l | grep ".txt"
+ps aux | sort -nrk 3,3 | head -n 5
+ps aux | sort -nrk 3,3 | head -n 5
+ps aux | sort -nrk 3,3 | head -n 5
+ps aux | sort -nrk 3,3 | head -n 5
+ps aux | sort -nrk 3,3 | head -n 5
+cat text.txt | tr -s ' ' '\n' | sort | uniq
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+ps aux | sort -nrk 3,3 
+ echo william | ls -l
+ echo william | ls -l | echo ill\
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+ls 
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
+cat text.txt | tr -s ' ' '\n' | sort | uniq | ls -l | -p
