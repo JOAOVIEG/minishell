@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/13 20:22:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:13:20 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	update_oldpwd(t_env *oldpwd_var, char *oldpwd);
 void	echo(char **cmd);
 void	pwd(void);
 void	env(void);
-void	exit_shell(char **arg);
+void	exit_shell(int status);
 void	free_env();
 void	export(char **arg);
 char	*get_equal(char *arg);
