@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:06:20 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/05 18:51:18 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:35:06 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@ t_lexer	*init_lexer(void)
 {
 	t_lexer	*lexer;
 
-	lexer = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
-	if (!lexer)
-	{
-		perror("Error allocating memory for lexer\n");
-		exit(EXIT_FAILURE);
-	}
+	lexer = (t_lexer *)ft_calloc_memory(1, sizeof(t_lexer));
 	lexer->ntoks = 0;
 	lexer->input = NULL;
 	lexer->tokens = NULL;
@@ -39,10 +34,8 @@ void	tokenize_input(char *input, t_lexer *lexer)
 	i = 0;
 	while (lexer->tokens[i] != NULL)
 	{
-		//printf("Token: %s\n", lexer->tokens[i]);
 		lexer->ntoks++;
 		i++;
 	}
-	//printf("Number of tokens: %d\n", lexer->ntoks);
 	free(input);
 }

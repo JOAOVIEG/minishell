@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:32:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/04 17:17:22 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:36:40 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	define_type(t_lst_tokens *current, t_lst_tokens *prev)
 }
 
 void	get_token_type(t_lst_tokens *tokens)
-{// free(parser->tokens)
+{
 	t_lst_tokens	*current;
 	t_lst_tokens	*prev;
 

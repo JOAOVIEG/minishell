@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/12 16:51:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:58:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
-		ft_execute(shell()->node);
+		//ft_execute(shell()->node);
 		reset_tree();
 	}
 	write_history(".msh_hist"); // ILLEGAL FUNCTIONS

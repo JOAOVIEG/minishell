@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/09 16:04:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:08:40 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ void			get_var(t_env *new, char *envp, char *equal_pos);
 void			ignore_signals(void);
 void			read_input(void);
 t_shell			*shell(void);
-
-// for use  of the parser
-void			parser(t_shell *shell);
-void			build_tree(t_shell *shell);
-void			build_tree_simple_command(t_shell *shell);
-void			free_parser(t_parser *parser);
 
 // Free shell
 void			reset_tree(void);

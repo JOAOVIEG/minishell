@@ -6,29 +6,33 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/14 19:50:20 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:56:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
-typedef	struct s_cmd
+# include "minishell.h"
+# include "parser.h"
+
+typedef struct s_cmd
 {
-	char	**arg;
-	char	*path;
-	char	**cmd_path;
-	char	*valid_cmd_path;
-}			t_cmd;
+	char			**arg;
+	char			*path;
+	char			**cmd_path;
+	char			*valid_cmd_path;
+}					t_cmd;
 
 typedef struct s_node
 {
 	t_cmd			*cmd;
+	t_token_type	type;
 	int				fd_in;
 	int				fd_out;
 	struct s_node	*left;
 	struct s_node	*right;
-}			t_node;
+}					t_node;
 
 void	ft_execute(t_node *node);
 void	ft_simple_cmds(t_node *node);

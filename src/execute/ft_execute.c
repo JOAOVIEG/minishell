@@ -6,16 +6,16 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/15 14:18:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:01:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // # include "../../includes/lexer.h"
 // # include "../../includes/parser.h"
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void ft_simple_cmds(t_node *node)
-{	
+void	ft_simple_cmds(t_node *node)
+{
 	/*if is a bultin executes builtin.
 	else, ecxecutes form path*/
 	if (is_builtin(node) == 1)
@@ -94,8 +94,8 @@ int	redirections(int fd_i, int fd_o)
 
 int	redirect_in(int fd_i)
 {
-	int red_i;
-	
+	int	red_i;
+
 	if (fd_i == STDIN_FILENO)
 		return (STDIN_FILENO);
 	else
@@ -109,8 +109,8 @@ int	redirect_in(int fd_i)
 
 int	redirect_out(int fd_o)
 {
-	int red_o;
-	
+	int	red_o;
+
 	if (fd_o == STDOUT_FILENO)
 		return (STDOUT_FILENO);
 	else

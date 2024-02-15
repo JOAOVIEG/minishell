@@ -6,10 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:02:43 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 16:46:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:03:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../../includes/minishell.h"
 #include "../../../includes/minishell.h"
 
 void	echo(char **cmd)
@@ -18,6 +19,7 @@ void	echo(char **cmd)
 	int	i;
 
 	newline = 1;
+	i = 1;
 	i = 1;
 	if (cmd[i] && ft_strcmp(cmd[i], "-n") == 0)
 	{
