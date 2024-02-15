@@ -1,28 +1,47 @@
 
 #include "../../includes/minishell.h"
 
-t_node	*init_pipe_node(void)
+t_node	*create_node(t_token_type type, t_cmd *cmd, t_node *left, t_node *right)
 {
-	t_node	*pipe_node;
-	t_cmd	*cmd;
+	t_node	*node;
 
-	pipe_node = (t_node *)ft_calloc_memory(1, sizeof(t_node));
-	cmd = (t_cmd *)ft_calloc_memory(1, sizeof(t_cmd));
-	cmd->arg = (char **)ft_calloc_memory(2, sizeof(char *));
-	cmd->arg[0] = ft_strdup("|");
-	cmd->arg[1] = NULL;
-	pipe_node->type = TYPE_PIPE;
-	pipe_node->cmd = cmd;
-	return (pipe_node);
+	node = (t_node *)ft_calloc_memory(1, sizeof(t_node));
+	node->type = type;
+	node->cmd = cmd;
+	node->left = left;
+	node->right = right;
+	return (node);
 }
 
-t_node	*create_pipe_node(t_node *rightmost_node, t_node *new_node)
+t_node	*init_pipe_node(void)
+{
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)ft_calloc_memory(1, sizeof(t_cmd));
+	if (!cmd)
+	{
+		return (NULL);
+	}
+	cmd->arg = (char **)ft_calloc_memory(2, sizeof(char *));
+	if (!cmd->arg)
+	{
+		free(cmd);
+		return (NULL);
+	}
+	cmd->arg[0] = ft_strdup("|");
+	cmd->arg[1] = NULL;
+	return (create_node(TYPE_PIPE, cmd, NULL, NULL));
+}
+
+t_node	*create_pipe_node(t_node *left, t_node *right)
 {
 	t_node	*pipe_node;
 
 	pipe_node = init_pipe_node();
-	pipe_node->left = rightmost_node;
-	pipe_node->right = new_node;
+	if (!pipe_node)
+		return (NULL);
+	pipe_node->left = left;
+	pipe_node->right = right;
 	return (pipe_node);
 }
 
@@ -66,6 +85,8 @@ t_lst_tokens	*get_cmd_tokens(t_lst_tokens **current)
 	while (*current != NULL && (*current)->type != TYPE_PIPE)
 	{
 		new_token = ft_calloc_memory(1, sizeof(t_lst_tokens));
+		if (!new_token)
+			return (NULL);
 		new_token->data = ft_strdup((*current)->data);
 		if (!new_token->data)
 		{
@@ -105,8 +126,12 @@ void	build_pipe_tree(t_shell *shell)
 	while (current != NULL)
 	{
 		cmd_tokens = get_cmd_tokens(&current);
+		if (!cmd_tokens)
+			return ;
 		new_node = create_new_node(&cmd_tokens);
-		if (tree_root == NULL)
+		if (!new_node)
+			return ;
+		if (!tree_root)
 		{
 			tree_root = new_node;
 			rightmost_node = new_node;
@@ -114,25 +139,10 @@ void	build_pipe_tree(t_shell *shell)
 		else
 			update_tree_root(&tree_root, &rightmost_node,
 				create_pipe_node(rightmost_node, new_node));
-		if (current != NULL && current->type == TYPE_PIPE)
+		if (current && current->type == TYPE_PIPE)
 			current = current->next;
 	}
 	shell->node = tree_root;
-}
-
-int	lst_token_size(t_lst_tokens *tokens)
-{
-	int				count;
-	t_lst_tokens	*current;
-
-	count = 0;
-	current = tokens;
-	while (current != NULL)
-	{
-		count++;
-		current = current->next;
-	}
-	return (count);
 }
 
 t_cmd	*create_cmd(t_lst_tokens *tokens)
@@ -158,18 +168,12 @@ t_cmd	*create_cmd(t_lst_tokens *tokens)
 
 t_node	*new_tree_node(t_lst_tokens *tokens)
 {
-	t_node	*tree_node;
+	t_cmd	*cmd;
 
-	tree_node = (t_node *)ft_calloc_memory(1, sizeof(t_node));
-	tree_node->cmd = create_cmd(tokens);
-	if (!tree_node->cmd)
-	{
-		free(tree_node);
+	cmd = create_cmd(tokens);
+	if (!cmd)
 		return (NULL);
-	}
-	tree_node->left = NULL;
-	tree_node->right = NULL;
-	return (tree_node);
+	return (create_node(TYPE_COMMAND, cmd, NULL, NULL));
 }
 
 void	build_tree_simple_command(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 17:06:06 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:33:54 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ bool					grammar_check(t_parser *parser);
 // AST
 void					lst_tokenadd_back(t_lst_tokens **lst,
 							t_lst_tokens **tail, t_lst_tokens *new);
+int						lst_token_size(t_lst_tokens *tokens);
 void					parser(t_shell *shell);
 void					build_tree(t_shell *shell);
 void					build_tree_simple_command(t_shell *shell);
