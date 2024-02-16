@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/09 15:31:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:21:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
+
 
 void	cd(char *path);
 char	*get_home_var(char *path);
@@ -38,4 +39,6 @@ char	*get_var_value(t_env *env, char *name);
 void	display_exp_var(t_env *env);
 void	unset(char **arg);
 t_env	*unset_var(t_env *head);
+int		is_builtin();
+void	exec_builtin();
 #endif

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/10 17:13:38 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:24:16 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
-		//ft_execute(shell()->node);
+		// ft_execute();
 		reset_tree();
 	}
 	write_history(".msh_hist"); // ILLEGAL FUNCTIONS
