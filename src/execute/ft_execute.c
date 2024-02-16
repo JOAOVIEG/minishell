@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/15 15:01:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:50:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,53 +28,61 @@ void	ft_simple_cmds(t_node *node)
 
 void	ft_exec_piped(t_node *node)
 {
-	int		pipe_end[2];
-	int		status;
-	pid_t	left_pid;
-	pid_t	right_pid;
+    int		pipe_end[2];
+    pid_t	left_pid;
+    pid_t	right_pid;
 
-	if (pipe(pipe_end) < 0)
-	{
-		perror("Error at pipe");
-		exit_shell(1);
-	}
-	node->left->fd_in = node->fd_in;
-	close(node->fd_in);
-	node->left->fd_out = pipe_end[1];
-	node->right->fd_in = pipe_end[0];
-	node->right->fd_out = node->fd_out;
-	close(node->fd_out);
+    if (pipe(pipe_end) < 0)
+    {
+        perror("Error at pipe");
+        exit_shell(1);
+    }
+    node->left->fd_in = node->fd_in;
+    node->left->fd_out = pipe_end[1];
+    node->right->fd_in = pipe_end[0];
+    node->right->fd_out = node->fd_out;
 	if ((left_pid = fork()) < 0)
 	{
-		perror("Error at left fork");
+		perror("left fork failed");
 		exit_shell(2);
 	}
-	else if (left_pid == 0)
-	{
-		close(pipe_end[0]);
-		ft_execute(node->left);
-		// close(pipe[1]);
-		exit_shell(3);
-	}
+    if (left_pid == 0)
+    {
+        close(pipe_end[0]);
+        if (is_builtin(node->left) == 1)
+        {
+            dup2(node->left->fd_out, STDOUT_FILENO);
+            exec_builtin(node->left);
+        }
+        else if (is_builtin(node->left) == 2)
+        {
+            ft_execute(node->left);
+        }
+        exit(0);
+    }
 	if ((right_pid = fork()) < 0)
 	{
-		perror("Error at right fork");
-		exit_shell(4); 
+		perror("right fork failed");
+		exit_shell(3);
 	}
-	else if (right_pid == 0)
-	{
-		close(pipe_end[1]);
-		ft_execute(node->right);
-		// close(pipe_end[0]);
-		exit_shell(5);
-	}
-	close(pipe_end[1]);
-	close(pipe_end[0]);
-	waitpid(left_pid, NULL, 0);
-	waitpid(right_pid, &status, 0);
-	exit_shell((int)right_pid);
-	close(node->left->fd_out);
-	close(node->right->fd_in);
+    if (right_pid == 0)
+    {
+        close(pipe_end[1]);
+        if (is_builtin(node->right) == 1)
+        {
+            dup2(node->right->fd_in, STDIN_FILENO);
+            exec_builtin(node->right);
+        }
+        else if (is_builtin(node->right) == 2)
+        {
+            ft_execute(node->right);
+        }
+        exit(0);
+    }
+    close(pipe_end[0]);
+    close(pipe_end[1]);
+    waitpid(left_pid, NULL, 0);
+    waitpid(right_pid, NULL, 0);
 }
 
 void	close_fds(int fd_i, int fd_o)
@@ -127,10 +135,10 @@ void	ft_execute(t_node *node)
 	/*Initializing the new variables fd_in and out for the
 	simpliest case: one node cmd. Already taking into account pipe
 	and other cases than simple commands*/
-	shell()->node->fd_in = 0;
-	shell()->node->fd_out = 1;
-	/*if node is of type cmd*/
-	ft_simple_cmds(node);
-	/*if node is of type pipe*/
-	// ft_exec_piped(node);
+	/*shell()->node->fd_in = 0;
+	shell()->node->fd_out = 1;*/
+	if (node->type == TYPE_COMMAND)
+		ft_simple_cmds(node);
+	if (node->type == TYPE_PIPE)
+		ft_exec_piped(node);
 }

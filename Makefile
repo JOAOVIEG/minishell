@@ -52,7 +52,7 @@ run: re
 	@./$(NAME)
 
 v: re
-	valgrind --suppressions=readline.supp --leak-check=full --trace-children=yes --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME)
+	valgrind --suppressions=readline.supp --leak-check=full  --show-leak-kinds=all --trace-children=yes --track-origins=yes --track-fds=yes ./$(NAME)
 # @./$(NAME) | cat -e
 
 .PHONY: all clean fclean re v

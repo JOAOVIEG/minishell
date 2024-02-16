@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/15 14:56:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:47:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		redirections(int fd_i, int fd_o);
 int		redirect_in(int fd_i);
 int		redirect_out(int fd_o);
 void	close_fds(int fd_i, int fd_o);
-void	check_path(char **env);
+void	check_path(char **env, t_node *node);
 char	*get_path(char **env);
 void	free_c_env(char **env);
 char	*get_cmd(char **cmd_path, char *cmd);

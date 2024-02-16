@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/14 15:13:20 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:33:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	cd(char *path);
 char	*get_home_var(char *path);
 void	update_pwd(t_env *pwd);
 void	update_oldpwd(t_env *oldpwd_var, char *oldpwd);
-void	echo(char **cmd);
+int		echo(char **cmd);
 void	pwd(void);
 void	env(void);
 void	exit_shell(int status);

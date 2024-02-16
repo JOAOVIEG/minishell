@@ -42,6 +42,8 @@ t_node	*create_pipe_node(t_node *left, t_node *right)
 		return (NULL);
 	pipe_node->left = left;
 	pipe_node->right = right;
+	pipe_node->fd_in = 0;
+	pipe_node->fd_out = 1;
 	return (pipe_node);
 }
 
@@ -180,8 +182,8 @@ void	build_tree_simple_command(t_shell *shell)
 {
 	shell->node = new_tree_node(shell->parser->tokens);
 	shell->node->type = TYPE_COMMAND;
-	shell->node->fd_in = dup(0);
-	shell->node->fd_out = dup(1);
+	shell->node->fd_in = 0;
+	shell->node->fd_out = 1;
 }
 
 void	build_tree(t_shell *shell)
@@ -190,5 +192,5 @@ void	build_tree(t_shell *shell)
 		build_tree_simple_command(shell);
 	else if (shell->parser->pipe_count > 0)
 		build_pipe_tree(shell);
-	print_tree(shell->node, 0, "root");
+	// print_tree(shell->node, 0, "root");
 }

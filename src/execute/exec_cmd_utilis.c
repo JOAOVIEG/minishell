@@ -6,17 +6,17 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/14 11:40:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/16 11:47:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
-void	check_path(char **env)
+void	check_path(char **env, t_node *node)
 {
-	shell()->node->cmd->path = get_path(env);
-	if (shell()->node->cmd->path)
-		shell()->node->cmd->cmd_path = ft_split(shell()->node->cmd->path, \
+	node->cmd->path = get_path(env);
+	if (node->cmd->path)
+		node->cmd->cmd_path = ft_split(node->cmd->path, \
 			':');
 }
 

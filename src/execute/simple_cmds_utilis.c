@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/14 19:53:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/16 13:55:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_builtin(t_node *node)
 			ft_strcmp(cmd, "unset") == 0 || \
 			ft_strcmp(cmd, "env") == 0 || \
 			ft_strcmp(cmd, "exit") == 0)
-		return (1);
+			return (1);
 	return (2);
 }
 
@@ -58,7 +58,7 @@ void	exec_cmd(t_node *node)
 	pid_t	pid;
 	
 	env = env_list_to_arr();
-	check_path(env);
+	check_path(env, node);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -69,24 +69,24 @@ void	exec_cmd(t_node *node)
 	}
 	else if (pid == 0)
 	{
-		if ((shell()->node->cmd->valid_cmd_path = get_cmd(shell()->node->cmd->cmd_path, \
-				shell()->node->cmd->arg[0])) == NULL)
+		if ((node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, \
+				node->cmd->arg[0])) == NULL)
 		{
 			//free_env();
 			free_c_env(env);
 			// free_cmd_paths(shell()->node->cmd->cmd_path);
-			free(shell()->node->cmd->valid_cmd_path);
-			shell()->node->cmd->valid_cmd_path = NULL;
+			free(node->cmd->valid_cmd_path);
+			node->cmd->valid_cmd_path = NULL;
 			exit(EXIT_FAILURE);
 		}
 		redirections(node->fd_in, node->fd_out);
-		if (execve(shell()->node->cmd->valid_cmd_path, shell()->node->cmd->arg, env) < 0)
+		if (execve(node->cmd->valid_cmd_path, node->cmd->arg, env) < 0)
 		{
 			// free_env();
 			free_c_env(env);
 			// free_cmd_paths(shell()->node->cmd->cmd_path);
-			free(shell()->node->cmd->valid_cmd_path);
-			shell()->node->cmd->valid_cmd_path = NULL;
+			free(node->cmd->valid_cmd_path);
+			node->cmd->valid_cmd_path = NULL;
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -96,12 +96,12 @@ void	exec_cmd(t_node *node)
 		waitpid(pid, &status, 0);
 		// free_env();
 		free_c_env(env);
-		if (shell()->node->cmd->cmd_path)
-			free_cmd_paths(shell()->node->cmd->cmd_path);
-		if (shell()->node->cmd->valid_cmd_path)
+		if (node->cmd->cmd_path)
+			free_cmd_paths(node->cmd->cmd_path);
+		if (node->cmd->valid_cmd_path)
 		{
-			free(shell()->node->cmd->valid_cmd_path);
-			shell()->node->cmd->valid_cmd_path = NULL;
+			free(node->cmd->valid_cmd_path);
+			node->cmd->valid_cmd_path = NULL;
 		}
 	}
 }
