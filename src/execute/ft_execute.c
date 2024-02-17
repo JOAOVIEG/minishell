@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/17 13:51:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/17 14:33:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ ft_exec_redirectin(t_node *node)
 	{
 		if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
 		{
-			dup2(node->right->fd_in, STDIN_FILENO);
+			dup2(node->right->right, STDIN_FILENO);
+			if (node->right->fd_out != STDOUT_FILENO);
+				dup2(node->right->fd_out, STDOUT_FILENO);
 			exec_builtin(node->right);
 		}
 		else if (is_builtin(node->right) == 2)
