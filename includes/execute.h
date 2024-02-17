@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/16 11:47:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/17 14:50:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ void	free_c_env(char **env);
 char	*get_cmd(char **cmd_path, char *cmd);
 char	*validate_cmd(char **cmd_paths, char *cmd);
 void	ft_exec_piped(t_node *node);
+void	ft_exec_redirect(t_node *node);
 #endif

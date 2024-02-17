@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/17 14:33:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/17 14:47:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_exec_piped(t_node *node)
     waitpid(right_pid, NULL, 0);
 }
 
-ft_exec_redirectin(t_node *node)
+void	ft_exec_redirect(t_node *node)
 {
 	pid_t	right_node;
 	node->right->fd_in = node->fd_in;
@@ -99,9 +99,7 @@ ft_exec_redirectin(t_node *node)
 	{
 		if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
 		{
-			dup2(node->right->right, STDIN_FILENO);
-			if (node->right->fd_out != STDOUT_FILENO);
-				dup2(node->right->fd_out, STDOUT_FILENO);
+			redirections(node->right->fd_in, node->right->fd_out);
 			exec_builtin(node->right);
 		}
 		else if (is_builtin(node->right) == 2)
@@ -112,6 +110,33 @@ ft_exec_redirectin(t_node *node)
 	close_fds(node->right->fd_in, node->right->fd_out);
 	waitpid(right_node, NULL, 0);
 }
+
+// void	ft_exec_redirectout(t_node *node)
+// {
+// 	pid_t	right_node;
+// 	node->right->fd_in = node->fd_in;
+// 	node->right->fd_out = node->fd_out;
+// 	if ((right_node = fork()) < 0)
+// 	{
+// 		perror("right_node fork failed");
+// 		exit_shell(0);
+// 	}
+// 	if (right_node == 0)
+// 	{
+// 		if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
+// 		{
+// 			redirections(node->right->fd_in, node->right->fd_out);
+// 			exec_builtin(node->right);
+// 		}
+// 		else if (is_builtin(node->right) == 2)
+// 			ft_execute(node->right);
+// 		exit_shell(1);
+// 	}
+// 	close_fds(node->fd_in, node->fd_out);
+// 	close_fds(node->right->fd_in, node->right->fd_out);
+// 	waitpid(right_node, NULL, 0);
+	
+// }
 
 void	close_fds(int fd_i, int fd_o)
 {
