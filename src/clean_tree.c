@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/09 16:54:39 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:51:34 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ void	free_tree_node(t_node **tree_node)
     {
         free_tree_node(&(*tree_node)->right);
         (*tree_node)->right = NULL;
+    }
+    if ((*tree_node)->fd_in)
+    {
+        close((*tree_node)->fd_in);
+        (*tree_node)->fd_in = 0;
+    }
+    if ((*tree_node)->fd_out)
+    {
+        close((*tree_node)->fd_out);
+        (*tree_node)->fd_out = 0;
     }
     free(*tree_node);
     *tree_node = NULL;

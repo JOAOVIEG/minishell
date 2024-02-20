@@ -277,3 +277,165 @@ cmd > file
 > file cmd
 > file cmd0 cmd1
 > file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd < file
+cmd < file
+cmd < file
+cmd < file
+cmd < file
+cmd < file
+> file cmd0 cmd1 cmd2
+ls | ls
+cmd > file
+< file cmd
+cmd > file
+cmd cmd1  > file
+cmd cmd1  > file
+< file cmd
+< file cmd
+cmd cmd1  > file
+< file cmd
+< file cmd
+cmd cmd1  > file
+cmd cmd1  > file
+< file cmd
+< file cmd
+cmd cmd1  > file
+< file cmd
+cmd cmd1  > file
+< file cmd
+cmd cmd1  > file
+< file cmd
+cmd cmd1  > file
+cmd cmd1  > file
+< file cmd
+cmd cmd1  > file
+< file cmd
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1  > file
+cmd cmd1  > file
+> file cmd0 cmd1 cmd2
+cmd cmd1  > file
+cmd cmd1  > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1  > file
+cmd cmd1  > file
+cmd cmd1 cmd2  > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 cmd2  > file
+cmd cmd1 cmd2  > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1 cmd2
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1 cmd2
+> file cmd0 cmd1
+> file cmd0 cmd1
+cmd cmd1 > file
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+cmd cmd1 > file
+cmd cmd1 > file
+cmd cmd1 | cmd2 cmd3
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+cmd cmd1 | cmd2 cmd3
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1
+> file cmd0 cmd1
+cmd cmd1 > file
+cmd cmd1 > file
+> file cmd0 cmd1
+cmd cmd1 > file
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+> file cmd0 cmd1
+.so)
+==73090==    by 0x10C235: env_cpy (env_init.c:59)
+.so)
+==73090==    by 0x10C235: env_cpy (env_init.c:59)
+.so)
+==73090==    by 0x10C235: env_cpy (env_init.c:59)
+cmd > file
+> file cmd

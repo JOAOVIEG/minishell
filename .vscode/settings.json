@@ -8,6 +8,7 @@
 		"lexer.h": "c",
 		"stdbool.h": "c",
 		"stdlib.h": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"random": "c"
 	}
 }

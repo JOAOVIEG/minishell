@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/19 16:21:19 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:29:13 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_parser
 {
 	t_lst_tokens		*tokens;
 	int					pipe_count;
-	int 				redir_count;
+	int					redir_count;
 	t_buffer			*buffer;
 
 }						t_parser;
@@ -91,5 +91,30 @@ void					print_tree(t_node *node, int space, char *type);
 void					reset_parser(t_parser *parser);
 void					free_lst_tokens(t_lst_tokens *tokens);
 void					free_parser(t_parser *parser);
+
+// need replace these functions
+
+t_node					*create_node(t_token_type type, t_cmd *cmd,
+							t_node *left, t_node *right);
+t_node					*init_pipe_node(void);
+t_node					*init_redir_node(void);
+t_node					*create_pipe_node(t_node *left, t_node *right);
+t_node					*create_redir_node(t_node *redirection_node,
+							t_node *right);
+t_node					*find_parent(t_node *root, t_node *node);
+void					update_tree_root(t_node **tree_root,
+							t_node **rightmost_node, t_node *pipe_node);
+t_lst_tokens			*get_cmd_tokens(t_lst_tokens **current);
+t_node					*create_new_node(t_lst_tokens **cmd_tokens);
+t_node					*create_node_and_update_tree(t_node **tree_root,
+							t_node **rightmost_node, t_lst_tokens **cmd_tokens);
+t_node					*create_node_and_update_redir_tree(t_node **tree_root,
+							t_node **rightmost_node, t_lst_tokens **cmd_tokens);
+void					open_file(t_node *node);
+t_cmd					*create_cmd(t_lst_tokens *tokens);
+void					build_pipe_tree(t_shell *shell);
+void					build_tree_simple_command(t_shell *shell);
+void					build_tree(t_shell *shell);
+void					build_redir_tree(t_shell *shell);
 
 #endif
