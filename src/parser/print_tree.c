@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:48:08 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 16:48:59 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:55:16 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	print_type(int type)
 		printf("TYPE_COMMAND\n");
 	else if (type == TYPE_PIPE)
 		printf("TYPE_PIPE\n");
+	else if (type == TYPE_REDIRECT)
+		printf("TYPE_REDIRECT\n");
+	
 }
 void	print_tree(t_node *node, int depth, char *side)
 {

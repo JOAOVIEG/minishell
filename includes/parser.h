@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 17:33:54 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:21:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_parser
 {
 	t_lst_tokens		*tokens;
 	int					pipe_count;
+	int 				redir_count;
 	t_buffer			*buffer;
 
 }						t_parser;

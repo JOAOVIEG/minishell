@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/08 17:58:45 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:21:38 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_parser	*init_parser(void)
 	// parser->tree = NULL;
 	parser->buffer = NULL;
 	parser->pipe_count = 0;
+	parser->redir_count = 0;
 	return (parser);
 }
 
