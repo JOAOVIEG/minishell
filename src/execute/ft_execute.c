@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/17 14:47:46 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:16:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_exec_piped(t_node *node)
     if (left_pid == 0)
     {
         close(pipe_end[0]);
-        if ((node->right->type == TYPE_COMMAND) && is_builtin(node->left) == 1)
+        if ((node->left->type == TYPE_COMMAND) && is_builtin(node->left) == 1)
         {
             dup2(node->left->fd_out, STDOUT_FILENO);
             exec_builtin(node->left);
