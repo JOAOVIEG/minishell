@@ -6,11 +6,10 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:02:43 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/16 14:38:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:23:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
 #include "../../../includes/minishell.h"
 
 int	echo(char **cmd)

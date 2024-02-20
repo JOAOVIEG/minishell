@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/15 14:58:02 by joaocard         ###   ########.fr       */
+/*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/02/20 16:19:42 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ void	free_tree_node(t_node **tree_node)
     {
         free_tree_node(&(*tree_node)->right);
         (*tree_node)->right = NULL;
+    }
+    if ((*tree_node)->fd_in)
+    {
+        close((*tree_node)->fd_in);
+        (*tree_node)->fd_in = 0;
+    }
+    if ((*tree_node)->fd_out)
+    {
+        close((*tree_node)->fd_out);
+        (*tree_node)->fd_out = 0;
     }
     free(*tree_node);
     *tree_node = NULL;

@@ -5,17 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/17 15:16:58 by joaocard         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/02/20 16:22:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+
+
 // # include "../../includes/lexer.h"
 // # include "../../includes/parser.h"
-#include "../../includes/minishell.h"
+# include "../../includes/minishell.h"
 
-void	ft_simple_cmds(t_node *node)
-{
+void ft_simple_cmds()
+{	
 	/*if is a bultin executes builtin.
 	else, ecxecutes form path*/
 	if (is_builtin(node) == 1)
@@ -25,6 +28,7 @@ void	ft_simple_cmds(t_node *node)
 	else if (is_builtin(node) == 2)
 		exec_cmd(node);
 }
+
 
 void	ft_exec_piped(t_node *node)
 {
@@ -183,7 +187,7 @@ int	redirect_out(int fd_o)
 	return (red_o);
 }
 
-void	ft_execute(t_node *node)
+void	ft_execute(void)
 {
 	/*Initializing the new variables fd_in and out for the
 	simpliest case: one node cmd. Already taking into account pipe

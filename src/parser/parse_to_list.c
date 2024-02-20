@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 16:36:05 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/20 08:34:43 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	add_to_end(t_lst_tokens **head, char *data)
 	temp->next = node;
 }
 
-void	count_pipes(t_parser *parser)
+void	count_pipe_redir(t_parser *parser)
 {
 	t_lst_tokens	*current;
 
@@ -69,6 +69,8 @@ void	count_pipes(t_parser *parser)
 	{
 		if (current->type == TYPE_PIPE)
 			parser->pipe_count++;
+		else if (current->type == TYPE_REDIRECT)
+			parser->redir_count++;
 		current = current->next;
 	}
 }
@@ -86,6 +88,7 @@ void	parse_to_list(t_lexer *lexer, t_parser *parser)
 	}
 	parser->tokens = head;
 	get_token_type(parser->tokens);
-	count_pipes(parser);
+	count_pipe_redir(parser);
+	// print_list(parser->tokens);
 	free_lexer_tokens(lexer);
 }
