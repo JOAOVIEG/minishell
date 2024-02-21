@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:48:08 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/19 16:55:16 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:50:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ void	print_type(int type)
 		printf("TYPE_PIPE\n");
 	else if (type == TYPE_REDIRECT)
 		printf("TYPE_REDIRECT\n");
+	else if (type == TYPE_REDIRECT_IN)\
+		printf("TYPE_REDIRECT_IN\n");
+	else if (type == TYPE_REDIRECT_OUT)
+		printf("TYPE_REDIRECT_OUT\n");
+	else if (type == TYPE_HEREDOC)
+		printf("TYPE_HEREDOC\n");
+	else if (type == TYPE_QUOTES)
+		printf("TYPE_QUOTES\n");
+	else if (type == TYPE_ENV_VAR)
+		printf("TYPE_ENV_VAR\n");
+	else if (type == TYPE_ARG)
+		printf("TYPE_ARG\n");
 	
 }
 void	print_tree(t_node *node, int depth, char *side)

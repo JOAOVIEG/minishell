@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/20 15:29:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:48:11 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef enum e_token_type
 	TYPE_COMMAND,
 	TYPE_ARG,
 	TYPE_REDIRECT,
+	TYPE_REDIRECT_IN,
+	TYPE_REDIRECT_OUT,
 	TYPE_HEREDOC,
 	TYPE_QUOTES,
 	TYPE_ENV_VAR

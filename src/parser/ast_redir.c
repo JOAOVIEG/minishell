@@ -73,6 +73,25 @@ void	open_file(t_node *node)
 		}
 	}
 }
+
+void	define_direction(t_node *node)
+{
+	if (!node)
+		return ;
+	if (node->type == TYPE_REDIRECT)
+	{
+		if (ft_strcmp(node->cmd->arg[0], "<") == 0)
+		{
+			node->type = TYPE_REDIRECT_IN;
+		}
+		else if (ft_strcmp(node->cmd->arg[0], ">") == 0)
+		{
+			node->type = TYPE_REDIRECT_OUT;
+		}
+	}
+	define_direction(node->left);
+	define_direction(node->right);
+}
 void	build_redir_tree(t_shell *shell)
 {
 	t_node *tree_root;
@@ -111,6 +130,7 @@ void	build_redir_tree(t_shell *shell)
 				return ;
 		}
 	}
+	define_direction(tree_root);
 	// open_file(tree_root);
 	shell->node = tree_root;
 }
