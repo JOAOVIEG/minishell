@@ -20,15 +20,8 @@ t_node	*init_redir_node(void)
 
 t_node	*create_redir_node(t_node *redirection_node, t_node *right)
 {
-	t_node	*redir_node;
-
-	redir_node = init_redir_node();
-	if (!redir_node)
-		return (NULL);
-	redir_node = redirection_node;
-	redir_node->left = NULL;
-	redir_node->right = right;
-	return (redir_node);
+	redirection_node->right = right;
+	return (redirection_node);
 }
 
 t_node	*create_node_and_update_redir_tree(t_node **tree_root,
@@ -73,6 +66,25 @@ void	open_file(t_node *node)
 		}
 	}
 }
+void	define_direction(t_node *node)
+{
+	if (!node)
+		return ;
+	
+	if (node->type == TYPE_REDIRECT)
+	{
+		if (ft_strcmp(node->cmd->arg[0], "<") == 0)
+		{
+			node->type = TYPE_REDIRECT_IN;
+		}
+		else if (ft_strcmp(node->cmd->arg[0], ">") == 0)
+		{
+			node->type = TYPE_REDIRECT_OUT;
+		}
+	}
+	define_direction(node->left);
+	define_direction(node->right);
+}
 void	build_redir_tree(t_shell *shell)
 {
 	t_node *tree_root;
@@ -111,6 +123,7 @@ void	build_redir_tree(t_shell *shell)
 				return ;
 		}
 	}
-	open_file(tree_root);
+	define_direction(tree_root);
+	// open_file(tree_root);
 	shell->node = tree_root;
 }

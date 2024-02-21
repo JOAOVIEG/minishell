@@ -439,3 +439,11 @@ cmd cmd1 > file
 ==73090==    by 0x10C235: env_cpy (env_init.c:59)
 cmd > file
 > file cmd
+cmd > file
+< file cmd
+< file cmd
+echo william
+< file cmd
+< file cmd
+cmd >file
+cmd > file
