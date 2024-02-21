@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/15 16:17:20 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:17:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,22 @@ typedef struct s_node
 	struct s_node	*right;
 }					t_node;
 
-void				ft_execute(void);
-void				ft_simple_cmds(void);
-void				exec_cmd(void);
-char				**env_list_to_arr(void);
-void				check_path(char **env);
-char				*get_path(char **env);
-void				free_c_env(char **env);
-char				*get_cmd(char **cmd_path, char *cmd);
-char				*validate_cmd(char **cmd_paths, char *cmd);
+void	ft_execute(t_node *node);
+void	ft_simple_cmds(t_node *node);
+int		is_builtin(t_node *node);
+void	exec_builtin(t_node *node);
+void	exec_cmd(t_node *node);
+void	free_cmd_paths(char **cmd_paths);
+char	**env_list_to_arr();
+int		redirections(int fd_i, int fd_o);
+int		redirect_in(int fd_i);
+int		redirect_out(int fd_o);
+void	close_fds(int fd_i, int fd_o);
+void	check_path(char **env, t_node *node);
+char	*get_path(char **env);
+void	free_c_env(char **env);
+char	*get_cmd(char **cmd_path, char *cmd);
+char	*validate_cmd(char **cmd_paths, char *cmd);
+void	ft_exec_piped(t_node *node);
+void	ft_exec_redirect(t_node *node);
 #endif

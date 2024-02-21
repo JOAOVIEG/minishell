@@ -3,235 +3,199 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 12:33:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/07 17:17:56 by joaocard         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/02/20 16:36:27 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 // # include "../../includes/lexer.h"
 // # include "../../includes/parser.h"
 # include "../../includes/minishell.h"
 
-void ft_simple_cmds()
+void ft_simple_cmds(t_node *node)
 {	
 	/*if is a bultin executes builtin.
 	else, ecxecutes form path*/
-	if (is_builtin())
-		exec_builtin();
-	else
-		exec_cmd();
+	if (is_builtin(node) == 1)
+		exec_builtin(node);
+	else if (is_builtin(node) == 0)
+		return ;
+	else if (is_builtin(node) == 2)
+		exec_cmd(node);
 }
 
 
-int	is_builtin()
+void	ft_exec_piped(t_node *node)
 {
-	char *cmd;
+    int		pipe_end[2];
+    pid_t	left_pid;
+    pid_t	right_pid;
 
-	cmd = shell()->node->cmd->arg[0];
-	if (ft_strcmp(cmd, "cd") == 0 || \
-			ft_strcmp(cmd, "pwd") == 0 || \
-			ft_strcmp(cmd, "echo") == 0 || \
-			ft_strcmp(cmd, "export") == 0 || \
-			ft_strcmp(cmd, "unset") == 0 || \
-			ft_strcmp(cmd, "env") == 0 || \
-			ft_strcmp(cmd, "exit") == 0)
-		return (1);
+    if (pipe(pipe_end) < 0)
+    {
+        perror("Error at pipe");
+        exit_shell(1);
+    }
+    node->left->fd_in = node->fd_in;
+    node->left->fd_out = pipe_end[1];
+    node->right->fd_in = pipe_end[0];
+    node->right->fd_out = node->fd_out;
+	if ((left_pid = fork()) < 0)
+	{
+		perror("left fork failed");
+		exit_shell(2);
+	}
+    if (left_pid == 0)
+    {
+        close(pipe_end[0]);
+        if ((node->left->type == TYPE_COMMAND) && is_builtin(node->left) == 1)
+        {
+            dup2(node->left->fd_out, STDOUT_FILENO);
+            exec_builtin(node->left);
+        }
+        else if (is_builtin(node->left) == 2)
+        {
+            ft_execute(node->left);
+        }
+        exit(0);
+    }
+	if ((right_pid = fork()) < 0)
+	{
+		perror("right fork failed");
+		exit_shell(3);
+	}
+    if (right_pid == 0)
+    {
+        close(pipe_end[1]);
+        if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
+        {
+            dup2(node->right->fd_in, STDIN_FILENO);
+            exec_builtin(node->right);
+        }
+        else if (is_builtin(node->right) == 2)
+        {
+            ft_execute(node->right);
+        }
+        exit_shell(0);
+    }
+    close(pipe_end[0]);
+    close(pipe_end[1]);
+    waitpid(left_pid, NULL, 0);
+    waitpid(right_pid, NULL, 0);
+}
+
+void	ft_exec_redirect(t_node *node)
+{
+	pid_t	right_node;
+	node->right->fd_in = node->fd_in;
+	node->right->fd_out = node->fd_out;
+	if ((right_node = fork()) < 0)
+	{
+		perror("right_node fork failed");
+		exit_shell(0);
+	}
+	if (right_node == 0)
+	{
+		if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
+		{
+			redirections(node->right->fd_in, node->right->fd_out);
+			exec_builtin(node->right);
+		}
+		else if (is_builtin(node->right) == 2)
+			ft_execute(node->right);
+		exit_shell(1);
+	}
+	close_fds(node->fd_in, node->fd_out);
+	close_fds(node->right->fd_in, node->right->fd_out);
+	waitpid(right_node, NULL, 0);
+}
+
+// void	ft_exec_redirectout(t_node *node)
+// {
+// 	pid_t	right_node;
+// 	node->right->fd_in = node->fd_in;
+// 	node->right->fd_out = node->fd_out;
+// 	if ((right_node = fork()) < 0)
+// 	{
+// 		perror("right_node fork failed");
+// 		exit_shell(0);
+// 	}
+// 	if (right_node == 0)
+// 	{
+// 		if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
+// 		{
+// 			redirections(node->right->fd_in, node->right->fd_out);
+// 			exec_builtin(node->right);
+// 		}
+// 		else if (is_builtin(node->right) == 2)
+// 			ft_execute(node->right);
+// 		exit_shell(1);
+// 	}
+// 	close_fds(node->fd_in, node->fd_out);
+// 	close_fds(node->right->fd_in, node->right->fd_out);
+// 	waitpid(right_node, NULL, 0);
+	
+// }
+
+void	close_fds(int fd_i, int fd_o)
+{
+	if (fd_i != STDIN_FILENO)
+		close(fd_i);
+	if (fd_o != STDOUT_FILENO)
+		close(fd_o);
+}
+
+int	redirections(int fd_i, int fd_o)
+{
+	if (redirect_in(fd_i) == -1 || redirect_out(fd_o) == -1)
+		return (-1);
 	return (0);
 }
 
-void	exec_builtin()
+int	redirect_in(int fd_i)
 {
-	char **cmd;
+	int	red_i;
 
-	cmd = shell()->node->cmd->arg;
-	if (ft_strcmp(cmd[0], "cd") == 0)
-		cd (cmd[1]);
-	if (ft_strcmp(cmd[0], "pwd") == 0)
-		pwd();
-	if (ft_strcmp(cmd[0], "echo") == 0)
-		echo(cmd);
-	if (ft_strcmp(cmd[0], "export") == 0)
-		export(cmd);
-	if (ft_strcmp(cmd[0], "exit") == 0)
-		exit_shell(cmd);
-	if (ft_strcmp(cmd[0], "unset") == 0)
-		unset(cmd);
-	if (ft_strcmp(cmd[0], "env") == 0)
-		env();
-}
-
-void	exec_cmd()
-{
-	char	**env;
-	pid_t	pid;
-	
-	env = env_list_to_arr();
-	check_path(env);
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("Error forking");
-		free_env();
-		free_c_env(env);
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		if ((shell()->node->cmd->valid_cmd_path = get_cmd(shell()->node->cmd->cmd_path, \
-				shell()->node->cmd->arg[0])) == NULL)
-		{
-			free_env();
-			free_c_env(env);
-			exit(EXIT_FAILURE);
-		}
-		if (execve(shell()->node->cmd->valid_cmd_path, shell()->node->cmd->arg, env) < 0)
-		{
-			free_env();
-			free_c_env(env);
-			exit(EXIT_FAILURE);
-		}
-	}
+	if (fd_i == STDIN_FILENO)
+		return (STDIN_FILENO);
 	else
 	{
-		wait(NULL);
-		free_env();
-		free_c_env(env);
+		if ((red_i = dup2(fd_i, STDIN_FILENO)) < 0)
+			return (-1);
+		close(fd_i);
 	}
-	exit(EXIT_SUCCESS);
+	return (red_i);
 }
 
-void	free_c_env(char **env)
+int	redirect_out(int fd_o)
 {
-	int i;
+	int	red_o;
 
-	i = 0;
-	while (env && env[i])
-	{
-		free(env[i]);
-		i++;
-	}
-	free(env);
-	env = NULL;
-}
-
-char	**env_list_to_arr()
-{
-	int		count;
-	int		i;
-	t_env	*current;
-	char	**envp;
-	char *tmp;
-
-	count = 0;
-	i = 0;
-	current = shell()->v_env;
-	while (current != NULL)
-	{
-		count++;
-		current = current->next;
-	}
-	envp = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!envp)
-	{
-		perror("malloc envp");
-		exit(EXIT_FAILURE);
-	}
-	current = shell()->v_env;
-	while ( i < count)
-	{
-		tmp = ft_strjoin(current->name, "=");
-		envp[i] = ft_strjoin(tmp, current->value);
-		if (!envp[i])
-		{
-			perror("malloc envp[i]");
-			free_env();
-			free_c_env(envp);
-			exit(EXIT_FAILURE);
-		}
-		free(tmp);
-		i++;
-		current = current->next;
-	}
-	tmp = NULL;
-	envp[i] = NULL;
-	return (envp);
-}
-
-void	check_path(char **env)
-{
-	shell()->node->cmd->path = get_path(env);
-	if (shell()->node->cmd->path)
-		shell()->node->cmd->cmd_path = ft_split(shell()->node->cmd->path, \
-			':');
-}
-
-char	*get_path(char **env)
-{
-	if (*env == NULL)
-	{
-		perror("ERROR env at path");
-		free_env();
-		free_c_env(env);
-		exit(EXIT_FAILURE);
-	}
+	if (fd_o == STDOUT_FILENO)
+		return (STDOUT_FILENO);
 	else
 	{
-		while (*env && ft_strncmp("PATH", *env, 4))
-			env++;
-		if (*env == NULL)
-		{
-			perror("ERROR finding PATH");
-			free_env();
-			free_c_env(env);
-			exit(EXIT_FAILURE);
-		}
+		if ((red_o = dup2(fd_o, STDOUT_FILENO)) < 0)
+			return (-1);
+		close(fd_o);
 	}
-	return (*env + 5);
+	return (red_o);
 }
 
-char *get_cmd(char **cmd_path, char *cmd)
+void	ft_execute(t_node *node)
 {
-	if (*cmd && cmd[0] == '/')
-	{
-		if (access(cmd, F_OK) == 0)
-			return (cmd);
-		else
-			perror("Error get_command");
-	}
-	else
-	{
-		if (cmd_path)
-			return (validate_cmd(cmd_path, cmd));
-		else
-			perror ("Error");
-	}
-	return (NULL);
-}
-
-char	*validate_cmd(char **cmd_paths, char *cmd)
-{
-	int		i;
-	char	*tmp;
-	char	*tmp2;
-
-	i = 0;
-	while (*cmd && cmd_paths[i])
-	{
-		tmp = ft_strjoin(cmd_paths[i], "/");
-		tmp2 = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(tmp2, F_OK) == 0)
-			return (tmp2);
-		free(tmp2);
-		i++;
-	}
-	return (NULL);
-}
-
-void	ft_execute(void)
-{
-	/*if node is of type cmd*/
-	ft_simple_cmds();
+	/*Initializing the new variables fd_in and out for the
+	simpliest case: one node cmd. Already taking into account pipe
+	and other cases than simple commands*/
+	/*shell()->node->fd_in = 0;
+	shell()->node->fd_out = 1;*/
+	if (node->type == TYPE_COMMAND)
+		ft_simple_cmds(node);
+	if (node->type == TYPE_PIPE)
+		ft_exec_piped(node);
 }

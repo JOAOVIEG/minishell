@@ -6,52 +6,79 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:20:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/07 16:45:49 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:23:41 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	unset(char **arg)
+int	unset(char **arg)
 {
-	t_env *head;
-	t_env *tail;
+	char	**env;
 	int		i;
+	int 	j;
 	
 	i = 1;
-	head = shell()->v_env;
-	tail = NULL;
-	while (head)
+	env = env_list_to_arr();
+	while (arg[i])
 	{
-		while (arg[i])
+		j = 0;
+		while (env[j])
 		{
-			if (ft_strcmp(head->name, arg[i]) == 0)
+			if(ft_strnstr(env[j], arg[i], (ft_strchr(env[j], '=') - env[j])) != NULL)
 			{
-				if (tail)
-					tail->next = head->next;
-				else
-					shell()->v_env = head->next;
-				free(head->name);
-				unset_var(head);
-				shell()->status = 0;
-				return ;
+				free(env[j]);
+				backshift(env, j);
 			}
-			tail = head;
-			head = head->next;
-			i++;
+			else
+				j++;
 		}
+		i++;
 	}
-	printf("minishell: %s\n", strerror(errno));
-	shell()->status = 1;
+	update_env_list(env);
+	free_c_env(env);
+	return (shell()->status);
 }
 
-t_env	*unset_var(t_env *head)
+void	backshift(char **env, int start)
 {
-	free(head->name);
-	head->name = NULL;
-	free(head->value);
-	head->value = NULL;
-	free(head);
-	head = NULL;
-	return (head);
+	int k;
+
+	k = start;
+	while (env[k])
+	{
+		env[k] = env[k + 1];
+		k++;
+	}
+	free(env[k]);
+	if (shell()->status != 0)
+		shell()->status = 0;
 }
+
+void	update_env_list(char **env)
+{
+	free_env();
+	shell()->v_env = env_cpy(env);
+}
+
+// int	is_readonly(char *arg)
+// {
+// 	According to bash reference, 
+// 	"Readonly variables and functions may not be unset".
+// 	from my research they are set to readonly with function readonly:
+// 	how to flag it here with allowed funcs?
+// }
+
+
+
+// int	unset_function(char *arg)
+// {
+// 	According to bash reference:
+// 	 if there is no variable by that name, a function with that name, if
+// 	any, is unset.
+// 	From research function refers to any function defined in the terminal:
+// 	function greet() {
+//     echo "Hello, $1"
+// 	}	is this expansions???
+// 	how to unset greet, as example, if nor readonly. This feature is needed?
+// }

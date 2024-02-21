@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_str_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:37:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/08 17:39:21 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:41:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	ft_free_str_array(char **str)
 		i++;
 	}
 	free(str);
+	str = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:26:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/06 11:04:30 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:24:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,37 +56,64 @@ t_env	*env_cpy(char **envp)
 	tail = NULL;
 	while (*envp)
 	{
-		new = malloc(sizeof(t_env));
-		check_new_malloc(new);
-		equal_pos = ft_strchr(*envp, '=');
-		if (equal_pos)
+		if (*envp != NULL)
 		{
-			get_var(new, *envp, equal_pos);
-			new_var(&head, tail, new);
-			tail = new;
+			new = malloc(sizeof(t_env));
+			check_new_malloc(new);
+			equal_pos = ft_strchr(*envp, '=');
+			if (equal_pos)
+			{
+				get_var(new, *envp, equal_pos);
+				new_var(&head, tail, new);
+				tail = new;
+			}
+			else
+				free(new);
 		}
-		else
-			free(new);
 		envp++;
 	}
 	return (head);
 }
 
-void	free_env()
+char	**env_list_to_arr()
 {
+	int		count;
+	int		i;
 	t_env	*current;
-	t_env	*next;
-	
+	char	**envp;
+	char *tmp;
+
+	count = 0;
+	i = 0;
 	current = shell()->v_env;
-	while (current)
+	while (current != NULL)
 	{
-		next = current->next;
-		free(current->name);
-		current->name = NULL;
-		free(current->value);
-		current->value = NULL;
-		free(current);
-		current = next;
+		count++;
+		current = current->next;
 	}
-	shell()->v_env = NULL;
+	envp = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!envp)
+	{
+		perror("malloc envp");
+		exit(EXIT_FAILURE);
+	}
+	current = shell()->v_env;
+	while ( i < count)
+	{
+		tmp = ft_strjoin(current->name, "=");
+		envp[i] = ft_strjoin(tmp, current->value);
+		if (!envp[i])
+		{
+			perror("malloc envp[i]");
+			// free_env();
+			free_c_env(envp);
+			exit(EXIT_FAILURE);
+		}
+		free(tmp);
+		i++;
+		current = current->next;
+	}
+	tmp = NULL;
+	envp[i] = NULL;
+	return (envp);
 }

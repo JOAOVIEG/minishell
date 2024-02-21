@@ -5,28 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 15:28:42 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/07 17:21:01 by joaocard         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/02/20 16:23:31 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../../includes/minishell.h"
 
-void	exit_shell(char **arg)
+void	exit_shell(int status)
 {
-	int i;
+	// int i;
 
-	i = 1;
-	while (arg && arg[i])
-	{
-		shell()->status = ft_atoi(arg[i]);
-		if (shell()->status < 0)
-		{
-			printf("minishell: exit: %s: numeric argument required\n", strerror(errno));
-			shell()->status = 255;
-		}
-		i++;
-	}
+	// i = 1;
+	// while (arg && arg[i])
+	// {
+	// 	shell()->status = ft_atoi(arg[i]);
+	// 	if (shell()->status < 0)
+	// 	{
+	// 		printf("minishell: exit: %s: numeric argument required\n", strerror(errno));
+	// 		shell()->status = 255;
+	// 	}
+	// 	i++;
+	// }
 	free_env();
-	exit(shell()->status);
+	shell()->status = status;
+	end_shell();
 }

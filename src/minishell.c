@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/15 16:24:16 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:20:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
-		// ft_execute();
+		ft_execute(shell()->node);
 		reset_tree();
 	}
 	write_history(".msh_hist"); // ILLEGAL FUNCTIONS
