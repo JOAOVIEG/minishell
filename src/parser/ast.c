@@ -191,8 +191,8 @@ void	build_tree_simple_command(t_shell *shell)
 {
 	shell->node = new_tree_node(shell->parser->tokens);
 	shell->node->type = TYPE_COMMAND;
-	shell->node->fd_in = 0;
-	shell->node->fd_out = 1;
+	shell->node->fd_in = dup(STDIN_FILENO);
+	shell->node->fd_out = dup(STDOUT_FILENO);
 }
 
 void	build_tree(t_shell *shell)
@@ -203,7 +203,7 @@ void	build_tree(t_shell *shell)
 		build_pipe_tree(shell);
 	else if (shell->parser->pipe_count == 0 && shell->parser->redir_count > 0)
 		build_redir_tree(shell);
-	print_tree(shell->node, 0, "root");
+	// print_tree(shell->node, 0, "root");
 }
 
 /*

@@ -111,6 +111,6 @@ void	build_redir_tree(t_shell *shell)
 				return ;
 		}
 	}
-	open_file(tree_root);
+	// open_file(tree_root);
 	shell->node = tree_root;
 }
