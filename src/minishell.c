@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/20 16:20:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:39:32 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	main(int argc, char **argv, char **envp)
 			return (EXIT_FAILURE);
 		}
 	}
-	read_history(".msh_hist"); // ILLEGAL FUNCTIONS
 	shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
 	ignore_signals();
@@ -65,7 +64,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_execute(shell()->node);
 		reset_tree();
 	}
-	write_history(".msh_hist"); // ILLEGAL FUNCTIONS
 	rl_clear_history();
 	return (EXIT_SUCCESS);
 }
