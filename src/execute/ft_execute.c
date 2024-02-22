@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/21 15:20:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:57:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,8 +200,8 @@ void	ft_execute(t_node *node)
 		ft_simple_cmds(node);
 	if (node->type == TYPE_PIPE)
 		ft_exec_piped(node);
-	// if (node->type == TYPE_REDIRECT)
-	// 	ft_exec_redirectout(node);
-	if (node->type == TYPE_REDIRECT)
+	if (node->type == TYPE_REDIRECT_OUT)
+		ft_exec_redirectout(node);
+	if (node->type == TYPE_REDIRECT_IN)
 		ft_exec_redirectin(node);
 }
