@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/20 16:36:27 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:20:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_exec_piped(t_node *node)
         {
             ft_execute(node->right);
         }
-        exit_shell(0);
+        exit(0);
     }
     close(pipe_end[0]);
     close(pipe_end[1]);
@@ -89,11 +89,44 @@ void	ft_exec_piped(t_node *node)
     waitpid(right_pid, NULL, 0);
 }
 
-void	ft_exec_redirect(t_node *node)
+void	ft_exec_redirectin(t_node *node)
+{
+	pid_t	right_node;
+	
+	if ((right_node = fork()) < 0)
+	{
+		perror("right_node fork failed");
+		exit_shell(1);
+	}
+	if (right_node == 0)
+	{
+		node->fd_in = STDIN_FILENO;
+		node->fd_out = STDOUT_FILENO;
+		node->right->fd_in = open(node->cmd->arg[1], O_RDONLY);
+		node->right->fd_out = node->fd_out;
+		if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
+		{
+			redirections(node->right->fd_in, node->right->fd_out);
+			exec_builtin(node->right);
+		}
+		else if (is_builtin(node->right) == 2)
+		{
+			ft_execute(node->right);
+		}
+		close_fds(node->right->fd_in, node->right->fd_out);
+		close(node->fd_in);
+		close(node->fd_out);
+		exit(0);
+	}
+	waitpid(right_node, NULL, 0);
+}
+
+void	ft_exec_redirectout(t_node *node)
 {
 	pid_t	right_node;
 	node->right->fd_in = node->fd_in;
-	node->right->fd_out = node->fd_out;
+	node->right->fd_out = open(node->cmd->arg[1], O_WRONLY | O_CREAT | O_TRUNC,
+					0644);
 	if ((right_node = fork()) < 0)
 	{
 		perror("right_node fork failed");
@@ -108,39 +141,13 @@ void	ft_exec_redirect(t_node *node)
 		}
 		else if (is_builtin(node->right) == 2)
 			ft_execute(node->right);
+		close_fds(node->right->fd_in, node->right->fd_out);
 		exit_shell(1);
 	}
-	close_fds(node->fd_in, node->fd_out);
 	close_fds(node->right->fd_in, node->right->fd_out);
 	waitpid(right_node, NULL, 0);
-}
-
-// void	ft_exec_redirectout(t_node *node)
-// {
-// 	pid_t	right_node;
-// 	node->right->fd_in = node->fd_in;
-// 	node->right->fd_out = node->fd_out;
-// 	if ((right_node = fork()) < 0)
-// 	{
-// 		perror("right_node fork failed");
-// 		exit_shell(0);
-// 	}
-// 	if (right_node == 0)
-// 	{
-// 		if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
-// 		{
-// 			redirections(node->right->fd_in, node->right->fd_out);
-// 			exec_builtin(node->right);
-// 		}
-// 		else if (is_builtin(node->right) == 2)
-// 			ft_execute(node->right);
-// 		exit_shell(1);
-// 	}
-// 	close_fds(node->fd_in, node->fd_out);
-// 	close_fds(node->right->fd_in, node->right->fd_out);
-// 	waitpid(right_node, NULL, 0);
 	
-// }
+}
 
 void	close_fds(int fd_i, int fd_o)
 {
@@ -189,13 +196,12 @@ int	redirect_out(int fd_o)
 
 void	ft_execute(t_node *node)
 {
-	/*Initializing the new variables fd_in and out for the
-	simpliest case: one node cmd. Already taking into account pipe
-	and other cases than simple commands*/
-	/*shell()->node->fd_in = 0;
-	shell()->node->fd_out = 1;*/
 	if (node->type == TYPE_COMMAND)
 		ft_simple_cmds(node);
 	if (node->type == TYPE_PIPE)
 		ft_exec_piped(node);
+	// if (node->type == TYPE_REDIRECT)
+	// 	ft_exec_redirectout(node);
+	if (node->type == TYPE_REDIRECT)
+		ft_exec_redirectin(node);
 }

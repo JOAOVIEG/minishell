@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:48:08 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/21 15:08:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:50:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_type(int type)
 		printf("TYPE_PIPE\n");
 	else if (type == TYPE_REDIRECT)
 		printf("TYPE_REDIRECT\n");
-	else if (type == TYPE_REDIRECT_IN)
+	else if (type == TYPE_REDIRECT_IN)\
 		printf("TYPE_REDIRECT_IN\n");
 	else if (type == TYPE_REDIRECT_OUT)
 		printf("TYPE_REDIRECT_OUT\n");

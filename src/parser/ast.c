@@ -191,8 +191,8 @@ void	build_tree_simple_command(t_shell *shell)
 {
 	shell->node = new_tree_node(shell->parser->tokens);
 	shell->node->type = TYPE_COMMAND;
-	shell->node->fd_in = dup(0);
-	shell->node->fd_out = dup(1);
+	shell->node->fd_in = dup(STDIN_FILENO);
+	shell->node->fd_out = dup(STDOUT_FILENO);
 }
 
 void	build_tree(t_shell *shell)
