@@ -1,3 +1,2 @@
-cmd1 | file > cmd2
-cmd1 | cmd2 > out
-cmd1 | cmd2 > file
+< file cmd1 cmd2
+make fclean
