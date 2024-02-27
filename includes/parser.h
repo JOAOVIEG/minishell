@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/21 15:48:11 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/27 11:19:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ t_node					*create_node(t_token_type type, t_cmd *cmd,
 t_node					*init_pipe_node(void);
 t_node					*init_redir_node(void);
 t_node					*create_pipe_node(t_node *left, t_node *right);
-t_node					*create_redir_node(t_node *redirection_node,
-							t_node *right);
+
 t_node					*find_parent(t_node *root, t_node *node);
 void					update_tree_root(t_node **tree_root,
 							t_node **rightmost_node, t_node *pipe_node);
@@ -110,13 +109,17 @@ t_lst_tokens			*get_cmd_tokens(t_lst_tokens **current);
 t_node					*create_new_node(t_lst_tokens **cmd_tokens);
 t_node					*create_node_and_update_tree(t_node **tree_root,
 							t_node **rightmost_node, t_lst_tokens **cmd_tokens);
-t_node					*create_node_and_update_redir_tree(t_node **tree_root,
-							t_node **rightmost_node, t_lst_tokens **cmd_tokens);
-void					open_file(t_node *node);
+
 t_cmd					*create_cmd(t_lst_tokens *tokens);
 void					build_pipe_tree(t_shell *shell);
 void					build_tree_simple_command(t_shell *shell);
 void					build_tree(t_shell *shell);
 void					build_redir_tree(t_shell *shell);
+t_node					*build_redir_root_node(t_lst_tokens **current,
+							t_node *tree_root);
+void					define_direction(t_node *node);
+void					build_redir_pipe_tree(t_shell *shell);
+t_lst_tokens			*build_redir_child_node(t_lst_tokens **current,
+							t_lst_tokens **cmd_tokens, t_lst_tokens **tail);
 
 #endif

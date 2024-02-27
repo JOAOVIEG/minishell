@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 pwd
 ls
 cmd > file
@@ -5,3 +6,7 @@ cmd > file
 cmd > file
 cmd > file
 < file cmd
+=======
+< file cmd1 cmd2
+make fclean
+>>>>>>> 9bd0f722b94492555c731766deb2f523a021a41d

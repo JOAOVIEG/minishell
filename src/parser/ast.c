@@ -40,8 +40,8 @@ t_node	*create_pipe_node(t_node *left, t_node *right)
 		return (NULL);
 	pipe_node->left = left;
 	pipe_node->right = right;
-	pipe_node->fd_in = 0;
-	pipe_node->fd_out = 1;
+	pipe_node->fd_in = dup(STDIN_FILENO);
+	pipe_node->fd_out = dup(STDOUT_FILENO);
 	return (pipe_node);
 }
 
@@ -101,6 +101,8 @@ t_lst_tokens	*get_cmd_tokens(t_lst_tokens **current)
 	}
 	return (cmd_tokens);
 }
+
+
 
 t_node	*create_new_node(t_lst_tokens **cmd_tokens)
 {
@@ -203,9 +205,7 @@ void	build_tree(t_shell *shell)
 		build_pipe_tree(shell);
 	else if (shell->parser->pipe_count == 0 && shell->parser->redir_count > 0)
 		build_redir_tree(shell);
-	// print_tree(shell->node, 0, "root");
+	else if (shell->parser->pipe_count > 0 && shell->parser->redir_count > 0)
+		build_redir_pipe_tree(shell);
+	print_tree(shell->node, 0, "root");
 }
-
-
-
-
