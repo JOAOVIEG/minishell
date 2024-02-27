@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/26 17:03:25 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:05:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void					define_direction(t_node *node);
 void					build_redir_pipe_tree(t_shell *shell);
 t_lst_tokens			*build_redir_child_node(t_lst_tokens **current,
 							t_lst_tokens **cmd_tokens, t_lst_tokens **tail);
+t_node					*find_rightmost_tree_node(t_node *root);
 
 #endif
