@@ -19,22 +19,6 @@ void	define_direction(t_node *node)
 	define_direction(node->right);
 }
 
-// t_node	*build_redir_root_node(t_lst_tokens **current, t_node *tree_root)
-// {
-// 	t_node	*node;
-// 	t_cmd	*cmd;
-
-// 	cmd = ft_calloc_memory(1, sizeof(t_cmd));
-// 	cmd->arg = ft_calloc_memory(3, sizeof(char *));
-// 	cmd->arg[0] = ft_strdup((*current)->data);
-// 	*current = (*current)->next;
-// 	cmd->arg[1] = ft_strdup((*current)->data);
-// 	cmd->arg[2] = NULL;
-// 	node = create_node(TYPE_REDIRECT, cmd, NULL, NULL);
-// 	node->right = tree_root;
-// 	return (node);
-// }
-
 t_node	*build_redir_root_node(t_lst_tokens **current, t_node *tree_root)
 {
 	t_node	*node;
@@ -44,9 +28,12 @@ t_node	*build_redir_root_node(t_lst_tokens **current, t_node *tree_root)
 	cmd = ft_calloc_memory(1, sizeof(t_cmd));
 	cmd->arg = ft_calloc_memory(3, sizeof(char *));
 	cmd->arg[0] = ft_strdup((*current)->data);
-	*current = (*current)->next;
-	cmd->arg[1] = ft_strdup((*current)->data);
-	cmd->arg[2] = NULL;
+	if ((*current)->next != NULL)
+	{
+		*current = (*current)->next;
+		cmd->arg[1] = ft_strdup((*current)->data);
+		cmd->arg[2] = NULL;
+	}
 	node = create_node(TYPE_REDIRECT, cmd, NULL, NULL);
 	if (tree_root == NULL)
 		node->right = tree_root;
@@ -100,6 +87,7 @@ void	build_redir_tree(t_shell *shell)
 	}
 	rightmost = find_rightmost_tree_node(tree_root);
 	rightmost->right = new_tree_node(cmd_tokens);
+	free_lst_tokens(cmd_tokens);
 	define_direction(tree_root);
 	shell->node = tree_root;
 }

@@ -25,13 +25,13 @@ t_node	*find_rightmost_tree_node(t_node *root)
 {
 	t_node	*rightmost;
 
+	if (root == NULL)
+		return (NULL);
 	rightmost = root;
 	while (rightmost->right != NULL)
 		rightmost = rightmost->right;
 	return (rightmost);
 }
-
-
 
 void	build_redir_pipe_tree(t_shell *shell)
 {
@@ -57,6 +57,7 @@ void	build_redir_pipe_tree(t_shell *shell)
 	}
 	rightmost = find_rightmost_tree_node(tree_root);
 	rightmost->right = redir_pipe_child_node(lst_tk);
+	free_lst_tokens(lst_tk);
 	define_direction(tree_root);
 	shell->node = tree_root;
 }

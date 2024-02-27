@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 15:10:59 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:45:04 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char		*create_token(char *input, int start, int end);
 int			process_pipe_token(char *input, int i);
 int			process_quoted_token(char *input, int i, char quote_type);
 int			process_unquoted_token(char *input, int i);
+int			process_redirection_token(char *input, int i);
 
 char		**split_into_tokens(t_lexer *lexer);
 

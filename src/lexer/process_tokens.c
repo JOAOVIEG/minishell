@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:24:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/07 13:15:49 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:33:45 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,11 @@ int	process_pipe_token(char *input, int i)
 		i++;
 	return (i);
 }
+
+int	process_redirection_token(char *input, int i)
+{
+	if (input[i] == CHAR_GREATER || input[i] == CHAR_LESSER)
+		i++;
+	return (i);
+}
+
