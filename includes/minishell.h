@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 15:08:40 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/28 12:06:31 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ void			reset_tree(void);
 void			free_tree_cmd(t_cmd *cmd);
 void			free_tree_node(t_node **tree_node);
 void			end_shell(void);
+void			free_shell();
 #endif
