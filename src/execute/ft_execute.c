@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/27 19:04:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:24:29 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ void	ft_exec_piped(t_node *node)
         if ((node->left->type == TYPE_COMMAND) && is_builtin(node->left) == 1)
         {
             dup2(node->left->fd_out, STDOUT_FILENO);
+			//close(node->fd_out);
             exec_builtin(node->left);
         }
         else if (is_builtin(node->left) == 2)
         {
             ft_execute(node->left);
         }
-        exit(0);
+		exit_shell(0);
     }
 	if ((right_pid = fork()) < 0)
 	{
@@ -75,13 +76,14 @@ void	ft_exec_piped(t_node *node)
         if ((node->right->type == TYPE_COMMAND) && is_builtin(node->right) == 1)
         {
             dup2(node->right->fd_in, STDIN_FILENO);
+			//close(node->right->fd_in); 
             exec_builtin(node->right);
         }
         else if (is_builtin(node->right) == 2)
         {
             ft_execute(node->right);
         }
-        exit(0);
+        exit_shell(0);
     }
     close(pipe_end[0]);
     close(pipe_end[1]);
@@ -116,7 +118,7 @@ void	ft_exec_redirectin(t_node *node)
 		close_fds(node->right->fd_in, node->right->fd_out);
 		close(node->fd_in);
 		close(node->fd_out);
-		exit(0);
+		exit_shell(0);
 	}
 	waitpid(right_node, NULL, 0);
 }
@@ -142,7 +144,7 @@ void	ft_exec_redirectout(t_node *node)
 		else if (is_builtin(node->right) == 2)
 			ft_execute(node->right);
 		close_fds(node->right->fd_in, node->right->fd_out);
-		exit_shell(1);
+		exit_shell(0);
 	}
 	close_fds(node->right->fd_in, node->right->fd_out);
 	waitpid(right_node, NULL, 0);
