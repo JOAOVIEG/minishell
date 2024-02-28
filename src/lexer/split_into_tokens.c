@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_into_tokens.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/27 16:48:33 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:44:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	process_token(char **tokens, char *input, int *iac)
 	if (input[0] == '\0' || (input[0] == ' ' && input[1] == '\0'))
 	{
 		tokens[0] = NULL;
-		free(input);
 		return ;
 	}
 	while (input[i] != '\0')

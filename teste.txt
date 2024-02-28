@@ -1,13 +1,13 @@
-< Makefile wc -l < teste.txt
-cat | ls (printa ls e o cat fica stuck)
-touch nome_do_ficheiro
-chmod 000 nomedoficheiro
-cat ficheiroqualquer > nome do ficheriro | wc -l
-wc -l < nomedoficheiro
+< Makefile wc -l < teste.txt  OK
+cat | ls (printa ls e o cat fica stuck) OK
+touch nome_do_ficheiro OK
+chmod 000 nomedoficheiro TODO
+cat ficheiroqualquer > nome do ficheriro | wc -l TODO
+wc -l < nomedoficheiro 	OK
 mkdir alex
-cat makefile > alex (alex e um diretorio)
-../ (is a diretory)
-./ (is directory)
+cat makefile > alex (alex e um diretorio) OK
+../ (is a diretory) TODO INCOMPLETE SEE BASH LEAKS E ERRO
+./ (is directory) TODO BAD SEE BASH LEAKS E ERRO
 .. (command not found)
 . (comand not found)
 ../../Documents/../Desktop/get_next_line (is a directory)
@@ -15,4 +15,6 @@ cd directory director2 (too many argumnts)
 env ficheiro (invalid file)
 < Makefile cat > out > file1 | ls -l > out | wc < out
 echo FIM >> out
+echo -nnnnnnnnnn Ola
+echo -n -n -n Ola
 
