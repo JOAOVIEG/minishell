@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/20 19:33:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:33:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,27 @@ void	exec_cmd(t_node *node)
 			// free_cmd_paths(shell()->node->cmd->cmd_path);
 			free(node->cmd->valid_cmd_path);
 			node->cmd->valid_cmd_path = NULL;
-			exit(EXIT_FAILURE);
+			exit_shell(EXIT_FAILURE);
 		}
 		redirections(node->fd_in, node->fd_out);
+		close_fds(node->fd_in, node->fd_out);
 		if (execve(node->cmd->valid_cmd_path, node->cmd->arg, env) < 0)
 		{
-			// free_env();
 			free_c_env(env);
-			// free_cmd_paths(shell()->node->cmd->cmd_path);
 			free(node->cmd->valid_cmd_path);
 			node->cmd->valid_cmd_path = NULL;
-			exit(EXIT_FAILURE);
+			exit_shell(EXIT_FAILURE);
 		}
+		close(0);
+		close(1);
+		exit_shell(EXIT_SUCCESS);
 	}
 	else
 	{
 		close_fds(node->fd_in, node->fd_out);
+		close(0);
+		close(1);
 		waitpid(pid, &status, 0);
-		// free_env();
 		free_c_env(env);
 		if (node->cmd->cmd_path)
 			free_cmd_paths(node->cmd->cmd_path);

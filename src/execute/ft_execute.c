@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/28 13:08:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:38:07 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ void	ft_exec_piped(t_node *node)
         {
             dup2(node->left->fd_out, STDOUT_FILENO);
             exec_builtin(node->left);
+			close(node->left->fd_out);
         }
         else if (is_builtin(node->left) == 2)
         {
             ft_execute(node->left);
         }
+		close(pipe_end[1]);
 		exit_shell(0);
     }
 	if ((right_pid = fork()) < 0)
@@ -76,15 +78,20 @@ void	ft_exec_piped(t_node *node)
         {
             dup2(node->right->fd_in, STDIN_FILENO);
             exec_builtin(node->right);
+			close(node->right->fd_in);
         }
         else if (is_builtin(node->right) == 2)
         {
             ft_execute(node->right);
         }
+		close(pipe_end[0]);
         exit_shell(0);
     }
     close(pipe_end[0]);
     close(pipe_end[1]);
+	close_fds(node->right->fd_in, node->right->fd_out);
+	close_fds(node->left->fd_in, node->left->fd_out);
+	close_fds(node->fd_in, node->fd_out);
     waitpid(left_pid, NULL, 0);
     waitpid(right_pid, NULL, 0);
 }
