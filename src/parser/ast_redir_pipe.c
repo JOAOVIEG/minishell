@@ -25,34 +25,12 @@ t_node	*find_rightmost_tree_node(t_node *root)
 {
 	t_node	*rightmost;
 
+	if (root == NULL)
+		return (NULL);
 	rightmost = root;
 	while (rightmost->right != NULL)
 		rightmost = rightmost->right;
 	return (rightmost);
-}
-
-t_node	*build_redir_root_node(t_lst_tokens **current, t_node *tree_root)
-{
-	t_node	*node;
-	t_cmd	*cmd;
-	t_node	*rightmost;
-
-	cmd = ft_calloc_memory(1, sizeof(t_cmd));
-	cmd->arg = ft_calloc_memory(3, sizeof(char *));
-	cmd->arg[0] = ft_strdup((*current)->data);
-	*current = (*current)->next;
-	cmd->arg[1] = ft_strdup((*current)->data);
-	cmd->arg[2] = NULL;
-	node = create_node(TYPE_REDIRECT, cmd, NULL, NULL);
-	if (tree_root == NULL)
-		node->right = tree_root;
-	else
-	{
-		rightmost = find_rightmost_tree_node(tree_root);
-		rightmost->right = node;
-		node = tree_root;
-	}
-	return (node);
 }
 
 void	build_redir_pipe_tree(t_shell *shell)
@@ -79,6 +57,7 @@ void	build_redir_pipe_tree(t_shell *shell)
 	}
 	rightmost = find_rightmost_tree_node(tree_root);
 	rightmost->right = redir_pipe_child_node(lst_tk);
+	free_lst_tokens(lst_tk);
 	define_direction(tree_root);
 	shell->node = tree_root;
 }
