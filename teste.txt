@@ -17,4 +17,9 @@ env ficheiro (invalid file)
 echo FIM >> out
 echo -nnnnnnnnnn Ola
 echo -n -n -n Ola
-
+wc -l Makefile > test <test
+<Makefile wc -l >test
+< Makefile wc -l | >test
+<Makefile wc -l ls>test
+echo hello <Makefile >test
+echo hello <Makefile 
