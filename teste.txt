@@ -11,7 +11,7 @@ cat makefile > alex (alex e um diretorio) OK
 .. (command not found) NOK
 . (comand not found) NOK
 ../../Documents/../Desktop/get_next_line (is a directory) NOK
-cd directory director2 (too many argumnts) NOK
+cd directory director2 (too many argumnts) OK
 env ficheiro (invalid file) NOK
 < Makefile cat > out > file1 | ls -l > out | wc < out
 echo FIM >> out
@@ -26,3 +26,4 @@ echo hello <Makefile  OK
 echo Crazy >test >out OK
 wc -l > test < test OK
 echo 2\>a NOK
+export +=

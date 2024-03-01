@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/01 13:29:47 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:50:33 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ int	is_builtin(t_node *node)
 	char *cmd;
 
 	cmd = node->cmd->arg[0];
-    if (cmd == NULL)
+	if (cmd == NULL && (node->cmd->file && ft_strcmp(node->cmd->file[0], ">") == 0))
+	{
+		return (open(node->cmd->file[1], O_WRONLY | O_CREAT | O_TRUNC, 0644));
+	}
+	else if (cmd == NULL)
 		return (0);
+	
 	if (ft_strcmp(cmd, "cd") == 0 || \
 			ft_strcmp(cmd, "pwd") == 0 || \
 			ft_strcmp(cmd, "echo") == 0 || \
@@ -47,8 +52,16 @@ void	exec_builtin(t_node *node)
 			if (ft_strchr(node->cmd->file[i], '<') != NULL)
 			{
 				i++;
-				close(node->fd_in);
-				node->fd_in = open(node->cmd->file[i], O_RDONLY);
+				if (access(node->cmd->file[i], F_OK) == 0)
+       	 		{
+					close(node->fd_in);
+					node->fd_in = open(node->cmd->file[i], O_RDONLY);
+        		}
+				else
+				{
+					printf("%s: No such file or directory\n", node->cmd->file[i]);
+					return ;
+				}
 				if (node->fd_in < 0)
 				{
 					perror("Error at fd_in");
@@ -82,7 +95,14 @@ void	exec_builtin(t_node *node)
 			redirections(node->fd_in, node->fd_out);
 			cmd = node->cmd->arg;
 			if (ft_strcmp(cmd[0], "cd") == 0)
-				cd (cmd[1]);
+			{
+				if (!cmd[2])
+					cd(cmd[1]);
+				else
+				{
+					printf("minishell: cd: too many arguments\n");
+				}
+			}
 			if (ft_strcmp(cmd[0], "pwd") == 0)
 				pwd();
 			if (ft_strcmp(cmd[0], "echo") == 0)
@@ -107,13 +127,19 @@ void	exec_builtin(t_node *node)
 			close(node->fd_out);
 			waitpid(pid, &status, 0);
 		}
-		
 	}
 	else
 	{
 		cmd = node->cmd->arg;
 		if (ft_strcmp(cmd[0], "cd") == 0)
-			cd (cmd[1]);
+		{
+			if (!cmd[2])
+				cd(cmd[1]);
+			else
+			{
+				printf("minishell: cd: too many arguments\n");
+			}
+		}
 		if (ft_strcmp(cmd[0], "pwd") == 0)
 			pwd();
 		if (ft_strcmp(cmd[0], "echo") == 0)
@@ -141,17 +167,22 @@ void	exec_cmd(t_node *node)
 	node->fd_out = dup(STDOUT_FILENO);
 	env = env_list_to_arr();
 	check_path(env, node);
-	// if (node->cmd->file && node->cmd->file[i])
-	// 	printf("%s\n", node->cmd->file[i]);
-	// else
-	// 	printf("file is empty\n");
 	while (node->cmd->file && node->cmd->file[i] != NULL)
 	{
 		if (ft_strchr(node->cmd->file[i], '<') != NULL)
 		{
 			i++;
-			close(node->fd_in);
-			node->fd_in = open(node->cmd->file[i], O_RDONLY);
+			if (access(node->cmd->file[i], F_OK) == 0)
+       	 	{
+				close(node->fd_in);
+				node->fd_in = open(node->cmd->file[i], O_RDONLY);
+        	}
+			else
+			{
+				printf("%s: No such file or directory\n", node->cmd->file[i]);
+				free_c_env(env);
+				return ;
+			}
 			if (node->fd_in < 0)
 			{
 				perror("Error at fd_in");
