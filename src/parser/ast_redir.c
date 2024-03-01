@@ -115,8 +115,8 @@ void	build_redir_tree(t_shell *shell)
 	tree_root = new_tree_node(cmd_tokens);
 	redir = new_tree_node(cmd_redir);
 	tree_root->cmd->file = redir->cmd->arg;
-	free_tree_node(&redir);
-	free_lst_tokens(cmd_tokens);
-	free_lst_tokens(cmd_redir);
+	// free_tree_node(&redir);
+	// free_lst_tokens(cmd_tokens);
+	// free_lst_tokens(cmd_redir);
 	shell->node = tree_root;
 }
