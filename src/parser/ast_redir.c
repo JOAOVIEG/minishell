@@ -46,6 +46,29 @@ t_node	*build_redir_root_node(t_lst_tokens **current, t_node *tree_root)
 	return (node);
 }
 
+t_lst_tokens	*test_function(t_lst_tokens **current,
+		t_lst_tokens **cmd_tokens, t_lst_tokens **tail)
+{
+	t_lst_tokens	*new_token;
+
+	new_token = ft_calloc_memory(1, sizeof(t_lst_tokens));
+	new_token->data = ft_strdup((*current)->data);
+	new_token->type = (*current)->type;
+	new_token->next = NULL;
+	lst_tokenadd_back(cmd_tokens, tail, new_token);
+	if ((*current)->next != NULL)
+	{
+		*current = (*current)->next;
+		new_token = ft_calloc_memory(1, sizeof(t_lst_tokens));
+		new_token->data = ft_strdup((*current)->data);
+		new_token->type = (*current)->type;
+		new_token->next = NULL;
+		lst_tokenadd_back(cmd_tokens, tail, new_token);
+	}
+	*current = (*current)->next;
+	return (*cmd_tokens);
+}
+
 t_lst_tokens	*build_redir_child_node(t_lst_tokens **current,
 		t_lst_tokens **cmd_tokens, t_lst_tokens **tail)
 {
@@ -66,11 +89,15 @@ t_lst_tokens	*build_redir_child_node(t_lst_tokens **current,
 void	build_redir_tree(t_shell *shell)
 {
 	t_node			*tree_root;
-	t_node			*rightmost;
+	t_node			*redir;
 	t_lst_tokens	*current;
 	t_lst_tokens	*cmd_tokens;
+	t_lst_tokens	*cmd_redir;
 	t_lst_tokens	*tail;
+	t_lst_tokens	*tail_redir;
 
+	cmd_redir = NULL;
+	tail_redir = NULL;
 	tree_root = NULL;
 	current = shell->parser->tokens;
 	cmd_tokens = NULL;
@@ -79,15 +106,17 @@ void	build_redir_tree(t_shell *shell)
 	{
 		if (current->type == TYPE_REDIRECT)
 		{
-			tree_root = build_redir_root_node(&current, tree_root);
-			current = current->next;
+			cmd_redir = test_function(&current, &cmd_redir,
+					&tail_redir);
 		}
 		else
 			cmd_tokens = build_redir_child_node(&current, &cmd_tokens, &tail);
 	}
-	rightmost = find_rightmost_tree_node(tree_root);
-	rightmost->right = new_tree_node(cmd_tokens);
+	tree_root = new_tree_node(cmd_tokens);
+	redir = new_tree_node(cmd_redir);
+	tree_root->cmd->file = redir->cmd->arg;
+	free_tree_node(&redir);
 	free_lst_tokens(cmd_tokens);
-	define_direction(tree_root);
+	free_lst_tokens(cmd_redir);
 	shell->node = tree_root;
 }

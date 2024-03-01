@@ -152,6 +152,7 @@ t_cmd	*create_cmd(t_lst_tokens *tokens)
 		i++;
 	}
 	cmd->arg[i] = NULL;
+	cmd->file = NULL;
 	return (cmd);
 }
 
@@ -206,6 +207,6 @@ void	build_tree(t_shell *shell)
 	else if (shell->parser->pipe_count == 0 && shell->parser->redir_count > 0)
 		build_redir_tree(shell);
 	else if (shell->parser->pipe_count > 0 && shell->parser->redir_count > 0)
-		build_redir_pipe_tree(shell);
-	// print_tree(shell->node, 0, "root");
+		build_pipe_tree(shell);
+	print_tree(shell->node, 0, "root");
 }
