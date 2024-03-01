@@ -25,3 +25,4 @@ echo hello <Makefile >test
 echo hello <Makefile 
 echo Crazy >test >out
 wc -l > test < test
+echo 2\>a

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/28 15:42:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:39:25 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,42 @@ void	exec_cmd(t_node *node)
 	char	**env;
 	int		status;
 	pid_t	pid;
-	
+	int		i;
+
+	i = 0;
+	node->fd_in = STDIN_FILENO;
+	node->fd_out = STDOUT_FILENO;
 	env = env_list_to_arr();
 	check_path(env, node);
+	while (node->cmd->file[i] != NULL)
+	{
+		if (ft_strcmp(node->cmd->file[i][0], "<") == 0)
+		{
+			i++;
+			node->fd_in = open(node->cmd->file[i], O_RDONLY);
+			if (node->fd_in < 0)
+			{
+				perror("Error at fd_in");
+				free_c_env(env);
+				exit_shell(EXIT_FAILURE);
+			}
+			i++;
+		}
+		else if (ft_strcmp(node->cmd->file[i][0], ">") == 0)
+		{
+			i++;
+			node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (node->fd_out < 0)
+			{
+				perror("Error at fd_out");
+				free_c_env(env);
+				exit_shell(EXIT_FAILURE);
+			}
+			i++;
+		}
+		else
+			i++;
+	}
 	pid = fork();
 	if (pid < 0)
 	{
@@ -95,9 +128,9 @@ void	exec_cmd(t_node *node)
 				free_cmd_paths(node->cmd->cmd_path);
 			exit_shell(EXIT_FAILURE);
 		}
-		close(0);
-		close(1);
-		// exit_shell(EXIT_SUCCESS);
+		close(node->fd_in);
+		close(node->fd_out);
+		exit_shell(EXIT_SUCCESS);
 	}
 	else
 	{
