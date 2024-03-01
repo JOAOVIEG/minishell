@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/28 10:22:42 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:33:37 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,20 @@ typedef struct s_shell	t_shell;
 typedef struct s_node	t_node;
 typedef struct s_cmd	t_cmd;
 
+
+
 typedef struct s_lst_tokens
 {
 	char				*data;
 	t_token_type		type;
 	struct s_lst_tokens	*next;
 }						t_lst_tokens;
+
+typedef struct s_token_queue
+{
+    t_lst_tokens	*head;
+    t_lst_tokens	*tail;
+}					t_token_queue;
 
 typedef struct s_buffer
 {

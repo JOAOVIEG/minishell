@@ -1,53 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_redir.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 17:23:16 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/01 19:16:18 by joaocard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-void	define_direction(t_node *node)
-{
-	if (!node)
-		return ;
-	if (node->type == TYPE_REDIRECT)
-	{
-		if (ft_strcmp(node->cmd->arg[0], "<") == 0)
-		{
-			node->type = TYPE_REDIRECT_IN;
-		}
-		else if (ft_strcmp(node->cmd->arg[0], ">") == 0)
-		{
-			node->type = TYPE_REDIRECT_OUT;
-		}
-	}
-	define_direction(node->left);
-	define_direction(node->right);
-}
-
-t_node	*build_redir_root_node(t_lst_tokens **current, t_node *tree_root)
-{
-	t_node	*node;
-	t_cmd	*cmd;
-	t_node	*rightmost;
-
-	cmd = ft_calloc_memory(1, sizeof(t_cmd));
-	cmd->arg = ft_calloc_memory(3, sizeof(char *));
-	cmd->arg[0] = ft_strdup((*current)->data);
-	if ((*current)->next != NULL)
-	{
-		*current = (*current)->next;
-		cmd->arg[1] = ft_strdup((*current)->data);
-		cmd->arg[2] = NULL;
-	}
-	node = create_node(TYPE_REDIRECT, cmd, NULL, NULL);
-	if (tree_root == NULL)
-		node->right = tree_root;
-	else
-	{
-		rightmost = find_rightmost_tree_node(tree_root);
-		rightmost->right = node;
-		node = tree_root;
-	}
-	return (node);
-}
-
-t_lst_tokens	*test_function(t_lst_tokens **current,
-		t_lst_tokens **cmd_tokens, t_lst_tokens **tail)
+void	add_token_back(t_lst_tokens **current, t_lst_tokens **cmd_tokens,
+		t_lst_tokens **tail)
 {
 	t_lst_tokens	*new_token;
 
@@ -56,67 +22,74 @@ t_lst_tokens	*test_function(t_lst_tokens **current,
 	new_token->type = (*current)->type;
 	new_token->next = NULL;
 	lst_tokenadd_back(cmd_tokens, tail, new_token);
-	if ((*current)->next != NULL)
-	{
-		*current = (*current)->next;
-		new_token = ft_calloc_memory(1, sizeof(t_lst_tokens));
-		new_token->data = ft_strdup((*current)->data);
-		new_token->type = (*current)->type;
-		new_token->next = NULL;
-		lst_tokenadd_back(cmd_tokens, tail, new_token);
-	}
 	*current = (*current)->next;
+}
+
+t_lst_tokens	*get_redir_list(t_lst_tokens **current,
+		t_lst_tokens **cmd_tokens, t_lst_tokens **tail)
+{
+	add_token_back(current, cmd_tokens, tail);
+	if (*current != NULL)
+	{
+		add_token_back(current, cmd_tokens, tail);
+	}
 	return (*cmd_tokens);
 }
 
-t_lst_tokens	*build_redir_child_node(t_lst_tokens **current,
+t_lst_tokens	*get_cmd_list(t_lst_tokens **current,
 		t_lst_tokens **cmd_tokens, t_lst_tokens **tail)
 {
-	t_lst_tokens	*new_token;
-
 	if (*current != NULL && (*current)->type != TYPE_REDIRECT)
-	{
-		new_token = ft_calloc_memory(1, sizeof(t_lst_tokens));
-		new_token->data = ft_strdup((*current)->data);
-		new_token->type = (*current)->type;
-		new_token->next = NULL;
-		lst_tokenadd_back(cmd_tokens, tail, new_token);
-	}
-	*current = (*current)->next;
+		add_token_back(current, cmd_tokens, tail);
+	else
+		*current = (*current)->next;
 	return (*cmd_tokens);
+}
+
+char	**get_redir_files(t_lst_tokens *tokens)
+{
+	int				i;
+	t_lst_tokens	*current;
+	char			**file;
+
+	i = 0;
+	current = tokens;
+	file = (char **)ft_calloc_memory(lst_token_size(tokens) + 1,
+			sizeof(char *));
+	while (current != NULL)
+	{
+		file[i] = ft_strdup(current->data);
+		current = current->next;
+		i++;
+	}
+	file[i] = NULL;
+	return (file);
 }
 
 void	build_redir_tree(t_shell *shell)
 {
 	t_node			*tree_root;
-	t_node			*redir;
+	t_token_queue	cmds;
+	t_token_queue	redir_files;
 	t_lst_tokens	*current;
-	t_lst_tokens	*cmd_tokens;
-	t_lst_tokens	*cmd_redir;
-	t_lst_tokens	*tail;
-	t_lst_tokens	*tail_redir;
 
-	cmd_redir = NULL;
-	tail_redir = NULL;
-	tree_root = NULL;
+	cmds.head = NULL;
+	cmds.tail = NULL;
+	redir_files.head = NULL;
+	redir_files.tail = NULL;
 	current = shell->parser->tokens;
-	cmd_tokens = NULL;
-	tail = NULL;
 	while (current != NULL)
 	{
 		if (current->type == TYPE_REDIRECT)
-		{
-			cmd_redir = test_function(&current, &cmd_redir,
-					&tail_redir);
-		}
+			redir_files.head = get_redir_list(&current, &redir_files.head,
+					&redir_files.tail);
 		else
-			cmd_tokens = build_redir_child_node(&current, &cmd_tokens, &tail);
+			cmds.head = get_cmd_list(&current, &cmds.head,
+					&cmds.tail);
 	}
-	tree_root = new_tree_node(cmd_tokens);
-	redir = new_tree_node(cmd_redir);
-	tree_root->cmd->file = redir->cmd->arg;
-	// free_tree_node(&redir);
-	// free_lst_tokens(cmd_tokens);
-	// free_lst_tokens(cmd_redir);
+	tree_root = new_tree_node(cmds.head);
+	tree_root->cmd->file = get_redir_files(redir_files.head);
+	free_lst_tokens(cmds.head);
+	free_lst_tokens(redir_files.head);
 	shell->node = tree_root;
 }

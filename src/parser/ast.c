@@ -206,5 +206,5 @@ void	build_tree(t_shell *shell)
 		build_redir_tree(shell);
 	else if (shell->parser->pipe_count > 0 && shell->parser->redir_count > 0)
 		build_pipe_tree(shell);
-	// print_tree(shell->node, 0, "root");
+	//print_tree(shell->node, 0, "root");
 }
