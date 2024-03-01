@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/01 10:39:25 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:50:50 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	exec_cmd(t_node *node)
 	check_path(env, node);
 	while (node->cmd->file[i] != NULL)
 	{
-		if (ft_strcmp(node->cmd->file[i][0], "<") == 0)
+		if (ft_strcmp(node->cmd->file[i], "<") == 0)
 		{
 			i++;
 			node->fd_in = open(node->cmd->file[i], O_RDONLY);
@@ -77,7 +77,7 @@ void	exec_cmd(t_node *node)
 			}
 			i++;
 		}
-		else if (ft_strcmp(node->cmd->file[i][0], ">") == 0)
+		else if (ft_strcmp(node->cmd->file[i], ">") == 0)
 		{
 			i++;
 			node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
