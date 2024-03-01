@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utilis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/27 18:08:43 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:30:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ char	*get_path(char **env)
 	if (*env == NULL)
 	{
 		perror("ERROR env at path");
-		// free_env();
 		free_c_env(env);
-		exit(EXIT_FAILURE);
+		exit_shell(EXIT_FAILURE);
 	}
 	else
 	{
@@ -55,9 +54,8 @@ char	*get_path(char **env)
 		if (*env == NULL)
 		{
 			perror("ERROR finding PATH");
-			// free_env();
 			free_c_env(env);
-			exit(EXIT_FAILURE);
+			exit_shell(EXIT_FAILURE);
 		}
 	}
 	return (*env + 5);
