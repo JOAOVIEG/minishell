@@ -16,8 +16,8 @@ wc -l > test < test OK
 echo -nnnnnnnnnn Ola OK
 echo -n -n -n Ola OK
 echo -n -n -nnnn -n -naaa -n -n hello OK
+chmod 000 nomedoficheiro OK
 ////////
-chmod 000 nomedoficheiro TODO
 env ficheiro (invalid file) NOK
 export +=
 echo 2\>a NOK
