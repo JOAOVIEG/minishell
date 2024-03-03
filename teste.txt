@@ -17,15 +17,15 @@ echo -nnnnnnnnnn Ola OK
 echo -n -n -n Ola OK
 echo -n -n -nnnn -n -naaa -n -n hello OK
 chmod 000 nomedoficheiro OK
+../ (is a diretory) OK
+./ (is directory) OK
+.. (command not found) OK
+. (comand not found) OK
+../../Documents/../Desktop/get_next_line (is a directory) OK
 ////////
 env ficheiro (invalid file) NOK
 export +=
 echo 2\>a NOK
-../ (is a diretory) TODO INCOMPLETE SEE BASH LEAKS E ERRO
-./ (is directory) TODO BAD SEE BASH LEAKS E ERRO
-.. (command not found) NOK
-. (comand not found) NOK
-../../Documents/../Desktop/get_next_line (is a directory) NOK
 ///
 cat | ls (printa ls e o cat fica stuck)
 cat ficheiroqualquer > nome do ficheriro | wc -l TODO

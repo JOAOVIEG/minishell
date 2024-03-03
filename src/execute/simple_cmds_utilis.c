@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/01 19:16:00 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/03 15:38:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,17 @@ void	exec_cmd(t_node *node)
 	}
 	else if (pid == 0)
 	{
+		if (strcmp(node->cmd->arg[0], ".") == 0 || strcmp(node->cmd->arg[0], "..") == 0)
+        {
+            printf("%s: command not found\n", node->cmd->arg[0]);
+            exit_shell(EXIT_FAILURE);
+        }
+		struct stat st;
+        if (stat(node->cmd->arg[0], &st) == 0 && S_ISDIR(st.st_mode))
+        {
+            printf("%s: is a directory\n", node->cmd->arg[0]);
+            exit_shell(EXIT_FAILURE);
+        }
 		if ((node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, \
 				node->cmd->arg[0])) == NULL)
 		{
