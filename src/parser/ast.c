@@ -40,8 +40,8 @@ t_node	*create_pipe_node(t_node *left, t_node *right)
 		return (NULL);
 	pipe_node->left = left;
 	pipe_node->right = right;
-	pipe_node->fd_in = dup(STDIN_FILENO);
-	pipe_node->fd_out = dup(STDOUT_FILENO);
+	// pipe_node->fd_in = dup(STDIN_FILENO);
+	// pipe_node->fd_out = dup(STDOUT_FILENO);
 	return (pipe_node);
 }
 

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/04 14:55:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:21:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void	exec_builtin(t_node *node)
 		i = 0;
 		while (node->cmd->file && node->cmd->file[i] != NULL)
 		{
-			node->fd_in = dup(STDIN_FILENO);
-			node->fd_out = dup(STDOUT_FILENO);
+			if (!node->fd_in)
+				node->fd_in = dup(STDIN_FILENO);
+			if (!node->fd_out)
+				node->fd_out = dup(STDOUT_FILENO);
 			if (ft_strchr(node->cmd->file[i], '<') != NULL)
 			{
 				i++;
