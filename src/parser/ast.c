@@ -82,8 +82,7 @@ t_lst_tokens	*get_cmd_tokens(t_lst_tokens **current)
 
 	cmd_tokens = NULL;
 	tail = NULL;
-	while (*current != NULL && (*current)->type != TYPE_PIPE
-		&& (*current)->type != TYPE_REDIRECT)
+	while (*current != NULL && (*current)->type != TYPE_PIPE)
 	{
 		new_token = ft_calloc_memory(1, sizeof(t_lst_tokens));
 		if (!new_token)
@@ -196,6 +195,8 @@ void	build_tree_simple_command(t_shell *shell)
 	shell->node->type = TYPE_COMMAND;
 }
 
+
+
 void	build_tree(t_shell *shell)
 {
 	if (shell->parser->pipe_count == 0 && shell->parser->redir_count == 0)
@@ -205,6 +206,16 @@ void	build_tree(t_shell *shell)
 	else if (shell->parser->pipe_count == 0 && shell->parser->redir_count > 0)
 		build_redir_tree(shell);
 	else if (shell->parser->pipe_count > 0 && shell->parser->redir_count > 0)
-		build_pipe_tree(shell);
-	//print_tree(shell->node, 0, "root");
+		build_redir_pipe_tree(shell);
+	// print_tree(shell->node, 0, "root");
+	// for (int i = 0; shell->node->left->cmd->file[i]; i++)
+	// {
+	// 	printf("file left[%d]: %s\n", i, shell->node->left->cmd->file[i]);
+	// }
+	// for (int i = 0; shell->node->right->cmd->file[i]; i++)
+	// {
+	// 	printf("file rigt[%d]: %s\n", i, shell->node->right->cmd->file[i]);
+	// }
 }
+
+

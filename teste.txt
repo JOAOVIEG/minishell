@@ -34,13 +34,19 @@ export abc=1234
 unset abc=1234 \\ does not unset abc (has to be unset abc)
 ///
 cat | ls (printa ls e o cat fica stuck)
-cat ficheiroqualquer > nome do ficheriro | wc -l TODO
+touch nome_do_ficheiro
+chmod 000 nomedoficheiro
+cat ficheiroqualquer > nome do ficheriro | wc -l
+wc -l < nomedoficheiro
+mkdir alex
+cat makefile > alex (alex e um diretorio)
+../ (is a diretory)
+./ (is directory)
+.. (command not found)
+. (comand not found)
+../../Documents/../Desktop/get_next_line (is a directory)
+cd directory director2 (too many argumnts)
+env ficheiro (invalid file)
 < Makefile cat > out > file1 | ls -l > out | wc < out
 echo FIM >> out
->1 >2 \\ cria file 1 e 2
-cat <does_not_exist <<HERE \\ opens HERE but does not send the content
-cat <bla <<123
-cat >bla <<1 <<2 <<3 <<4
-echo Hello >>1 >>2
-echo Hello >1 >>2 (to bare in mind the overwrite with > and append with >>)
-$?//check this one
+

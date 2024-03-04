@@ -1,111 +1,57 @@
 // #include "../../includes/minishell.h"
 
-
-// void	define_direction(t_node *node)
+// t_node	*create_node_and_update_pipe_redir_tree(t_node **tree_root,
+//         t_node **rightmost_node, t_lst_tokens **cmd_tokens, t_lst_tokens **current)
 // {
-// 	if (!node)
-// 		return ;
-// 	if (node->type == TYPE_REDIRECT)
-// 	{
-// 		if (ft_strcmp(node->cmd->arg[0], "<") == 0)
-// 		{
-// 			node->type = TYPE_REDIRECT_IN;
-// 		}
-// 		else if (ft_strcmp(node->cmd->arg[0], ">") == 0)
-// 		{
-// 			node->type = TYPE_REDIRECT_OUT;
-// 		}
-// 	}
-// 	define_direction(node->left);
-// 	define_direction(node->right);
-// }
+//     t_node	*new_node;
+//     t_lst_tokens *redir_tokens = NULL;
 
+//     // Extract redirection tokens
+//     while (*current && (*current)->type == TYPE_REDIRECT)
+//     {
+//         redir_tokens = get_cmd_tokens(current);
+//         *current = (*current)->next;
+//     }
 
-// t_node	*build_redir_root_node(t_lst_tokens **current, t_node *tree_root)
-// {
-// 	t_node	*node;
-// 	t_cmd	*cmd;
-// 	t_node	*rightmost;
+//     new_node = new_tree_node(*cmd_tokens);  // Dereference cmd_tokens here
+//     if (!new_node)
+//         return (NULL);
 
-// 	cmd = ft_calloc_memory(1, sizeof(t_cmd));
-// 	cmd->arg = ft_calloc_memory(3, sizeof(char *));
-// 	cmd->arg[0] = ft_strdup((*current)->data);
-// 	if ((*current)->next != NULL)
-// 	{
-// 		*current = (*current)->next;
-// 		cmd->arg[1] = ft_strdup((*current)->data);
-// 		cmd->arg[2] = NULL;
-// 	}
-// 	node = create_node(TYPE_REDIRECT, cmd, NULL, NULL);
-// 	if (tree_root == NULL)
-// 		node->right = tree_root;
-// 	else
-// 	{
-// 		rightmost = find_rightmost_tree_node(tree_root);
-// 		rightmost->right = node;
-// 		node = tree_root;
-// 	}
-// 	return (node);
-// }
+//     // Store redirection tokens in new_node->cmd->file
+//     new_node->cmd->file = redir_tokens;
 
-// t_node	*redir_pipe_child_node(t_lst_tokens *tokens)
-// {
-// 	t_node			*node;
-// 	t_node			*rightmost_node;
-// 	t_lst_tokens	*current;
-// 	t_lst_tokens	*cmd_tokens;
-
-// 	node = NULL;
-// 	rightmost_node = NULL;
-// 	current = tokens;
-// 	while (current != NULL)
-// 	{
-// 		cmd_tokens = get_cmd_tokens(&current);
-// 		if (!create_node_and_update_tree(&node, &rightmost_node, &cmd_tokens))
-// 			return (NULL);
-// 		if (current && current->type == TYPE_PIPE)
-// 			current = current->next;
-// 	}
-// 	return (node);
-// }
-
-// t_node	*find_rightmost_tree_node(t_node *root)
-// {
-// 	t_node	*rightmost;
-
-// 	if (root == NULL)
-// 		return (NULL);
-// 	rightmost = root;
-// 	while (rightmost->right != NULL)
-// 		rightmost = rightmost->right;
-// 	return (rightmost);
+//     if (!*tree_root)
+//     {
+//         *tree_root = new_node;
+//         *rightmost_node = new_node;
+//     }
+//     else
+//         update_tree_root(tree_root, rightmost_node,
+//             create_pipe_node(*rightmost_node, new_node));
+//     return (new_node);
 // }
 
 // void	build_redir_pipe_tree(t_shell *shell)
 // {
-// 	t_node			*tree_root;
-// 	t_node			*rightmost;
-// 	t_lst_tokens	*current;
-// 	t_lst_tokens	*tail;
-// 	t_lst_tokens	*lst_tk;
+//     t_node *tree_root;
+//     t_node *rightmost_node;
+//     t_lst_tokens *current;
+//     t_lst_tokens *cmd_tokens;
 
-// 	tree_root = NULL;
-// 	lst_tk = NULL;
-// 	tail = NULL;
-// 	current = shell->parser->tokens;
-// 	while (current != NULL)
-// 	{
-// 		if (current->type == TYPE_REDIRECT)
-// 		{
-// 			tree_root = build_redir_root_node(&current, tree_root);
-// 			current = current->next;
-// 		}
-// 		else
-// 			lst_tk = build_redir_child_node(&current, &lst_tk, &tail);
-// 	}
-// 	rightmost = find_rightmost_tree_node(tree_root);
-// 	rightmost->right = redir_pipe_child_node(lst_tk);
-// 	free_lst_tokens(lst_tk);
-// 	define_direction(tree_root);
-// 	shell->node = tree_root;
+//     tree_root = NULL;
+//     rightmost_node = NULL;
+//     current = shell->parser->tokens;
+//     while (current != NULL)
+//     {
+//         cmd_tokens = get_cmd_tokens(&current);
+//         if (!cmd_tokens)
+//             return ;
+//         if (!create_node_and_update_pipe_redir_tree(&tree_root, &rightmost_node,
+//                 &cmd_tokens, &current))
+//             return ;
+//         if (current && current->type == TYPE_PIPE)
+//             current = current->next;
+//     }
+
+//     shell->node = tree_root;
 // }
