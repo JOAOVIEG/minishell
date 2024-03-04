@@ -42,4 +42,4 @@ cat <does_not_exist <<HERE \\ opens HERE but does not send the content
 cat <bla <<123
 cat >bla <<1 <<2 <<3 <<4
 echo Hello >>1 >>2
-echo Hello >1 >>2
+echo Hello >1 >>2 (to bare in mind the overwrite with > and append with >>)
