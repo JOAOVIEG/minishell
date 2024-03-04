@@ -23,11 +23,23 @@ chmod 000 nomedoficheiro OK
 . (comand not found) OK
 ../../Documents/../Desktop/get_next_line (is a directory) OK
 ////////
+To test builtins
 env ficheiro (invalid file) NOK
-export +=
-echo 2\>a NOK
+export var+=content \\ concatonates variable
+export var-=content \\ invalid var
+export _=content \\ valid but content does not change
+export _1=content \\ valid 
+export 1var=contetn \\ invalid (cannot start with number)
+export abc=1234
+unset abc=1234 \\ does not unset abc (has to be unset abc)
 ///
 cat | ls (printa ls e o cat fica stuck)
 cat ficheiroqualquer > nome do ficheriro | wc -l TODO
 < Makefile cat > out > file1 | ls -l > out | wc < out
 echo FIM >> out
+>1 >2 \\ cria file 1 e 2
+cat <does_not_exist <<HERE \\ opens HERE but does not send the content
+cat <bla <<123
+cat >bla <<1 <<2 <<3 <<4
+echo Hello >>1 >>2
+echo Hello >1 >>2
