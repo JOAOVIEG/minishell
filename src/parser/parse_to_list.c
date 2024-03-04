@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_to_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/27 17:08:14 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/01 15:49:33 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void	parse_to_list(t_lexer *lexer, t_parser *parser)
 	parser->tokens = head;
 	get_token_type(parser->tokens);
 	count_pipe_redir(parser);
-	//print_list(parser->tokens);
+	// print_list(parser->tokens);
 	free_lexer_tokens(lexer);
 }

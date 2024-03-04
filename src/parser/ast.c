@@ -208,14 +208,18 @@ void	build_tree(t_shell *shell)
 	else if (shell->parser->pipe_count > 0 && shell->parser->redir_count > 0)
 		build_redir_pipe_tree(shell);
 	print_tree(shell->node, 0, "root");
-	for (int i = 0; shell->node->left->cmd->file[i]; i++)
-	{
-		printf("file left[%d]: %s\n", i, shell->node->left->cmd->file[i]);
-	}
-	for (int i = 0; shell->node->right->cmd->file[i]; i++)
-	{
-		printf("file rigt[%d]: %s\n", i, shell->node->right->cmd->file[i]);
-	}
+	// for (int i = 0; shell->node->cmd->file[i]; i++)
+	// {
+	// 	printf("file[%d]: %s\n", i, shell->node->cmd->file[i]);
+	// }
+	// for (int i = 0; shell->node->left->cmd->file[i]; i++)
+	// {
+	// 	printf("file left[%d]: %s\n", i, shell->node->left->cmd->file[i]);
+	// }
+	// for (int i = 0; shell->node->right->cmd->file[i]; i++)
+	// {
+	// 	printf("file rigt[%d]: %s\n", i, shell->node->right->cmd->file[i]);
+	// }
 }
 
 

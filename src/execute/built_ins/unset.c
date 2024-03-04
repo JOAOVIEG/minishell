@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:20:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/20 16:23:41 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:58:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,3 @@ void	update_env_list(char **env)
 	free_env();
 	shell()->v_env = env_cpy(env);
 }
-
-// int	is_readonly(char *arg)
-// {
-// 	According to bash reference, 
-// 	"Readonly variables and functions may not be unset".
-// 	from my research they are set to readonly with function readonly:
-// 	how to flag it here with allowed funcs?
-// }
-
-
-
-// int	unset_function(char *arg)
-// {
-// 	According to bash reference:
-// 	 if there is no variable by that name, a function with that name, if
-// 	any, is unset.
-// 	From research function refers to any function defined in the terminal:
-// 	function greet() {
-//     echo "Hello, $1"
-// 	}	is this expansions???
-// 	how to unset greet, as example, if nor readonly. This feature is needed?
-// }

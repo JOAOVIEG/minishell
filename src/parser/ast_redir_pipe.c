@@ -55,3 +55,49 @@
 
 //     shell->node = tree_root;
 // }
+
+
+
+// void	build_redir_pipe_tree(t_shell *shell)
+// {
+// 	t_node			*tree_root;
+// 	t_token_queue	cmds;
+// 	t_token_queue	redir_files;
+// 	t_lst_tokens	*current;
+
+// 	tree_root = NULL;
+// 	cmds.head = NULL;
+// 	cmds.tail = NULL;
+// 	redir_files.head = NULL;
+// 	redir_files.tail = NULL;
+// 	current = shell->parser->tokens;
+// 	while (current != NULL)
+// 	{
+// 		while (current != NULL && current->type != TYPE_PIPE)
+// 		{
+// 			if (current->type == TYPE_REDIRECT)
+// 				redir_files.head = get_redir_list(&current, &redir_files.head,
+// 						&redir_files.tail);
+// 			else
+// 				cmds.head = get_cmd_list(&current, &cmds.head, &cmds.tail);
+// 		}
+// 		if (tree_root == NULL)
+// 		{
+// 			tree_root = create_pipe_node(new_redir_tree_node(cmds, redir_files),
+// 					NULL);
+// 		}
+// 		else
+// 		{
+// 			tree_root->right = new_redir_tree_node(cmds, redir_files);
+// 		}
+// 		if (current != NULL)
+// 			current = current->next;
+// 		free_lst_tokens(cmds.head);
+// 		free_lst_tokens(redir_files.head);
+// 		cmds.head = NULL;
+// 		cmds.tail = NULL;
+// 		redir_files.head = NULL;
+// 		redir_files.tail = NULL;
+// 	}
+// 	shell->node = tree_root;
+// }

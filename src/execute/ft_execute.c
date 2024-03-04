@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/01 18:31:34 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/04 14:54:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,13 @@
 
 void ft_simple_cmds(t_node *node)
 {	
-	/*if is a bultin executes builtin.
-	else, ecxecutes form path*/
 	if (is_builtin(node) == 1)
 		exec_builtin(node);
 	else if (is_builtin(node) == 0)
 		return ;
 	else if (is_builtin(node) == 2)
 		exec_cmd(node);
-	else if (node->cmd->arg == NULL && ft_strcmp(node->cmd->file[0], ">") == 0)
-		printf("merda\n");
+
 }
 
 

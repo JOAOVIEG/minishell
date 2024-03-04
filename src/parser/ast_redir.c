@@ -6,11 +6,34 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 17:23:16 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/02 19:28:05 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:12:55 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	init_token_queue(t_token_queue *queue)
+{
+	queue->head = NULL;
+	queue->tail = NULL;
+}
+
+void	clean_token_queue(t_token_queue *queue)
+{
+	t_lst_tokens	*current;
+	t_lst_tokens	*next;
+
+	current = queue->head;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->data);
+		free(current);
+		current = next;
+	}
+	queue->head = NULL;
+	queue->tail = NULL;
+}
 
 void	add_token_back(t_lst_tokens **current, t_lst_tokens **cmd_tokens,
 		t_lst_tokens **tail)
@@ -66,78 +89,87 @@ char	**get_redir_files(t_lst_tokens *tokens)
 	return (file);
 }
 
+t_node	*new_redir_tree_node(t_token_queue cmds, t_token_queue redir_files)
+{
+	t_node	*new_node;
+
+	new_node = new_tree_node(cmds.head);
+	new_node->cmd->file = get_redir_files(redir_files.head);
+	return (new_node);
+}
+
+void	build_token_queue(t_lst_tokens **current, t_token_queue *cmds,
+		t_token_queue *redir_files)
+{
+	while (*current != NULL && (*current)->type != TYPE_PIPE)
+	{
+		if ((*current)->type == TYPE_REDIRECT)
+			redir_files->head = get_redir_list(current, &redir_files->head,
+					&redir_files->tail);
+		else
+			cmds->head = get_cmd_list(current, &cmds->head, &cmds->tail);
+	}
+}
+
 void	build_redir_tree(t_shell *shell)
 {
+	t_token_queue	cmds;
+	t_token_queue	redir_files;
+	t_lst_tokens	*current;
+	t_node			*tree;
+
+	init_token_queue(&cmds);
+	init_token_queue(&redir_files);
+	current = shell->parser->tokens;
+	while (current != NULL)
+		build_token_queue(&current, &cmds, &redir_files);
+	tree = new_redir_tree_node(cmds, redir_files);
+	clean_token_queue(&cmds);
+	clean_token_queue(&redir_files);
+	shell->node = tree;
+}
+
+t_node	*create_node_and_update_redir_pipe_tree(t_node **tree_root,
+		t_node **rightmost_node, t_token_queue cmds, t_token_queue redir_files)
+{
+	t_node	*new_node;
+
+	new_node = new_redir_tree_node(cmds, redir_files);
+	if (!new_node)
+		return (NULL);
+	if (!*tree_root)
+	{
+		*tree_root = new_node;
+		*rightmost_node = new_node;
+	}
+	else
+		update_tree_root(tree_root, rightmost_node,
+			create_pipe_node(*rightmost_node, new_node));
+	return (new_node);
+}
+
+void	build_redir_pipe_tree(t_shell *shell)
+{
 	t_node			*tree_root;
+	t_node			*rightmost_node;
 	t_token_queue	cmds;
 	t_token_queue	redir_files;
 	t_lst_tokens	*current;
 
-	cmds.head = NULL;
-	cmds.tail = NULL;
-	redir_files.head = NULL;
-	redir_files.tail = NULL;
+	tree_root = NULL;
+	rightmost_node = NULL;
+	init_token_queue(&cmds);
+	init_token_queue(&redir_files);
 	current = shell->parser->tokens;
 	while (current != NULL)
 	{
-		if (current->type == TYPE_REDIRECT)
-			redir_files.head = get_redir_list(&current, &redir_files.head,
-					&redir_files.tail);
-		else
-			cmds.head = get_cmd_list(&current, &cmds.head, &cmds.tail);
+		build_token_queue(&current, &cmds, &redir_files);
+		rightmost_node = create_node_and_update_redir_pipe_tree(&tree_root,
+				&rightmost_node, cmds, redir_files);
+		if (current != NULL)
+			current = current->next;
+		clean_token_queue(&cmds);
+		clean_token_queue(&redir_files);
 	}
-	tree_root = new_tree_node(cmds.head);
-	tree_root->cmd->file = get_redir_files(redir_files.head);
-	free_lst_tokens(cmds.head);
-	free_lst_tokens(redir_files.head);
 	shell->node = tree_root;
-}
-void	build_redir_pipe_tree(t_shell *shell)
-{
-    t_node			*tree_root;
-    t_node			*node;
-    t_token_queue	cmds;
-    t_token_queue	redir_files;
-    t_lst_tokens	*current;
-    t_node			*cmd_node;
-
-    tree_root = NULL;
-    node = NULL;
-    cmds.head = NULL;
-    cmds.tail = NULL;
-    redir_files.head = NULL;
-    redir_files.tail = NULL;
-    current = shell->parser->tokens;
-    while (current != NULL)
-    {
-        while (current != NULL && current->type != TYPE_PIPE)
-        {
-            if (current->type == TYPE_REDIRECT)
-                redir_files.head = get_redir_list(&current, &redir_files.head,
-                        &redir_files.tail);
-            else
-                cmds.head = get_cmd_list(&current, &cmds.head, &cmds.tail);
-        }
-        node = new_tree_node(cmds.head);
-        node->cmd->file = get_redir_files(redir_files.head);
-        if (tree_root == NULL)
-        {
-            tree_root = create_pipe_node(node, NULL);
-        }
-        else
-        {
-            cmd_node = new_tree_node(cmds.head);
-            cmd_node->cmd->file = get_redir_files(redir_files.head);
-            tree_root->right = cmd_node;
-        }
-        if (current != NULL)
-            current = current->next;
-
-        // Clean the queues
-        cmds.head = NULL;
-        cmds.tail = NULL;
-        redir_files.head = NULL;
-        redir_files.tail = NULL;
-    }
-    shell->node = tree_root;
 }

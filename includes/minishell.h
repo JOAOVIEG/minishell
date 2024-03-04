@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/28 12:06:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/03 15:33:37 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+#include <sys/stat.h>
 # include <unistd.h>
 
 typedef struct s_shell
