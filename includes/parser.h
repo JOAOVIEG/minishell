@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/01 17:33:37 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:17:17 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ typedef struct s_shell	t_shell;
 typedef struct s_node	t_node;
 typedef struct s_cmd	t_cmd;
 
-
-
 typedef struct s_lst_tokens
 {
 	char				*data;
@@ -45,9 +43,9 @@ typedef struct s_lst_tokens
 
 typedef struct s_token_queue
 {
-    t_lst_tokens	*head;
-    t_lst_tokens	*tail;
-}					t_token_queue;
+	t_lst_tokens		*head;
+	t_lst_tokens		*tail;
+}						t_token_queue;
 
 typedef struct s_buffer
 {
@@ -130,5 +128,7 @@ void					build_redir_pipe_tree(t_shell *shell);
 t_lst_tokens			*build_redir_child_node(t_lst_tokens **current,
 							t_lst_tokens **cmd_tokens, t_lst_tokens **tail);
 t_node					*find_rightmost_tree_node(t_node *root);
+void					add_token_back(t_lst_tokens **current,
+							t_lst_tokens **cmd_tokens, t_lst_tokens **tail);
 
 #endif
