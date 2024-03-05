@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/04 18:21:58 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 10:58:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,11 @@ void	exec_cmd(t_node *node)
 		}
 		else
 			i++;
+		if (node->cmd->here_doc && (ft_strncmp(node->cmd->here_doc[0], 2, '<') == 0))
+		{
+			close(node->fd_in);
+			node->fd_in = heredoc(node);
+		}
 	}
 	pid = fork();
 	if (pid < 0)

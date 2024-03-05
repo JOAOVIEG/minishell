@@ -6,15 +6,10 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/04 18:58:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 10:06:50 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
-// # include "../../includes/lexer.h"
-// # include "../../includes/parser.h"
 # include "../../includes/minishell.h"
 
 void ft_simple_cmds(t_node *node)

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/01 19:03:27 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:11:05 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	free_c_env(char **env);
 char	*get_cmd(char **cmd_path, char *cmd);
 char	*validate_cmd(char **cmd_paths, char *cmd);
 void	ft_exec_piped(t_node *node);
-void	ft_exec_redirectin(t_node *node);
-void	ft_exec_redirectout(t_node *node);
+int		heredoc(t_node *node);
+char	*read_from_stdin(char *delim, char	*buffer, size_t buffer_size);
+void	error_msg();
+void	*ft_my_realloc(void *ptr, size_t size);
 #endif
