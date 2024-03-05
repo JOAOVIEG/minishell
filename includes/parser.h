@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 14:06:29 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:28:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,7 @@ void					add_token_back(t_lst_tokens **current,
 							t_lst_tokens **cmd_tokens, t_lst_tokens **tail);
 void					print_type(int type);
 void					build_heredoc_tree(t_shell *shell);
+void					build_heredoc_pipe_tree(t_shell *shell);
+void					build_heredoc_redir_tree(t_shell *shell);
 
 #endif
