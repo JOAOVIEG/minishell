@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 17:23:16 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/04 17:12:55 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:38:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,15 @@ t_node	*new_redir_tree_node(t_token_queue cmds, t_token_queue redir_files)
 	return (new_node);
 }
 
+t_node	*new_heredoc_node(t_token_queue cmds, t_token_queue heredocs)
+{
+	t_node	*new_node;
+
+	new_node = new_tree_node(cmds.head);
+	new_node->cmd->heredoc = get_redir_files(heredocs.head);
+	return (new_node);
+}
+
 void	build_token_queue(t_lst_tokens **current, t_token_queue *cmds,
 		t_token_queue *redir_files)
 {
@@ -172,4 +181,40 @@ void	build_redir_pipe_tree(t_shell *shell)
 		clean_token_queue(&redir_files);
 	}
 	shell->node = tree_root;
+}
+
+void	build_heredoc_queue(t_lst_tokens **current, t_token_queue *cmds,
+		t_token_queue *heredocs)
+{
+	while (*current != NULL && (*current)->type != TYPE_PIPE)
+	{
+		if ((*current)->type == TYPE_HEREDOC)
+			heredocs->head = get_redir_list(current, &heredocs->head,
+					&heredocs->tail);
+		else
+			cmds->head = get_cmd_list(current, &cmds->head, &cmds->tail);
+	}
+}
+
+void	build_heredoc_tree(t_shell *shell)
+{
+	t_node			*tree;
+	t_lst_tokens	*current;
+	t_token_queue	cmds;
+	t_token_queue	heredocs;
+
+	tree = NULL;
+	init_token_queue(&cmds);
+	init_token_queue(&heredocs);
+	current = shell->parser->tokens;
+	while (current != NULL)
+	{
+		build_heredoc_queue(&current, &cmds, &heredocs);
+		if (current != NULL)
+			current = current->next;
+	}
+	tree = new_heredoc_node(cmds, heredocs);
+	clean_token_queue(&cmds);
+	clean_token_queue(&heredocs);
+	shell->node = tree;
 }

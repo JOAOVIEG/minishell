@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_to_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/01 15:49:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:02:06 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_list(t_lst_tokens *head)
 	while (current != NULL)
 	{
 		printf("token: %s\n", current->data);
-		//printf("type: %d\n", current->type);
+		print_type(current->type);
 		current = current->next;
 	}
 }
@@ -71,6 +71,8 @@ void	count_pipe_redir(t_parser *parser)
 			parser->pipe_count++;
 		else if (current->type == TYPE_REDIRECT)
 			parser->redir_count++;
+		else if (current->type == TYPE_HEREDOC)
+			parser->heredoc_count++;
 		current = current->next;
 	}
 }
@@ -89,6 +91,6 @@ void	parse_to_list(t_lexer *lexer, t_parser *parser)
 	parser->tokens = head;
 	get_token_type(parser->tokens);
 	count_pipe_redir(parser);
-	// print_list(parser->tokens);
+	//print_list(parser->tokens);
 	free_lexer_tokens(lexer);
 }

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/04 17:29:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:40:43 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_tree_cmd(t_cmd *cmd)
 		free(cmd->valid_cmd_path);
 	if (cmd->file)
 		ft_free_str_array(cmd->file);
+	if (cmd->heredoc)
+		ft_free_str_array(cmd->heredoc);
 	free(cmd);
 	cmd = NULL;
 }

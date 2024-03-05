@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/04 14:53:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:00:53 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ typedef struct s_shell	t_shell;
 typedef struct s_node	t_node;
 typedef struct s_cmd	t_cmd;
 
-
-
 typedef struct s_lst_tokens
 {
 	char				*data;
@@ -60,6 +58,7 @@ typedef struct s_parser
 	t_lst_tokens		*tokens;
 	int					pipe_count;
 	int					redir_count;
+	int					heredoc_count;
 	t_buffer			*buffer;
 
 }						t_parser;
@@ -132,5 +131,7 @@ t_lst_tokens			*build_redir_child_node(t_lst_tokens **current,
 t_node					*find_rightmost_tree_node(t_node *root);
 void					add_token_back(t_lst_tokens **current,
 							t_lst_tokens **cmd_tokens, t_lst_tokens **tail);
+void					print_type(int type);
+void					build_heredoc_tree(t_shell *shell);
 
 #endif
