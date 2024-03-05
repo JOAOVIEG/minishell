@@ -6,13 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 11:28:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:14:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
-
-
 
 void	error_msg()
 {
@@ -45,13 +43,13 @@ void	*ft_my_realloc(void *ptr, size_t size)
 	return (new_ptr);
 }
 
-char	*read_from_stdin(char *delim, char	*buffer, size_t buffer_size)
+char	*read_from_stdin(char **delim, char	*buffer, size_t buffer_size)
 {
 	char	ch;
 	char	*delim_line;
 	char	*last_line_start;
 
-	delim_line = ft_strjoin(delim, "\n");
+	delim_line = ft_strjoin(delim[1], "\n");
 	while (read(STDIN_FILENO, &ch, 1) > 0)
 	{
 		buffer = ft_my_realloc(buffer, buffer_size + 2);
@@ -80,7 +78,7 @@ int	heredoc(t_node *node)
 
 	buffer = NULL;
 	buffer_size = 0;
-	buffer = read_from_stdin(node->cmd->here_doc[1], buffer, buffer_size);
+	buffer = read_from_stdin(node->cmd->heredoc, buffer, buffer_size);
 	if (buffer == NULL)
 		error_msg();
 	here_doc_fd = open("./in.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -89,9 +87,9 @@ int	heredoc(t_node *node)
 	write(here_doc_fd, buffer, ft_strlen(buffer));
 	close(here_doc_fd);
 	node->fd_in = open("./in.txt", O_RDONLY);
-	unlink(".in.txt");
 	if (node->fd_in < 0)
 		error_msg();
+	unlink("in.txt");
 	free(buffer);
 	return (node->fd_in);
 }

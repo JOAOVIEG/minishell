@@ -49,4 +49,9 @@ cd directory director2 (too many argumnts)
 env ficheiro (invalid file)
 < Makefile cat > out > file1 | ls -l > out | wc < out
 echo FIM >> out
-
+>>out wc -l Makefile | << end < Makefile 
+<< end | wc -l >out
+<<end cat >out| cat >out
+<<end cat >out
+ echo <<end >out
+ echo <<end >out

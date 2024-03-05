@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/05 14:06:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:00:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 
 void ft_simple_cmds(t_node *node)
 {	
+	if (node->cmd->arg[0] == NULL && node->cmd->heredoc)
+	{
+		node->fd_in = heredoc(node);
+		return ;
+	}
+	if (node->cmd->arg[0] == NULL && (node->cmd->file && ft_strcmp(node->cmd->file[0], "<") == 0))
+	{
+		if (access(node->cmd->file[1], F_OK) == 0)
+		{
+			node->fd_in = open(node->cmd->file[1], O_RDONLY);
+			return ;
+		}
+		else
+		{
+			printf("minishell: %s: No such file or directory\n", node->cmd->file[1]);
+			return ;
+		}
+	}
 	if (is_builtin(node) == 1)
 		exec_builtin(node);
 	else if (is_builtin(node) == 0)

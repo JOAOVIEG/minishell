@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 14:08:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:15:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ void	exec_builtin(t_node *node)
 	pid_t	pid;
 	int		status;
 	int		i;
-	
-	if (node->cmd->here_doc && (ft_strncmp(node->cmd->here_doc[0], 2, '<') == 0))
+
+	if (node->cmd->heredoc)
 	{
-		close(node->fd_in);
 		node->fd_in = heredoc(node);
 	}
 	if (node->cmd->file && *node->cmd->file != NULL)
@@ -76,7 +75,7 @@ void	exec_builtin(t_node *node)
 				}
 				i++;
 			}
-			else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], '>', 2) == 0)
+			else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], ">", 2) == 0)
 			{
 				i++;
 				close(node->fd_out);
@@ -85,12 +84,11 @@ void	exec_builtin(t_node *node)
 				if (node->fd_out < 0)
 				{
 					perror("Error at fd_out");
-					free_c_env(env);
 					exit_shell(EXIT_FAILURE);
 				}
 				i++;
 			}
-			else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], '>', 1) == 0)
+			else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], ">", 1) == 0)
 			{
 				i++;
 				close(node->fd_out);
@@ -98,7 +96,6 @@ void	exec_builtin(t_node *node)
 				if (node->fd_out < 0)
 				{
 					perror("Error at fd_out");
-					free_c_env(env);
 					exit_shell(EXIT_FAILURE);
 				}
 				i++;
@@ -189,7 +186,7 @@ void	exec_cmd(t_node *node)
 	node->fd_out = dup(STDOUT_FILENO);
 	env = env_list_to_arr();
 	check_path(env, node);
-	if (node->cmd->here_doc && (ft_strncmp(node->cmd->here_doc[0], 2, '<') == 0))
+	if (node->cmd->heredoc)
 	{
 		close(node->fd_in);
 		node->fd_in = heredoc(node);
@@ -218,7 +215,7 @@ void	exec_cmd(t_node *node)
 			}
 			i++;
 		}
-		else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], '>', 2) == 0)
+		else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], ">", 2) == 0)
 		{
 			i++;
 			close(node->fd_out);
@@ -232,7 +229,7 @@ void	exec_cmd(t_node *node)
 			}
 			i++;
 		}
-		else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], '>', 1) == 0)
+		else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], ">", 1) == 0)
 		{
 			i++;
 			close(node->fd_out);
