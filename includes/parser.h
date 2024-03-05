@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 12:00:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:55:24 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,7 @@ void					add_token_back(t_lst_tokens **current,
 							t_lst_tokens **cmd_tokens, t_lst_tokens **tail);
 void					print_type(int type);
 void					build_heredoc_tree(t_shell *shell);
+void					build_heredoc_pipe_tree(t_shell *shell);
+void					build_heredoc_redir_tree(t_shell *shell);
 
 #endif
