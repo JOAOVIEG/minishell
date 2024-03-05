@@ -53,5 +53,8 @@ echo FIM >> out
 << end | wc -l >out
 <<end cat >out| cat >out
 <<end cat >out
- echo <<end >out
- echo <<end >out
+echo <<end >out
+echo <<end >out
+<<end | wc -l
+<<end | builtins
+<<delim | non-builtins
