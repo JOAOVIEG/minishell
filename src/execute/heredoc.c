@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 11:10:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:28:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	heredoc(t_node *node)
 
 	buffer = NULL;
 	buffer_size = 0;
-	buffer = read_from_stdin(node->cmd->here_doc[2], buffer, buffer_size);
+	buffer = read_from_stdin(node->cmd->here_doc[1], buffer, buffer_size);
 	if (buffer == NULL)
 		error_msg();
 	here_doc_fd = open("./in.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);

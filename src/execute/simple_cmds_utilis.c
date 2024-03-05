@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 10:58:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:57:25 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,12 @@ void	exec_builtin(t_node *node)
 	pid_t	pid;
 	int		status;
 	int		i;
-
+	
+	if (node->cmd->here_doc && (ft_strncmp(node->cmd->here_doc[0], 2, '<') == 0))
+	{
+		close(node->fd_in);
+		node->fd_in = heredoc(node);
+	}
 	if (node->cmd->file && *node->cmd->file != NULL)
 	{
 		i = 0;
@@ -55,15 +60,15 @@ void	exec_builtin(t_node *node)
 			{
 				i++;
 				if (access(node->cmd->file[i], F_OK) == 0)
-       	 		{
+				{
 					close(node->fd_in);
 					node->fd_in = open(node->cmd->file[i], O_RDONLY);
-        		}
+				}
 				else
 				{
 					printf("%s: No such file or directory\n", node->cmd->file[i]);
 					return ;
-				}
+				}	
 				if (node->fd_in < 0)
 				{
 					perror("Error at fd_in");
@@ -71,7 +76,21 @@ void	exec_builtin(t_node *node)
 				}
 				i++;
 			}
-			else if (ft_strchr(node->cmd->file[i], '>') != NULL)
+			else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], '>', 2) == 0)
+			{
+				i++;
+				close(node->fd_out);
+				node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT \
+										| O_APPEND, 0644);
+				if (node->fd_out < 0)
+				{
+					perror("Error at fd_out");
+					free_c_env(env);
+					exit_shell(EXIT_FAILURE);
+				}
+				i++;
+			}
+			else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], '>', 1) == 0)
 			{
 				i++;
 				close(node->fd_out);
@@ -79,6 +98,7 @@ void	exec_builtin(t_node *node)
 				if (node->fd_out < 0)
 				{
 					perror("Error at fd_out");
+					free_c_env(env);
 					exit_shell(EXIT_FAILURE);
 				}
 				i++;
@@ -169,6 +189,11 @@ void	exec_cmd(t_node *node)
 	node->fd_out = dup(STDOUT_FILENO);
 	env = env_list_to_arr();
 	check_path(env, node);
+	if (node->cmd->here_doc && (ft_strncmp(node->cmd->here_doc[0], 2, '<') == 0))
+	{
+		close(node->fd_in);
+		node->fd_in = heredoc(node);
+	}
 	while (node->cmd->file && node->cmd->file[i] != NULL)
 	{
 		if (ft_strchr(node->cmd->file[i], '<') != NULL)
@@ -193,7 +218,21 @@ void	exec_cmd(t_node *node)
 			}
 			i++;
 		}
-		else if (ft_strchr(node->cmd->file[i], '>') != NULL)
+		else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], '>', 2) == 0)
+		{
+			i++;
+			close(node->fd_out);
+			node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT \
+										| O_APPEND, 0644);
+			if (node->fd_out < 0)
+			{
+				perror("Error at fd_out");
+				free_c_env(env);
+				exit_shell(EXIT_FAILURE);
+			}
+			i++;
+		}
+		else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], '>', 1) == 0)
 		{
 			i++;
 			close(node->fd_out);
@@ -208,11 +247,6 @@ void	exec_cmd(t_node *node)
 		}
 		else
 			i++;
-		if (node->cmd->here_doc && (ft_strncmp(node->cmd->here_doc[0], 2, '<') == 0))
-		{
-			close(node->fd_in);
-			node->fd_in = heredoc(node);
-		}
 	}
 	pid = fork();
 	if (pid < 0)
