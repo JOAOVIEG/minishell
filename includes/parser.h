@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 14:55:24 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:32:33 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ typedef struct s_token_queue
 
 typedef struct s_buffer
 {
-	t_lst_tokens		*lst_tok;
-	t_lst_tokens		*next;
+	t_token_queue	cmds;
+	t_token_queue	heredocs;
+	t_token_queue	redir_files;
 }						t_buffer;
 
 typedef struct s_parser
@@ -59,7 +60,6 @@ typedef struct s_parser
 	int					pipe_count;
 	int					redir_count;
 	int					heredoc_count;
-	t_buffer			*buffer;
 
 }						t_parser;
 
