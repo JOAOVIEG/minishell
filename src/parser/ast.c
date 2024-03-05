@@ -217,17 +217,17 @@ void	build_tree(t_shell *shell)
 	else if (shell->parser->heredoc_count > 0 && shell->parser->pipe_count == 0
 		&& shell->parser->redir_count > 0)
 		build_heredoc_redir_tree(shell);
-	print_tree(shell->node, 0, "root");
-	if (shell->node->cmd->heredoc)
-	{
-		for (int i = 0; shell->node->cmd->heredoc[i]; i++)
-			printf("heredoc[%d]: %s\n", i, shell->node->cmd->heredoc[i]);
-	}
-	if (shell->node->cmd->file)
-	{
-		for (int i = 0; shell->node->cmd->file[i]; i++)
-			printf("file[%d]: %s\n", i, shell->node->cmd->file[i]);
-	}
+	// print_tree(shell->node, 0, "root");
+	// if (shell->node->cmd->heredoc)
+	// {
+	// 	for (int i = 0; shell->node->cmd->heredoc[i]; i++)
+	// 		printf("heredoc[%d]: %s\n", i, shell->node->cmd->heredoc[i]);
+	// }
+	// if (shell->node->cmd->file)
+	// {
+	// 	for (int i = 0; shell->node->cmd->file[i]; i++)
+	// 		printf("file[%d]: %s\n", i, shell->node->cmd->file[i]);
+	// }
 	// for (int i = 0; shell->node->left->cmd->file[i]; i++)
 	// {
 	// 	printf("file left[%d]: %s\n", i, shell->node->left->cmd->file[i]);

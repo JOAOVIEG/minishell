@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/05 16:00:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:23:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void ft_simple_cmds(t_node *node)
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc)
 	{
 		node->fd_in = heredoc(node);
+		// node->fd_out = STDOUT_FILENO;
 		return ;
 	}
 	if (node->cmd->arg[0] == NULL && (node->cmd->file && ft_strcmp(node->cmd->file[0], "<") == 0))
@@ -63,6 +64,14 @@ void	ft_exec_piped(t_node *node)
         close(pipe_end[0]);
 		node->left->fd_out = pipe_end[1];
 		dup2(node->left->fd_out, STDOUT_FILENO);
+		if (node->left->cmd && node->left->cmd->heredoc)
+		{
+			node->left->fd_in = heredoc(node->left);
+			if (node->left->fd_in < 0)
+				exit_shell(1);
+			dup2(node->left->fd_in, STDIN_FILENO);
+			return ;
+		}
         ft_execute(node->left);
 		close(node->left->fd_out);
 		close(pipe_end[1]);
