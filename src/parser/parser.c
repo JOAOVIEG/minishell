@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/01 15:50:24 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:45:22 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ t_parser	*init_parser(void)
 		exit(EXIT_FAILURE);
 	}
 	parser->tokens = NULL;
-	// parser->tree = NULL;
-	parser->buffer = NULL;
 	parser->pipe_count = 0;
 	parser->redir_count = 0;
+	parser->heredoc_count = 0;
 	return (parser);
 }
 

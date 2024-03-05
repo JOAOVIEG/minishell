@@ -217,6 +217,9 @@ void	build_tree(t_shell *shell)
 	else if (shell->parser->heredoc_count > 0 && shell->parser->pipe_count == 0
 		&& shell->parser->redir_count > 0)
 		build_heredoc_redir_tree(shell);
+	else if (shell->parser->heredoc_count > 0 && shell->parser->pipe_count > 0
+		&& shell->parser->redir_count > 0)
+		build_heredoc_redir_tree(shell);
 	// print_tree(shell->node, 0, "root");
 	// if (shell->node->cmd->heredoc)
 	// {
