@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:20:44 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/27 18:12:09 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:46:46 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	reset_parser(t_parser *parser)
 	parser->tokens = NULL;
 	parser->pipe_count = 0;
 	parser->redir_count = 0;
+	parser->heredoc_count = 0;
 }
 void	free_parser(t_parser *parser)
 {

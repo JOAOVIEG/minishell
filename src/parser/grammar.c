@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/07 15:22:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:38:43 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,25 @@ void	command(t_parser *parser)
 {
 	token_list(parser);
 }
+void	here_document(t_parser *parser)
+{
+	if (!parser->tokens)
+	{
+		printf("Syntax error: unexpected end of input after here document\n");
+		return ;
+	}
+	if (parser->tokens->type == TYPE_HEREDOC)
+	{
+		parser->tokens = parser->tokens->next;
+		if (!parser->tokens || parser->tokens->type != TYPE_ARG)
+		{
+			printf("Syntax error: expected a file after here document\n");
+			return ;
+		}
+		parser->tokens = parser->tokens->next;
+	}
+}
+
 void	token_list(t_parser *parser)
 {
 	if (!parser->tokens)
@@ -102,10 +121,13 @@ void	token_list(t_parser *parser)
 		redirection(parser);
 		token_list(parser);
 	}
-	else
+	else if (parser->tokens->type == TYPE_HEREDOC)
 	{
-		return ;
+		here_document(parser);
+		token_list(parser);
 	}
+	else
+		return ;
 }
 
 void	redirection(t_parser *parser)
@@ -163,7 +185,16 @@ bool	grammar_check(t_parser *parser)
 		return (false);
 	}
 	parser->tokens = head;
+	while (parser->tokens->next)
+		parser->tokens = parser->tokens->next;
+	if (parser->tokens->type == TYPE_REDIRECT
+		|| parser->tokens->type == TYPE_HEREDOC)
+	{
+		printf("Syntax error\n");
+		return (false);
+	}
+	parser->tokens = head;
 	return (true);
 }
 
-// For now I'm ignoring the env_var and the $ variable, later i will implement it the functions to handle it
+// For now I'm ignoring the env_var and the $ variable,
