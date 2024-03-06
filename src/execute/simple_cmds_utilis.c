@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/06 13:20:47 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:17:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ int	is_builtin(t_node *node)
 	char *cmd;
 
 	cmd = node->cmd->arg[0];
-	if (cmd == NULL && (node->cmd->file && ft_strcmp(node->cmd->file[0], ">") == 0))
-	{
-		return (open(node->cmd->file[1], O_WRONLY | O_CREAT | O_TRUNC, 0644));
-	}
-	else if (cmd == NULL && (node->cmd->file && ft_strncmp(node->cmd->file[0], ">>", 2) == 0))
-	{
-		return (open(node->cmd->file[1], O_WRONLY | O_CREAT | O_APPEND, 0644));
-	}
-	else if (cmd == NULL)
-		return (0);
 	if (ft_strcmp(cmd, "cd") == 0 || \
 			ft_strcmp(cmd, "pwd") == 0 || \
 			ft_strcmp(cmd, "echo") == 0 || \
