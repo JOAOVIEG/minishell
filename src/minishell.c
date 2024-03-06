@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 14:06:47 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:24:47 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ignore_signals(void)
 
 void	read_input(void)
 {
-	shell()->line = readline("minishell>");
+	shell()->line = readline("\033[38;5;208mminiBash\033[0m:$ ");
 	if (!shell()->line)
 	{
 		write_history(".msh_hist");
