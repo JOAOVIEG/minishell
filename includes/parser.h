@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/06 10:52:07 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:23:33 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,17 @@ void					get_token_type(t_lst_tokens *tokens);
 void					print_list(t_lst_tokens *head);
 
 // grammar
-void					command_line(t_parser *parser);
-void					command(t_parser *parser);
-void					token_list(t_parser *parser);
-void					redir_out(t_parser *parser);
-void					redir_in(t_parser *parser);
-void					redirection(t_parser *parser);
-void					quotes(t_parser *parser);
-void					sequence(t_parser *parser);
+// void					command_line(t_parser *parser);
+// void					command(t_parser *parser);
+// void					token_list(t_parser *parser);
+// void					redir_out(t_parser *parser);
+// void					redir_in(t_parser *parser);
+// void					redirection(t_parser *parser);
+// void					quotes(t_parser *parser);
+// void					sequence(t_parser *parser);
 bool					grammar_check(t_parser *parser);
 
-// AST
+// // AST
 void					lst_tokenadd_back(t_lst_tokens **lst,
 							t_lst_tokens **tail, t_lst_tokens *new);
 int						lst_token_size(t_lst_tokens *tokens);

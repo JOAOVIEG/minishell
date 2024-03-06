@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/06 12:15:34 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:37:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,37 +60,48 @@
 
  */
 
-void	command_line(t_parser *parser)
+#include "../../includes/minishell.h"
+
+bool	command_line(t_parser *parser);
+bool	command(t_parser *parser);
+bool	here_document(t_parser *parser);
+bool	env_var(t_parser *parser);
+bool	token_list(t_parser *parser);
+bool	gramar_redirection(t_parser *parser);
+bool	quotes(t_parser *parser);
+
+bool	command_line(t_parser *parser)
 {
 	if (!parser->tokens)
-		return ;
+		return (true);
 	if (parser->tokens->type == TYPE_PIPE)
 	{
 		printf("Syntax error: unexpected token `|'\n");
-		return ;
+		return (false);
 	}
 	command(parser);
 	if (!parser->tokens || parser->tokens->type != TYPE_PIPE)
-		return ;
+		return (true);
 	parser->tokens = parser->tokens->next;
 	if (!parser->tokens)
 	{
 		printf("Syntax error: expected a command after the pipe\n");
-		return ;
+		return (false);
 	}
-	command_line(parser);
+	return (command_line(parser));
 }
 
-void	command(t_parser *parser)
+bool	command(t_parser *parser)
 {
-	token_list(parser);
+	return (token_list(parser));
 }
-void	here_document(t_parser *parser)
+
+bool	here_document(t_parser *parser)
 {
 	if (!parser->tokens)
 	{
 		printf("Syntax error: unexpected end of input after here document\n");
-		return ;
+		return (false);
 	}
 	if (parser->tokens->type == TYPE_HEREDOC)
 	{
@@ -98,20 +109,21 @@ void	here_document(t_parser *parser)
 		if (!parser->tokens || parser->tokens->type != TYPE_ARG)
 		{
 			printf("Syntax error: expected a file after here document\n");
-			return ;
+			return (false);
 		}
 		parser->tokens = parser->tokens->next;
 	}
+	return (true);
 }
 
-void	env_var(t_parser *parser)
+bool	env_var(t_parser *parser)
 {
 	char	*p;
 
 	if (!parser->tokens)
 	{
 		printf("Syntax error: unexpected end of input after environment variable\n");
-		return ;
+		return (false);
 	}
 	if (parser->tokens->type == TYPE_ENV_VAR)
 	{
@@ -119,7 +131,7 @@ void	env_var(t_parser *parser)
 			|| ft_strlen(parser->tokens->data) < 2)
 		{
 			printf("Syntax error: malformed environment variable\n");
-			return ;
+			return (false);
 		}
 		p = parser->tokens->data + 1;
 		while (*p)
@@ -127,51 +139,52 @@ void	env_var(t_parser *parser)
 			if (!ft_isalnum(*p) && *p != '_')
 			{
 				printf("Syntax error: malformed environment variable\n");
-				return ;
+				return (false);
 			}
 			p++;
 		}
 		parser->tokens = parser->tokens->next;
 	}
+	return (true);
 }
 
-void	token_list(t_parser *parser)
+bool	token_list(t_parser *parser)
 {
 	if (!parser->tokens)
-		return ;
+		return (true);
 	if (parser->tokens->type == TYPE_COMMAND || parser->tokens->type == TYPE_ARG
 		|| parser->tokens->type == TYPE_QUOTES
 		|| parser->tokens->type == TYPE_ENV_VAR)
 	{
-		quotes(parser);
+		if (!quotes(parser))
+			return (false);
 		parser->tokens = parser->tokens->next;
-		token_list(parser);
+		if (!token_list(parser))
+			return (false);
 	}
 	else if (parser->tokens->type == TYPE_REDIRECT)
 	{
-		redirection(parser);
-		token_list(parser);
+		if (!gramar_redirection(parser))
+			return false;
+		if (!token_list(parser))
+			return false;
 	}
 	else if (parser->tokens->type == TYPE_HEREDOC)
 	{
-		here_document(parser);
-		token_list(parser);
+		if (!here_document(parser))
+			return false;
+		if (!token_list(parser))
+			return false;
 	}
-	// else if (parser->tokens->type == TYPE_ENV_VAR)
-	// {
-	// 	env_var(parser);
-	// 	token_list(parser);
-	// }
-	else
-		return ;
+	return true;
 }
 
-void	redirection(t_parser *parser)
+bool	gramar_redirection(t_parser *parser)
 {
 	if (!parser->tokens)
 	{
 		printf("Syntax error: unexpected end of input after redirection\n");
-		return ;
+		return false;
 	}
 	if (parser->tokens->type == TYPE_REDIRECT)
 	{
@@ -179,34 +192,38 @@ void	redirection(t_parser *parser)
 		if (!parser->tokens || parser->tokens->type != TYPE_ARG)
 		{
 			printf("Syntax error: expected a file after redirection\n");
-			return ;
+			return false;
 		}
 		parser->tokens = parser->tokens->next;
 	}
+	return true;
 }
 
-void	quotes(t_parser *parser)
+bool	quotes(t_parser *parser)
 {
 	int	len;
 
+	if (!parser->tokens)
+		return true;
 	len = ft_strlen(parser->tokens->data);
 	if (parser->tokens->data[0] == '\'' || parser->tokens->data[0] == '\"')
 	{
-		if (parser->tokens->data[len - 1] != parser->tokens->data[0])
+		if (len < 2 || parser->tokens->data[len - 1] != parser->tokens->data[0])
 		{
 			printf("Syntax error: expected a closing quote\n");
-			return ;
+			return false;
 		}
 	}
 	else if (parser->tokens->data[len - 1] == '\'' || parser->tokens->data[len
 		- 1] == '\"')
 	{
-		if (parser->tokens->data[0] != parser->tokens->data[len - 1])
+		if (len < 2 || parser->tokens->data[0] != parser->tokens->data[len - 1])
 		{
 			printf("Syntax error: expected a closing quote\n");
-			return ;
+			return false;
 		}
 	}
+	return true;
 }
 
 bool	grammar_check(t_parser *parser)
@@ -214,25 +231,17 @@ bool	grammar_check(t_parser *parser)
 	t_lst_tokens	*head;
 
 	if (!parser->tokens)
-		return (true);
+		return true;
 	head = parser->tokens;
-	command_line(parser);
+	if (!command_line(parser))
+	{
+		printf("Syntax error\n");
+		return false;
+	}
 	if (parser->tokens)
 	{
-		printf("Syntax error\n");
-		return (false);
+		return false;
 	}
 	parser->tokens = head;
-	while (parser->tokens->next)
-		parser->tokens = parser->tokens->next;
-	if (parser->tokens->type == TYPE_REDIRECT
-		|| parser->tokens->type == TYPE_HEREDOC)
-	{
-		printf("Syntax error\n");
-		return (false);
-	}
-	parser->tokens = head;
-	return (true);
+	return true;
 }
-
-// For now I'm ignoring the env_var and the $ variable,
