@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/06 12:38:38 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:35:23 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,25 @@ void	remove_quotes(t_parser *parser)
 	}
 	parser->tokens = head;
 }
+
+void remove_quotes_env(t_parser *parser)
+{
+	t_lst_tokens	*current;
+	t_lst_tokens	*head;
+
+	head = parser->tokens;
+	current = head;
+	while (current)
+	{
+		if (current->type == TYPE_ENV_VAR)
+		{
+			if (current->data[0] == '\"')
+				current->data = ft_strtrim(current->data, "\'\"");
+		}
+		current = current->next;
+	}
+	parser->tokens = head;
+}
 void	make_env_var(t_shell *shell)
 {
 	t_lst_tokens	*current;
@@ -80,12 +99,11 @@ void	make_env_var(t_shell *shell)
 			free(current->data);
 			current->data = NULL;
 			current->data = trimmed;
-			//printf("current->data: %s\n", current->data);
 			while (current_env)
 			{
-				if (ft_strncmp(current->data, current_env->name, ft_strlen(current_env->name)) == 0)
+				if (ft_strncmp(current->data, current_env->name,
+						ft_strlen(current_env->name)) == 0)
 				{
-					//printf("current_env->name: %s\n", current_env->name);
 					value = ft_strdup(current_env->value);
 					free(current->data);
 					current->data = value;
@@ -105,9 +123,11 @@ void	parser(t_shell *shell)
 	if (grammar_check(shell->parser))
 	{
 		remove_quotes(shell->parser);
+		remove_quotes_env(shell->parser);
+		//get_token_type(shell->parser->tokens);
 		make_env_var(shell);
 		build_tree(shell);
 	}
 	reset_parser(shell->parser);
-	// print_list(shell->parser->tokens);
+	//print_list(shell->parser->tokens);
 }
