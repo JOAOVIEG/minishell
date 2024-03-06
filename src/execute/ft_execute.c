@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/06 14:12:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:32:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,25 @@ void ft_simple_cmds(t_node *node)
 		}
 	}
 	else if (node->cmd->arg[0] == NULL && (node->cmd->file && ft_strcmp(node->cmd->file[0], ">") == 0))
+	{
+		struct stat st;
+		if (stat(node->cmd->file[1], &st) == 0 && S_ISDIR(st.st_mode))
+		{
+			printf("%s: is a directory\n", node->cmd->file[1]);
+			return ;
+		}
 		node->fd_out = open(node->cmd->file[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
 	else if (node->cmd->arg[0] == NULL && (node->cmd->file && ft_strncmp(node->cmd->file[0], ">>", 2) == 0))
-		node->fd_out = open(node->cmd->file[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	{
+		struct stat st;
+		if (stat(node->cmd->file[1], &st) == 0 && S_ISDIR(st.st_mode))
+		{
+			printf("%s: is a directory\n", node->cmd->file[1]);
+			return ;
+		}
+		node->fd_out = open(node->cmd->file[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
 	else if (node->cmd->arg[0] == NULL)
 		return ;
 	else if (is_builtin(node) == 1)

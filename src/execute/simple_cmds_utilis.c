@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/06 14:17:22 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:31:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void	exec_builtin(t_node *node)
 			else if (ft_strncmp(node->cmd->file[i], ">>", 2) == 0)
 			{
 				i++;
+				struct stat st;
+				if (stat(node->cmd->file[i], &st) == 0 && S_ISDIR(st.st_mode))
+				{
+           			printf("%s: is a directory\n", node->cmd->file[i]);
+					return ;
+				}
 				close(node->fd_out);
 				node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT \
 										| O_APPEND, 0644);
@@ -84,6 +90,12 @@ void	exec_builtin(t_node *node)
 			else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], ">", 1) == 0)
 			{
 				i++;
+				struct stat st;
+				if (stat(node->cmd->file[i], &st) == 0 && S_ISDIR(st.st_mode))
+				{
+           			printf("%s: is a directory\n", node->cmd->file[i]);
+					return ;
+				}
 				close(node->fd_out);
 				node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (node->fd_out < 0)
