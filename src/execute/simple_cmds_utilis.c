@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 16:15:30 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:20:47 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ int	is_builtin(t_node *node)
 	{
 		return (open(node->cmd->file[1], O_WRONLY | O_CREAT | O_TRUNC, 0644));
 	}
+	else if (cmd == NULL && (node->cmd->file && ft_strncmp(node->cmd->file[0], ">>", 2) == 0))
+	{
+		return (open(node->cmd->file[1], O_WRONLY | O_CREAT | O_APPEND, 0644));
+	}
 	else if (cmd == NULL)
 		return (0);
-	
 	if (ft_strcmp(cmd, "cd") == 0 || \
 			ft_strcmp(cmd, "pwd") == 0 || \
 			ft_strcmp(cmd, "echo") == 0 || \
@@ -37,7 +40,7 @@ int	is_builtin(t_node *node)
 
 void	exec_builtin(t_node *node)
 {
-	char **cmd;
+	char	**cmd;
 	pid_t	pid;
 	int		status;
 	int		i;
@@ -75,7 +78,7 @@ void	exec_builtin(t_node *node)
 				}
 				i++;
 			}
-			else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], ">", 2) == 0)
+			else if (ft_strncmp(node->cmd->file[i], ">>", 2) == 0)
 			{
 				i++;
 				close(node->fd_out);
@@ -215,9 +218,15 @@ void	exec_cmd(t_node *node)
 			}
 			i++;
 		}
-		else if ((ft_strlen(node->cmd->file[i]) == 2) && ft_strncmp(node->cmd->file[i], ">", 2) == 0)
+		else if (ft_strncmp(node->cmd->file[i], ">>", 2) == 0)
 		{
 			i++;
+			struct stat st;
+			if (stat(node->cmd->file[i], &st) == 0 && S_ISDIR(st.st_mode))
+			{
+           		printf("%s: is a directory\n", node->cmd->file[i]);
+				return ;
+			}
 			close(node->fd_out);
 			node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT \
 										| O_APPEND, 0644);
@@ -225,13 +234,19 @@ void	exec_cmd(t_node *node)
 			{
 				perror("Error at fd_out");
 				free_c_env(env);
-				exit_shell(EXIT_FAILURE);
+				// exit_shell(EXIT_FAILURE);
 			}
 			i++;
 		}
 		else if ((ft_strlen(node->cmd->file[i]) == 1) && ft_strncmp(node->cmd->file[i], ">", 1) == 0)
 		{
 			i++;
+			struct stat st;
+			if (stat(node->cmd->file[i], &st) == 0 && S_ISDIR(st.st_mode))
+			{
+           		printf("%s: is a directory\n", node->cmd->file[i]);
+				return ;
+			}
 			close(node->fd_out);
 			node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (node->fd_out < 0)

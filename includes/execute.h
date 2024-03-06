@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 15:14:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:17:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ typedef struct s_cmd
 	char			**arg;
 	char			**file;
 	char			**heredoc;
-	// expasion $USER
-	// here_doc -> <<delim
-	// append -> >>file
 	char			*path;
 	char			**cmd_path;
 	char			*valid_cmd_path;

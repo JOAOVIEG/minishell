@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/05 18:23:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:13:54 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ void ft_simple_cmds(t_node *node)
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc)
 	{
 		node->fd_in = heredoc(node);
-		// node->fd_out = STDOUT_FILENO;
-		return ;
 	}
-	if (node->cmd->arg[0] == NULL && (node->cmd->file && ft_strcmp(node->cmd->file[0], "<") == 0))
+	else if (node->cmd->arg[0] == NULL && (node->cmd->file && ft_strcmp(node->cmd->file[0], "<") == 0))
 	{
 		if (access(node->cmd->file[1], F_OK) == 0)
 		{
@@ -33,13 +31,12 @@ void ft_simple_cmds(t_node *node)
 			return ;
 		}
 	}
-	if (is_builtin(node) == 1)
+	else if (is_builtin(node) == 1)
 		exec_builtin(node);
 	else if (is_builtin(node) == 0)
 		return ;
 	else if (is_builtin(node) == 2)
 		exec_cmd(node);
-
 }
 
 
@@ -54,35 +51,40 @@ void	ft_exec_piped(t_node *node)
         perror("Error at pipe");
         exit_shell(1);
     }
-	if ((left_pid = fork()) < 0)
+	if (node->left->cmd && node->left->cmd->heredoc)
+	{
+		node->left->fd_in = heredoc(node->left);
+		if (node->left->fd_in < 0)
+			exit_shell(1);
+	}
+	else if ((left_pid = fork()) < 0)
 	{
 		perror("left fork failed");
 		exit_shell(2);
 	}
-    if (left_pid == 0)
+    else if (left_pid == 0)
     {
         close(pipe_end[0]);
 		node->left->fd_out = pipe_end[1];
 		dup2(node->left->fd_out, STDOUT_FILENO);
-		if (node->left->cmd && node->left->cmd->heredoc)
-		{
-			node->left->fd_in = heredoc(node->left);
-			if (node->left->fd_in < 0)
-				exit_shell(1);
-			dup2(node->left->fd_in, STDIN_FILENO);
-			return ;
-		}
+		dup2(node->left->fd_out, STDOUT_FILENO);
         ft_execute(node->left);
 		close(node->left->fd_out);
 		close(pipe_end[1]);
 		exit_shell(0);
     }
-	if ((right_pid = fork()) < 0)
+	if (node->right->cmd && node->right->cmd->heredoc)
+	{
+		node->right->fd_in = heredoc(node->right);
+		if (node->right->fd_in < 0)
+			exit_shell(1);
+	}
+	else if ((right_pid = fork()) < 0)
 	{
 		perror("right fork failed");
 		exit_shell(3);
 	}
-    if (right_pid == 0)
+    else if (right_pid == 0)
     {
     	node->right->fd_in = pipe_end[0];
         close(pipe_end[1]);
@@ -93,11 +95,15 @@ void	ft_exec_piped(t_node *node)
         exit_shell(0);
     }
     close(pipe_end[0]);
-	// close(node->right->fd_in);
+	if (node->right->fd_in)
+		close(node->right->fd_in);
     close(pipe_end[1]);
-	// close(node->left->fd_out);
-    waitpid(left_pid, NULL, 0);
-    waitpid(right_pid, NULL, 0);
+	if (node->left->fd_out)
+		close(node->left->fd_out);
+	if (left_pid)
+    	waitpid(left_pid, NULL, 0);
+	if (right_pid)
+    	waitpid(right_pid, NULL, 0);
 }
 
 
