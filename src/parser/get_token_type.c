@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:32:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/19 17:49:04 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:46:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	define_type(t_lst_tokens *current, t_lst_tokens *prev)
 		current->type = TYPE_QUOTES;
 	else if (ft_strncmp(current->data, "\"", 2) == 0)
 		current->type = TYPE_QUOTES;
-	else if (ft_strncmp(current->data, "$", 2) == 0)
+	else if (current->data[0] == '$')
 		current->type = TYPE_ENV_VAR;
 	else if (prev == NULL || ft_strncmp(prev->data, "|", 2) == 0
 		|| ft_strncmp(prev->data, ";", 2) == 0 || ft_strncmp(prev->data, "&&",

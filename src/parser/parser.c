@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 15:45:22 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:38:38 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ t_parser	*init_parser(void)
 	return (parser);
 }
 
+void	print_env_list(t_env *env)
+{
+	t_env	*current;
+
+	current = env;
+	while (current != NULL)
+	{
+		printf("Name: %s, Value: %s\n", current->name, current->value);
+		current = current->next;
+	}
+}
+
 void	remove_quotes(t_parser *parser)
 {
 	t_lst_tokens	*current;
@@ -47,17 +59,54 @@ void	remove_quotes(t_parser *parser)
 	}
 	parser->tokens = head;
 }
+void	make_env_var(t_shell *shell)
+{
+	t_lst_tokens	*current;
+	t_lst_tokens	*head;
+	t_env			*env;
+	t_env			*current_env;
+	char			*value;
+	char			*trimmed;
+
+	head = shell->parser->tokens;
+	current = head;
+	env = shell->v_env;
+	current_env = env;
+	while (current)
+	{
+		if (current->type == TYPE_ENV_VAR)
+		{
+			trimmed = ft_strtrim(current->data, "$");
+			free(current->data);
+			current->data = NULL;
+			current->data = trimmed;
+			//printf("current->data: %s\n", current->data);
+			while (current_env)
+			{
+				if (ft_strncmp(current->data, current_env->name, ft_strlen(current_env->name)) == 0)
+				{
+					//printf("current_env->name: %s\n", current_env->name);
+					value = ft_strdup(current_env->value);
+					free(current->data);
+					current->data = value;
+				}
+				current_env = current_env->next;
+			}
+		}
+		current = current->next;
+	}
+	shell->parser->tokens = head;
+}
 
 void	parser(t_shell *shell)
 {
 	tokenize_input(shell->line, shell->lexer);
 	parse_to_list(shell->lexer, shell->parser);
-
 	if (grammar_check(shell->parser))
 	{
 		remove_quotes(shell->parser);
+		make_env_var(shell);
 		build_tree(shell);
-		
 	}
 	reset_parser(shell->parser);
 	// print_list(shell->parser->tokens);

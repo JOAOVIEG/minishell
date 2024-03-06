@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 17:23:16 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 16:21:38 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:15:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,16 +115,16 @@ t_node	*new_redir_tree_node(t_buffer buffer)
 	return (new_node);
 }
 
-t_node	*new_heredoc_node(t_token_queue cmds, t_token_queue heredocs,
-		t_token_queue redir_files)
-{
-	t_node	*new_node;
+// t_node	*new_heredoc_node(t_token_queue cmds, t_token_queue heredocs,
+// 		t_token_queue redir_files)
+// {
+// 	t_node	*new_node;
 
-	new_node = new_tree_node(cmds.head);
-	new_node->cmd->heredoc = get_redir_files(heredocs.head);
-	new_node->cmd->file = get_redir_files(redir_files.head);
-	return (new_node);
-}
+// 	new_node = new_tree_node(cmds.head);
+// 	new_node->cmd->heredoc = get_redir_files(heredocs.head);
+// 	new_node->cmd->file = get_redir_files(redir_files.head);
+// 	return (new_node);
+// }
 
 void	build_token_queue(t_lst_tokens **current, t_buffer *buffer)
 {
@@ -201,18 +201,18 @@ void	build_redir_pipe_tree(t_shell *shell)
 	shell->node = tree_root;
 }
 
-void	build_heredoc_queue(t_lst_tokens **current, t_token_queue *cmds,
-		t_token_queue *heredocs)
-{
-	while (*current != NULL && (*current)->type != TYPE_PIPE)
-	{
-		if ((*current)->type == TYPE_HEREDOC)
-			heredocs->head = get_redir_list(current, &heredocs->head,
-					&heredocs->tail);
-		else
-			cmds->head = get_cmd_list(current, &cmds->head, &cmds->tail);
-	}
-}
+// void	build_heredoc_queue(t_lst_tokens **current, t_token_queue *cmds,
+// 		t_token_queue *heredocs)
+// {
+// 	while (*current != NULL && (*current)->type != TYPE_PIPE)
+// 	{
+// 		if ((*current)->type == TYPE_HEREDOC)
+// 			heredocs->head = get_redir_list(current, &heredocs->head,
+// 					&heredocs->tail);
+// 		else
+// 			cmds->head = get_cmd_list(current, &cmds->head, &cmds->tail);
+// 	}
+// }
 
 void	build_heredoc_redir_queue(t_lst_tokens **current, t_token_queue *cmds,
 		t_token_queue *heredocs, t_token_queue *redir_files)

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 15:32:33 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:52:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef struct s_token_queue
 
 typedef struct s_buffer
 {
-	t_token_queue	cmds;
-	t_token_queue	heredocs;
-	t_token_queue	redir_files;
+	t_token_queue		cmds;
+	t_token_queue		heredocs;
+	t_token_queue		redir_files;
 }						t_buffer;
 
 typedef struct s_parser
@@ -135,5 +135,6 @@ void					print_type(int type);
 void					build_heredoc_tree(t_shell *shell);
 void					build_heredoc_pipe_tree(t_shell *shell);
 void					build_heredoc_redir_tree(t_shell *shell);
+void					print_env_list(t_env *env);
 
 #endif

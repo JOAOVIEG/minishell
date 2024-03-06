@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 11:38:43 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:15:34 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,37 @@ void	here_document(t_parser *parser)
 	}
 }
 
+void	env_var(t_parser *parser)
+{
+	char	*p;
+
+	if (!parser->tokens)
+	{
+		printf("Syntax error: unexpected end of input after environment variable\n");
+		return ;
+	}
+	if (parser->tokens->type == TYPE_ENV_VAR)
+	{
+		if (parser->tokens->data[0] != '$'
+			|| ft_strlen(parser->tokens->data) < 2)
+		{
+			printf("Syntax error: malformed environment variable\n");
+			return ;
+		}
+		p = parser->tokens->data + 1;
+		while (*p)
+		{
+			if (!ft_isalnum(*p) && *p != '_')
+			{
+				printf("Syntax error: malformed environment variable\n");
+				return ;
+			}
+			p++;
+		}
+		parser->tokens = parser->tokens->next;
+	}
+}
+
 void	token_list(t_parser *parser)
 {
 	if (!parser->tokens)
@@ -126,6 +157,11 @@ void	token_list(t_parser *parser)
 		here_document(parser);
 		token_list(parser);
 	}
+	// else if (parser->tokens->type == TYPE_ENV_VAR)
+	// {
+	// 	env_var(parser);
+	// 	token_list(parser);
+	// }
 	else
 		return ;
 }
@@ -177,6 +213,8 @@ bool	grammar_check(t_parser *parser)
 {
 	t_lst_tokens	*head;
 
+	if (!parser->tokens)
+		return (true);
 	head = parser->tokens;
 	command_line(parser);
 	if (parser->tokens)
