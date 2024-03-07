@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/07 21:59:27 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/07 22:14:41 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,12 +256,24 @@ void	init_env_var_replacement(t_lst_tokens **current,
 			- replacement->start);
 }
 
+void	env_var_not_found(t_env_var_replacement *replacement, char *trimmed)
+{
+	char	*new_data;
+
+	replacement->value = "";
+	new_data = create_env_data(replacement);
+	free((*(replacement->current))->data);
+	(*(replacement->current))->data = new_data;
+	free(replacement->substring);
+	free(trimmed);
+}
+
 void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 {
 	t_env_var_replacement	replacement;
-	char					*new_data;
 	t_env					*current_env;
 	char					*trimmed;
+	char					*new_data;
 
 	current_env = env;
 	replacement.current = current;
@@ -282,9 +294,7 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 		}
 		current_env = current_env->next;
 	}
-	(*current)->data = ft_strremove((*current)->data, replacement.substring);
-	free(replacement.substring);
-	free(trimmed);
+	env_var_not_found(&replacement, trimmed);
 }
 
 void	replace_env_var_in_token(t_lst_tokens **current, t_env *env)
