@@ -101,3 +101,63 @@
 // 	}
 // 	shell->node = tree_root;
 // }
+
+// void	make_env_var(t_shell *shell)
+// {
+// 	t_lst_tokens	*current;
+// 	t_lst_tokens	*head;
+// 	t_env			*env;
+// 	t_env			*current_env;
+// 	char			*value;
+// 	char			*trimmed;
+
+// 	// char			*start;
+// 	// char			*end;
+// 	// char			*substring;
+// 	head = shell->parser->tokens;
+// 	current = head;
+// 	env = shell->v_env;
+// 	current_env = env;
+// 	while (current)
+// 	{
+// 		if (current->type == TYPE_ENV_VAR)
+// 		{
+// 			trimmed = ft_strtrim(current->data, "$");
+// 			free(current->data);
+// 			current->data = NULL;
+// 			current->data = ft_strdup(trimmed);
+// 			free(trimmed);
+// 			while (current_env)
+// 			{
+// 				if (ft_strncmp(current->data, current_env->name,
+// 						ft_strlen(current_env->name)) == 0)
+// 				{
+// 					value = ft_strdup(current_env->value);
+// 					free(current->data);
+// 					current->data = value;
+// 				}
+// 				current_env = current_env->next;
+// 			}
+// 			current_env = env;
+// 		}
+// 		if (current->type == TYPE_ARG || current->type == TYPE_COMMAND)
+// 		{
+// 			if (ft_strchr(current->data, '$'))
+// 			{
+// 				// start = ft_strchr(current->data, '$');
+// 				// end = strpbrk(start, " \t\n\0"); /* define my own function */
+// 				// if (!end)
+// 				// 	end = start + ft_strlen(start);
+// 				// substring = ft_strndup(start, end - start);
+// 				// trimmed = ft_strdup(ft_strtrim(substring, "$"));
+// 				// printf("Substring: %s\n", substring);
+// 				// printf("Trimmed: %s\n", trimmed);
+// 				// free(substring);
+// 				replace_with_env_var(&current, current_env);
+// 				printf("ATTENTION: I NEED TO IMPLEMENT THIS CASE\n");
+// 			}
+// 		}
+// 		current = current->next;
+// 	}
+// 	shell->parser->tokens = head;
+// } 

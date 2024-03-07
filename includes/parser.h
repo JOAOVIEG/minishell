@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/06 15:23:33 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:18:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ typedef enum e_token_type
 	TYPE_QUOTES,
 	TYPE_ENV_VAR
 }						t_token_type;
+
+typedef enum e_quote_type
+{
+	NO_QUOTED,
+	SINGLE_QUOTED,
+	DOUBLE_QUOTED,
+	SINGLE_IN_DOUBLE_QUOTED,
+	DOUBLE_IN_SINGLE_QUOTED
+
+}						t_quote_type;
+
+
 
 typedef struct s_shell	t_shell;
 typedef struct s_node	t_node;
@@ -53,6 +65,15 @@ typedef struct s_buffer
 	t_token_queue		heredocs;
 	t_token_queue		redir_files;
 }						t_buffer;
+
+typedef struct s_env_var_replacement
+{
+	t_lst_tokens		**current;
+	char				*start;
+	char				*end;
+	char				*value;
+	char				*substring;
+}						t_env_var_replacement;
 
 typedef struct s_parser
 {
