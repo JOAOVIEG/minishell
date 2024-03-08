@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/28 15:30:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:50:33 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	check_path(char **env, t_node *node)
 {
@@ -20,7 +20,7 @@ void	check_path(char **env, t_node *node)
 			':');
 }
 
-char *get_cmd(char **cmd_path, char *cmd)
+char	*get_cmd(char **cmd_path, char *cmd)
 {
 	if (*cmd && cmd[0] == '/')
 	{

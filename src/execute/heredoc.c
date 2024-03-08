@@ -6,13 +6,13 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 17:26:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:29:47 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	error_msg()
+void	error_msg(void)
 {
 	perror("ERROR");
 	exit_shell(EXIT_FAILURE);
@@ -92,4 +92,11 @@ int	heredoc(t_node *node)
 	unlink("in.txt");
 	free(buffer);
 	return (node->fd_in);
+}
+
+void	get_file_append(t_node *node)
+{
+	if (is_dir(node) == 0)
+	node->fd_out = open(node->cmd->file[1], \
+							O_WRONLY | O_CREAT | O_APPEND, 0644);
 }

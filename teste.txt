@@ -34,17 +34,18 @@ export abc=1234
 unset abc=1234 \\ does not unset abc (has to be unset abc)
 env ficheiro (invalid file)
 ///
-< Makefile cat > out > file1 | ls -l > out | wc < out
-echo FIM >> out
->>out wc -l Makefile | << end < Makefile 
-<< end | wc -l >out
-<<end cat >out| cat >out
-<<end cat >out
-echo <<end >out
-echo <<end >out
+< Makefile cat > out > file1 | ls -l > out | wc < out OK
+echo FIM >> out OK
+>>out wc -l Makefile | << end < Makefile OK
+<< end | wc -l >out OK
+<<end cat >out| cat >out OK
+<<end cat >out OK
+echo <<end >out OK
 <<end | wc -l OK
 <<end | builtins OK
 <<delim | non-builtins OK
 echo hello | <<end OK
 echo hello | <<end pwd OK
-echo Hello | cat >>out OK
+echo Hello | cat >>out OK 
+<< end wc -l <Makefile | >>out (if out exists and as content, its content does not change. Not like >out) SOLVED!
+<<delim echo Hello | wc -l >> out NOK (out should get 1) SOLVED!

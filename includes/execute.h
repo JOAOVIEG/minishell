@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/06 13:17:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:29:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ typedef struct s_node
 }					t_node;
 
 void	ft_execute(t_node *node);
+void	no_cmd_file_redir(t_node *node);
+int		is_dir(t_node *node);
+int		is_dir_i(t_node *node, int i);
+int		input_is_dir(t_node *node);
 void	ft_simple_cmds(t_node *node);
 int		is_builtin(t_node *node);
 void	exec_builtin(t_node *node);
@@ -55,6 +59,27 @@ char	*validate_cmd(char **cmd_paths, char *cmd);
 void	ft_exec_piped(t_node *node);
 int		heredoc(t_node *node);
 char	*read_from_stdin(char **delim, char	*buffer, size_t buffer_size);
-void	error_msg();
+void	error_msg(void);
 void	*ft_my_realloc(void *ptr, size_t size);
+void	run_builtin(t_node *node);
+void	parent_control(t_node *node, pid_t pid);
+void	child_control(t_node *node);
+void	run_process(t_node *node);
+void	assign_fds(t_node *node);
+int		open_append_to(t_node *node, int i);
+int		open_file_to(t_node *node, int i);
+int		open_file_from(t_node *node, int i);
+void	handle_file_redir(t_node *node, int i);
+void	parent_exec_control(t_node *node, pid_t pid, char **env);
+void	free_paths(t_node *node);
+void	child_exec_process(t_node *node, char **env);
+void	run_path_process(t_node *node, pid_t pid, char **env);
+void	parent_pipe_exec_control(t_node *node, int pipe_end[2], pid_t left_pid, pid_t right_pid);
+void	execute_right_node(t_node *node, int pipe_end[2]);
+void	execute_left_node(t_node *node, int pipe_end[2]);
+void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid);
+void	left_node_process(t_node *node, int pipe_end[2], pid_t left_pid);
+void	heredoc_check(t_node *node);
+void	get_file_append(t_node *node);
+void	get_file(t_node *node);
 #endif
