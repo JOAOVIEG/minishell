@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:29:44 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:45:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		is_builtin(t_node *node);
 void	exec_builtin(t_node *node);
 void	exec_cmd(t_node *node);
 void	free_cmd_paths(char **cmd_paths);
-char	**env_list_to_arr();
+char	**env_list_to_arr(void);
 int		redirections(int fd_i, int fd_o);
 int		redirect_in(int fd_i);
 int		redirect_out(int fd_o);
@@ -74,7 +74,8 @@ void	parent_exec_control(t_node *node, pid_t pid, char **env);
 void	free_paths(t_node *node);
 void	child_exec_process(t_node *node, char **env);
 void	run_path_process(t_node *node, pid_t pid, char **env);
-void	parent_pipe_exec_control(t_node *node, int pipe_end[2], pid_t left_pid, pid_t right_pid);
+void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
+	pid_t left_pid, pid_t right_pid);
 void	execute_right_node(t_node *node, int pipe_end[2]);
 void	execute_left_node(t_node *node, int pipe_end[2]);
 void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid);
