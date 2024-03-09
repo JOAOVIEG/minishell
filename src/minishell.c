@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 16:31:40 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:48:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	add_to_history(t_shell *shell, char *command)
 {
 	t_history_entry	*new_entry;
 
-	new_entry = malloc(sizeof(t_history_entry));
+	new_entry = ft_calloc(1, sizeof(t_history_entry));
 	new_entry->command = ft_strdup(command);
 	new_entry->next = shell->history;
 	shell->history = new_entry;
