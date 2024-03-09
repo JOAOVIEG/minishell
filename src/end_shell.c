@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_shell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/28 12:06:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:28:26 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,29 @@ void	end_shell(void)
 		free_parser(shell()->parser);
 	if (shell()->node)
 		free_tree_node(&shell()->node);
+	if (shell()->history)
+		free_history(shell()->history);
+	if (shell()->v_env)
+		free_env();
 	exit(shell()->status);
 }
 
-void	free_shell()
-{
-	if (shell()->lexer)
-		free_lexer(shell()->lexer);
-	if (shell()->parser)
-		free_parser(shell()->parser);
-	if (shell()->node)
-		free_tree_node(&shell()->node);
-}
+// void	free_shell(void)
+// {
+// 	if (shell()->lexer)
+// 		free_lexer(shell()->lexer);
+// 	if (shell()->parser)
+// 	{
+// 		free_parser(shell()->parser);
+// 		shell()->parser = NULL;
+// 	}
+// 	if (shell()->node)
+// 		free_tree_node(&shell()->node);
+// 	if (shell()->history)
+// 	{
+// 		free_history(shell()->history);
+// 		shell()->history = NULL;
+// 	}
+// 	if (shell()->v_env)
+// 		free_env();
+// }

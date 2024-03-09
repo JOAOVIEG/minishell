@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 16:48:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:25:31 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	read_input(void)
 	{
 		// Handle EOF (Ctrl+D)
 		write(1, "exit\n", 5);
-		exit(0);
+		end_shell();
 	}
 	else
 		add_to_history(shell(), shell()->line);

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 15:00:39 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:10:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,10 @@ typedef enum e_quote_type
 
 }						t_quote_type;
 
-
-
 typedef struct s_shell	t_shell;
 typedef struct s_node	t_node;
 typedef struct s_cmd	t_cmd;
-
-
+typedef struct s_history_entry	t_history_entry;
 
 typedef struct s_lst_tokens
 {
@@ -123,6 +120,7 @@ void					print_tree(t_node *node, int space, char *type);
 void					reset_parser(t_parser *parser);
 void					free_lst_tokens(t_lst_tokens *tokens);
 void					free_parser(t_parser *parser);
+void					free_history(t_history_entry *history);
 
 // need replace these functions
 
@@ -159,7 +157,5 @@ void					build_heredoc_tree(t_shell *shell);
 void					build_heredoc_pipe_tree(t_shell *shell);
 void					build_heredoc_redir_tree(t_shell *shell);
 void					print_env_list(t_env *env);
-
-
 
 #endif

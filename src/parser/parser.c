@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/07 22:14:41 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:12:11 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,77 +172,6 @@ char	*ft_strremove(char *str, char *chars)
 	free(str);         // Free the original string
 	return (new_str);
 }
-// void	replace_env_var_in_current(t_lst_tokens **current, t_env *env,
-//         char *trimmed, char *start, char *end, char *substring)
-// {
-//     t_env					*current_env;
-//     char					*value;
-//     char					*new_data;
-//     t_env_var_replacement	replacement;
-
-//     current_env = env;
-//     while (current_env)
-//     {
-//         if (ft_strncmp(trimmed, current_env->name,
-//                 ft_strlen(current_env->name)) == 0)
-//         {
-//             value = ft_strdup(current_env->value);
-//             replacement.current = current;
-//             replacement.start = start;
-//             replacement.end = end;
-//             replacement.value = value;
-//             replacement.substring = substring;
-//             new_data = create_env_data(&replacement);
-//             free((*(replacement.current))->data);
-//             (*(replacement.current))->data = new_data;
-//             free(value);
-//             return ;
-//         }
-//         current_env = current_env->next;
-//     }
-//     (*current)->data = ft_strremove((*current)->data, substring);
-// }
-
-// void	replace_with_env_var(t_lst_tokens **current, t_env *env)
-// {
-// 	char					*start;
-// 	char					*end;
-// 	char					*substring;
-// 	char					*trimmed;
-// 	t_env_var_replacement	replacement;
-// 	char					*new_data;
-// 	t_env					*current_env;
-
-// 	current_env = env;
-// 	start = ft_strchr((*current)->data, '$');
-// 	end = find_end_of_env_var(start);
-// 	if (!end)
-// 		end = start + ft_strlen(start);
-// 	substring = ft_strndup(start, end - start);
-// 	trimmed = ft_strdup(ft_strtrim(substring, "$"));
-// 	while (current_env)
-// 	{
-// 		if (ft_strncmp(trimmed, current_env->name,
-// 				ft_strlen(current_env->name)) == 0)
-// 		{
-// 			replacement.current = current;
-// 			replacement.start = start;
-// 			replacement.end = end;
-// 			replacement.value = current_env->value;
-// 			replacement.substring = substring;
-// 			new_data = create_env_data(&replacement);
-// 			free((*(replacement.current))->data);
-// 			(*(replacement.current))->data = new_data;
-// 			free(substring);
-// 			free(trimmed);
-// 			return ;
-// 		}
-// 		current_env = current_env->next;
-// 	}
-// 	(*current)->data = ft_strremove((*current)->data, substring);
-// 	free(substring);
-// 	free(trimmed);
-// }
 
 void	init_env_var_replacement(t_lst_tokens **current,
 		t_env_var_replacement *replacement)
