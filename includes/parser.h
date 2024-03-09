@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/07 20:26:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:00:39 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef enum e_quote_type
 typedef struct s_shell	t_shell;
 typedef struct s_node	t_node;
 typedef struct s_cmd	t_cmd;
+
+
 
 typedef struct s_lst_tokens
 {

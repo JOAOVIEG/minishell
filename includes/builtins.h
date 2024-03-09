@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/02 15:41:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:36:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		to_print(char **cmd);
 void	pwd(void);
 void	env(void);
 void	exit_shell(int status);
-void	free_env();
+void	free_env(void);
 void	export(char **arg);
 char	*get_equal(char *arg);
 t_env	*create_var(t_env *new, char *name, char *value);

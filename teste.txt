@@ -32,21 +32,20 @@ export _1=content \\ valid
 export 1var=contetn \\ invalid (cannot start with number)
 export abc=1234
 unset abc=1234 \\ does not unset abc (has to be unset abc)
-///
-cat | ls (printa ls e o cat fica stuck)
-touch nome_do_ficheiro
-chmod 000 nomedoficheiro
-cat ficheiroqualquer > nome do ficheriro | wc -l
-wc -l < nomedoficheiro
-mkdir alex
-cat makefile > alex (alex e um diretorio)
-../ (is a diretory)
-./ (is directory)
-.. (command not found)
-. (comand not found)
-../../Documents/../Desktop/get_next_line (is a directory)
-cd directory director2 (too many argumnts)
 env ficheiro (invalid file)
-< Makefile cat > out > file1 | ls -l > out | wc < out
-echo FIM >> out
-
+///
+< Makefile cat > out > file1 | ls -l > out | wc < out OK
+echo FIM >> out OK
+>>out wc -l Makefile | << end < Makefile OK
+<< end | wc -l >out OK
+<<end cat >out| cat >out OK
+<<end cat >out OK
+echo <<end >out OK
+<<end | wc -l OK
+<<end | builtins OK
+<<delim | non-builtins OK
+echo hello | <<end OK
+echo hello | <<end pwd OK
+echo Hello | cat >>out OK 
+<< end wc -l <Makefile | >>out (if out exists and as content, its content does not change. Not like >out) SOLVED!
+<<delim echo Hello | wc -l >> out NOK (out should get 1) SOLVED!

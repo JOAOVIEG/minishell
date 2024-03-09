@@ -52,7 +52,7 @@ run: re
 	@./$(NAME)
 
 v: re
-	valgrind --suppressions=readline.supp --leak-check=full  --show-leak-kinds=all --track-fds=yes --trace-children=yes --track-origins=yes ./$(NAME)
+	valgrind --suppressions=readline.supp --track-fds=yes --trace-children=yes ./$(NAME)
 #	 --trace-children=yes --track-origins=yes
 # @./$(NAME) | cat -e
 
