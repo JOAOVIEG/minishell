@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 11:00:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/27 16:45:04 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:13:32 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef enum e_char_type
 	CHAR_NULL = 0,
 	CHAR_GENERAL,
 	TOKEN = -1,
-
 }			t_char_type;
 
 typedef struct s_lexer
@@ -40,21 +39,30 @@ typedef struct s_lexer
 	char	**tokens;
 }			t_lexer;
 
+// Initialization functions
 t_lexer		*init_lexer(void);
+
+// Tokenization functions
 void		tokenize_input(char *input, t_lexer *lexer);
-int			is_whitespace(char c);
-int			skip_whitespace(char *input, int i);
-char		**allocate_memory_for_tokens(int input_size);
-char		*create_token(char *input, int start, int end);
+char		**split_into_tokens(t_lexer *lexer);
+
+// Token processing functions
+void		process_token(char **tokens, char *input, int *iac);
 int			process_pipe_token(char *input, int i);
 int			process_quoted_token(char *input, int i, char quote_type);
 int			process_unquoted_token(char *input, int i);
 int			process_redirection_token(char *input, int i);
 
-char		**split_into_tokens(t_lexer *lexer);
+// Helper functions
+int			is_whitespace(char c);
+int			is_quote(char c);
+int			skip_whitespace(char *input, int i);
+char		**allocate_memory_for_tokens(int input_size);
+char		*create_token(char *input, int start, int end);
 
-// free functions
+// Free functions
 void		reset_lexer(t_lexer *lexer);
 void		free_lexer(t_lexer *lexer);
 void		free_lexer_tokens(t_lexer *lexer);
+
 #endif

@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_token.c                                     :+:      :+:    :+:   */
+/*   process_tokens_ultils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 15:17:31 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 17:58:17 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/09 17:59:25 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/09 18:00:00 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*create_token(char *input, int start, int end)
+int	is_whitespace(char c)
 {
-	int		token_length;
-	char	*token;
+	if (c == CHAR_WHITESPACE || c == CHAR_TAB || c == CHAR_NEWLINE)
+		return (1);
+	return (0);
+}
 
-	token_length = end - start;
-	token = ft_calloc(token_length + 1, sizeof(char));
-	ft_memcpy(token, &input[start], token_length);
-	token[token_length] = '\0';
-	return (token);
+int	is_quote(char c)
+{
+	if (c == CHAR_SINGLE_QUOTE || c == CHAR_DOUBLE_QUOTE)
+		return (1);
+	return (0);
+}
+
+int	skip_whitespace(char *input, int i)
+{
+	while (is_whitespace(input[i]))
+		i++;
+	return (i);
 }
