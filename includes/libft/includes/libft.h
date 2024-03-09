@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 10:12:52 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 14:23:47 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:48:53 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int					ft_strncmp(const char *sn1, const char *sn2, size_t nb);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *str, const char *to_find, size_t n);
-void				ft_error_handler(char *message);
+char				*ft_strcat(char *dest, const char *src);
+char				*ft_strncat(char *dest, const char *src, size_t n);
+char				*ft_strremove(char *str, char *chars);
+// void				ft_error_handler(char *message);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 

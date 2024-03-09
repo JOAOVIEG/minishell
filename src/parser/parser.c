@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 17:12:11 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:54:31 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,14 +118,11 @@ char	*find_end_of_env_var(const char *str)
 	const char	*s;
 
 	s = str;
-	// Skip the initial '$'
 	if (*s == '$')
 		s++;
-	// Environment variable names can start with a letter or underscore
 	if (!(*s == '_' || (*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z')))
 		return (NULL);
 	s++;
-	// The rest of the name can contain letters, digits, and underscores
 	while (*s == '_' || (*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z')
 		|| (*s >= '0' && *s <= '9'))
 		s++;
@@ -139,38 +136,12 @@ char	*create_env_data(t_env_var_replacement *replacement)
 	new_data = ft_calloc(ft_strlen((*replacement->current)->data)
 			- ft_strlen(replacement->substring) + ft_strlen(replacement->value)
 			+ 1, sizeof(char));
-	strncpy(new_data, (*replacement->current)->data, replacement->start
+	ft_strncpy(new_data, (*replacement->current)->data, replacement->start
 		- (*replacement->current)->data);
-	strcat(new_data, replacement->value);
-	strncat(new_data, replacement->end, (*replacement->current)->data
+	ft_strcat(new_data, replacement->value);
+	ft_strncat(new_data, replacement->end, (*replacement->current)->data
 		+ ft_strlen((*replacement->current)->data) - replacement->end);
 	return (new_data);
-}
-char	*ft_strremove(char *str, char *chars)
-{
-	char	*new_str;
-	int		i;
-	int		j;
-
-	new_str = malloc(ft_strlen(str) + 1); // Allocate memory for the new string
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		// If the current character is not in the string of characters to be removed,
-		// 	add it to the new string
-		if (!ft_strchr(chars, str[i]))
-		{
-			new_str[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	new_str[j] = '\0'; // Null-terminate the new string
-	free(str);         // Free the original string
-	return (new_str);
 }
 
 void	init_env_var_replacement(t_lst_tokens **current,
@@ -230,8 +201,6 @@ void	replace_env_var_in_token(t_lst_tokens **current, t_env *env)
 {
 	while (ft_strchr((*current)->data, '$'))
 		replace_with_env_var(current, env);
-	// if i have a $ in the token,
-	// i need to replace it with the value of the env var
 }
 
 void	make_expansion(t_shell *shell)
@@ -264,6 +233,5 @@ void	parser(t_shell *shell)
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}
-	// print_list(shell->parser->tokens);
 	reset_parser(shell->parser);
 }

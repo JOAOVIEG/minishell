@@ -10,6 +10,7 @@
 		"stdlib.h": "c",
 		"cstdlib": "c",
 		"random": "c",
-		"string": "c"
+		"string": "c",
+		"libft.h": "c"
 	}
 }

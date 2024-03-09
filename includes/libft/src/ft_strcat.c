@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_shell.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 17:34:05 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/09 17:38:05 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/09 17:39:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	end_shell(void)
+char	*ft_strcat(char *dest, const char *src)
 {
-	if (shell()->lexer)
-		free_lexer(shell()->lexer);
-	if (shell()->parser)
-		free_parser(shell()->parser);
-	if (shell()->node)
-		free_tree_node(&shell()->node);
-	if (shell()->history)
-		free_history(shell()->history);
-	if (shell()->v_env)
-		free_env();
-	exit(shell()->status);
+	char	*ptr;
+
+	ptr = dest;
+	while (*ptr != '\0')
+		ptr++;
+	while (*src != '\0')
+	{
+		*ptr = *src;
+		ptr++;
+		src++;
+	}
+	*ptr = '\0';
+	return (dest);
 }

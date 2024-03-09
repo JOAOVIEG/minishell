@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_shell.c                                        :+:      :+:    :+:   */
+/*   ft_strremove.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 17:34:05 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/09 17:46:56 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/09 17:48:35 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	end_shell(void)
+char	*ft_strremove(char *str, char *chars)
 {
-	if (shell()->lexer)
-		free_lexer(shell()->lexer);
-	if (shell()->parser)
-		free_parser(shell()->parser);
-	if (shell()->node)
-		free_tree_node(&shell()->node);
-	if (shell()->history)
-		free_history(shell()->history);
-	if (shell()->v_env)
-		free_env();
-	exit(shell()->status);
+	char	*new_str;
+	int		i;
+	int		j;
+
+	new_str = malloc(ft_strlen(str) + 1);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (!ft_strchr(chars, str[i]))
+		{
+			new_str[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	new_str[j] = '\0';
+	free(str);
+	return (new_str);
 }
