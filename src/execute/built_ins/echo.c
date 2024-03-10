@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:02:43 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/07 17:32:37 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/10 12:58:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	echo(char **cmd)
         if ((printf("\n")) < 0)
             return ((shell()->status = printf("\n")));
     }
-    shell()->status = 0;
+    shell()->status = EXIT_SUCCESS;
     return (shell()->status);
 }
 

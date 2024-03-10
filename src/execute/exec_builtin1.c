@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:52:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:15:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ int	open_file_from(t_node *node, int i)
 		if (node->fd_in < 0)
 		{
 			perror("Error at fd_in");
-			exit_shell(EXIT_FAILURE);
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
 		}
 	}
 	else
 	{
 		printf("%s: No such file or directory\n", node->cmd->file[i]);
+		shell()->status = EXIT_FAILURE;
 		return (-1);
 	}
 	return (node->fd_in);

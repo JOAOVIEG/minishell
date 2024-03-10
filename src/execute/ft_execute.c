@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:32:42 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:46:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	ft_simple_cmds(t_node *node)
 		return ;
 	else if (is_builtin(node) == 1)
 		exec_builtin(node);
-	else if (is_builtin(node) == 0)
-		return ;
 	else if (is_builtin(node) == 2)
 		exec_cmd(node);
 }
@@ -34,7 +32,7 @@ void	ft_exec_piped(t_node *node)
 	if (pipe(pipe_end) < 0)
 	{
 		perror("Error at pipe");
-		exit_shell(1);
+		exit_shell(EXIT_FAILURE);
 	}
 	heredoc_check(node->left);
 	left_pid = fork();
@@ -51,7 +49,10 @@ void	heredoc_check(t_node *node)
 	{
 		node->fd_in = heredoc(node);
 		if (node->fd_in < 0)
-			exit_shell(1);
+		{
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
+		}
 	}
 }
 

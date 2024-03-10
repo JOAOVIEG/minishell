@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 17:25:31 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:59:41 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ t_shell	*shell(void)
 		minishell.parser = init_parser();
 	return (&minishell);
 }
-
-// signal functions
 
 void	handle_sigint(int sig)
 {
@@ -53,12 +51,13 @@ void	add_to_history(t_shell *shell, char *command)
 
 void	read_input(void)
 {
-	shell()->line = readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
+	shell()->line = \
+		readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
 	if (!shell()->line)
 	{
-		// Handle EOF (Ctrl+D)
 		write(1, "exit\n", 5);
-		end_shell();
+		shell()->status = EXIT_SUCCESS;
+		exit_shell(shell()->status);
 	}
 	else
 		add_to_history(shell(), shell()->line);
@@ -71,11 +70,11 @@ int	main(int argc, char **argv, char **envp)
 		if (access(argv[1], F_OK) == -1)
 		{
 			printf("minishell: %s: %s\n", argv[1], strerror(errno));
-			return (EXIT_FAILURE);
+			shell()->status = errno;
+			return (shell()->status);
 		}
 	}
 	shell()->v_env = env_cpy(envp);
-	// print_env_list(shell()->v_env);
 	shell()->status = 0;
 	ignore_signals();
 	while (1)
@@ -85,6 +84,7 @@ int	main(int argc, char **argv, char **envp)
 		parser(shell());
 		if (shell()->node)
 			ft_execute(shell()->node);
+		// printf("%d\n", shell()->status);
 		reset_tree();
 	}
 	rl_clear_history();

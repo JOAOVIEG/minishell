@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:50:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:31:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,20 @@ char	*get_cmd(char **cmd_path, char *cmd)
 		if (access(cmd, F_OK) == 0)
 			return (cmd);
 		else
+		{
 			perror("Error get_command");
+			shell()->status = 126;
+		}
 	}
 	else
 	{
 		if (cmd_path)
 			return (validate_cmd(cmd_path, cmd));
 		else
+		{
 			perror ("Error");
+			shell()->status = 126;	
+		}
 	}
 	return (NULL);
 }
@@ -45,7 +51,8 @@ char	*get_path(char **env)
 	{
 		perror("ERROR env at path");
 		free_c_env(env);
-		exit_shell(EXIT_FAILURE);
+		shell()->status = EXIT_FAILURE;
+		exit_shell(shell()->status);
 	}
 	else
 	{
@@ -55,7 +62,8 @@ char	*get_path(char **env)
 		{
 			perror("ERROR finding PATH");
 			free_c_env(env);
-			exit_shell(EXIT_FAILURE);
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
 		}
 	}
 	return (*env + 5);
@@ -80,5 +88,6 @@ char	*validate_cmd(char **cmd_paths, char *cmd)
 	}
 	printf("%s: command not found\n", cmd);
 	free_cmd_paths(cmd_paths);
+	exit_shell(127);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:29:47 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:12:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	error_msg(void)
 {
 	perror("ERROR");
-	exit_shell(EXIT_FAILURE);
+	shell()->status = EXIT_FAILURE;
+	exit_shell(shell()->status);
 }
 
 void	*ft_my_realloc(void *ptr, size_t size)
@@ -97,6 +98,8 @@ int	heredoc(t_node *node)
 void	get_file_append(t_node *node)
 {
 	if (is_dir(node) == 0)
-	node->fd_out = open(node->cmd->file[1], \
-							O_WRONLY | O_CREAT | O_APPEND, 0644);
+	{
+		node->fd_out = open(node->cmd->file[1], \
+								O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
 }

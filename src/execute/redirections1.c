@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:28:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:27:39 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:08:41 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	redirect_out(int fd_o)
 void	get_file(t_node *node)
 {
 	if (is_dir(node) == 0)
-	node->fd_out = open(node->cmd->file[1], \
+	{
+		node->fd_out = open(node->cmd->file[1], \
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
 }

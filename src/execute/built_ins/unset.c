@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:20:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/04 13:58:19 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 13:00:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	backshift(char **env, int start)
 		k++;
 	}
 	free(env[k]);
-	if (shell()->status != 0)
-		shell()->status = 0;
+	if (shell()->status != EXIT_SUCCESS)
+		shell()->status = EXIT_SUCCESS;
 }
 
 void	update_env_list(char **env)

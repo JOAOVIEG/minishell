@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:54:05 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:18:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	run_builtin(t_node *node)
 		else
 		{
 			printf("minishell: cd: too many arguments\n");
+			shell()->status = EXIT_FAILURE;
 		}
 	}
 	if (ft_strcmp(cmd[0], "pwd") == 0)
@@ -33,7 +34,7 @@ void	run_builtin(t_node *node)
 	if (ft_strcmp(cmd[0], "export") == 0)
 		export(cmd);
 	if (ft_strcmp(cmd[0], "exit") == 0)
-		exit_shell(0);
+		exit_shell(EXIT_SUCCESS);
 	if (ft_strcmp(cmd[0], "unset") == 0)
 		unset(cmd);
 	if (ft_strcmp(cmd[0], "env") == 0)
@@ -48,13 +49,15 @@ void	parent_control(t_node *node, pid_t pid)
 	close(node->fd_in);
 	close(node->fd_out);
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		shell()->status = WEXITSTATUS(status);
 }
 
 void	child_control(t_node *node)
 {
 	close(node->fd_in);
 	close(node->fd_out);
-	exit_shell(EXIT_SUCCESS);
+	exit_shell(shell()->status);
 }
 
 void	run_process(t_node *node)
@@ -65,7 +68,8 @@ void	run_process(t_node *node)
 	if (pid < 0)
 	{
 		perror("Error forking");
-		exit_shell(EXIT_FAILURE);
+		shell()->status = EXIT_FAILURE;
+		exit_shell(shell()->status);
 	}
 	else if (pid == 0)
 	{

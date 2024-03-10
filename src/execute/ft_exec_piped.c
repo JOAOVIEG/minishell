@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:32:30 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:35:26 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 16:52:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
 								pid_t left_pid, pid_t right_pid)
 {
+	int	status;
+
 	close(pipe_end[0]);
 	if (node->right->fd_in)
 		close(node->right->fd_in);
@@ -22,9 +24,11 @@ void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
 	if (node->left->fd_out)
 		close(node->left->fd_out);
 	if (left_pid)
-		waitpid(left_pid, NULL, 0);
+		waitpid(left_pid, &status, 0);
 	if (right_pid)
-		waitpid(right_pid, NULL, 0);
+		waitpid(right_pid, &status, 0);
+	if (WIFEXITED(status))
+		shell()->status = WEXITSTATUS(status);
 }
 
 void	execute_right_node(t_node *node, int pipe_end[2])
@@ -37,7 +41,7 @@ void	execute_right_node(t_node *node, int pipe_end[2])
 	ft_execute(node->right);
 	close(node->right->fd_in);
 	close(pipe_end[0]);
-	exit_shell(0);
+	exit_shell(shell()->status);
 }
 
 void	execute_left_node(t_node *node, int pipe_end[2])
@@ -48,7 +52,7 @@ void	execute_left_node(t_node *node, int pipe_end[2])
 	ft_execute(node->left);
 	close(node->left->fd_out);
 	close(pipe_end[1]);
-	exit_shell(0);
+	exit_shell(shell()->status);
 }
 
 void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid)
@@ -56,7 +60,7 @@ void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid)
 	if (right_pid < 0)
 	{
 		perror("right fork failed");
-		exit_shell(3);
+		exit_shell(EXIT_FAILURE);
 	}
 	else if (right_pid == 0)
 		execute_right_node(node, pipe_end);
