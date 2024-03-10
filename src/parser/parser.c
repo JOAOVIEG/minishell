@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/10 13:23:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/10 21:19:31 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ char	*find_end_of_env_var(const char *str)
 	s = str;
 	if (*s == '$')
 		s++;
+	if (*s == '?')
+		return (char *)(s + 1);
 	if (!(*s == '_' || (*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z')))
 		return (NULL);
 	s++;
@@ -168,31 +170,53 @@ void	env_var_not_found(t_env_var_replacement *replacement, char *trimmed)
 	free(trimmed);
 }
 
-void	replace_with_env_var(t_lst_tokens **current, t_env *env)
+void	make_the_replacement(t_env_var_replacement *replacement, char *trimmed)
 {
-	t_env_var_replacement	replacement;
-	t_env					*current_env;
-	char					*trimmed;
-	char					*new_data;
+	char	*new_data;
+
+	new_data = create_env_data(replacement);
+	free((*(replacement->current))->data);
+	(*(replacement->current))->data = new_data;
+	free(replacement->substring);
+	free(trimmed);
+}
+
+char	*find_env_value(t_env *env, char *trimmed)
+{
+	t_env	*current_env;
 
 	current_env = env;
-	replacement.current = current;
-	init_env_var_replacement(current, &replacement);
-	trimmed = ft_strdup(ft_strtrim(replacement.substring, "$"));
 	while (current_env)
 	{
 		if (ft_strncmp(trimmed, current_env->name,
 				ft_strlen(current_env->name)) == 0)
-		{
-			replacement.value = current_env->value;
-			new_data = create_env_data(&replacement);
-			free((*(replacement.current))->data);
-			(*(replacement.current))->data = new_data;
-			free(replacement.substring);
-			free(trimmed);
-			return ;
-		}
+			return (current_env->value);
 		current_env = current_env->next;
+	}
+	return (NULL);
+}
+
+void	replace_with_env_var(t_lst_tokens **current, t_env *env)
+{
+	t_env_var_replacement	replacement;
+	char					*trimmed;
+
+	replacement.current = current;
+	init_env_var_replacement(current, &replacement);
+	trimmed = ft_strdup(ft_strtrim(replacement.substring, "$"));
+	printf("substring: %s\n", replacement.substring);
+	if (ft_strncmp(trimmed, "?", 1) == 0)
+	{
+		replacement.value = ft_itoa(shell()->status);
+		make_the_replacement(&replacement, trimmed);
+		free(replacement.value);
+		return ;
+	}
+	else if (find_env_value(env, trimmed))
+	{
+		replacement.value = find_env_value(env, trimmed);
+		make_the_replacement(&replacement, trimmed);
+		return ;
 	}
 	env_var_not_found(&replacement, trimmed);
 }
