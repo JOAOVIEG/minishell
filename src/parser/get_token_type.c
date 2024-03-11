@@ -6,13 +6,11 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 18:32:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 17:17:50 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:05:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-
 
 void	define_type(t_lst_tokens *current, t_lst_tokens *prev)
 {

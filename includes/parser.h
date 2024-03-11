@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 17:46:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:15:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ void							print_list(t_lst_tokens *head);
 bool							grammar_check(t_parser *parser);
 bool							command_line(t_parser *parser);
 bool							command(t_parser *parser);
-bool							here_document(t_parser *parser);
-bool							env_var(t_parser *parser);
+bool							grammar_here_document(t_parser *parser);
+bool							grammar_env_var(t_parser *parser);
 bool							token_list(t_parser *parser);
-bool							gramar_redirection(t_parser *parser);
-bool							quotes(t_parser *parser);
+bool							grammar_redirection(t_parser *parser);
+bool							grammar_quotes(t_parser *parser);
 
 // AST
 void							lst_tokenadd_back(t_lst_tokens **lst,
@@ -184,5 +184,10 @@ void							print_quoted(t_shell shell);
 t_quote_type					env_var_quotes(t_lst_tokens *current);
 void							remove_quotes(t_parser *parser);
 void							print_env_list(t_env *env);
+void							add_to_history(t_shell *shell, char *command);
+void							handle_sigint(int sig);
+
+void							ignore_signals(void);
+void							handle_eof(void);
 
 #endif

@@ -6,11 +6,25 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:48:08 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/29 17:42:51 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:02:05 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	print_list(t_lst_tokens *head)
+{
+	t_lst_tokens	*current;
+
+	current = head;
+	printf("List of tokens:\n");
+	while (current != NULL)
+	{
+		printf("token: %s\n", current->data);
+		print_type(current->type);
+		current = current->next;
+	}
+}
 
 void	print_type(int type)
 {
@@ -20,7 +34,7 @@ void	print_type(int type)
 		printf("TYPE_PIPE\n");
 	else if (type == TYPE_REDIRECT)
 		printf("TYPE_REDIRECT\n");
-	else if (type == TYPE_REDIRECT_IN)\
+	else if (type == TYPE_REDIRECT_IN)
 		printf("TYPE_REDIRECT_IN\n");
 	else if (type == TYPE_REDIRECT_OUT)
 		printf("TYPE_REDIRECT_OUT\n");
@@ -32,18 +46,26 @@ void	print_type(int type)
 		printf("TYPE_ENV_VAR\n");
 	else if (type == TYPE_ARG)
 		printf("TYPE_ARG\n");
-	
 }
+
 void	print_tree(t_node *node, int depth, char *side)
 {
+	int	i;
+
 	if (node == NULL)
 		return ;
-	for (int i = 0; i < depth; i++)
+	i = 0;
+	while (i < depth)
+	{
 		printf("\t");
+		i++;
+	}
 	printf("├──%s(", side);
-	for (int i = 0; node->cmd->arg[i] != NULL; i++)
+	i = 0;
+	while (node->cmd->arg[i] != NULL)
 	{
 		printf("%s ", node->cmd->arg[i]);
+		i++;
 	}
 	printf(") ");
 	print_type(node->type);
