@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/10 21:19:31 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:55:41 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,14 @@ void	make_the_replacement(t_env_var_replacement *replacement, char *trimmed)
 	new_data = create_env_data(replacement);
 	free((*(replacement->current))->data);
 	(*(replacement->current))->data = new_data;
-	free(replacement->substring);
-	free(trimmed);
+	if (replacement->substring)
+		free(replacement->substring);
+	if (replacement->end)
+		replacement->end = NULL;
+	if (replacement->start)
+		replacement->start = NULL;
+	if (trimmed)
+		free(trimmed);
 }
 
 char	*find_env_value(t_env *env, char *trimmed)
@@ -200,11 +206,13 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 {
 	t_env_var_replacement	replacement;
 	char					*trimmed;
+	char					*data_trimmed;
 
 	replacement.current = current;
 	init_env_var_replacement(current, &replacement);
-	trimmed = ft_strdup(ft_strtrim(replacement.substring, "$"));
-	printf("substring: %s\n", replacement.substring);
+	data_trimmed = ft_strtrim(replacement.substring, "$");
+	trimmed = ft_strdup(data_trimmed);
+	free(data_trimmed);
 	if (ft_strncmp(trimmed, "?", 1) == 0)
 	{
 		replacement.value = ft_itoa(shell()->status);
