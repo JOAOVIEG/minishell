@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/06 15:37:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:38:38 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,6 @@
 
 #include "../../includes/minishell.h"
 
-bool	command_line(t_parser *parser);
-bool	command(t_parser *parser);
-bool	here_document(t_parser *parser);
-bool	env_var(t_parser *parser);
-bool	token_list(t_parser *parser);
-bool	gramar_redirection(t_parser *parser);
-bool	quotes(t_parser *parser);
 
 bool	command_line(t_parser *parser)
 {

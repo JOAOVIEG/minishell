@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 17:23:16 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 15:01:48 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:24:51 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,18 +201,7 @@ void	build_redir_pipe_tree(t_shell *shell)
 	shell->node = tree_root;
 }
 
-// void	build_heredoc_queue(t_lst_tokens **current, t_token_queue *cmds,
-// 		t_token_queue *heredocs)
-// {
-// 	while (*current != NULL && (*current)->type != TYPE_PIPE)
-// 	{
-// 		if ((*current)->type == TYPE_HEREDOC)
-// 			heredocs->head = get_redir_list(current, &heredocs->head,
-// 					&heredocs->tail);
-// 		else
-// 			cmds->head = get_cmd_list(current, &cmds->head, &cmds->tail);
-// 	}
-// }
+
 
 void	build_heredoc_redir_queue(t_lst_tokens **current, t_token_queue *cmds,
 		t_token_queue *heredocs, t_token_queue *redir_files)
