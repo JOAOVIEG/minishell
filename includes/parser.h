@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 19:15:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:37:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ typedef enum e_quote_type
 	DOUBLE_IN_SINGLE_QUOTED
 
 }								t_quote_type;
+
+typedef enum e_sig_state
+{
+	SIG_DEFAULT = 1,
+	SIG_HEREDOC,
+	SIG_CHILD,
+	SIG_PARENT
+}								t_sig_state;
 
 typedef struct s_shell			t_shell;
 typedef struct s_node			t_node;
@@ -185,9 +193,7 @@ t_quote_type					env_var_quotes(t_lst_tokens *current);
 void							remove_quotes(t_parser *parser);
 void							print_env_list(t_env *env);
 void							add_to_history(t_shell *shell, char *command);
-void							handle_sigint(int sig);
 
-void							ignore_signals(void);
-void							handle_eof(void);
+void							handle_signal(int state);
 
 #endif

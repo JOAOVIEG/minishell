@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utilis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:31:39 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:28:37 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ void	check_path(char **env, t_node *node)
 {
 	node->cmd->path = get_path(env);
 	if (node->cmd->path)
-		node->cmd->cmd_path = ft_split(node->cmd->path, \
-			':');
+		node->cmd->cmd_path = ft_split(node->cmd->path, ':');
 }
 
 char	*get_cmd(char **cmd_path, char *cmd)
 {
-	if (*cmd && cmd[0] == '/')
+	if ((*cmd && cmd[0] == '/') || ft_strncmp(cmd, "./", 2) == 0)
 	{
 		if (access(cmd, F_OK) == 0)
 			return (cmd);
@@ -38,8 +37,8 @@ char	*get_cmd(char **cmd_path, char *cmd)
 			return (validate_cmd(cmd_path, cmd));
 		else
 		{
-			perror ("Error");
-			shell()->status = 126;	
+			perror("Error");
+			shell()->status = 126;
 		}
 	}
 	return (NULL);

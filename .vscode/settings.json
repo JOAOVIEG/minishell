@@ -11,6 +11,7 @@
 		"cstdlib": "c",
 		"random": "c",
 		"string": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"ioctl.h": "c"
 	}
 }
