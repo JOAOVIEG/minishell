@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 13:07:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:00:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,19 @@ void	free_paths(t_node *node)
 	}
 }
 
-void	child_exec_process(t_node *node, char **env)
+void	child_exec_process(t_node *node, char **env, int i)
 {
 	handle_signal(SIG_CHILD); // keep this line
+
+	while (node->cmd->file && node->cmd->file[i] != NULL)
+	{
+		handle_file_redir(node, i);
+		i++;
+	}
+	if (shell()->status == EXIT_FAILURE)
+		exit_shell(shell()->status);
 	if (ft_strcmp(node->cmd->arg[0], ".") == 0
-			|| ft_ft_strcmp(node->cmd->arg[0], "..") == 0)
+			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
 	{
 		free_c_env(env);
 		shell()->status = 127;

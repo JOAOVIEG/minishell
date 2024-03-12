@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 12:01:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:59:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,7 @@ void	exec_cmd(t_node *node)
 	assign_fds(node);
 	env = env_list_to_arr();
 	check_path(env, node);
-	while (node->cmd->file && node->cmd->file[i] != NULL)
-	{
-		handle_file_redir(node, i);
-		i++;
-	}
 	pid = fork();
+
 	run_path_process(node, pid, env);
 }
