@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 15:59:40 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:28:49 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	heredoc_check(t_node *node)
 			printf("heredoc error\n");
 			return ;
 		}
-		if (node->fd_in < 0)
+		else if (node->fd_in < 0)
 		{
 			shell()->status = EXIT_FAILURE;
 			exit_shell(shell()->status);
