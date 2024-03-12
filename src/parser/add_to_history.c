@@ -1,45 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_tokens_ultils.c                                :+:      :+:    :+:   */
+/*   add_to_history.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 17:04:13 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 19:01:10 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/11 19:06:14 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/11 19:06:47 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_tokenadd_back(t_lst_tokens **lst, t_lst_tokens **tail,
-		t_lst_tokens *new)
+void	add_to_history(t_shell *shell, char *command)
 {
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		*tail = new;
-	}
-	else
-	{
-		(*tail)->next = new;
-		*tail = new;
-	}
-}
+	t_history_entry	*new_entry;
 
-int	lst_token_size(t_lst_tokens *tokens)
-{
-	int				count;
-	t_lst_tokens	*current;
-
-	count = 0;
-	current = tokens;
-	while (current != NULL)
-	{
-		count++;
-		current = current->next;
-	}
-	return (count);
+	new_entry = ft_calloc(1, sizeof(t_history_entry));
+	new_entry->command = ft_strdup(command);
+	new_entry->next = shell->history;
+	shell->history = new_entry;
 }

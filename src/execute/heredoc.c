@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:12:44 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:22:32 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	heredoc(t_node *node)
 	size_t	buffer_size;
 	int		here_doc_fd;
 
+	handle_signal(SIG_HEREDOC);
+
 	buffer = NULL;
 	buffer_size = 0;
 	buffer = read_from_stdin(node->cmd->heredoc, buffer, buffer_size);
@@ -92,6 +94,8 @@ int	heredoc(t_node *node)
 		error_msg();
 	unlink("in.txt");
 	free(buffer);
+
+	handle_signal(SIG_DEFAULT);
 	return (node->fd_in);
 }
 

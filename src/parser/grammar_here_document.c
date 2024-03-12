@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_tokens_ultils.c                                :+:      :+:    :+:   */
+/*   grammar_here_document.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 17:04:13 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 19:01:10 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/11 18:52:50 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/11 18:53:28 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_tokenadd_back(t_lst_tokens **lst, t_lst_tokens **tail,
-		t_lst_tokens *new)
+bool	grammar_here_document(t_parser *parser)
 {
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
+	if (!parser->tokens)
 	{
-		*lst = new;
-		*tail = new;
+		printf("Syntax error: unexpected end of input after here document\n");
+		return (false);
 	}
-	else
+	if (parser->tokens->type == TYPE_HEREDOC)
 	{
-		(*tail)->next = new;
-		*tail = new;
+		parser->tokens = parser->tokens->next;
+		if (!parser->tokens || parser->tokens->type != TYPE_ARG)
+		{
+			printf("Syntax error: expected a file after here document\n");
+			return (false);
+		}
+		parser->tokens = parser->tokens->next;
 	}
-}
-
-int	lst_token_size(t_lst_tokens *tokens)
-{
-	int				count;
-	t_lst_tokens	*current;
-
-	count = 0;
-	current = tokens;
-	while (current != NULL)
-	{
-		count++;
-		current = current->next;
-	}
-	return (count);
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 10:16:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:05:57 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	check_path(char **env, t_node *node)
 {
 	node->cmd->path = get_path(env);
 	if (node->cmd->path)
-		node->cmd->cmd_path = ft_split(node->cmd->path, \
-			':');
+		node->cmd->cmd_path = ft_split(node->cmd->path, ':');
 }
 
 char	*get_cmd(char **cmd_path, char *cmd)
@@ -38,8 +37,8 @@ char	*get_cmd(char **cmd_path, char *cmd)
 			return (validate_cmd(cmd_path, cmd));
 		else
 		{
-			perror ("Error");
-			shell()->status = 126;	
+			perror("Error");
+			shell()->status = 126;
 		}
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 11:19:22 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:07:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	parent_exec_control(t_node *node, pid_t pid, char **env)
 	parent_control(node, pid);
 	free_c_env(env);
 	free_paths(node);
+	
 }
 
 void	free_paths(t_node *node)
@@ -32,8 +33,9 @@ void	free_paths(t_node *node)
 
 void	child_exec_process(t_node *node, char **env)
 {
-	if ((ft_strcmp(node->cmd->arg[0], ".") == 0 || \
-						ft_strcmp(node->cmd->arg[0], "..")) == 0)
+	handle_signal(SIG_CHILD); // keep this line
+	if (ft_strcmp(node->cmd->arg[0], ".") == 0
+			|| ft_ft_strcmp(node->cmd->arg[0], "..") == 0)
 	{
 		free_c_env(env);
 		shell()->status = 127;
@@ -42,8 +44,7 @@ void	child_exec_process(t_node *node, char **env)
 	}
 	if (input_is_dir(node, env) == 1)
 		exit_shell(126);
-	node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, \
-		node->cmd->arg[0]);
+	node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
 	if (node->cmd->valid_cmd_path == NULL)
 	{
 		free_c_env(env);

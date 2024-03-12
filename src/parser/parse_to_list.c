@@ -6,25 +6,11 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 15:05:43 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/11 19:01:22 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	print_list(t_lst_tokens *head)
-{
-	t_lst_tokens	*current;
-
-	current = head;
-	printf("List of tokens:\n");
-	while (current != NULL)
-	{
-		printf("token: %s\n", current->data);
-		print_type(current->type);
-		current = current->next;
-	}
-}
 
 t_lst_tokens	*new_node(char *data)
 {

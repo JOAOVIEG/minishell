@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 11:06:21 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:05:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,44 +24,19 @@ t_shell	*shell(void)
 	return (&minishell);
 }
 
-void	handle_sigint(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	ignore_signals(void)
-{
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	add_to_history(t_shell *shell, char *command)
-{
-	t_history_entry	*new_entry;
-
-	new_entry = ft_calloc(1, sizeof(t_history_entry));
-	new_entry->command = ft_strdup(command);
-	new_entry->next = shell->history;
-	shell->history = new_entry;
-}
-
 void	read_input(void)
 {
-	shell()->line = \
-		readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
+	shell()->line = readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
 	if (!shell()->line)
 	{
-		write(1, "exit\n", 5);
-		shell()->status = EXIT_SUCCESS;
-		exit_shell(shell()->status);
+		printf("crtl+d is not working\n");
+		exit(EXIT_SUCCESS);
 	}
 	else
 		add_to_history(shell(), shell()->line);
 }
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -76,9 +51,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 	shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
-	ignore_signals();
+	//ignore_signals();
 	while (1)
 	{
+		handle_signal(SIG_DEFAULT);
 		read_input();
 		add_history(shell()->line);
 		parser(shell());

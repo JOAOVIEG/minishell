@@ -1,45 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_tokens_ultils.c                                :+:      :+:    :+:   */
+/*   clean_ultils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 17:04:13 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 19:01:10 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/12 09:51:05 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/12 09:52:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_tokenadd_back(t_lst_tokens **lst, t_lst_tokens **tail,
-		t_lst_tokens *new)
+void	clean_token_queue(t_token_queue *queue)
 {
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		*tail = new;
-	}
-	else
-	{
-		(*tail)->next = new;
-		*tail = new;
-	}
-}
-
-int	lst_token_size(t_lst_tokens *tokens)
-{
-	int				count;
 	t_lst_tokens	*current;
+	t_lst_tokens	*next;
 
-	count = 0;
-	current = tokens;
+	current = queue->head;
 	while (current != NULL)
 	{
-		count++;
-		current = current->next;
+		next = current->next;
+		free(current->data);
+		free(current);
+		current = next;
 	}
-	return (count);
+	queue->head = NULL;
+	queue->tail = NULL;
+}
+
+void	clean_buffer(t_buffer *buffer)
+{
+	clean_token_queue(&buffer->cmds);
+	clean_token_queue(&buffer->heredocs);
+	clean_token_queue(&buffer->redir_files);
 }

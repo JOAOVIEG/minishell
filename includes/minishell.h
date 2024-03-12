@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 16:22:32 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:39:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <dirent.h>
+# include <sys/ioctl.h>
 
 typedef struct s_history_entry
 {

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 17:23:16 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 15:01:48 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 09:51:42 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,7 @@ void	init_buffer(t_buffer *buffer)
 	init_token_queue(&buffer->redir_files);
 }
 
-void	clean_token_queue(t_token_queue *queue)
-{
-	t_lst_tokens	*current;
-	t_lst_tokens	*next;
 
-	current = queue->head;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current->data);
-		free(current);
-		current = next;
-	}
-	queue->head = NULL;
-	queue->tail = NULL;
-}
-
-void	clean_buffer(t_buffer *buffer)
-{
-	clean_token_queue(&buffer->cmds);
-	clean_token_queue(&buffer->heredocs);
-	clean_token_queue(&buffer->redir_files);
-}
 
 void	add_token_back(t_lst_tokens **current, t_lst_tokens **cmd_tokens,
 		t_lst_tokens **tail)
@@ -201,18 +179,7 @@ void	build_redir_pipe_tree(t_shell *shell)
 	shell->node = tree_root;
 }
 
-// void	build_heredoc_queue(t_lst_tokens **current, t_token_queue *cmds,
-// 		t_token_queue *heredocs)
-// {
-// 	while (*current != NULL && (*current)->type != TYPE_PIPE)
-// 	{
-// 		if ((*current)->type == TYPE_HEREDOC)
-// 			heredocs->head = get_redir_list(current, &heredocs->head,
-// 					&heredocs->tail);
-// 		else
-// 			cmds->head = get_cmd_list(current, &cmds->head, &cmds->tail);
-// 	}
-// }
+
 
 void	build_heredoc_redir_queue(t_lst_tokens **current, t_token_queue *cmds,
 		t_token_queue *heredocs, t_token_queue *redir_files)

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 09:12:32 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:08:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ t_parser	*init_parser(void)
 	return (parser);
 }
 
-void	print_env_list(t_env *env)
-{
-	t_env	*current;
-
-	current = env;
-	while (current != NULL)
-	{
-		printf("Name: %s, Value: %s\n", current->name, current->value);
-		current = current->next;
-	}
-}
-
 void	remove_quotes(t_parser *parser)
 {
 	t_lst_tokens	*current;
@@ -60,190 +48,6 @@ void	remove_quotes(t_parser *parser)
 		current = current->next;
 	}
 	parser->tokens = head;
-}
-
-t_quote_type	env_var_quotes(t_lst_tokens *current)
-{
-	char			*data;
-	size_t			len;
-	t_quote_type	quote;
-
-	if (!current || !current->data)
-		return (NO_QUOTED);
-	data = current->data;
-	len = ft_strlen(data);
-	if (data[0] == '\'' && data[len - 1] == '\'')
-	{
-		quote = SINGLE_QUOTED;
-		if (ft_strchr(data, '"'))
-			quote = DOUBLE_IN_SINGLE_QUOTED;
-	}
-	else if (data[0] == '"' && data[len - 1] == '"')
-	{
-		quote = DOUBLE_QUOTED;
-		if (ft_strchr(data, '\''))
-			quote = SINGLE_IN_DOUBLE_QUOTED;
-	}
-	else
-		quote = NO_QUOTED;
-	return (quote);
-}
-
-void	print_quoted(t_shell shell)
-{
-	t_lst_tokens	*current;
-
-	current = shell.parser->tokens;
-	while (current)
-	{
-		if (current->type == TYPE_ENV_VAR)
-		{
-			if (env_var_quotes(current) == SINGLE_QUOTED)
-				printf("SINGLE_QUOTED\n");
-			else if (env_var_quotes(current) == DOUBLE_QUOTED)
-				printf("DOUBLE_QUOTED\n");
-			else if (env_var_quotes(current) == SINGLE_IN_DOUBLE_QUOTED)
-				printf("SINGLE_IN_DOUBLE_QUOTED\n");
-			else if (env_var_quotes(current) == DOUBLE_IN_SINGLE_QUOTED)
-				printf("DOUBLE_IN_SINGLE_QUOTED\n");
-			else if (env_var_quotes(current) == NO_QUOTED)
-				printf("NO_QUOTED\n");
-		}
-		current = current->next;
-	}
-}
-
-char	*find_end_of_env_var(const char *str)
-{
-	const char	*s;
-
-	s = str;
-	if (*s == '$')
-		s++;
-	if (*s == '?')
-		return (char *)(s + 1);
-	if (!(*s == '_' || (*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z')))
-		return (NULL);
-	s++;
-	while (*s == '_' || (*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z')
-		|| (*s >= '0' && *s <= '9'))
-		s++;
-	return ((char *)s);
-}
-
-char	*create_env_data(t_env_var_replacement *replacement)
-{
-	char	*new_data;
-
-	new_data = ft_calloc(ft_strlen((*replacement->current)->data)
-			- ft_strlen(replacement->substring) + ft_strlen(replacement->value)
-			+ 1, sizeof(char));
-	ft_strncpy(new_data, (*replacement->current)->data, replacement->start
-		- (*replacement->current)->data);
-	ft_strcat(new_data, replacement->value);
-	ft_strncat(new_data, replacement->end, (*replacement->current)->data
-		+ ft_strlen((*replacement->current)->data) - replacement->end);
-	return (new_data);
-}
-
-void	init_env_var_replacement(t_lst_tokens **current,
-		t_env_var_replacement *replacement)
-{
-	replacement->current = current;
-	replacement->start = ft_strchr((*current)->data, '$');
-	replacement->end = find_end_of_env_var(replacement->start);
-	if (!replacement->end)
-		replacement->end = replacement->start + ft_strlen(replacement->start);
-	replacement->substring = ft_strndup(replacement->start, replacement->end
-			- replacement->start);
-}
-
-void	env_var_not_found(t_env_var_replacement *replacement, char *trimmed)
-{
-	char	*new_data;
-
-	replacement->value = "";
-	new_data = create_env_data(replacement);
-	free((*(replacement->current))->data);
-	(*(replacement->current))->data = new_data;
-	free(replacement->substring);
-	free(trimmed);
-}
-
-void	make_the_replacement(t_env_var_replacement *replacement, char *trimmed)
-{
-	char	*new_data;
-
-	new_data = create_env_data(replacement);
-	free((*(replacement->current))->data);
-	(*(replacement->current))->data = new_data;
-	free(replacement->substring);
-	free(trimmed);
-}
-
-char	*find_env_value(t_env *env, char *trimmed)
-{
-	t_env	*current_env;
-
-	current_env = env;
-	while (current_env)
-	{
-		if (ft_strncmp(trimmed, current_env->name,
-				ft_strlen(current_env->name)) == 0)
-			return (current_env->value);
-		current_env = current_env->next;
-	}
-	return (NULL);
-}
-
-void	replace_with_env_var(t_lst_tokens **current, t_env *env)
-{
-	t_env_var_replacement	replacement;
-	char					*trimmed;
-
-	replacement.current = current;
-	init_env_var_replacement(current, &replacement);
-	trimmed = ft_strdup(ft_strtrim(replacement.substring, "$"));
-	// printf("substring: %s\n", replacement.substring);
-	if (ft_strncmp(trimmed, "?", 1) == 0)
-	{
-		replacement.value = ft_itoa(shell()->status);
-		make_the_replacement(&replacement, trimmed);
-		free(replacement.value);
-		return ;
-	}
-	else if (find_env_value(env, trimmed))
-	{
-		replacement.value = find_env_value(env, trimmed);
-		make_the_replacement(&replacement, trimmed);
-		return ;
-	}
-	env_var_not_found(&replacement, trimmed);
-}
-
-void	replace_env_var_in_token(t_lst_tokens **current, t_env *env)
-{
-	while (ft_strchr((*current)->data, '$'))
-		replace_with_env_var(current, env);
-}
-
-void	make_expansion(t_shell *shell)
-{
-	t_lst_tokens	*current;
-	t_lst_tokens	*head;
-
-	head = shell->parser->tokens;
-	current = head;
-	while (current)
-	{
-		if (current->type == TYPE_ENV_VAR)
-		{
-			if (env_var_quotes(current) != SINGLE_QUOTED
-				&& env_var_quotes(current) != DOUBLE_IN_SINGLE_QUOTED)
-				replace_env_var_in_token(&current, shell->v_env);
-		}
-		current = current->next;
-	}
 }
 
 void	parser(t_shell *shell)
