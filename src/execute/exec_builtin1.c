@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 12:30:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:59:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	handle_file_redir(t_node *node, int i)
 		{
 			status_error(node->cmd->file[i], "No such file or directory", STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
-			return ;
+			exit_shell(EXIT_FAILURE);
 		}
 		if (open_file_from(node, i++) == -1)
 			return ;

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 16:01:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:55:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		open_file_from(t_node *node, int i);
 void	handle_file_redir(t_node *node, int i);
 void	parent_exec_control(t_node *node, pid_t pid, char **env);
 void	free_paths(t_node *node);
-void	child_exec_process(t_node *node, char **env, int i);
+void	child_exec_process(t_node *node, char **env);
 void	run_path_process(t_node *node, pid_t pid, char **env);
 void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
 	pid_t left_pid, pid_t right_pid);

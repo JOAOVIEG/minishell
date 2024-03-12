@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 16:00:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:12:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ void	free_paths(t_node *node)
 	}
 }
 
-void	child_exec_process(t_node *node, char **env, int i)
+void	child_exec_process(t_node *node, char **env)
 {
 	handle_signal(SIG_CHILD); // keep this line
+	int	i;
 
+	i = 0;
 	while (node->cmd->file && node->cmd->file[i] != NULL)
 	{
 		handle_file_redir(node, i);
 		i++;
 	}
-	if (shell()->status == EXIT_FAILURE)
-		exit_shell(shell()->status);
+	// if (shell()->status == EXIT_FAILURE)
+	// 	exit_shell(shell()->status);
 	if (ft_strcmp(node->cmd->arg[0], ".") == 0
 			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
 	{
@@ -58,7 +60,7 @@ void	child_exec_process(t_node *node, char **env, int i)
 		free_c_env(env);
 		shell()->status = 127;
 		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-		exit_shell(shell()->status);
+		// exit_shell(shell()->status);
 	}
 	redirections(node->fd_in, node->fd_out);
 	close_fds(node->fd_in, node->fd_out);
@@ -66,7 +68,7 @@ void	child_exec_process(t_node *node, char **env, int i)
 	{
 		free_c_env(env);
 		free_paths(node);
-		exit_shell(126);
+		// exit_shell(126);
 	}
 	child_control(node);
 }
