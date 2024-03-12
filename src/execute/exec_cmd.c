@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 13:07:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:38:53 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	child_exec_process(t_node *node, char **env)
 {
 	handle_signal(SIG_CHILD); // keep this line
 	if (ft_strcmp(node->cmd->arg[0], ".") == 0
-			|| ft_ft_strcmp(node->cmd->arg[0], "..") == 0)
+			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
 	{
 		free_c_env(env);
 		shell()->status = 127;

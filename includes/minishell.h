@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 10:39:15 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 14:46:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "execute.h"
 # include "lexer.h"
 # include "parser.h"
+# include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -27,12 +28,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <dirent.h>
-# include <sys/ioctl.h>
 
 typedef struct s_history_entry
 {
@@ -49,6 +49,7 @@ typedef struct s_shell
 	t_lexer					*lexer;
 	t_parser				*parser;
 	t_history_entry			*history;
+	bool					signal;
 }							t_shell;
 
 t_env						*find_env_var(t_env *env, char *name);

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 12:22:32 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:01:33 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,18 @@ char	*read_from_stdin(char **delim, char	*buffer, size_t buffer_size)
 	char	*delim_line;
 	char	*last_line_start;
 
+	handle_signal(SIG_HEREDOC);
+
 	delim_line = ft_strjoin(delim[1], "\n");
 	while (read(STDIN_FILENO, &ch, 1) > 0)
 	{
+		if (shell()->signal == true)
+		{
+			free(delim_line);
+			handle_signal(SIG_DEFAULT);
+			return (NULL);
+		}
+
 		buffer = ft_my_realloc(buffer, buffer_size + 2);
 		buffer[buffer_size++] = ch;
 		buffer[buffer_size] = '\0';
@@ -66,8 +75,10 @@ char	*read_from_stdin(char **delim, char	*buffer, size_t buffer_size)
 			buffer[buffer_size] = '\0';
 			break ;
 		}
+		
 	}
 	free(delim_line);
+	handle_signal(SIG_DEFAULT);
 	return (buffer);
 }
 
@@ -77,13 +88,19 @@ int	heredoc(t_node *node)
 	size_t	buffer_size;
 	int		here_doc_fd;
 
-	handle_signal(SIG_HEREDOC);
+	//handle_signal(SIG_HEREDOC);
 
 	buffer = NULL;
 	buffer_size = 0;
 	buffer = read_from_stdin(node->cmd->heredoc, buffer, buffer_size);
 	if (buffer == NULL)
-		error_msg();
+	{
+		// if (shell()->node->fd_in > 0)
+		// 	close(shell()->node->fd_in);
+		// if (shell()->node)
+		// 	reset_tree();
+		return (-1);
+	}
 	here_doc_fd = open("./in.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (here_doc_fd < 0)
 		error_msg();
@@ -95,7 +112,7 @@ int	heredoc(t_node *node)
 	unlink("in.txt");
 	free(buffer);
 
-	handle_signal(SIG_DEFAULT);
+	//handle_signal(SIG_DEFAULT);
 	return (node->fd_in);
 }
 

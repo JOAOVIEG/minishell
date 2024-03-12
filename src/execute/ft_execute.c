@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:46:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:59:40 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 void	ft_simple_cmds(t_node *node)
-{	
+{
 	no_cmd_file_redir(node);
 	if (node->cmd->arg[0] == NULL)
 		return ;
@@ -47,7 +47,13 @@ void	heredoc_check(t_node *node)
 {
 	if (node->cmd && node->cmd->heredoc)
 	{
+	
 		node->fd_in = heredoc(node);
+		if (node->fd_in == -1)
+		{
+			printf("heredoc error\n");
+			return ;
+		}
 		if (node->fd_in < 0)
 		{
 			shell()->status = EXIT_FAILURE;
@@ -62,4 +68,5 @@ void	ft_execute(t_node *node)
 		ft_simple_cmds(node);
 	if (node->type == TYPE_PIPE)
 		ft_exec_piped(node);
+	
 }

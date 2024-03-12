@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:10:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 12:59:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:24:17 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ void	default_sigint(int sig)
 {
 	(void)sig;
 	shell()->status = 130;
+    shell()->signal = true;
 	dprintf(1, "\n");
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	rl_redisplay();
+    
 }
 
 
