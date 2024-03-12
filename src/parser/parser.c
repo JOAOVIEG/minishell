@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/10 21:19:31 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/12 09:12:32 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 	replacement.current = current;
 	init_env_var_replacement(current, &replacement);
 	trimmed = ft_strdup(ft_strtrim(replacement.substring, "$"));
-	printf("substring: %s\n", replacement.substring);
+	// printf("substring: %s\n", replacement.substring);
 	if (ft_strncmp(trimmed, "?", 1) == 0)
 	{
 		replacement.value = ft_itoa(shell()->status);

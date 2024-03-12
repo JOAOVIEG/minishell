@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:31:39 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:16:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_path(char **env, t_node *node)
 
 char	*get_cmd(char **cmd_path, char *cmd)
 {
-	if (*cmd && cmd[0] == '/')
+	if ((*cmd && cmd[0] == '/') || ft_strncmp(cmd, "./", 2) == 0)
 	{
 		if (access(cmd, F_OK) == 0)
 			return (cmd);
@@ -86,8 +86,6 @@ char	*validate_cmd(char **cmd_paths, char *cmd)
 		free(tmp2);
 		i++;
 	}
-	printf("%s: command not found\n", cmd);
 	free_cmd_paths(cmd_paths);
-	exit_shell(127);
 	return (NULL);
 }

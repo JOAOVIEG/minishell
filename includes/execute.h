@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 15:45:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:15:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_execute(t_node *node);
 void	no_cmd_file_redir(t_node *node);
 int		is_dir(t_node *node);
 int		is_dir_i(t_node *node, int i);
-int		input_is_dir(t_node *node);
+int		input_is_dir(t_node *node, char **env);
 void	ft_simple_cmds(t_node *node);
 int		is_builtin(t_node *node);
 void	exec_builtin(t_node *node);
@@ -83,4 +83,5 @@ void	left_node_process(t_node *node, int pipe_end[2], pid_t left_pid);
 void	heredoc_check(t_node *node);
 void	get_file_append(t_node *node);
 void	get_file(t_node *node);
+void	status_error(char *what, char *message, int	fd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 13:07:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:01:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	exec_builtin(t_node *node)
 			handle_file_redir(node, i);
 			i++;
 		}
-		run_process(node);
+		if (shell()->status == EXIT_SUCCESS)
+			run_process(node);
 	}
 	else
 		run_builtin(node);

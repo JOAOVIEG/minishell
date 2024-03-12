@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:34:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:19:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,23 @@ void	free_paths(t_node *node)
 
 void	child_exec_process(t_node *node, char **env)
 {
-	if (strcmp(node->cmd->arg[0], ".") == 0 || \
-						strcmp(node->cmd->arg[0], "..") == 0)
+	if ((ft_strcmp(node->cmd->arg[0], ".") == 0 || \
+						ft_strcmp(node->cmd->arg[0], "..")) == 0)
 	{
-		printf("%s: command not found\n", node->cmd->arg[0]);
-		exit_shell(127);
+		free_c_env(env);
+		shell()->status = 127;
+		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
+		exit_shell(shell()->status);
 	}
-	if (input_is_dir(node) == 1)
+	if (input_is_dir(node, env) == 1)
 		exit_shell(126);
 	node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, \
 		node->cmd->arg[0]);
 	if (node->cmd->valid_cmd_path == NULL)
 	{
 		free_c_env(env);
-		free_paths(node);
+		shell()->status = 127;
+		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
 		exit_shell(shell()->status);
 	}
 	redirections(node->fd_in, node->fd_out);
@@ -72,4 +75,16 @@ void	run_path_process(t_node *node, pid_t pid, char **env)
 		child_exec_process(node, env);
 	else
 		parent_exec_control(node, pid, env);
+}
+
+void	status_error(char *what, char *message, int	fd)
+{
+	char *str;
+	char *temp;
+
+	temp = ft_strjoin(what, ": ");
+	str = ft_strjoin(temp, message);
+	free(temp);
+	ft_putendl_fd(str, fd);
+	free(str);
 }

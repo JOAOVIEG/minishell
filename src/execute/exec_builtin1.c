@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:15:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:30:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ int	open_file_from(t_node *node, int i)
 		node->fd_in = open(node->cmd->file[i], O_RDONLY);
 		if (node->fd_in < 0)
 		{
-			perror("Error at fd_in");
+			status_error(node->cmd->file[i], "Erro at fd_in", STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
-			exit_shell(shell()->status);
 		}
 	}
 	else
 	{
-		printf("%s: No such file or directory\n", node->cmd->file[i]);
+		status_error(node->cmd->file[i], "No such file or directory", STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
 		return (-1);
 	}
@@ -49,9 +48,17 @@ int	open_file_from(t_node *node, int i)
 
 void	handle_file_redir(t_node *node, int i)
 {
+	struct stat	st;
+
 	if (ft_strncmp(node->cmd->file[i], "<", 1) == 0)
 	{
 		i++;
+		if (stat(node->cmd->file[i], &st) == 0 && S_ISDIR(st.st_mode))
+		{
+			status_error(node->cmd->file[i], "No such file or directory", STDERR_FILENO);
+			shell()->status = EXIT_FAILURE;
+			return ;
+		}
 		if (open_file_from(node, i++) == -1)
 			return ;
 	}

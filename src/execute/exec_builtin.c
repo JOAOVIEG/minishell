@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:18:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:07:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	run_builtin(t_node *node)
 			cd(cmd[1]);
 		else
 		{
-			printf("minishell: cd: too many arguments\n");
+			status_error(cmd[0], "too many arguments", STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
 	}
@@ -87,8 +87,8 @@ int	open_file_to(t_node *node, int i)
 	node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (node->fd_out < 0)
 	{
-		perror("Error at fd_out");
-		exit_shell(EXIT_FAILURE);
+		status_error(node->cmd->file[1], " permission denied", STDERR_FILENO);
+		shell()->status = 126;
 	}
 	return (node->fd_out);
 }

@@ -6,19 +6,20 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 16:07:54 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:04:16 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	input_is_dir(t_node *node)
+int	input_is_dir(t_node *node, char **env)
 {
 	struct stat	st;
 
 	if (stat(node->cmd->arg[0], &st) == 0 && S_ISDIR(st.st_mode))
 	{
-		printf("%s: is a directory\n", node->cmd->arg[0]);
+		free_c_env(env);
+		status_error(node->cmd->arg[0], "is a directory", STDERR_FILENO);
 		return (1);
 	}
 	return (0);
@@ -30,7 +31,8 @@ int	is_dir_i(t_node *node, int i)
 
 	if (stat(node->cmd->file[i], &st) == 0 && S_ISDIR(st.st_mode))
 	{
-		printf("%s: is a directory\n", node->cmd->file[1]);
+		status_error(node->cmd->file[1], " is a directory", STDERR_FILENO);
+		shell()->status = EXIT_FAILURE;
 		return (1);
 	}
 	return (0);
@@ -42,9 +44,9 @@ int	is_dir(t_node *node)
 
 	if (stat(node->cmd->file[1], &st) == 0 && S_ISDIR(st.st_mode))
 	{
-		printf("%s: is a directory\n", node->cmd->file[1]);
-		shell()->status = EXIT_FAILURE;
-		return (shell()->status);
+		status_error(node->cmd->file[1], " is a directory", STDERR_FILENO);
+		shell()->status = 126;
+		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -61,8 +63,7 @@ void	no_cmd_file_redir(t_node *node)
 			node->fd_in = open(node->cmd->file[1], O_RDONLY);
 		else
 		{
-			printf("minishell: %s: No such file or directory\n", \
-												node->cmd->file[1]);
+			status_error(node->cmd->file[1], "No such file or directory", STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
 	}
