@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:10:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 17:57:26 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:29:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,31 +51,25 @@ void	default_sigint(int sig)
 {
 	(void)sig;
 	shell()->status = 130;
-    shell()->signal = true;
+	shell()->signal = true;
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	rl_redisplay();
 }
 
-
 void	hdsig(int sig)
 {
 	(void)sig;
-    dprintf(1, "\n");
-    rl_on_new_line();
-    rl_replace_line("", 1);
-	//kill (getpid(), SIGKILL);
-    rl_redisplay();
+	dprintf(1, "\n");
+	shell()->status = 130;
+	shell()->signal = true;
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	exit_shell(shell()->status);
+	rl_redisplay();
 }
 
-// void	sig_parent(int sig)
-// {
-// 	if (sig == SIGINT)
-// 		dprintf(1, "\n");
-// 	else if (sig == SIGQUIT)
-// 		dprintf(2, "Quit (code dumped)\n");
-// }
 
 void	handle_signal(int state)
 {

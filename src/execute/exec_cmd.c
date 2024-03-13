@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 17:26:23 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:02:14 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	parent_exec_control(t_node *node, pid_t pid, char **env)
 {
 	parent_control(node, pid);
 	free_c_env(env);
-	free_paths(node);
-	
+	if (node->cmd->valid_cmd_path)
+		free_paths(node);
 }
 
 void	free_paths(t_node *node)
@@ -33,7 +33,7 @@ void	free_paths(t_node *node)
 
 void	child_exec_process(t_node *node, char **env)
 {
-	// handle_signal(SIG_CHILD); // keep this line
+	handle_signal(SIG_CHILD); // keep this line
 	redirections(node->fd_in, node->fd_out);
 	close_fds(node->fd_in, node->fd_out);
 	if (execve(node->cmd->valid_cmd_path, node->cmd->arg, env) < 0)
@@ -60,10 +60,10 @@ void	run_path_process(t_node *node, pid_t pid, char **env)
 		parent_exec_control(node, pid, env);
 }
 
-void	status_error(char *what, char *message, int	fd)
+void	status_error(char *what, char *message, int fd)
 {
-	char *str;
-	char *temp;
+	char	*str;
+	char	*temp;
 
 	temp = ft_strjoin(what, ": ");
 	str = ft_strjoin(temp, message);
