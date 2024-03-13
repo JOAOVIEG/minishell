@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:10:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 16:46:31 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:40:47 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ void	default_sigint(int sig)
 void	hdsig(int sig)
 {
 	(void)sig;
-	close(0);
+    dprintf(1, "\n");
+    rl_on_new_line();
+    rl_replace_line("", 1);
+    rl_redisplay();
+	close (0);
 }
 
 // void	sig_parent(int sig)
@@ -82,7 +86,7 @@ void	handle_signal(int state)
 	}
 	else if (state == SIG_HEREDOC)
 	{
-		signal(SIGINT, default_sigint);
+		signal(SIGINT, hdsig);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (state == SIG_CHILD)

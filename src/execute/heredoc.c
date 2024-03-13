@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 17:04:20 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:39:53 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	heredoc(t_node *node)
 	if (buffer == NULL)
 	{
 		printf("heredoc error\n");
+		
 		// if (shell()->node->fd_in > 0)
 		// if (shell()->node)
 		// 	reset_tree();
