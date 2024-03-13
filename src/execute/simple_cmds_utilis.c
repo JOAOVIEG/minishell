@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 11:02:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:57:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	exec_cmd(t_node *node)
 
 	env = env_list_to_arr();
 	check_path(env, node);
-	pid = fork();
 	if (node->cmd->heredoc && !node->fd_in)
 	{
 		node->fd_in = heredoc(node);
 		close(node->fd_in);
 	}
+	pid = fork();
 	assign_fds(node);
 	shell()->status = EXIT_SUCCESS;
 	run_path_process(node, pid, env);
