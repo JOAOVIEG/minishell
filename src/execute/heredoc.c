@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 12:19:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:07:47 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,20 @@ void	get_file_append(t_node *node)
 {
 	if (is_dir(node) == 0)
 	{
-		node->fd_out = open(node->cmd->file[1], O_WRONLY | O_CREAT | O_APPEND,
-				0644);
+		if (access(node->cmd->file[1], F_OK) != 0)
+		{
+			status_error(node->cmd->file[1], "No such file or directory", STDERR_FILENO);
+			shell()->status = EXIT_FAILURE;
+		}
+		if (access(node->cmd->file[1], X_OK) == 0)
+		{
+			status_error(node->cmd->file[1], "Permission denied", STDERR_FILENO);
+			shell()->status = EXIT_FAILURE;
+		}
+		else 
+		{
+			node->fd_out = open(node->cmd->file[1], \
+							O_WRONLY | O_CREAT | O_APPEND, 0644);
+		}
 	}
 }
