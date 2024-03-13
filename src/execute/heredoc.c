@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 13:40:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:16:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	heredoc(t_node *node)
 	size_t	buffer_size;
 	int		here_doc_fd;
 
-	handle_signal(SIG_HEREDOC);
+	// handle_signal(SIG_HEREDOC);
 
 	buffer = NULL;
 	buffer_size = 0;
@@ -95,7 +95,7 @@ int	heredoc(t_node *node)
 	unlink("in.txt");
 	free(buffer);
 
-	handle_signal(SIG_DEFAULT);
+	// handle_signal(SIG_DEFAULT);
 	return (node->fd_in);
 }
 

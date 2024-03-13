@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 10:29:28 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:19:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ void	read_input(void)
 	shell()->line = readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
 	if (!shell()->line)
 	{
-		printf("crtl+d is not working\n");
-		exit(EXIT_SUCCESS);
+		// printf("crtl+d is not working\n");
+		exit_shell(EXIT_SUCCESS);
 	}
 	else
 		add_to_history(shell(), shell()->line);
 }
-
-
 
 int	main(int argc, char **argv, char **envp)
 {

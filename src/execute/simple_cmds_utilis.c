@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 14:41:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:14:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,36 @@ void	exec_cmd(t_node *node)
 {
 	char	**env;
 	pid_t	pid;
+	int	i;
 
+	i = 0;
 	env = env_list_to_arr();
 	check_path(env, node);
 	if (node->cmd->heredoc && !node->fd_in)
 		node->fd_in = heredoc(node);
+	while (node->cmd->file && node->cmd->file[i] != NULL)
+	{
+		handle_file_redir(node, i);
+		i++;
+	}
+	if (ft_strcmp(node->cmd->arg[0], ".") == 0
+			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
+	{
+		free_c_env(env);
+		shell()->status = 127;
+		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
+		exit_shell(shell()->status);
+	}
+	if (input_is_dir(node, env) == 1)
+		exit_shell(1);
+	node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
+	if (node->cmd->valid_cmd_path == NULL)
+	{
+		free_c_env(env);
+		shell()->status = 127;
+		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
+		return ;
+	}
 	pid = fork();
 	assign_fds(node);
 	shell()->status = EXIT_SUCCESS;
