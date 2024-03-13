@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 20:11:29 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:02:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,7 @@ int	is_builtin(t_node *node)
 
 void	exec_builtin(t_node *node)
 {
-	int		i;
-
-	if (node->cmd->heredoc)
-	{
-		if (!node->fd_in)
-			node->fd_in = heredoc(node);
-	}
-	if (node->cmd->file && *node->cmd->file != NULL)
-	{
-		i = 0;
-		while (node->cmd->file && node->cmd->file[i] != NULL)
-		{
-			assign_fds(node);
-			handle_file_redir(node, i);
-			i++;
-		}
-		if (shell()->status == EXIT_SUCCESS)
-			run_process(node);
-	}
-	else
-		run_builtin(node);
+	run_process(node);
 }
 
 void	exec_cmd(t_node *node)

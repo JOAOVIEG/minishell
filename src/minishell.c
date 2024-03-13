@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 13:36:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 10:29:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
-	//ignore_signals();
 	while (1)
 	{
 		handle_signal(SIG_DEFAULT);

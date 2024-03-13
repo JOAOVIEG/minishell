@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 13:36:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:00:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,32 @@ void	run_process(t_node *node)
 	}
 	else if (pid == 0)
 	{
-		redirections(node->fd_in, node->fd_out);
-		run_builtin(node);
-		child_control(node);
+		int		i;
+
+		if (node->cmd->heredoc)
+		{
+			if (!node->fd_in)
+				node->fd_in = heredoc(node);
+		}
+		if (node->cmd->file && *node->cmd->file != NULL)
+		{
+			i = 0;
+			while (node->cmd->file && node->cmd->file[i] != NULL)
+			{
+				assign_fds(node);
+				handle_file_redir(node, i);
+				i++;
+			}
+			if (shell()->status == EXIT_SUCCESS)
+			{
+				redirections(node->fd_in, node->fd_out);
+				run_builtin(node);
+				child_control(node);
+			}
+		}
+		else
+			run_builtin(node);
+		
 	}
 	else
 		parent_control(node, pid);
