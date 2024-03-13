@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 17:14:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:11:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,29 @@ int	is_builtin(t_node *node)
 
 void	exec_builtin(t_node *node)
 {
+	pid_t	pid;
+	
+	if (node->cmd->heredoc)
+	{
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("Error forking");
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
+		}
+		else if (pid == 0)
+		{
+			if (node->cmd->heredoc)
+			{
+				if (!node->fd_in)
+					node->fd_in = heredoc(node);
+				child_control(node);
+			}
+		}
+		else
+			parent_control(node, pid);
+	}
 	run_process(node);
 }
 
@@ -37,13 +60,34 @@ void	exec_cmd(t_node *node)
 {
 	char	**env;
 	pid_t	pid;
+	pid_t	pid1;
 	int	i;
 
 	i = 0;
 	env = env_list_to_arr();
 	check_path(env, node);
 	if (node->cmd->heredoc && !node->fd_in)
-		node->fd_in = heredoc(node);
+	{
+		pid1 = fork();
+			if (pid1 < 0)
+			{
+				perror("Error forking");
+				shell()->status = EXIT_FAILURE;
+				exit_shell(shell()->status);
+			}
+			else if (pid1 == 0)
+			{
+				if (node->cmd->heredoc)
+				{
+					if (!node->fd_in)
+						node->fd_in = heredoc(node);
+					close(node->fd_out);
+					exit_shell(shell()->status);
+				}
+			}
+			else
+				parent_control(node, pid1);
+	}
 	while (node->cmd->file && node->cmd->file[i] != NULL)
 	{
 		handle_file_redir(node, i);
@@ -69,6 +113,5 @@ void	exec_cmd(t_node *node)
 	}
 	pid = fork();
 	assign_fds(node);
-	shell()->status = EXIT_SUCCESS;
 	run_path_process(node, pid, env);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 13:34:28 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:12:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,29 @@ int	is_dir(t_node *node)
 
 void	no_cmd_file_redir(t_node *node)
 {
+	pid_t	heredoc_pid;
+
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc && !node->fd_in)
-		node->fd_in = heredoc(node);
-		
+	{
+		heredoc_pid = fork();
+		if (heredoc_pid < 0)
+		{
+			perror("Error forking");
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
+		}
+		else if (heredoc_pid == 0)
+		{
+			if (node->cmd->heredoc)
+			{
+				if (!node->fd_in)
+					node->fd_in = heredoc(node);
+				child_control(node);
+			}
+		}
+		else
+			parent_control(node, heredoc_pid);
+	}
 	else if (node->cmd->arg[0] == NULL && (node->cmd->file \
 							&& ft_strcmp(node->cmd->file[0], "<") == 0) \
 			&& !node->fd_in)
@@ -78,8 +98,8 @@ void	no_cmd_file_redir(t_node *node)
 
 void	assign_fds(t_node *node)
 {
-	if (!node->fd_in)
-		node->fd_in = dup(STDIN_FILENO);
-	if (!node->fd_out)
-		node->fd_out = dup(STDOUT_FILENO);
+	// if (!node->fd_in)
+	node->fd_in = dup(STDIN_FILENO);
+	// if (!node->fd_out)
+	node->fd_out = dup(STDOUT_FILENO);
 }
