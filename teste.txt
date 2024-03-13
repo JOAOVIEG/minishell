@@ -50,7 +50,7 @@ echo Hello | cat >>out OK
 << end wc -l <Makefile | >>out (if out exists and as content, its content does not change. Not like >out) SOLVED!
 <<delim echo Hello | wc -l >> out NOK (out should get 1) SOLVED!
 cat << eof 
-sfeg | ls
+sfeg | ls esta ok MAS PERGUNTAR
 
 Testar com symlinks ln -s Makefile link (files e dirs) (< e > e >>) (lstat)
 

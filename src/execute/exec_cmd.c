@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 17:12:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:31:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	child_exec_process(t_node *node, char **env)
 		free_c_env(env);
 		shell()->status = 127;
 		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-		// exit_shell(shell()->status);
+		return ;
 	}
 	redirections(node->fd_in, node->fd_out);
 	close_fds(node->fd_in, node->fd_out);
@@ -68,7 +68,7 @@ void	child_exec_process(t_node *node, char **env)
 	{
 		free_c_env(env);
 		free_paths(node);
-		// exit_shell(126);
+		exit_shell(126);
 	}
 	child_control(node);
 }

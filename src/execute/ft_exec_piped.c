@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:32:30 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 10:07:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:27:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid)
 		exit_shell(EXIT_FAILURE);
 	}
 	else if (right_pid == 0)
+	{
+		shell()->status = EXIT_SUCCESS;
 		execute_right_node(node, pipe_end);
+	}
 }
 
 void	left_node_process(t_node *node, int pipe_end[2], pid_t left_pid)
@@ -74,5 +77,8 @@ void	left_node_process(t_node *node, int pipe_end[2], pid_t left_pid)
 		exit_shell(2);
 	}
 	else if (left_pid == 0)
+	{
+		shell()->status = EXIT_SUCCESS;
 		execute_left_node(node, pipe_end);
+	}
 }
