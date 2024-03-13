@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 17:27:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:55:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,16 @@ void	parent_control(t_node *node, pid_t pid)
 {
 	int	status;
 
-	// handle_signal(SIG_PARENT); // keep this line
-	close_fds(node->fd_in, node->fd_out);
-	close(node->fd_in);
-	close(node->fd_out);
+	handle_signal(SIG_PARENT); // keep this line
+	//close_fds(node->fd_in, node->fd_out);
+	if (node->fd_in)
+		close(node->fd_in);
+	if (node->fd_out)
+		close(node->fd_out);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell()->status = WEXITSTATUS(status);
-	// handle_signal(SIG_DEFAULT); // keep this line
+	handle_signal(SIG_DEFAULT); // keep this line
 }
 
 void	child_control(t_node *node)

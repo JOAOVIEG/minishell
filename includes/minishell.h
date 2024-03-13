@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 17:27:42 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:48:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_history_entry
 typedef struct s_shell
 {
 	t_env					*v_env;
-	bool					signal;
 	int						status;
 	char					*line;
 	t_node					*node;
