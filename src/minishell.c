@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 11:43:52 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:03:00 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	read_input(void)
 	shell()->line = readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
 	if (!shell()->line)
 	{
-		printf("crtl+d is not working\n");
-		exit(EXIT_SUCCESS);
+		// printf("crtl+d is not working\n");
+		exit_shell(EXIT_SUCCESS);
 	}
 	else
 		add_to_history(shell(), shell()->line);
@@ -55,6 +55,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		handle_signal(SIG_DEFAULT);
 		read_input();
+		// if (ft_strcmp(shell()->line, "exit") == 0)
+		// 	exit_shell(EXIT_SUCCESS);
 		add_history(shell()->line);
 		parser(shell());
 		if (shell()->node)

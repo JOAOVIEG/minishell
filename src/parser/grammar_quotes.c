@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:41:30 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 18:47:56 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:26:27 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ bool	grammar_quotes(t_parser *parser)
 	{
 		if (len < 2 || parser->tokens->data[len - 1] != parser->tokens->data[0])
 		{
-			printf("Syntax error: expected a closing quote\n");
+			status_error("",
+				"Syntax error: expected a closing quote",
+				STDERR_FILENO);
+			shell()->status = 2;
 			return (false);
 		}
 	}
@@ -32,7 +35,10 @@ bool	grammar_quotes(t_parser *parser)
 	{
 		if (len < 2 || parser->tokens->data[0] != parser->tokens->data[len - 1])
 		{
-			printf("Syntax error: expected a closing quote\n");
+			status_error("",
+				"Syntax error: expected a closing quote",
+				STDERR_FILENO);
+			shell()->status = 2;
 			return (false);
 		}
 	}
