@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 11:44:52 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:26:23 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,7 @@ void	free_paths(t_node *node)
 
 void	child_exec_process(t_node *node, char **env)
 {
-	handle_signal(SIG_CHILD); // keep this line
-	int	i;
-
-	i = 0;
-	while (node->cmd->file && node->cmd->file[i] != NULL)
-	{
-		handle_file_redir(node, i);
-		i++;
-	}
-	if (ft_strcmp(node->cmd->arg[0], ".") == 0
-			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
-	{
-		free_c_env(env);
-		shell()->status = 127;
-		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-		exit_shell(shell()->status);
-	}
-	if (input_is_dir(node, env) == 1)
-		exit_shell(1);
-	node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
-	if (node->cmd->valid_cmd_path == NULL)
-	{
-		free_c_env(env);
-		shell()->status = 127;
-		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-		return ;
-	}
+	// handle_signal(SIG_CHILD); // keep this line
 	redirections(node->fd_in, node->fd_out);
 	close_fds(node->fd_in, node->fd_out);
 	if (execve(node->cmd->valid_cmd_path, node->cmd->arg, env) < 0)

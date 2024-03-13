@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 15:07:47 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:27:54 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	heredoc(t_node *node)
 	int		here_doc_fd;
 
 	// handle_signal(SIG_HEREDOC);
+
 	buffer = NULL;
 	buffer_size = 0;
 	buffer = read_from_stdin(node->cmd->heredoc, buffer, buffer_size);
@@ -104,6 +105,7 @@ int	heredoc(t_node *node)
 		error_msg();
 	unlink("in.txt");
 	free(buffer);
+
 	// handle_signal(SIG_DEFAULT);
 	return (node->fd_in);
 }

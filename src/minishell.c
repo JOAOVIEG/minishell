@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 17:03:00 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:28:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	read_input(void)
 	{
 		// printf("crtl+d is not working\n");
 		exit_shell(EXIT_SUCCESS);
+		// printf("crtl+d is not working\n");
+		exit_shell(EXIT_SUCCESS);
 	}
 	else
 		add_to_history(shell(), shell()->line);
 }
-
-
 
 int	main(int argc, char **argv, char **envp)
 {

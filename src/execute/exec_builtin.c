@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 16:48:40 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:27:12 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	run_builtin(t_node *node)
 	if (ft_strcmp(cmd[0], "export") == 0)
 		export(cmd);
 	if (ft_strcmp(cmd[0], "exit") == 0)
-		exit_shell(EXIT_SUCCESS);
+		exit_shell(0);
 	if (ft_strcmp(cmd[0], "unset") == 0)
 		unset(cmd);
 	if (ft_strcmp(cmd[0], "env") == 0)
@@ -45,65 +45,63 @@ void	parent_control(t_node *node, pid_t pid)
 {
 	int	status;
 
-	handle_signal(SIG_PARENT); // keep this line
+	// handle_signal(SIG_PARENT); // keep this line
 	close_fds(node->fd_in, node->fd_out);
 	close(node->fd_in);
 	close(node->fd_out);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell()->status = WEXITSTATUS(status);
-	handle_signal(SIG_DEFAULT); // keep this line
+	// handle_signal(SIG_DEFAULT); // keep this line
 }
 
 void	child_control(t_node *node)
 {
-	close(node->fd_in);
-	close(node->fd_out);
+	if (node->fd_in)
+		close(node->fd_in);
+	if (node->fd_out)
+		close(node->fd_out);
 	exit_shell(shell()->status);
 }
 
 void	run_process(t_node *node)
 {
+	int		i;
 	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
+	
+	if (node->cmd->heredoc)
 	{
-		perror("Error forking");
-		shell()->status = EXIT_FAILURE;
-		exit_shell(shell()->status);
-	}
-	else if (pid == 0)
-	{
-		int		i;
-
-		if (node->cmd->heredoc)
+		pid = fork();
+		if (pid < 0)
 		{
-			if (!node->fd_in)
-				node->fd_in = heredoc(node);
+			perror("Error forking");
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
 		}
-		if (node->cmd->file && *node->cmd->file != NULL)
+		else if (pid == 0)
 		{
-			i = 0;
-			while (node->cmd->file && node->cmd->file[i] != NULL)
+			if (node->cmd->heredoc)
 			{
-				assign_fds(node);
-				handle_file_redir(node, i);
-				i++;
-			}
-			if (shell()->status == EXIT_SUCCESS)
-			{
-				redirections(node->fd_in, node->fd_out);
-				run_builtin(node);
+				if (!node->fd_in)
+					node->fd_in = heredoc(node);
 				child_control(node);
 			}
 		}
 		else
-			run_builtin(node);
-		
+			parent_control(node, pid);
 	}
-	else
-		parent_control(node, pid);
+	if (node->cmd->file && *node->cmd->file != NULL)
+	{
+		i = 0;
+		while (node->cmd->file && node->cmd->file[i] != NULL)
+		{
+			assign_fds(node);
+			handle_file_redir(node, i);
+			i++;
+		}
+		redirections(node->fd_in, node->fd_out);
+	}
+	run_builtin(node);
 }
 
 int	open_file_to(t_node *node, int i)
@@ -119,6 +117,7 @@ int	open_file_to(t_node *node, int i)
 	{
 		node->fd_out = open(node->cmd->file[i], \
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		shell()->status = EXIT_SUCCESS;
 	}
 	return (node->fd_out);
 }
