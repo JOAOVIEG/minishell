@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 12:01:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:11:29 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,16 @@ void	exec_cmd(t_node *node)
 {
 	char	**env;
 	pid_t	pid;
-	int		i;
 
-	i = 0;
-	if (node->cmd->heredoc && !node->fd_in)
-		node->fd_in = heredoc(node);
-	assign_fds(node);
 	env = env_list_to_arr();
 	check_path(env, node);
-	while (node->cmd->file && node->cmd->file[i] != NULL)
-	{
-		handle_file_redir(node, i);
-		i++;
-	}
 	pid = fork();
+	if (node->cmd->heredoc && !node->fd_in)
+	{
+		node->fd_in = heredoc(node);
+		close(node->fd_in);
+	}
+	assign_fds(node);
+	shell()->status = EXIT_SUCCESS;
 	run_path_process(node, pid, env);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 12:04:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:58:34 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_dir(t_node *node)
 	if (stat(node->cmd->file[1], &st) == 0 && S_ISDIR(st.st_mode))
 	{
 		status_error(node->cmd->file[1], " is a directory", STDERR_FILENO);
-		shell()->status = 126;
+		shell()->status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

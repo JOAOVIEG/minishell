@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 14:38:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 09:36:55 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ void	free_paths(t_node *node)
 void	child_exec_process(t_node *node, char **env)
 {
 	handle_signal(SIG_CHILD); // keep this line
+	int	i;
+
+	i = 0;
+	while (node->cmd->file && node->cmd->file[i] != NULL)
+	{
+		handle_file_redir(node, i);
+		i++;
+	}
+	// if (shell()->status == EXIT_FAILURE)
+	// 	exit_shell(shell()->status);
 	if (ft_strcmp(node->cmd->arg[0], ".") == 0
 			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
 	{
@@ -50,7 +60,7 @@ void	child_exec_process(t_node *node, char **env)
 		free_c_env(env);
 		shell()->status = 127;
 		status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-		exit_shell(shell()->status);
+		return ;
 	}
 	redirections(node->fd_in, node->fd_out);
 	close_fds(node->fd_in, node->fd_out);

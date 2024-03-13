@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 16:28:49 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 09:37:02 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ void	ft_exec_piped(t_node *node)
 	heredoc_check(node->left);
 	left_pid = fork();
 	left_node_process(node, pipe_end, left_pid);
+	if (node->left->cmd->heredoc)
+		close(node->left->fd_in);
 	heredoc_check(node->right);
 	right_pid = fork();
+	if (node->right->cmd->heredoc)
+		close(node->right->fd_in);
 	right_node_process(node, pipe_end, right_pid);
 	parent_pipe_exec_control(node, pipe_end, left_pid, right_pid);
 }
