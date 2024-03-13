@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 19:58:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:34:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	no_cmd_file_redir(t_node *node)
 {
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc && !node->fd_in)
 		node->fd_in = heredoc(node);
+		
 	else if (node->cmd->arg[0] == NULL && (node->cmd->file \
 							&& ft_strcmp(node->cmd->file[0], "<") == 0) \
 			&& !node->fd_in)
