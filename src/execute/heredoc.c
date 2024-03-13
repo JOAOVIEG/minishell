@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 11:39:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:12:37 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ char	*read_from_stdin(char **delim, char *buffer, size_t buffer_size)
 	delim_line = ft_strjoin(delim[1], "\n");
 	while (read(STDIN_FILENO, &ch, 1) > 0)
 	{
-		if (shell()->status == 130)
-		{
-			printf("heredoc\n");
-			free(delim_line);
-		
-			handle_signal(SIG_DEFAULT);
-			return (NULL);
-		}
 		buffer = ft_my_realloc(buffer, buffer_size + 2);
 		buffer[buffer_size++] = ch;
 		buffer[buffer_size] = '\0';
@@ -98,6 +90,8 @@ int	heredoc(t_node *node)
 		// if (shell()->node->fd_in > 0)
 		// if (shell()->node)
 		// 	reset_tree();
+
+		
 		return (-1);
 	}
 	here_doc_fd = open("./in.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
