@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 09:37:37 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:43:52 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
-	//ignore_signals();
 	while (1)
 	{
 		handle_signal(SIG_DEFAULT);

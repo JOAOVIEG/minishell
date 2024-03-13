@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 09:36:55 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:44:52 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	child_exec_process(t_node *node, char **env)
 		handle_file_redir(node, i);
 		i++;
 	}
-	// if (shell()->status == EXIT_FAILURE)
-	// 	exit_shell(shell()->status);
 	if (ft_strcmp(node->cmd->arg[0], ".") == 0
 			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
 	{
@@ -53,7 +51,7 @@ void	child_exec_process(t_node *node, char **env)
 		exit_shell(shell()->status);
 	}
 	if (input_is_dir(node, env) == 1)
-		exit_shell(126);
+		exit_shell(1);
 	node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
 	if (node->cmd->valid_cmd_path == NULL)
 	{
