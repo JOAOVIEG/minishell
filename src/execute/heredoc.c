@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 16:59:26 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:05:18 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	error_msg(void)
 {
 	perror("ERROR");
 	shell()->status = EXIT_FAILURE;
-	exit_shell(shell()->status);
 }
 
 void	*ft_my_realloc(void *ptr, size_t size)
@@ -83,17 +82,31 @@ int	heredoc(t_node *node)
 	buffer = NULL;
 	buffer_size = 0;
 	buffer = read_from_stdin(node->cmd->heredoc, buffer, buffer_size);
+	if (buffer == NULL)
+	{
+		error_msg();
+		end_shell();
+		return (-1);
+	}
 	here_doc_fd = open("./in.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (here_doc_fd < 0)
+	{
 		error_msg();
+		end_shell();
+		return (-1);
+	}
 	write(here_doc_fd, buffer, ft_strlen(buffer));
 	close(here_doc_fd);
 	node->fd_in = open("./in.txt", O_RDONLY);
 	if (node->fd_in < 0)
+	{
 		error_msg();
+		end_shell();
+		return (-1);
+	}
 	unlink("in.txt");
 	free(buffer);
-	handle_signal(SIG_DEFAULT);
+	shell()->status = EXIT_SUCCESS;	handle_signal(SIG_DEFAULT);
 	return (node->fd_in);
 }
 
