@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 14:25:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:43:05 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	handle_file_redir(t_node *node, int i)
 		{
 			status_error(node->cmd->file[i], "is directory", STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
-			end_shell();
 			return ;
 		}
 		if (open_file_from(node, i++) == -1)

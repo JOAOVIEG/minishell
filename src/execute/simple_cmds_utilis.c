@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 16:57:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:40:51 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	is_builtin(t_node *node)
 void	exec_builtin(t_node *node)
 {
 	pid_t	pid;
-	// pid_t	pid1;
 	int		i;
 
 	if (node->cmd->heredoc)
@@ -120,7 +119,7 @@ void	exec_cmd(t_node *node)
 					// exit_shell(shell()->status);
 				}
 				if (input_is_dir(node, env) == 1)
-					exit_shell(1);
+					exit_shell(shell()->status);
 				node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
 				if (node->cmd->valid_cmd_path == NULL)
 				{
@@ -143,6 +142,8 @@ void	exec_cmd(t_node *node)
 	{
 		while (node->cmd->file && node->cmd->file[i] != NULL)
 		{
+			if (ft_strncmp(node->cmd->file[i], "<", 1) == 0)
+				assign_fds(node);
 			handle_file_redir(node, i);
 			if (shell()->status != EXIT_SUCCESS)
 				return ;
@@ -157,7 +158,7 @@ void	exec_cmd(t_node *node)
 			return ;
 		}
 		if (input_is_dir(node, env) == 1)
-			exit_shell(1);
+			return ;
 		node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
 		if (node->cmd->valid_cmd_path == NULL)
 		{

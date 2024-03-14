@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 16:56:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:40:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	input_is_dir(t_node *node, char **env)
 	{
 		free_c_env(env);
 		status_error(node->cmd->arg[0], "is a directory", STDERR_FILENO);
+		shell()->status = 126;
 		return (1);
 	}
 	return (0);
@@ -89,7 +90,8 @@ void	no_cmd_file_redir(t_node *node)
 		i = 0;
 		while(node->cmd->file[i])
 		{
-			assign_fds(node);
+			node->fd_in = dup(STDIN_FILENO);
+			node->fd_out = dup(STDOUT_FILENO);
 			handle_file_redir(node, i++);
 		}
 	}
