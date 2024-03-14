@@ -1,45 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_tokens_ultils.c                                :+:      :+:    :+:   */
+/*   process_tokens_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 17:04:13 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 19:01:10 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/09 17:59:25 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/14 19:48:32 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_tokenadd_back(t_lst_tokens **lst, t_lst_tokens **tail,
-		t_lst_tokens *new)
+int	is_whitespace(char c)
 {
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		*tail = new;
-	}
-	else
-	{
-		(*tail)->next = new;
-		*tail = new;
-	}
+	if (c == CHAR_WHITESPACE || c == CHAR_TAB || c == CHAR_NEWLINE)
+		return (1);
+	return (0);
 }
 
-int	lst_token_size(t_lst_tokens *tokens)
+int	is_quote(char c)
 {
-	int				count;
-	t_lst_tokens	*current;
+	if (c == CHAR_SINGLE_QUOTE || c == CHAR_DOUBLE_QUOTE)
+		return (1);
+	return (0);
+}
 
-	count = 0;
-	current = tokens;
-	while (current != NULL)
-	{
-		count++;
-		current = current->next;
-	}
-	return (count);
+int	skip_whitespace(char *input, int i)
+{
+	while (is_whitespace(input[i]))
+		i++;
+	return (i);
 }

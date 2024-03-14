@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:10:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 16:52:32 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:06:44 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,8 @@ void	default_sigint(int sig)
 	(void)sig;
 	shell()->status = 130;
 	shell()->signal = true;
-
 	sig_shell()->status = 130;
 	shell()->signal = true;
-
-	// printf("sig_shell()->status: %d\n", sig_shell()->status);
-	// printf("shell()->signal: %d\n", shell()->signal);
-
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 1);
@@ -49,25 +44,21 @@ void	hdsig(int sig)
 	ft_putchar_fd('\n', 1);
 	shell()->status = 130;
 	shell()->signal = true;
-
 	sig_shell()->status = 130;
 	shell()->signal = true;
-
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	exit_shell(shell()->status);
 	rl_redisplay();
 }
 
-void child_sigint(int sig)
+void	child_sigint(int sig)
 {
 	(void)sig;
 	shell()->status = 130;
 	shell()->signal = true;
-
 	sig_shell()->status = 130;
 	shell()->signal = true;
-
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 1);
@@ -76,8 +67,6 @@ void child_sigint(int sig)
 
 void	handle_signal(int state)
 {
-	
-	
 	if (state == SIG_DEFAULT)
 	{
 		signal(SIGINT, default_sigint);
@@ -98,6 +87,4 @@ void	handle_signal(int state)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}
-
-	//sig_shell_init();
 }
