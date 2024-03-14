@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 14:39:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:36:13 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	child_exec_process(t_node *node, char **env)
 		exit_shell(126);
 	}
 	child_control(node);
+	handle_signal(SIG_DEFAULT); // keep this line
 }
 
 void	run_path_process(t_node *node, pid_t pid, char **env)

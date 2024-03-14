@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 14:38:34 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:35:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parent_control(t_node *node, pid_t pid)
 {
 	int	status;
 
-	// handle_signal(SIG_PARENT); // keep this line
+	handle_signal(SIG_PARENT); // keep this line
 	if (node->fd_in )
 	close_fds(node->fd_in, node->fd_out);
 	if (node->fd_in)
