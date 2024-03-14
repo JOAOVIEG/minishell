@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 16:55:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:55:29 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	*ft_my_realloc(void *ptr, size_t size);
 void	run_builtin(t_node *node);
 void	parent_control(t_node *node, pid_t pid);
 void	child_control(t_node *node);
-void	run_process(t_node *node);
+void	run_process(t_node *node, pid_t pid);
 void	assign_fds(t_node *node);
 int		open_append_to(t_node *node, int i);
 int		open_file_to(t_node *node, int i);

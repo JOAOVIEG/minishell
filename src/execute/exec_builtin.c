@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 19:38:08 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:38:34 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void	parent_control(t_node *node, pid_t pid)
 {
 	int	status;
 
-	handle_signal(SIG_PARENT); // keep this line
-	//close_fds(node->fd_in, node->fd_out);
+	// handle_signal(SIG_PARENT); // keep this line
+	if (node->fd_in )
+	close_fds(node->fd_in, node->fd_out);
 	if (node->fd_in)
-		close(node->fd_in);
+		close(node->fd_in); 
 	if (node->fd_out)
 		close(node->fd_out);
 	waitpid(pid, &status, 0);
@@ -66,44 +67,23 @@ void	child_control(t_node *node)
 	exit_shell(shell()->status);
 }
 
-void	run_process(t_node *node)
+void	run_process(t_node *node, pid_t pid)
 {
-	int		i;
-	pid_t	pid;
-	
-	if (node->cmd->heredoc)
+	if (pid < 0)
 	{
-		pid = fork();
-		if (pid < 0)
-		{
-			perror("Error forking");
-			shell()->status = EXIT_FAILURE;
-			exit_shell(shell()->status);
-		}
-		else if (pid == 0)
-		{
-			if (node->cmd->heredoc)
-			{
-				if (!node->fd_in)
-					node->fd_in = heredoc(node);
-				child_control(node);
-			}
-		}
-		else
-			parent_control(node, pid);
+		perror("Error forking");
+		shell()->status = EXIT_FAILURE;
+		exit_shell(shell()->status);
 	}
-	if (node->cmd->file && *node->cmd->file != NULL)
+	else if (pid == 0)
 	{
-		i = 0;
-		while (node->cmd->file && node->cmd->file[i] != NULL)
-		{
-			assign_fds(node);
-			handle_file_redir(node, i);
-			i++;
-		}
 		redirections(node->fd_in, node->fd_out);
+		close_fds(node->fd_in, node->fd_out);
+		run_builtin(node);
+		child_control(node);
 	}
-	run_builtin(node);
+	else
+		parent_control(node, pid);
 }
 
 int	open_file_to(t_node *node, int i)
