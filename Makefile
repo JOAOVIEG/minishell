@@ -47,7 +47,6 @@ valgrind: re $(NAME)
 	@cat readline.supp  >  /dev/null
 	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
-.PHONY: all clean fclean re valgrind
 run: re
 	@./$(NAME)
 
@@ -56,4 +55,4 @@ v: re
 #	 --trace-children=yes --track-origins=yes
 # @./$(NAME) | cat -e
 
-.PHONY: all clean fclean re v
+.PHONY: all clean fclean re v valgrind

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:28:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 12:21:39 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:19:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	close_fds(int fd_i, int fd_o)
 {
-	if (fd_i != STDIN_FILENO)
+	if (fd_i != STDIN_FILENO && fd_i != -1)
 		close(fd_i);
-	if (fd_o != STDOUT_FILENO)
+	if (fd_o != STDOUT_FILENO && fd_o != -1)
 		close(fd_o);
 }
 

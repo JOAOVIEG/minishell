@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 14:02:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:56:55 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	no_cmd_file_redir(t_node *node)
 		else if (heredoc_pid == 0)
 		{
 			if (!node->fd_in)
-				node->fd_in = heredoc(node);
+				heredoc_check(node);
 			close(node->fd_in);
 			if (node->fd_out)
 				close(node->fd_out);
@@ -88,7 +88,10 @@ void	no_cmd_file_redir(t_node *node)
 	{
 		i = 0;
 		while(node->cmd->file[i])
+		{
+			assign_fds(node);
 			handle_file_redir(node, i++);
+		}
 	}
 }
 

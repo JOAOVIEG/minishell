@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 14:30:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:57:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_builtin(t_node *node)
 void	exec_builtin(t_node *node)
 {
 	pid_t	pid;
-	pid_t	pid1;
+	// pid_t	pid1;
 	int		i;
 
 	if (node->cmd->heredoc)
@@ -48,7 +48,7 @@ void	exec_builtin(t_node *node)
 			if (node->cmd->heredoc)
 			{
 				if (!node->fd_in)
-					node->fd_in = heredoc(node);
+					heredoc_check(node);
 				child_control(node);
 			}
 		}
@@ -58,18 +58,30 @@ void	exec_builtin(t_node *node)
 	if (node->cmd->file && *node->cmd->file != NULL)
 	{
 		i = 0;
-		while (node->cmd->file && node->cmd->file[i] != NULL)
+		while (node->cmd->file[i] != NULL)
 		{
-			assign_fds(node);
+			if (ft_strncmp(node->cmd->file[i], "<", 1) == 0)
+				assign_fds(node);
 			handle_file_redir(node, i);
 			i++;
 		}
 		if (shell()->status != EXIT_SUCCESS)
 			return ;
 	}
-	pid1 = fork();
-	assign_fds(node);
-	run_process(node, pid1);
+	// Save the original file descriptors
+	int saved_stdout = dup(STDOUT_FILENO);
+	int saved_stdin = dup(STDIN_FILENO);
+
+	redirections(node->fd_in, node->fd_out);
+	run_builtin(node);
+
+	// Restore the original file descriptors
+	dup2(saved_stdout, STDOUT_FILENO);
+	dup2(saved_stdin, STDIN_FILENO);
+
+	// Close the saved file descriptors
+	close(saved_stdout);
+	close(saved_stdin);
 }
 
 void	exec_cmd(t_node *node)
@@ -93,7 +105,7 @@ void	exec_cmd(t_node *node)
 			}
 			else if (pid1 == 0)
 			{
-				node->fd_in = heredoc(node);
+				heredoc_check(node);
 				while (node->cmd->file && node->cmd->file[i] != NULL)
 				{
 					handle_file_redir(node, i);
