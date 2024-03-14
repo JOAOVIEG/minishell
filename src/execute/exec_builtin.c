@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/13 20:14:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:46:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	parent_control(t_node *node, pid_t pid)
 	int	status;
 
 	// handle_signal(SIG_PARENT); // keep this line
-	// if (node->fd_in )
-	// close_fds(node->fd_in, node->fd_out);
+	if (node->fd_in )
+	close_fds(node->fd_in, node->fd_out);
 	if (node->fd_in)
-		close(node->fd_in); //ver aqui <<end wc -l
+		close(node->fd_in); 
 	if (node->fd_out)
 		close(node->fd_out);
 	waitpid(pid, &status, 0);
