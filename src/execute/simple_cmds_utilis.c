@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_cmds_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 16:57:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:18:58 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,15 @@ void	exec_builtin(t_node *node)
 			}
 		}
 		else
+		{
 			parent_control(node, pid);
+			if (shell()->status == 130)
+			{
+				//end_shell();
+				return ;
+			}
+		}
+			
 	}
 	if (node->cmd->file && *node->cmd->file != NULL)
 	{
