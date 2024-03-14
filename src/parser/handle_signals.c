@@ -6,52 +6,37 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:10:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 19:29:19 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:52:32 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// void	handle_eof(void)
-// {
-// 	write(1, "exit\n", 5);
-// 	shell()->status = EXIT_SUCCESS;
-// 	exit_shell(shell()->status);
-// }
+t_sig_shell	*sig_shell(void)
+{
+	static t_sig_shell	shell;
 
-// void	handle_sigint(int sig)
-// {
-// 	(void)sig;
-// 	write(1, "\n", 1);
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
+	return (&shell);
+}
 
-// void	ignore_signals(void)
-// {
-// 	signal(SIGINT, handle_sigint);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
-// int	g_status;
-
-// void	handle_sigint(int sig)
-// {
-// 	if (sig == SIGINT)
-// 	{
-// 		g_status = 130;
-// 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-// 		rl_replace_line("", 0);
-// 		rl_on_new_line();
-// 	}
-// }
+void	sig_shell_init(void)
+{
+	shell()->status = 0;
+	shell()->signal = false;
+}
 
 void	default_sigint(int sig)
 {
 	(void)sig;
 	shell()->status = 130;
 	shell()->signal = true;
+
+	sig_shell()->status = 130;
+	shell()->signal = true;
+
+	// printf("sig_shell()->status: %d\n", sig_shell()->status);
+	// printf("shell()->signal: %d\n", shell()->signal);
+
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 1);
@@ -61,18 +46,38 @@ void	default_sigint(int sig)
 void	hdsig(int sig)
 {
 	(void)sig;
-	dprintf(1, "\n");
+	ft_putchar_fd('\n', 1);
 	shell()->status = 130;
 	shell()->signal = true;
+
+	sig_shell()->status = 130;
+	shell()->signal = true;
+
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	exit_shell(shell()->status);
 	rl_redisplay();
 }
 
+void child_sigint(int sig)
+{
+	(void)sig;
+	shell()->status = 130;
+	shell()->signal = true;
+
+	sig_shell()->status = 130;
+	shell()->signal = true;
+
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
 
 void	handle_signal(int state)
 {
+	
+	
 	if (state == SIG_DEFAULT)
 	{
 		signal(SIGINT, default_sigint);
@@ -85,7 +90,7 @@ void	handle_signal(int state)
 	}
 	else if (state == SIG_CHILD)
 	{
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, child_sigint);
 		signal(SIGINT, SIG_DFL);
 	}
 	else if (state == SIG_PARENT)
@@ -93,4 +98,6 @@ void	handle_signal(int state)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}
+
+	//sig_shell_init();
 }

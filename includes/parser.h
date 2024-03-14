@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 13:36:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:12:09 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ typedef enum e_sig_state
 	SIG_CHILD,
 	SIG_PARENT
 }								t_sig_state;
+
+typedef struct s_sig_shell
+{
+	int							status;
+	bool						signal;
+}								t_sig_shell;
 
 typedef struct s_shell			t_shell;
 typedef struct s_node			t_node;
@@ -195,5 +201,8 @@ void							print_env_list(t_env *env);
 void							add_to_history(t_shell *shell, char *command);
 
 void							handle_signal(int state);
+
+t_sig_shell						*sig_shell(void);
+void							sig_shell_init(void);
 
 #endif

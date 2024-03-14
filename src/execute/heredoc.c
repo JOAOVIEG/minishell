@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 14:39:34 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:59:26 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	heredoc(t_node *node)
 	int		here_doc_fd;
 
 	handle_signal(SIG_HEREDOC);
-
 	buffer = NULL;
 	buffer_size = 0;
 	buffer = read_from_stdin(node->cmd->heredoc, buffer, buffer_size);
@@ -94,7 +93,6 @@ int	heredoc(t_node *node)
 		error_msg();
 	unlink("in.txt");
 	free(buffer);
-
 	handle_signal(SIG_DEFAULT);
 	return (node->fd_in);
 }
@@ -105,18 +103,20 @@ void	get_file_append(t_node *node)
 	{
 		if (access(node->cmd->file[1], F_OK) != 0)
 		{
-			status_error(node->cmd->file[1], "No such file or directory", STDERR_FILENO);
+			status_error(node->cmd->file[1], "No such file or directory",
+				STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
 		if (access(node->cmd->file[1], X_OK) == 0)
 		{
-			status_error(node->cmd->file[1], "Permission denied", STDERR_FILENO);
+			status_error(node->cmd->file[1], "Permission denied",
+				STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
-		else 
+		else
 		{
-			node->fd_out = open(node->cmd->file[1], \
-							O_WRONLY | O_CREAT | O_APPEND, 0644);
+			node->fd_out = open(node->cmd->file[1],
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
 		}
 	}
 }

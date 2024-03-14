@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 14:48:36 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:29:39 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void	read_input(void)
 {
 	shell()->line = readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
 	if (!shell()->line)
+	{
+		ft_putstr_fd("exit\n", 1);
 		exit_shell(EXIT_SUCCESS);
+	}
 	else
 		add_to_history(shell(), shell()->line);
 }
@@ -48,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	shell()->status = 0;
 	while (1)
 	{
+		sig_shell_init();
 		handle_signal(SIG_DEFAULT);
 		read_input();
 		// if (ft_strcmp(shell()->line, "exit") == 0)
