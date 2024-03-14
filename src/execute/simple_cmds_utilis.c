@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 12:56:46 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:30:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	exec_builtin(t_node *node)
 			handle_file_redir(node, i);
 			i++;
 		}
+		if (shell()->status != EXIT_SUCCESS)
+			return ;
 	}
 	pid1 = fork();
 	assign_fds(node);
@@ -130,6 +132,8 @@ void	exec_cmd(t_node *node)
 		while (node->cmd->file && node->cmd->file[i] != NULL)
 		{
 			handle_file_redir(node, i);
+			if (shell()->status != EXIT_SUCCESS)
+				return ;
 			i++;
 		}
 		if (ft_strcmp(node->cmd->arg[0], ".") == 0
