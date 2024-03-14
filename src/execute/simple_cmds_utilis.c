@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 11:47:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:56:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	is_builtin(t_node *node)
 void	exec_builtin(t_node *node)
 {
 	pid_t	pid;
-	
+	pid_t	pid1;
+	int		i;
+
 	if (node->cmd->heredoc)
 	{
 		pid = fork();
@@ -53,7 +55,19 @@ void	exec_builtin(t_node *node)
 		else
 			parent_control(node, pid);
 	}
-	run_process(node);
+	if (node->cmd->file && *node->cmd->file != NULL)
+	{
+		i = 0;
+		while (node->cmd->file && node->cmd->file[i] != NULL)
+		{
+			assign_fds(node);
+			handle_file_redir(node, i);
+			i++;
+		}
+	}
+	pid1 = fork();
+	assign_fds(node);
+	run_process(node, pid1);
 }
 
 void	exec_cmd(t_node *node)
@@ -89,7 +103,7 @@ void	exec_cmd(t_node *node)
 					free_c_env(env);
 					shell()->status = 127;
 					status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-					exit_shell(shell()->status);
+					// exit_shell(shell()->status);
 				}
 				if (input_is_dir(node, env) == 1)
 					exit_shell(1);
@@ -124,7 +138,7 @@ void	exec_cmd(t_node *node)
 			free_c_env(env);
 			shell()->status = 127;
 			status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-			exit_shell(shell()->status);
+			return ;
 		}
 		if (input_is_dir(node, env) == 1)
 			exit_shell(1);

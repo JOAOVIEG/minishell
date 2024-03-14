@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 11:46:27 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:58:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,23 @@ void	child_control(t_node *node)
 	exit_shell(shell()->status);
 }
 
-void	run_process(t_node *node)
+void	run_process(t_node *node, pid_t pid)
 {
-	int		i;
-
-	if (node->cmd->file && *node->cmd->file != NULL)
+	if (pid < 0)
 	{
-		i = 0;
-		while (node->cmd->file && node->cmd->file[i] != NULL)
-		{
-			assign_fds(node);
-			handle_file_redir(node, i);
-			i++;
-		}
-		redirections(node->fd_in, node->fd_out);
+		perror("Error forking");
+		shell()->status = EXIT_FAILURE;
+		exit_shell(shell()->status);
 	}
-	run_builtin(node);
+	else if (pid == 0)
+	{
+		redirections(node->fd_in, node->fd_out);
+		close_fds(node->fd_in, node->fd_out);
+		run_builtin(node);
+		child_control(node);
+	}
+	else
+		parent_control(node, pid);
 }
 
 int	open_file_to(t_node *node, int i)
