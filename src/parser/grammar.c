@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 17:54:00 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:38:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ bool	command_line(t_parser *parser)
 		shell()->status = 2;
 		return (false);
 	}
-	command(parser);
+	if (!command(parser))
+		return (false);
 	if (!parser->tokens || parser->tokens->type != TYPE_PIPE)
 		return (true);
 	parser->tokens = parser->tokens->next;

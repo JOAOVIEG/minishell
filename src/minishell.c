@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 17:24:29 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:40:28 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	read_input(void)
 	shell()->line = readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
 	if (!shell()->line)
 	{
-		ft_putstr_fd("exit", 1);
+		ft_putstr_fd("exit\n", 1);
 		exit_shell(EXIT_SUCCESS);
 	}
 	else
@@ -58,6 +58,7 @@ int	main(int argc, char **argv, char **envp)
 		// 	exit_shell(EXIT_SUCCESS);
 		add_history(shell()->line);
 		parser(shell());
+		//print_tree(shell()->node, 0, "root");
 		if (shell()->node)
 			ft_execute(shell()->node);
 		if (shell()->node)
