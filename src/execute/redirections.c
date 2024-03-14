@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 11:30:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:02:16 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	is_dir(t_node *node)
 void	no_cmd_file_redir(t_node *node)
 {
 	pid_t	heredoc_pid;
+	int		i;
 
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc && !node->fd_in)
 	{
@@ -66,34 +67,29 @@ void	no_cmd_file_redir(t_node *node)
 		}
 		else if (heredoc_pid == 0)
 		{
-			if (node->cmd->heredoc)
+			if (!node->fd_in)
+				node->fd_in = heredoc(node);
+			close(node->fd_in);
+			if (node->fd_out)
+				close(node->fd_out);
+			if (node->cmd->file && *node->cmd->file)
 			{
-				if (!node->fd_in)
-					node->fd_in = heredoc(node);
-				child_control(node);
+				i = 0;
+				while(node->cmd->file[i])
+					handle_file_redir(node, i++);
 			}
+			child_control(node);
 		}
 		else
 			parent_control(node, heredoc_pid);
 	}
-	else if (node->cmd->arg[0] == NULL && (node->cmd->file \
-							&& ft_strcmp(node->cmd->file[0], "<") == 0) \
-			&& !node->fd_in)
+	else if (node->cmd->arg[0] == NULL && node->cmd->file \
+						 && *node->cmd->file && !node->fd_in)
 	{
-		if (access(node->cmd->file[1], F_OK) == 0)
-			node->fd_in = open(node->cmd->file[1], O_RDONLY);
-		else
-		{
-			status_error(node->cmd->file[1], "No such file or directory", STDERR_FILENO);
-			shell()->status = EXIT_FAILURE;
-		}
+		i = 0;
+		while(node->cmd->file[i])
+			handle_file_redir(node, i++);
 	}
-	else if (node->cmd->arg[0] == NULL && (node->cmd->file \
-						&& ft_strcmp(node->cmd->file[0], ">") == 0))
-		get_file(node);
-	else if (node->cmd->arg[0] == NULL && \
-		(node->cmd->file && ft_strncmp(node->cmd->file[0], ">>", 2) == 0))
-		get_file_append(node);
 }
 
 void	assign_fds(t_node *node)

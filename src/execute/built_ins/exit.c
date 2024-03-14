@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/13 20:11:34 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:48:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	exit_shell(int status)
 	free_env();
 	shell()->status = status;
 	end_shell();
+	exit(shell()->status);
 }
