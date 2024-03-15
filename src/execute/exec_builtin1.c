@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 23:53:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 10:29:33 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ int	open_append_to(t_node *node, int i)
 		status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
 	}
-	else 
+	else
 	{
 		node->fd_out = open(node->cmd->file[i], \
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (node->fd_out < 0)
+		{
+			status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
+			shell()->status = EXIT_FAILURE;
+			return (node->fd_out);
+		}
 		shell()->status = EXIT_SUCCESS;
 	}
 	return (node->fd_out);
@@ -38,7 +44,7 @@ int	open_file_from(t_node *node, int i)
 		node->fd_in = open(node->cmd->file[i], O_RDONLY);
 		if (node->fd_in < 0)
 		{
-			status_error(node->cmd->file[i], "Erro at fd_in", STDERR_FILENO);
+			status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
 	}

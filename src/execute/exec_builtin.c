@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 00:05:07 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 10:29:00 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,16 @@ int	open_file_to(t_node *node, int i)
 		status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
 	}
-	else 
+	else
 	{
 		node->fd_out = open(node->cmd->file[i], \
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		///fazer aqui if para o chmod 000 out case para fd_in <0. como no open_file_from func
-		///o mesmo para append
+		if (node->fd_out < 0)
+		{
+			status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
+			shell()->status = EXIT_FAILURE;
+			return (node->fd_out);
+		}
 		shell()->status = EXIT_SUCCESS;
 	}
 	return (node->fd_out);
