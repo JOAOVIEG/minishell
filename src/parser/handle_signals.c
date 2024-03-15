@@ -6,71 +6,45 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:10:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 12:59:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:13:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// void	handle_eof(void)
-// {
-// 	write(1, "exit\n", 5);
-// 	shell()->status = EXIT_SUCCESS;
-// 	exit_shell(shell()->status);
-// }
-
-// void	handle_sigint(int sig)
-// {
-// 	(void)sig;
-// 	write(1, "\n", 1);
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
-
-// void	ignore_signals(void)
-// {
-// 	signal(SIGINT, handle_sigint);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
-// int	g_status;
-
-// void	handle_sigint(int sig)
-// {
-// 	if (sig == SIGINT)
-// 	{
-// 		g_status = 130;
-// 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-// 		rl_replace_line("", 0);
-// 		rl_on_new_line();
-// 	}
-// }
-
 void	default_sigint(int sig)
 {
 	(void)sig;
 	shell()->status = 130;
-	dprintf(1, "\n");
+	shell()->signal = true;
+	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	rl_redisplay();
 }
 
-
 void	hdsig(int sig)
 {
 	(void)sig;
-	close(0);
+	ft_putchar_fd('\n', 1);
+	shell()->status = 130;
+	shell()->signal = true;
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	exit_shell(shell()->status);
+	rl_redisplay();
 }
 
-// void	sig_parent(int sig)
-// {
-// 	if (sig == SIGINT)
-// 		dprintf(1, "\n");
-// 	else if (sig == SIGQUIT)
-// 		dprintf(2, "Quit (code dumped)\n");
-// }
+void	child_sigint(int sig)
+{
+	(void)sig;
+	shell()->status = 130;
+	shell()->signal = true;
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
 
 void	handle_signal(int state)
 {
@@ -81,12 +55,12 @@ void	handle_signal(int state)
 	}
 	else if (state == SIG_HEREDOC)
 	{
-		signal(SIGINT, default_sigint);
+		signal(SIGINT, hdsig);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (state == SIG_CHILD)
 	{
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, child_sigint);
 		signal(SIGINT, SIG_DFL);
 	}
 	else if (state == SIG_PARENT)

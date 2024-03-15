@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 18:38:30 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:02:52 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ int	is_builtin(t_node *node)
 	char	*cmd;
 
 	cmd = node->cmd->arg[0];
-	if (ft_strcmp(cmd, "cd") == 0 || \
-			ft_strcmp(cmd, "pwd") == 0 || \
-			ft_strcmp(cmd, "echo") == 0 || \
-			ft_strcmp(cmd, "export") == 0 || \
-			ft_strcmp(cmd, "unset") == 0 || \
-			ft_strcmp(cmd, "env") == 0 || \
-			ft_strcmp(cmd, "exit") == 0)
+	if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
+		|| ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "export") == 0
+		|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
+		|| ft_strcmp(cmd, "exit") == 0)
 		return (1);
 	return (2);
 }
@@ -167,7 +164,7 @@ void	exec_cmd(t_node *node)
 			i++;
 		}
 		if (ft_strcmp(node->cmd->arg[0], ".") == 0
-				|| ft_strcmp(node->cmd->arg[0], "..") == 0)
+			|| ft_strcmp(node->cmd->arg[0], "..") == 0)
 		{
 			free_c_env(env);
 			shell()->status = 127;

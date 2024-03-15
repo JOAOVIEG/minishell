@@ -45,7 +45,7 @@ re: fclean all
 
 valgrind: re $(NAME)
 	@cat readline.supp  >  /dev/null
-	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes   ./$(NAME)
 
 run: re
 	@./$(NAME)

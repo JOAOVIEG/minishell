@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/15 15:39:30 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:58:32 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ t_shell	*shell(void)
 
 void	read_input(void)
 {
-	shell()->line = readline("\001\033[38;5;208m\002minishell:$ \001\033[0m\002");
+	char	*rprompt;
+
+	rprompt = "\001\033[38;5;208m\002minishell:$ \001\033[0m\002";
+	shell()->line = readline(rprompt);
 	if (!shell()->line)
+	{
+		ft_putstr_fd("exit\n", 1);
 		exit_shell(EXIT_SUCCESS);
+	}
 	else
 		add_to_history(shell(), shell()->line);
 }
@@ -55,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 		// printf("%d\n", shell()->parser->heredoc_count);
 		if (shell()->node)
 			ft_execute(shell()->node);
-		reset_tree();
+		reset_parser_and_tree();
 	}
 	rl_clear_history();
 	return (EXIT_SUCCESS);

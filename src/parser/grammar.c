@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 18:53:56 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:38:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,20 @@ bool	command_line(t_parser *parser)
 		return (true);
 	if (parser->tokens->type == TYPE_PIPE)
 	{
-		printf("Syntax error: unexpected token `|'\n");
+		status_error("|", "Syntax error: unexpected token", STDERR_FILENO);
+		shell()->status = 2;
 		return (false);
 	}
-	command(parser);
+	if (!command(parser))
+		return (false);
 	if (!parser->tokens || parser->tokens->type != TYPE_PIPE)
 		return (true);
 	parser->tokens = parser->tokens->next;
 	if (!parser->tokens)
 	{
-		printf("Syntax error: expected a command after the pipe\n");
+		status_error("|", "Syntax error: expected a command after the pipe",
+			STDERR_FILENO);
+		shell()->status = 2;
 		return (false);
 	}
 	return (command_line(parser));
@@ -89,10 +93,7 @@ bool	grammar_check(t_parser *parser)
 		return (true);
 	head = parser->tokens;
 	if (!command_line(parser))
-	{
-		printf("Syntax error\n");
 		return (false);
-	}
 	if (parser->tokens)
 		return (false);
 	parser->tokens = head;

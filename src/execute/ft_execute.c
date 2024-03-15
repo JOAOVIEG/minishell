@@ -6,14 +6,14 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 18:14:06 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:59:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 void	ft_simple_cmds(t_node *node)
-{	
+{
 	no_cmd_file_redir(node);
 	if (node->cmd->arg[0] == NULL)
 		return ;
@@ -90,4 +90,5 @@ void	ft_execute(t_node *node)
 		ft_simple_cmds(node);
 	if (node->type == TYPE_PIPE)
 		ft_exec_piped(node);
+	
 }

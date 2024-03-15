@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/15 15:22:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:57:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,15 @@ void	free_tree_node(t_node **tree_node)
 
 void	reset_tree(void)
 {
-	// shell()->status = EXIT_SUCCESS;
 	if (shell()->node)
 		free_tree_node(&shell()->node);
 	reset_parser(shell()->parser);
+}
+
+void	reset_parser_and_tree(void)
+{
+	if (shell()->parser)
+		reset_parser(shell()->parser);
+	if (shell()->node)
+		reset_tree();
 }
