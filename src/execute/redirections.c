@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 20:40:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 23:49:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	no_cmd_file_redir(t_node *node)
 void	assign_fds(t_node *node)
 {
 	if (!node->fd_in)
-	node->fd_in = dup(STDIN_FILENO);
+		node->fd_in = dup(STDIN_FILENO);
 	if (!node->fd_out)
-	node->fd_out = dup(STDOUT_FILENO);
+		node->fd_out = dup(STDOUT_FILENO);
 }

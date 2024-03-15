@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 18:43:05 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 23:53:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 int	open_append_to(t_node *node, int i)
 {
-	close(node->fd_out);
-	node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT \
-							| O_APPEND, 0644);
-	if (node->fd_out < 0)
+	if (node->fd_out)
+		close(node->fd_out);
+	if (access(node->cmd->file[i], X_OK) == 0)
 	{
-		perror("Error at fd_out");
-		exit_shell(EXIT_FAILURE);
+		status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
+		shell()->status = EXIT_FAILURE;
+	}
+	else 
+	{
+		node->fd_out = open(node->cmd->file[i], \
+						O_WRONLY | O_CREAT | O_APPEND, 0644);
+		shell()->status = EXIT_SUCCESS;
 	}
 	return (node->fd_out);
 }

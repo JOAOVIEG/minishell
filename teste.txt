@@ -4,7 +4,7 @@ touch nome_do_ficheiro OK
 wc -l < nomedoficheiro 	OK
 mkdir alex OK
 cat makefile > alex (alex e um diretorio) OK
-cd directory director2 (too many argumnts) OK
+cd directory director2 (too many argumnts) OK CD null NOT WORKING mas funciona depois de fazer pwd...???
 wc -l Makefile > test <test OK
 <Makefile wc -l >test OK
 < Makefile wc -l | >test OK
@@ -16,7 +16,7 @@ wc -l > test < test OK
 echo -nnnnnnnnnn Ola OK
 echo -n -n -n Ola OK
 echo -n -n -nnnn -n -naaa -n -n hello OK
-chmod 000 nomedoficheiro OK
+chmod 000 nomedoficheiro OK e >nomedoficheiro ou <nomedoficheiro NOK
 ../ (is a diretory) OK
 ./ (is directory) OK
 .. (command not found) OK
@@ -51,7 +51,6 @@ echo Hello | cat >>out OK
 <<delim echo Hello | wc -l >> out NOK (out should get 1) SOLVED!
 cat << eof 
 sfeg | ls esta ok MAS PERGUNTAR
-
 Testar com symlinks ln -s Makefile link (files e dirs) (< e > e >>) (lstat)
 
 ver o erro que da quando <naoexiste + ls (executavel)

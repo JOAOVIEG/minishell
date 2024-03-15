@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 20:40:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/14 23:48:05 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,47 +96,47 @@ void	exec_cmd(t_node *node)
 	if (node->cmd->heredoc && !node->fd_in)
 	{
 		pid1 = fork();
-			if (pid1 < 0)
+		if (pid1 < 0)
+		{
+			perror("Error forking");
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
+		}
+		else if (pid1 == 0)
+		{
+			heredoc_check(node);
+			while (node->cmd->file && node->cmd->file[i] != NULL)
 			{
-				perror("Error forking");
-				shell()->status = EXIT_FAILURE;
+				handle_file_redir(node, i);
+				i++;
+			}
+			if (ft_strcmp(node->cmd->arg[0], ".") == 0
+					|| ft_strcmp(node->cmd->arg[0], "..") == 0)
+			{
+				free_c_env(env);
+				shell()->status = 127;
+				status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
+				// exit_shell(shell()->status);
+			}
+			if (input_is_dir(node, env) == 1)
 				exit_shell(shell()->status);
-			}
-			else if (pid1 == 0)
+			node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
+			if (node->cmd->valid_cmd_path == NULL)
 			{
-				heredoc_check(node);
-				while (node->cmd->file && node->cmd->file[i] != NULL)
-				{
-					handle_file_redir(node, i);
-					i++;
-				}
-				if (ft_strcmp(node->cmd->arg[0], ".") == 0
-						|| ft_strcmp(node->cmd->arg[0], "..") == 0)
-				{
-					free_c_env(env);
-					shell()->status = 127;
-					status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-					// exit_shell(shell()->status);
-				}
-				if (input_is_dir(node, env) == 1)
-					exit_shell(shell()->status);
-				node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
-				if (node->cmd->valid_cmd_path == NULL)
-				{
-					free_c_env(env);
-					shell()->status = 127;
-					status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
-					return ;
-				}
-				pid = fork();
-				assign_fds(node);
-				run_path_process(node, pid, env);
-				exit_shell(shell()->status);
+				free_c_env(env);
+				shell()->status = 127;
+				status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
+				return ;
 			}
-			else
-			{
-				parent_control(node, pid1);
-			}
+			pid = fork();
+			assign_fds(node);
+			run_path_process(node, pid, env);
+			exit_shell(shell()->status);
+		}
+		else
+		{
+			parent_control(node, pid1);
+		}
 	}
 	else
 	{
