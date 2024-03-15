@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 12:32:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:38:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ int	is_builtin(t_node *node)
 
 void	exec_builtin(t_node *node)
 {
-	pid_t	heredoc_pid[num_heredocs]; //get number of heredocs for size
+	int		num_heredocs;
+	pid_t	heredoc_pid[shell()->parser->heredoc_count]; //get number of heredocs for size
 	int		i;
 	int		j;
+	int saved_stdout;
+	int saved_stdin;
 
-	if (node->cmd->heredoc)
+	num_heredocs = shell()->parser->heredoc_count;
+	if (node->cmd->heredoc && shell()->node->type != TYPE_PIPE)
 	{
 		//fazer handle de varios heredocs
 		j = 0;
-		while (j < num_heredocs)
+		while (j <= num_heredocs)
 		{
 			heredoc_pid[j] = fork();
 			if (heredoc_pid[j] < 0)
@@ -59,7 +63,7 @@ void	exec_builtin(t_node *node)
 			else
 			{
 				parent_control(node, heredoc_pid[j]);
-				j++;
+				j += 2;
 			}
 		}
 	}
@@ -76,18 +80,12 @@ void	exec_builtin(t_node *node)
 		if (shell()->status != EXIT_SUCCESS)
 			return ;
 	}
-	// Save the original file descriptors
-	int saved_stdout = dup(STDOUT_FILENO);
-	int saved_stdin = dup(STDIN_FILENO);
-
+	saved_stdout = dup(STDOUT_FILENO);
+	saved_stdin = dup(STDIN_FILENO);
 	redirections(node->fd_in, node->fd_out);
 	run_builtin(node);
-
-	// Restore the original file descriptors
 	dup2(saved_stdout, STDOUT_FILENO);
 	dup2(saved_stdin, STDIN_FILENO);
-
-	// Close the saved file descriptors
 	close(saved_stdout);
 	close(saved_stdin);
 }
@@ -99,12 +97,14 @@ void	exec_cmd(t_node *node)
 	pid_t	pid1;
 	int		i;
 	int		j;
+	int		num_heredocs;
 	
 	i = 0;
 	j = 0;
+	num_heredocs = shell()->parser->heredoc_count;
 	env = env_list_to_arr();
 	check_path(env, node);
-	if (node->cmd->heredoc && !node->fd_in)
+	if (node->cmd->heredoc && !node->fd_in && shell()->node->type != TYPE_PIPE)
 	{
 		pid1 = fork();
 		if (pid1 < 0)
@@ -115,11 +115,12 @@ void	exec_cmd(t_node *node)
 		}
 		else if (pid1 == 0)
 		{
-			while (j < num_heredocs) //need to get func
+			while (j <= num_heredocs) //need to get func
 			{
 				if (node->fd_in)
 					close(node->fd_in);
-				heredoc_check(node, j++); //change func
+				heredoc_check(node, j);
+				j += 2;
 			}
 			while (node->cmd->file && node->cmd->file[i] != NULL)
 			{

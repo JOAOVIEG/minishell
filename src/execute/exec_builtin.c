@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 13:53:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:54:41 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	parent_control(t_node *node, pid_t pid)
 	int	status;
 
 	// handle_signal(SIG_PARENT); // keep this line
-	if (node->fd_in )
-	close_fds(node->fd_in, node->fd_out);
-	if (node->fd_in)
-		close(node->fd_in); 
-	if (node->fd_out)
-		close(node->fd_out);
+	if (node->fd_in && node->fd_out)
+		close_fds(node->fd_in, node->fd_out);
+	// if (node->fd_in)
+	// 	close(node->fd_in); 
+	// if (node->fd_out)
+		// close(node->fd_out);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell()->status = WEXITSTATUS(status);
@@ -67,24 +67,24 @@ void	child_control(t_node *node)
 	exit_shell(shell()->status);
 }
 
-void	run_process(t_node *node, pid_t pid)
-{
-	if (pid < 0)
-	{
-		perror("Error forking");
-		shell()->status = EXIT_FAILURE;
-		exit_shell(shell()->status);
-	}
-	else if (pid == 0)
-	{
-		redirections(node->fd_in, node->fd_out);
-		close_fds(node->fd_in, node->fd_out);
-		run_builtin(node);
-		child_control(node);
-	}
-	else
-		parent_control(node, pid);
-}
+// void	run_process(t_node *node, pid_t pid)
+// {
+// 	if (pid < 0)
+// 	{
+// 		perror("Error forking");
+// 		shell()->status = EXIT_FAILURE;
+// 		exit_shell(shell()->status);
+// 	}
+// 	else if (pid == 0)
+// 	{
+// 		redirections(node->fd_in, node->fd_out);
+// 		close_fds(node->fd_in, node->fd_out);
+// 		run_builtin(node);
+// 		child_control(node);
+// 	}
+// 	else
+// 		parent_control(node, pid);
+// }
 
 int	open_file_to(t_node *node, int i)
 {

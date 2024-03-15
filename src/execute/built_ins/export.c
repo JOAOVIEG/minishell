@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 14:49:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:43:56 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	export(char **arg)
     {
         while (arg[i])
         {
+			new = NULL;
             equal = get_equal(arg[i]);
             if (equal)
             {
@@ -92,14 +93,15 @@ char	*get_equal(char *arg)
 	return (equal);
 }
 
-nt is_invalid_variable(char *name) {
-    if (isdigit(name[0])) {
+int is_invalid_variable(char *name)
+{
+    if (ft_isdigit(name[0])) {
         // Variable names cannot start with a number
         return 1;
     }
 
     for (int i = 0; name[i] != '\0'; i++) {
-        if (!isalnum(name[i]) && name[i] != '_') {
+        if (!isalnum(name[i]) && name[i] != '_') { ////CUIDADO COM LIBFT!!!!!
             // Variable names can only contain alphanumeric characters and underscores
             return 1;
         }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 12:27:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:51:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,12 @@ void	*ft_my_realloc(void *ptr, size_t size)
 	return (new_ptr);
 }
 
-char	*read_from_stdin(char **delim, char	*buffer, size_t buffer_size)
+char	*read_from_stdin(char *delim, char	*buffer, size_t buffer_size)
 {
 	char	ch;
 	char	*delim_line;
 	char	*last_line_start;
-
-	delim_line = ft_strjoin(delim[1], "\n");
+	delim_line = ft_strjoin(delim, "\n");
 	while (read(STDIN_FILENO, &ch, 1) > 0)
 	{
 		buffer = ft_my_realloc(buffer, buffer_size + 2);
@@ -80,7 +79,8 @@ int	heredoc(t_node *node, int i)
 
 	buffer = NULL;
 	buffer_size = 0;
-	buffer = read_from_stdin(&node->cmd->heredoc[i], buffer, buffer_size); //check how this works
+	i++;
+	buffer = read_from_stdin(node->cmd->heredoc[i], buffer, buffer_size); //check how this works
 	if (buffer == NULL)
 	{
 		error_msg();

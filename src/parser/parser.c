@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/12 13:08:28 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:11:34 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	parser(t_shell *shell)
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}
-	reset_parser(shell->parser);
+	// reset_parser(shell->parser);
 }

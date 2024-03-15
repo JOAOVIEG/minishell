@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 12:58:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:14:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,44 @@ void	ft_exec_piped(t_node *node)
 	int		pipe_end[2];
 	pid_t	left_pid;
 	pid_t	right_pid;
-	// int		n_redir_left; // assign its value
-	// int		n_redir_right; // assign its value
-	// int		i;
-	// int		j;
-	
-	// i = 0;
-	// j = 0;
+	int		n_heredoc_left;
+	int		n_heredoc_right;
+	int 	i;
+	int		j;
+
+	n_heredoc_left = count_redir(node->left);
+	n_heredoc_right = count_redir(node->right);
+	i = 1;
 	if (pipe(pipe_end) < 0)
 	{
 		perror("Error at pipe");
 		exit_shell(EXIT_FAILURE);
 	}
-	// while (n_redir_left && (i < n_redir_left))
-	// {
-	// 	if (node->left->fd_in)
-	// 		close(node->left->fd_in);
-	// 	heredoc_check(node->left, i++); //need to count how many heredocs at left side in case of pipe 
-	// }
 	left_pid = fork();
-	left_node_process(node, pipe_end, left_pid);
-	if (node->left->cmd->heredoc)
+	while (left_pid > 0 && n_heredoc_left && i <= n_heredoc_left)
+	{
+		j = 0;
+		if (node->left->fd_in)
+			close(node->left->fd_in);
+		heredoc_check(node->left, j);
+		j++;
+		i++;
+	}
+	if (node->left->cmd->heredoc && node->left->fd_in)
 		close(node->left->fd_in);
-	// while (n_redir_right && (j < n_redir_right))
-	// {
-	// 	if (node->right->fd_in)
-	// 		close(node->right->fd_in);
-	// 	heredoc_check(node->right, i++); //need to count how many heredocs at left side in case of pipe 
-	// }
+	left_node_process(node, pipe_end, left_pid);
 	right_pid = fork();
-	if (node->right->cmd->heredoc)
+	while ((right_pid > 0 && left_pid != 0) && n_heredoc_right && i <= n_heredoc_right)
+	{
+		i = 1;
+		j = 0;
+		if (node->right->fd_in)
+			close(node->right->fd_in);
+		heredoc_check(node->right, j);
+		j++;
+		i++;
+	}
+	if (node->right->cmd->heredoc && node->right->fd_in)
 		close(node->right->fd_in);
 	right_node_process(node, pipe_end, right_pid);
 	parent_pipe_exec_control(node, pipe_end, left_pid, right_pid);

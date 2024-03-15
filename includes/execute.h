@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 12:31:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:19:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_cmd(char **cmd_path, char *cmd);
 char	*validate_cmd(char **cmd_paths, char *cmd);
 void	ft_exec_piped(t_node *node);
 int		heredoc(t_node *node, int i);
-char	*read_from_stdin(char **delim, char	*buffer, size_t buffer_size);
+char	*read_from_stdin(char *delim, char	*buffer, size_t buffer_size);
 void	error_msg(void);
 void	*ft_my_realloc(void *ptr, size_t size);
 void	run_builtin(t_node *node);
@@ -84,4 +84,5 @@ void	heredoc_check(t_node *node, int i);
 void	get_file_append(t_node *node);
 void	get_file(t_node *node);
 void	status_error(char *what, char *message, int	fd);
+int		count_redir(t_node *node);
 #endif

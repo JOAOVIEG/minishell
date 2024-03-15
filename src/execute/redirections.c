@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 12:30:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:15:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,26 @@ int	is_dir(t_node *node)
 
 void	no_cmd_file_redir(t_node *node)
 {
-	pid_t	heredoc_pid[num_heredocs]; //get number of heredocs for size
+	int		num_heredocs;
+	pid_t	heredoc_pid[shell()->parser->heredoc_count]; //get number of heredocs for size
 	int		i;
 	int		j;
 
-	if (node->cmd->arg[0] == NULL && node->cmd->heredoc && !node->fd_in)
-	{
-		//fazer handle de varios heredocs
+	num_heredocs = shell()->parser->heredoc_count;
+	if (node->cmd->arg[0] == NULL && node->cmd->heredoc && !node->fd_in && shell()->node->type != TYPE_PIPE)
+	{	
+		i = 0;
 		j = 0;
-		while ( j < num_heredocs)
+		while ( j <= num_heredocs)
 		{
-			heredoc_pid[j] = fork();
+			heredoc_pid[i] = fork();
 			if (heredoc_pid < 0)
 			{
 				perror("Error forking");
 				shell()->status = EXIT_FAILURE;
 				exit_shell(shell()->status);
 			}
-			else if (heredoc_pid[j] == 0)
+			else if (heredoc_pid[i] == 0)
 			{
 				if (!node->fd_in)
 					heredoc_check(node, j); //change the function
@@ -88,8 +90,9 @@ void	no_cmd_file_redir(t_node *node)
 			}
 			else
 			{
-				parent_control(node, heredoc_pid[j]);
-				j++;
+				parent_control(node, heredoc_pid[i]);
+				j += 2;
+				i++;
 			}
 		}
 	}
