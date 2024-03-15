@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 14:21:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:49:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,3 +92,20 @@ char	*get_equal(char *arg)
 	return (equal);
 }
 
+nt is_invalid_variable(char *name) {
+    if (isdigit(name[0])) {
+        // Variable names cannot start with a number
+        return 1;
+    }
+
+    for (int i = 0; name[i] != '\0'; i++) {
+        if (!isalnum(name[i]) && name[i] != '_') {
+            // Variable names can only contain alphanumeric characters and underscores
+            return 1;
+        }
+    }
+
+    // Add any other checks for invalid variable names here
+
+    return 0;
+}
