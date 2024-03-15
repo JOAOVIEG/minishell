@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 23:48:05 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:32:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,38 @@ int	is_builtin(t_node *node)
 
 void	exec_builtin(t_node *node)
 {
-	pid_t	pid;
+	pid_t	heredoc_pid[num_heredocs]; //get number of heredocs for size
 	int		i;
+	int		j;
 
 	if (node->cmd->heredoc)
 	{
-		pid = fork();
-		if (pid < 0)
+		//fazer handle de varios heredocs
+		j = 0;
+		while (j < num_heredocs)
 		{
-			perror("Error forking");
-			shell()->status = EXIT_FAILURE;
-			exit_shell(shell()->status);
-		}
-		else if (pid == 0)
-		{
-			if (node->cmd->heredoc)
+			heredoc_pid[j] = fork();
+			if (heredoc_pid[j] < 0)
 			{
-				if (!node->fd_in)
-					heredoc_check(node);
-				child_control(node);
+				perror("Error forking");
+				shell()->status = EXIT_FAILURE;
+				exit_shell(shell()->status);
+			}
+			else if (heredoc_pid[j] == 0)
+			{
+				if (node->cmd->heredoc)
+				{
+					if (!node->fd_in)
+						heredoc_check(node, j);//change the function
+					child_control(node);
+				}
+			}
+			else
+			{
+				parent_control(node, heredoc_pid[j]);
+				j++;
 			}
 		}
-		else
-			parent_control(node, pid);
 	}
 	if (node->cmd->file && *node->cmd->file != NULL)
 	{
@@ -88,9 +97,11 @@ void	exec_cmd(t_node *node)
 	char	**env;
 	pid_t	pid;
 	pid_t	pid1;
-	int	i;
-
+	int		i;
+	int		j;
+	
 	i = 0;
+	j = 0;
 	env = env_list_to_arr();
 	check_path(env, node);
 	if (node->cmd->heredoc && !node->fd_in)
@@ -104,7 +115,12 @@ void	exec_cmd(t_node *node)
 		}
 		else if (pid1 == 0)
 		{
-			heredoc_check(node);
+			while (j < num_heredocs) //need to get func
+			{
+				if (node->fd_in)
+					close(node->fd_in);
+				heredoc_check(node, j++); //change func
+			}
 			while (node->cmd->file && node->cmd->file[i] != NULL)
 			{
 				handle_file_redir(node, i);

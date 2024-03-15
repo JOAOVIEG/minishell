@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 23:49:26 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:30:51 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,35 +54,44 @@ int	is_dir(t_node *node)
 
 void	no_cmd_file_redir(t_node *node)
 {
-	pid_t	heredoc_pid;
+	pid_t	heredoc_pid[num_heredocs]; //get number of heredocs for size
 	int		i;
+	int		j;
 
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc && !node->fd_in)
 	{
-		heredoc_pid = fork();
-		if (heredoc_pid < 0)
+		//fazer handle de varios heredocs
+		j = 0;
+		while ( j < num_heredocs)
 		{
-			perror("Error forking");
-			shell()->status = EXIT_FAILURE;
-			exit_shell(shell()->status);
-		}
-		else if (heredoc_pid == 0)
-		{
-			if (!node->fd_in)
-				heredoc_check(node);
-			close(node->fd_in);
-			if (node->fd_out)
-				close(node->fd_out);
-			if (node->cmd->file && *node->cmd->file)
+			heredoc_pid[j] = fork();
+			if (heredoc_pid < 0)
 			{
-				i = 0;
-				while(node->cmd->file[i])
-					handle_file_redir(node, i++);
+				perror("Error forking");
+				shell()->status = EXIT_FAILURE;
+				exit_shell(shell()->status);
 			}
-			child_control(node);
+			else if (heredoc_pid[j] == 0)
+			{
+				if (!node->fd_in)
+					heredoc_check(node, j); //change the function
+				close(node->fd_in);
+				if (node->fd_out)
+					close(node->fd_out);
+				if (node->cmd->file && *node->cmd->file)
+				{
+					i = 0;
+					while(node->cmd->file[i])
+						handle_file_redir(node, i++);
+				}
+				child_control(node);
+			}
+			else
+			{
+				parent_control(node, heredoc_pid[j]);
+				j++;
+			}
 		}
-		else
-			parent_control(node, heredoc_pid);
 	}
 	else if (node->cmd->arg[0] == NULL && node->cmd->file \
 						 && *node->cmd->file && !node->fd_in)

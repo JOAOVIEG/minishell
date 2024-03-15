@@ -6,47 +6,52 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/07 16:57:49 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:21:31 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// // TODO: The return status is zero unless an invalid option is supplied, one of the names
-// is not a valid shell variable name.
 void	export(char **arg)
 {
-	t_env	*env;
-	t_env	*new;
-	char	*name;
-	char	*value;
-	char	*equal;
-	int		i;
+    t_env	*env;
+    t_env	*new;
+    char	*name;
+    char	*value;
+    char	*equal;
+    int		i;
 
-	i = 1;
-	env = shell()->v_env;
-	if (!arg[i])
-		display_exp_var(env);
-	else
-	{
-		while (arg[i])
-		{
-			new = malloc(sizeof(t_env));
-			equal = get_equal(arg[i]);
-			if (equal)
+    i = 1;
+    env = shell()->v_env;
+    if (!arg[i])
+        display_exp_var(env);
+    else
+    {
+        while (arg[i])
+        {
+            equal = get_equal(arg[i]);
+            if (equal)
+            {
+                name = get_var_name(arg[i], equal);
+                value = ft_strdup(equal + 1);
+            }
+            else
+            {
+                name = ft_strdup(arg[i]);
+                value = get_var_value(env, name);
+            }
+            if (is_invalid_variable(name))
 			{
-				name = get_var_name(arg[i], equal);
-				value = ft_strdup(equal + 1);
-			}
-			else
-			{
-				name = ft_strdup(arg[i]);
-				value = get_var_value(env, name);
-			}
-			update_envl(env, new, name, value);
-			i++;	
-		}
-	}
+				shell()->status = STDERR_FILENO;
+                free(name);
+                free(value);
+                return;
+            }
+            shell()->v_env = update_envl(env, new, name, value);
+            i++;	
+        }
+    }
+    shell()->status = EXIT_SUCCESS;
 }
 
 t_env	*create_var(t_env *new, char *name, char *value)
@@ -86,3 +91,4 @@ char	*get_equal(char *arg)
 	equal = ft_strchr(arg, '=');
 	return (equal);
 }
+
