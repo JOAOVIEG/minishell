@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:20:55 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/05 14:23:20 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 07:20:13 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 // 	}
 // 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 // }
+
 int	ft_strncmp(const char *sn1, const char *sn2, size_t nb)
 {
 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 16:12:09 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 07:20:54 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef enum e_quote_type
 	DOUBLE_QUOTED,
 	SINGLE_IN_DOUBLE_QUOTED,
 	DOUBLE_IN_SINGLE_QUOTED
-
 }								t_quote_type;
 
 typedef enum e_sig_state
