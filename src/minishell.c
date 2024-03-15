@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/15 07:26:41 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:02:43 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,13 @@ int	main(int argc, char **argv, char **envp)
 	shell()->status = 0;
 	while (1)
 	{
-		sig_shell_init();
 		handle_signal(SIG_DEFAULT);
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
 		if (shell()->node)
 			ft_execute(shell()->node);
-		if (shell()->node)
-			reset_tree();
+		reset_parser_and_tree();
 	}
 	rl_clear_history();
 	return (EXIT_SUCCESS);

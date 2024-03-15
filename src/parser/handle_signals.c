@@ -6,31 +6,16 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 19:10:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 21:06:44 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:13:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_sig_shell	*sig_shell(void)
-{
-	static t_sig_shell	shell;
-
-	return (&shell);
-}
-
-void	sig_shell_init(void)
-{
-	shell()->status = 0;
-	shell()->signal = false;
-}
-
 void	default_sigint(int sig)
 {
 	(void)sig;
 	shell()->status = 130;
-	shell()->signal = true;
-	sig_shell()->status = 130;
 	shell()->signal = true;
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
@@ -44,8 +29,6 @@ void	hdsig(int sig)
 	ft_putchar_fd('\n', 1);
 	shell()->status = 130;
 	shell()->signal = true;
-	sig_shell()->status = 130;
-	shell()->signal = true;
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	exit_shell(shell()->status);
@@ -56,8 +39,6 @@ void	child_sigint(int sig)
 {
 	(void)sig;
 	shell()->status = 130;
-	shell()->signal = true;
-	sig_shell()->status = 130;
 	shell()->signal = true;
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 17:28:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:31:17 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	parser(t_shell *shell)
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}
-	reset_parser(shell->parser);
+	//reset_parser(shell->parser);
 }

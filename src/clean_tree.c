@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/13 19:47:07 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:51:55 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ void	free_tree_node(t_node **tree_node)
 
 void	reset_tree(void)
 {
-	// shell()->status = EXIT_SUCCESS;
 	if (shell()->node)
 		free_tree_node(&shell()->node);
+}
+
+void	reset_parser_and_tree(void)
+{
+	if (shell()->parser)
+		reset_parser(shell()->parser);
+	if (shell()->node)
+		reset_tree();
 }
