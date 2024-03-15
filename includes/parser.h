@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/15 17:56:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:33:02 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_parser						*init_parser(void);
 
 void							add_to_end(t_lst_tokens **head, char *data);
 
-
 // AST
 void							lst_tokenadd_back(t_lst_tokens **lst,
 									t_lst_tokens **tail, t_lst_tokens *new);
@@ -102,6 +101,9 @@ int								lst_token_size(t_lst_tokens *tokens);
 void							parser(t_shell *shell);
 
 t_lst_tokens					*new_node(char *data);
+
+bool							has_env_var(char *str);
+void							make_expansion_hd(char **buffer);
 
 // need replace these functions
 

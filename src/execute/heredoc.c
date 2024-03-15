@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 17:05:18 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:44:40 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*read_from_stdin(char **delim, char *buffer, size_t buffer_size)
 	}
 	free(delim_line);
 	handle_signal(SIG_DEFAULT);
+	make_expansion_hd(&buffer);
 	return (buffer);
 }
 
@@ -106,7 +107,8 @@ int	heredoc(t_node *node)
 	}
 	unlink("in.txt");
 	free(buffer);
-	shell()->status = EXIT_SUCCESS;	handle_signal(SIG_DEFAULT);
+	shell()->status = EXIT_SUCCESS;
+	handle_signal(SIG_DEFAULT);
 	return (node->fd_in);
 }
 
