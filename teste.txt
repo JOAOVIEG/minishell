@@ -30,7 +30,13 @@ export var+=content \\ concatonates variable
 export var-=content \\ invalid var
 export _=content \\ valid but content does not change
 export _1=content \\ valid 
-export 1var=contetn \\ invalid (cannot start with number)
+export 1var=contetn \\ invalid (cannot start with number) OK
+export 1VAR=invalid  # Variable names cannot start with a number OK
+export VAR-8=invalid  # Variable names cannot contain hyphens OK
+export VAR 9=invalid  # Variable names cannot contain spaces OK
+export VAR!0=invalid  # Variable names cannot contain special characters OK
+export for=invalid  # Variable names cannot be reserved keywords OK
+
 export abc=1234
 unset abc=1234 \\ does not unset abc (has to be unset abc)
 ///
