@@ -1,5 +1,6 @@
 < Makefile wc -l < teste.txt OK
 wc -l Makefile <in (in does not exist) OK
+<<end <<ola
 touch nome_do_ficheiro OK
 wc -l < nomedoficheiro 	OK
 mkdir alex OK
@@ -32,7 +33,6 @@ export _1=content \\ valid
 export 1var=contetn \\ invalid (cannot start with number)
 export abc=1234
 unset abc=1234 \\ does not unset abc (has to be unset abc)
-env ficheiro (invalid file)
 ///
 < Makefile cat > out > file1 | ls -l > out | wc < out OK
 echo FIM >> out OK
