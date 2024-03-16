@@ -12,6 +12,12 @@
 		"random": "c",
 		"string": "c",
 		"libft.h": "c",
-		"ioctl.h": "c"
+		"ioctl.h": "c",
+		"system_error": "c",
+		"array": "c",
+		"functional": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"utility": "c"
 	}
 }

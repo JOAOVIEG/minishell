@@ -37,6 +37,15 @@ export VAR 9=invalid  # Variable names cannot contain spaces OK
 export VAR!0=invalid  # Variable names cannot contain special characters OK
 export for=invalid  # Variable names cannot be reserved keywords OK
 
+export VAR1=value1 OK
+export VAR2="value with spaces" NOT OK
+export VAR3='value with single quotes' not OK
+export VAR4=""
+export VAR5=
+export _VAR6=value6
+export VAR7_VAR7=value7
+
+
 export abc=1234
 unset abc=1234 \\ does not unset abc (has to be unset abc)
 ///
