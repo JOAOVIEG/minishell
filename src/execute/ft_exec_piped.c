@@ -6,14 +6,14 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:32:30 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 23:09:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:09:41 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
-								pid_t left_pid, pid_t right_pid)
+												pid_t right_pid)
 {
 	int	status;
 
@@ -23,10 +23,7 @@ void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
 	close(pipe_end[1]);
 	if (node->left->fd_out)
 		close(node->left->fd_out);
-	if (left_pid)
-		waitpid(left_pid, &status, 0);
-	if (right_pid)
-		waitpid(right_pid, &status, 0);
+	waitpid(right_pid, &status, 0);
 	if (WIFEXITED(status))
 		shell()->status = WEXITSTATUS(status);
 }

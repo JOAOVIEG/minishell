@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 23:14:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:30:07 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exec_builtin(t_node *node)
 	int saved_stdin;
 
 	num_heredocs = shell()->parser->heredoc_count;
-	if (node->cmd->heredoc && shell()->node->type != TYPE_PIPE)
+	if (node->cmd->heredoc)
 	{
 		//fazer handle de varios heredocs
 		j = 0;
@@ -101,7 +101,7 @@ void	exec_cmd(t_node *node)
 	num_heredocs = shell()->parser->heredoc_count;
 	env = env_list_to_arr();
 	check_path(env, node);
-	if (node->cmd->heredoc && !node->fd_in && shell()->node->type != TYPE_PIPE)
+	if (node->cmd->heredoc && !node->fd_in)
 	{
 		pid1 = fork();
 		if (pid1 < 0)

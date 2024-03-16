@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 18:58:22 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:39:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	child_control(t_node *node)
 
 // void	run_process(t_node *node, pid_t pid)
 // {
+// 	int	status;
+
 // 	if (pid < 0)
 // 	{
 // 		perror("Error forking");
@@ -83,7 +85,14 @@ void	child_control(t_node *node)
 // 		child_control(node);
 // 	}
 // 	else
-// 		parent_control(node, pid);
+// 	{	
+// 		handle_signal(SIG_PARENT);
+// 		redirections(node->fd_in, node->fd_out);
+// 		waitpid(pid, &status, 0);
+// 		if (WIFEXITED(status))
+// 			shell()->status = WEXITSTATUS(status);
+// 		handle_signal(SIG_DEFAULT); 
+// 	}
 // }
 
 int	open_file_to(t_node *node, int i)
