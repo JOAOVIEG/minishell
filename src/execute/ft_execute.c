@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 12:57:11 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:01:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,10 @@ void	ft_simple_cmds(t_node *node)
 
 void	ft_exec_piped(t_node *node)
 {
-
-	/*Tentar fazer dinamicamente e de forma que o right proccess so seja chamado quando
-	o left_pid retornar do child. Ver funcoes wait se preciso. 
-	Forcar o node left a fazer primeiro que o nde right. Ver fds. 
-	MANTER HEREDOC_DOC_HANDLE e usar para os outros casos*/
-	
 	int		pipe_end[2];
 	pid_t	left_pid;
 	pid_t	right_pid;
-	int		status;
+	int		l_status;
 
 	if (pipe(pipe_end) < 0)
 	{
@@ -45,10 +39,23 @@ void	ft_exec_piped(t_node *node)
 	left_node_process(node, pipe_end, left_pid);
 	if (left_pid > 0)
 	{
-		waitpid(left_pid, &status, 0);
-		if (WIFEXITED(status))
-			shell()->status = WEXITSTATUS(status);	
+		waitpid(left_pid, &l_status, 0);
+		if (WIFEXITED(l_status))
+			shell()->status = WEXITSTATUS(l_status);
+		if (node->right->cmd->heredoc)
+		{
+			close(pipe_end[0]);
+			pipe_end[0] = -1;
+		}
 	}
+	// if (pipe_end[0] == -1)
+	// {
+	// 	if (pipe(pipe_end) < 0)
+	// 	{
+	// 		perror("Error at pipe");
+	// 		exit_shell(EXIT_FAILURE);
+	// 	}
+	// }
 	right_pid = fork();
 	assign_fds(node->right);
 	right_node_process(node, pipe_end, right_pid);
@@ -75,5 +82,30 @@ void	ft_execute(t_node *node)
 		ft_simple_cmds(node);
 	if (node->type == TYPE_PIPE)
 		ft_exec_piped(node);
-	
 }
+/*test THIS cases
+
+
+minishell:$ <<end | <<out <<i
+out
+i
+end
+minishell:$ <<end | <<out |<< a
+a
+out
+end
+minishell:$ <<end | <<out |<< a
+end
+minishell:$ <<end | <<out |<< a
+out
+a
+end
+minishell:$ <<end | <<out |<< a
+end
+minishell:$ 
+
+
+
+*/
+
+//TODO: CORRECT MULTIPLE HEREDOCS FOR EXECMD AND EXEC_BUILTIN
