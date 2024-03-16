@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 18:15:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:19:57 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	no_cmd_file_redir(t_node *node)
 		while ( j <= num_heredocs)
 		{
 			heredoc_pid[i] = fork();
-			if (heredoc_pid < 0)
+			if (heredoc_pid[i] < 0)
 			{
 				perror("Error forking");
 				shell()->status = EXIT_FAILURE;
