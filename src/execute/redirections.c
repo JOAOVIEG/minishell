@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 16:49:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:33:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void	no_cmd_file_redir(t_node *node)
 	num_heredocs = count_redir(node);
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc)
 	{
-		int k_fd[2];
+		int	k_fd[2];
 		if (pipe(k_fd) == -1) 
 		{
-    		perror("pipe");
-    		exit(EXIT_FAILURE);
+			perror("pipe");
+			exit_shell(EXIT_FAILURE);
 		}
 		k = 1;
 		i = 0;
@@ -97,7 +97,7 @@ void	no_cmd_file_redir(t_node *node)
 			if (node->cmd->file && *node->cmd->file)
 			{
 				i = 0;
-				while(node->cmd->file[i])
+				while (node->cmd->file[i])
 					handle_file_redir(node, i++);
 			}
 			child_control(node);
@@ -112,10 +112,10 @@ void	no_cmd_file_redir(t_node *node)
 		}
 	}
 	else if (node->cmd->arg[0] == NULL && node->cmd->file \
-						 && *node->cmd->file)
+										&& *node->cmd->file)
 	{
 		i = 0;
-		while(node->cmd->file[i])
+		while (node->cmd->file[i])
 		{
 			node->fd_in = dup(STDIN_FILENO);
 			node->fd_out = dup(STDOUT_FILENO);

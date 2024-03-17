@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 21:04:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:52:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ void	parent_control(t_node *node, pid_t pid)
 {
 	int	status;
 
-	handle_signal(SIG_PARENT); // keep this line
+	handle_signal(SIG_PARENT);
 	if (node->fd_in && node->fd_out)
 		close_fds(node->fd_in, node->fd_out);
 	if (node->fd_in)
 		close(node->fd_in); 
 	if (node->fd_out)
-		close(node->fd_out); //may be unncessary
+		close(node->fd_out);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell()->status = WEXITSTATUS(status);
-	handle_signal(SIG_DEFAULT); // keep this line
+	handle_signal(SIG_DEFAULT);
 }
 
 void	child_control(t_node *node)
@@ -66,34 +66,6 @@ void	child_control(t_node *node)
 		close(node->fd_out);
 	exit_shell(shell()->status);
 }
-
-// void	run_process(t_node *node, pid_t pid)
-// {
-// 	int	status;
-
-// 	if (pid < 0)
-// 	{
-// 		perror("Error forking");
-// 		shell()->status = EXIT_FAILURE;
-// 		exit_shell(shell()->status);
-// 	}
-// 	else if (pid == 0)
-// 	{
-// 		redirections(node->fd_in, node->fd_out);
-// 		close_fds(node->fd_in, node->fd_out);
-// 		run_builtin(node);
-// 		child_control(node);
-// 	}
-// 	else
-// 	{	
-// 		handle_signal(SIG_PARENT);
-// 		redirections(node->fd_in, node->fd_out);
-// 		waitpid(pid, &status, 0);
-// 		if (WIFEXITED(status))
-// 			shell()->status = WEXITSTATUS(status);
-// 		handle_signal(SIG_DEFAULT); 
-// 	}
-// }
 
 int	open_file_to(t_node *node, int i)
 {
@@ -110,7 +82,8 @@ int	open_file_to(t_node *node, int i)
 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (node->fd_out < 0)
 		{
-			status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
+			status_error(node->cmd->file[i], "Permission denied", \
+													STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 			return (node->fd_out);
 		}

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 11:39:06 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:21:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,6 @@ void	get_file_append(t_node *node);
 void	get_file(t_node *node);
 void	status_error(char *what, char *message, int	fd);
 int		count_redir(t_node *node);
+void	append_f(t_node *node, int i);
+char	*append_char_to_buffer(char *buffer, size_t *buffer_size, char ch);
 #endif

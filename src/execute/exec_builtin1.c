@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 10:29:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:41:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	open_append_to(t_node *node, int i)
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (node->fd_out < 0)
 		{
-			status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
+			status_error(node->cmd->file[i], "Permission denied", \
+													STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 			return (node->fd_out);
 		}
@@ -44,13 +45,15 @@ int	open_file_from(t_node *node, int i)
 		node->fd_in = open(node->cmd->file[i], O_RDONLY);
 		if (node->fd_in < 0)
 		{
-			status_error(node->cmd->file[i], "Permission denied", STDERR_FILENO);
+			status_error(node->cmd->file[i], "Permission denied", \
+													STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
 	}
 	else
 	{
-		status_error(node->cmd->file[i], "No such file or directory", STDERR_FILENO);
+		status_error(node->cmd->file[i], "No such file or directory", \
+														STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
 		return (-1);
 	}
@@ -74,13 +77,7 @@ void	handle_file_redir(t_node *node, int i)
 			return ;
 	}
 	else if (ft_strncmp(node->cmd->file[i], ">>", 2) == 0)
-	{
-		i++;
-		if (is_dir_i(node, i) == 0)
-			node->fd_out = open_append_to(node, i++);
-		else
-			return ;
-	}
+		append_f(node, i);
 	else if (ft_strncmp(node->cmd->file[i], ">", 1) == 0)
 	{
 		i++;
@@ -89,4 +86,13 @@ void	handle_file_redir(t_node *node, int i)
 		else
 			return ;
 	}
+}
+
+void	append_f(t_node *node, int i)
+{
+	i++;
+	if (is_dir_i(node, i) == 0)
+		node->fd_out = open_append_to(node, i++);
+	else
+		return ;
 }

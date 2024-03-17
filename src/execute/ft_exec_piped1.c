@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 16:04:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 16:52:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:20:52 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,13 @@ int	count_redir(t_node *node)
 		i++;
 	}
 	return (j);
+}
+
+char	*append_char_to_buffer(char *buffer, size_t *buffer_size, char ch)
+{
+	buffer = ft_my_realloc(buffer, *buffer_size + 2);
+    buffer[*buffer_size] = ch;
+    (*buffer_size)++;
+    buffer[*buffer_size] = '\0';
+    return (buffer);
 }

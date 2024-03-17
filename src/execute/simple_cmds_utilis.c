@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 10:15:29 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:43:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,14 +130,16 @@ void	exec_cmd(t_node *node)
 	pid_t	pid1;
 	int		i;
 	int		j;
+	int		k;
 	int		num_heredocs;
 	
 	i = 0;
 	j = 0;
-	num_heredocs = shell()->parser->heredoc_count;
+	k = 1;
+	num_heredocs = count_redir(node);
 	env = env_list_to_arr();
 	check_path(env, node);
-	if (node->cmd->heredoc && !node->fd_in)
+	if (node->cmd->heredoc)
 	{
 		pid1 = fork();
 		if (pid1 < 0)
@@ -148,12 +150,13 @@ void	exec_cmd(t_node *node)
 		}
 		else if (pid1 == 0)
 		{
-			while (j <= num_heredocs) //need to get func
+			while (k <= num_heredocs) //need to get func
 			{
 				if (node->fd_in)
 					close(node->fd_in);
 				heredoc_check(node, j);
 				j += 2;
+				k++;
 			}
 			while (node->cmd->file && node->cmd->file[i] != NULL)
 			{
