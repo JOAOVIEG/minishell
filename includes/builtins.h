@@ -6,13 +6,12 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 15:13:26 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:48:37 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
-
 typedef struct s_env
 {
 	char			*name;

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/15 19:00:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 16:29:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	error_msg(void)
 {
 	perror("ERROR");
+	end_shell();
 	shell()->status = EXIT_FAILURE;
+	exit(shell()->status);
 }
 
 void	*ft_my_realloc(void *ptr, size_t size)
@@ -48,13 +50,12 @@ char	*read_from_stdin(char *delim, char	*buffer, size_t buffer_size)
 	char	ch;
 	char	*delim_line;
 	char	*last_line_start;
+
 	handle_signal(SIG_HEREDOC);
 	delim_line = ft_strjoin(delim, "\n");
 	while (read(STDIN_FILENO, &ch, 1) > 0)
 	{
-		buffer = ft_my_realloc(buffer, buffer_size + 2);
-		buffer[buffer_size++] = ch;
-		buffer[buffer_size] = '\0';
+		buffer = append_char_to_buffer(buffer, &buffer_size, ch);
 		last_line_start = buffer + buffer_size - ft_strlen(delim_line);
 		if (last_line_start >= buffer && (last_line_start == buffer
 				|| *(last_line_start - 1) == '\n')
@@ -82,29 +83,17 @@ int	heredoc(t_node *node, int i)
 	buffer = NULL;
 	buffer_size = 0;
 	i++;
-	buffer = read_from_stdin(node->cmd->heredoc[i], buffer, buffer_size); //check how this works
+	buffer = read_from_stdin(node->cmd->heredoc[i], buffer, buffer_size);
 	if (buffer == NULL)
-	{
 		error_msg();
-		end_shell();
-		return (-1);
-	}
 	here_doc_fd = open("./in.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (here_doc_fd < 0)
-	{
 		error_msg();
-		end_shell();
-		return (-1);
-	}
 	write(here_doc_fd, buffer, ft_strlen(buffer));
 	close(here_doc_fd);
 	node->fd_in = open("./in.txt", O_RDONLY);
 	if (node->fd_in < 0)
-	{
 		error_msg();
-		end_shell();
-		return (-1);
-	}
 	unlink("in.txt");
 	free(buffer);
 	shell()->status = EXIT_SUCCESS;

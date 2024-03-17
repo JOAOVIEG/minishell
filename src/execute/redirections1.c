@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:28:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 16:19:58 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:30:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	get_file(t_node *node)
 	{
 		if (access(node->cmd->file[1], X_OK) == 0)
 		{
-			status_error(node->cmd->file[1], "Permission denied", STDERR_FILENO);
+			status_error(node->cmd->file[1], "Permission denied", \
+													STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
 		else 
