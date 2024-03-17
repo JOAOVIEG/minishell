@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 12:30:07 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 10:15:29 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,43 +28,68 @@ int	is_builtin(t_node *node)
 void	exec_builtin(t_node *node)
 {
 	int		num_heredocs;
-	pid_t	heredoc_pid[shell()->parser->heredoc_count]; //get number of heredocs for size
+	pid_t	heredoc_pid;
 	int		i;
 	int		j;
+	int		k;
 	int saved_stdout;
 	int saved_stdin;
 
-	num_heredocs = shell()->parser->heredoc_count;
+	num_heredocs = count_redir(node);
 	if (node->cmd->heredoc)
 	{
-		//fazer handle de varios heredocs
-		j = 0;
-		while (j <= num_heredocs)
+		int k_fd[2];
+		if (pipe(k_fd) == -1) 
 		{
-			heredoc_pid[j] = fork();
-			if (heredoc_pid[j] < 0)
+    		perror("pipe");
+    		exit(EXIT_FAILURE);
+		}
+		k = 1;
+		i = 0;
+		j = 0;
+		heredoc_pid = fork();
+		if (heredoc_pid < 0)
+		{
+			perror("Error forking");
+			shell()->status = EXIT_FAILURE;
+			exit_shell(shell()->status);
+		}
+		if (heredoc_pid == 0)
+		{
+			close(k_fd[0]);
+			while (k <= num_heredocs)
 			{
-				perror("Error forking");
-				shell()->status = EXIT_FAILURE;
-				exit_shell(shell()->status);
-			}
-			else if (heredoc_pid[j] == 0)
-			{
-				if (node->cmd->heredoc)
-				{
-					if (!node->fd_in)
-						heredoc_check(node, j);//change the function
-					child_control(node);
-				}
-			}
-			else
-			{
-				parent_control(node, heredoc_pid[j]);
+				if (node->fd_in)
+					close(node->fd_in);
+				heredoc_check(node, j);
+				write(k_fd[1], &k, sizeof(k));
+				close(k_fd[1]);
 				j += 2;
+				k++;
 			}
+			close(node->fd_in);
+			if (node->fd_out)
+				close(node->fd_out);
+			if (node->cmd->file && *node->cmd->file)
+			{
+				i = 0;
+				while(node->cmd->file[i])
+					handle_file_redir(node, i++);
+			}
+			redirections(node->fd_in, node->fd_out);
+			run_builtin(node);
+			child_control(node);
+		}
+		else
+		{
+			close(k_fd[1]);
+			read(k_fd[0], &k, sizeof(k));
+			close(k_fd[0]);
+			parent_control(node, heredoc_pid);
+			k++;
 		}
 	}
-	if (node->cmd->file && *node->cmd->file != NULL)
+	else if (node->cmd->file && *node->cmd->file != NULL)
 	{
 		i = 0;
 		while (node->cmd->file[i] != NULL)
@@ -76,15 +101,26 @@ void	exec_builtin(t_node *node)
 		}
 		if (shell()->status != EXIT_SUCCESS)
 			return ;
+		saved_stdout = dup(STDOUT_FILENO);
+		saved_stdin = dup(STDIN_FILENO);
+		redirections(node->fd_in, node->fd_out);
+		run_builtin(node);
+		dup2(saved_stdout, STDOUT_FILENO);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdout);
+		close(saved_stdin);
 	}
-	saved_stdout = dup(STDOUT_FILENO);
-	saved_stdin = dup(STDIN_FILENO);
-	redirections(node->fd_in, node->fd_out);
-	run_builtin(node);
-	dup2(saved_stdout, STDOUT_FILENO);
-	dup2(saved_stdin, STDIN_FILENO);
-	close(saved_stdout);
-	close(saved_stdin);
+	else
+	{
+		saved_stdout = dup(STDOUT_FILENO);
+		saved_stdin = dup(STDIN_FILENO);
+		redirections(node->fd_in, node->fd_out);
+		run_builtin(node);
+		dup2(saved_stdout, STDOUT_FILENO);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdout);
+		close(saved_stdin);
+	}
 }
 
 void	exec_cmd(t_node *node)
