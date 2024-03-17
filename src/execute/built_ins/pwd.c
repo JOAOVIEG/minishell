@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:31:08 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 12:57:52 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:56:46 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	pwd(void)
 {
 	char	*buffer;
-	
+
 	buffer = getcwd(NULL, 0);
 	if (buffer)
 		printf("%s\n", buffer);

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 10:12:52 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/09 17:48:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:35:20 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
+int					find_char_index(char *str, char c);
+
+char				*ft_strsub(char const *s, unsigned int start, size_t len);
 
 size_t				ft_strlen(const char *str);
 size_t				ft_strlen_nl(const char *s);

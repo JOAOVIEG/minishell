@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:26:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 15:46:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 21:06:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_var(t_env *new, char *envp, char *equal_pos)
 	new->next = NULL;
 }
 
-void new_var(t_env **head, t_env *tail, t_env *new)
+void	new_var(t_env **head, t_env *tail, t_env *new)
 {
 	if (tail)
 		tail->next = new;
@@ -37,7 +37,7 @@ void new_var(t_env **head, t_env *tail, t_env *new)
 		*head = new;
 }
 
-void check_new_malloc(t_env *new)
+void	check_new_malloc(t_env *new)
 {
 	if (!new)
 	{
@@ -45,6 +45,7 @@ void check_new_malloc(t_env *new)
 		exit(shell()->status);
 	}
 }
+
 t_env	*env_cpy(char **envp)
 {
 	t_env	*head;
@@ -81,7 +82,7 @@ char	**env_list_to_arr(void)
 	int		i;
 	t_env	*current;
 	char	**envp;
-	char *tmp;
+	char	*tmp;
 
 	count = 0;
 	i = 0;
@@ -98,14 +99,13 @@ char	**env_list_to_arr(void)
 		exit(EXIT_FAILURE);
 	}
 	current = shell()->v_env;
-	while ( i < count)
+	while (i < count)
 	{
 		tmp = ft_strjoin(current->name, "=");
 		envp[i] = ft_strjoin(tmp, current->value);
 		if (!envp[i])
 		{
 			perror("malloc envp[i]");
-			// free_env();
 			free_c_env(envp);
 			exit(EXIT_FAILURE);
 		}
