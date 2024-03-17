@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 21:01:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 00:24:31 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,8 @@ void	ft_exec_piped(t_node *node)
 		waitpid(left_pid, &l_status, 0);
 		if (WIFEXITED(l_status))
 			shell()->status = WEXITSTATUS(l_status);
-		if (node->right->cmd->heredoc)
-		{
-			close(pipe_end[0]);
-			pipe_end[0] = -1;
-		}
 	}
-	// if (pipe_end[0] == -1)
-	// {
-	// 	if (pipe(pipe_end) < 0)
-	// 	{
-	// 		perror("Error at pipe");
-	// 		exit_shell(EXIT_FAILURE);
-	// 	}
-	// }
 	right_pid = fork();
-	assign_fds(node->right);
 	right_node_process(node, pipe_end, right_pid);
 	parent_pipe_exec_control(node, pipe_end, right_pid);
 }

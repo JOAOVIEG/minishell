@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:32:30 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 15:53:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/16 23:37:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,20 @@ void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
 
 void	execute_right_node(t_node *node, int pipe_end[2])
 {
-	if (node->fd_in)
+	if (node->right->fd_in && !node->right->cmd->heredoc)
+	{
 		close(node->right->fd_in);
-	node->right->fd_in = pipe_end[0];
+		node->right->fd_in = pipe_end[0];
+	}
+	else if (node->right->cmd->heredoc)
+	{
+		close(pipe_end[0]);
+		close(node->right->fd_in);
+		dup(STDIN_FILENO);
+	}
+	else
+		dup2(node->right->fd_in, STDIN_FILENO);
 	close(pipe_end[1]);
-	dup2(node->right->fd_in, STDIN_FILENO);
 	ft_execute(node->right);
 	close(node->right->fd_in);
 	close(pipe_end[0]);
@@ -62,6 +71,7 @@ void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid)
 	else if (right_pid == 0)
 	{
 		shell()->status = EXIT_SUCCESS;
+		assign_fds(node->right);
 		execute_right_node(node, pipe_end);
 	}
 }
