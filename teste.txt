@@ -27,23 +27,23 @@ chmod 000 nomedoficheiro OK e >nomedoficheiro ou <nomedoficheiro NOK
 To test builtins
 env ficheiro (invalid file) NOK
 export var+=content \\ concatonates variable
-export var-=content \\ invalid var
-export _=content \\ valid but content does not change
-export _1=content \\ valid 
+export _=content \\ valid but content does not change ok
+
+
+
 export 1var=contetn \\ invalid (cannot start with number) OK
 export 1VAR=invalid  # Variable names cannot start with a number OK
 export VAR-8=invalid  # Variable names cannot contain hyphens OK
-export VAR 9=invalid  # Variable names cannot contain spaces OK
 export VAR!0=invalid  # Variable names cannot contain special characters OK
-export for=invalid  # Variable names cannot be reserved keywords OK
 
-export VAR1=value1 OK
-export VAR2="value with spaces" NOT OK
-export VAR3='value with single quotes' not OK
-export VAR4=""
-export VAR5=
-export _VAR6=value6
-export VAR7_VAR7=value7
+
+export VAR1=value1  ok
+export VAR2="value with spaces" ok
+export VAR3='value with single quotes' ok
+export VAR4="" ok
+export VAR5= ok
+export _VAR6=value6 ok
+export VAR7_VAR7=value7 ok
 
 
 export abc=1234

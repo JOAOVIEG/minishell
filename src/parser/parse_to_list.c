@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/16 21:01:19 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:09:54 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	parse_to_list(t_lexer *lexer, t_parser *parser)
 	while (lexer->tokens[i] != NULL)
 	{
 		add_to_end(&head, lexer->tokens[i]);
+		add_to_end(&q_lst()->token, lexer->tokens[i]);
 		i++;
 	}
 	parser->tokens = head;

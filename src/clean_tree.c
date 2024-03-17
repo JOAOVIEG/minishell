@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/16 21:02:01 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:54:14 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,6 @@ void	reset_parser_and_tree(void)
 		reset_parser(shell()->parser);
 	if (shell()->node)
 		reset_tree();
+	if (q_lst()->token)
+		free_lst_tokens(q_lst()->token);
 }

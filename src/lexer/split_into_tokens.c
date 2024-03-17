@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_into_tokens.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/01 10:49:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:14:28 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,35 @@ void	process_token(char **tokens, char *input, int *iac)
 			tokens[(*iac)++] = create_token(input, start, i);
 	}
 }
+char	*preprocess_input(const char *input)
+{
+	char	*new_input;
+	int		i;
+	int		j;
+
+	new_input = malloc((strlen(input) * 2 + 1) * sizeof(char));
+	if (!new_input)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (input[i])
+	{
+		if (input[i] == '=' && input[i + 1] == ' ' && (input[i + 2] == '\''
+				|| input[i + 2] == '\"'))
+		{
+			new_input[j++] = '=';
+			new_input[j++] = '_';
+			new_input[j++] = input[i + 2];
+			i += 3;
+		}
+		else
+		{
+			new_input[j++] = input[i++];
+		}
+	}
+	new_input[j] = '\0';
+	return (new_input);
+}
 
 char	**split_into_tokens(t_lexer *lexer)
 {
@@ -58,7 +87,7 @@ char	**split_into_tokens(t_lexer *lexer)
 	char	**tokens;
 
 	iac = 0;
-	input = ft_strdup(lexer->input);
+	input = preprocess_input(lexer->input);
 	tokens = allocate_memory_for_tokens(lexer->input_size);
 	process_token(tokens, input, &iac);
 	tokens[iac] = NULL;

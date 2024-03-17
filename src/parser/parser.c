@@ -6,11 +6,18 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/16 21:08:14 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:13:09 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_quote_lst	*q_lst(void)
+{
+	static t_quote_lst	quote_lst;
+
+	return (&quote_lst);
+}
 
 t_parser	*init_parser(void)
 {
@@ -35,7 +42,6 @@ void	remove_quotes(t_parser *parser)
 	t_lst_tokens	*head;
 
 	head = parser->tokens;
-	current = head;
 	while (current)
 	{
 		if (current->type == TYPE_ARG || current->type == TYPE_COMMAND)
@@ -58,9 +64,10 @@ void	parser(t_shell *shell)
 	{
 		make_expansion(shell);
 		get_token_type(shell->parser->tokens);
+		get_token_type(q_lst()->token);
 		remove_quotes(shell->parser);
-		//print_list(shell->parser->tokens);
+		//print_list(q_lst()->token);
 		build_tree(shell);
 	}
-	//reset_parser(shell->parser);
+	// reset_parser(shell->parser);
 }
