@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 15:21:19 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:51:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,22 @@ void	status_error(char *what, char *message, int	fd);
 int		count_redir(t_node *node);
 void	append_f(t_node *node, int i);
 char	*append_char_to_buffer(char *buffer, size_t *buffer_size, char ch);
+void	heredoc_dad(t_node *node, pid_t heredoc_pid, int k_fd[2], int k);
+void	heredoc_son(t_node *node, int k_fd[2], int k, int i);
+void	fork_check(pid_t heredoc_pid);
+void	create_file(t_node *node);
+void	invalid_cmd_path(t_node *node, char **env);
+int		no_cmd_check(t_node *node, char **env);
+int		file_redir(t_node *node, int i);
+void	heredoc_cmd_son(t_node *node);
+void	do_heredoc_proccess(t_node *node, char **env, int i);
+void	heredoc_here(t_node *node, char **env, int i);
+void	builtin_check(t_node *node);
+void	builtin_proccess(t_node *node);
+void	redir_check(t_node *node, int i);
+void	do_builtin_file_handle(t_node *node);
+void	builtin_heredoc_dad(t_node *node, int k_fd[2], int i, int k);
+void	builtin_heredoc_child(t_node *node, int i);
+void	heredoc_builtin_here(t_node *node, pid_t pid, int i);
+
 #endif

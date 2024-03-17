@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 15:33:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 16:14:42 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,74 +54,30 @@ int	is_dir(t_node *node)
 
 void	no_cmd_file_redir(t_node *node)
 {
-	int		num_heredocs;
-	pid_t	heredoc_pid; //get number of heredocs for size
+	pid_t	heredoc_pid;
 	int		i;
-	int		j;
 	int		k;
-	num_heredocs = count_redir(node);
+	int		k_fd[2];
+
+	k = 1;
+	i = 0;
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc)
 	{
-		int	k_fd[2];
 		if (pipe(k_fd) == -1) 
 		{
 			perror("pipe");
 			exit_shell(EXIT_FAILURE);
 		}
-		k = 1;
-		i = 0;
-		j = 0;
 		heredoc_pid = fork();
-		if (heredoc_pid < 0)
-		{
-			perror("Error forking");
-			shell()->status = EXIT_FAILURE;
-			exit_shell(shell()->status);
-		}
+		fork_check(heredoc_pid);
 		if (heredoc_pid == 0)
-		{
-			close(k_fd[0]);
-			while (k <= num_heredocs)
-			{
-				if (node->fd_in)
-					close(node->fd_in);
-				heredoc_check(node, j);
-				write(k_fd[1], &k, sizeof(k));
-				close(k_fd[1]);
-				j += 2;
-				k++;
-			}
-			close(node->fd_in);
-			if (node->fd_out)
-				close(node->fd_out);
-			if (node->cmd->file && *node->cmd->file)
-			{
-				i = 0;
-				while (node->cmd->file[i])
-					handle_file_redir(node, i++);
-			}
-			child_control(node);
-		}
+			heredoc_son(node, k_fd, k, i);
 		else
-		{
-			close(k_fd[1]);
-			read(k_fd[0], &k, sizeof(k));
-			close(k_fd[0]);
-			parent_control(node, heredoc_pid);
-			k++;
-		}
+			heredoc_dad(node, heredoc_pid, k_fd, k);
 	}
 	else if (node->cmd->arg[0] == NULL && node->cmd->file \
 										&& *node->cmd->file)
-	{
-		i = 0;
-		while (node->cmd->file[i])
-		{
-			node->fd_in = dup(STDIN_FILENO);
-			node->fd_out = dup(STDOUT_FILENO);
-			handle_file_redir(node, i++);
-		}
-	}
+		create_file(node);
 }
 
 void	assign_fds(t_node *node)

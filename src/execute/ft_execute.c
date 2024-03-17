@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 00:24:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:05:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,17 @@ void	ft_execute(t_node *node)
 	if (node->type == TYPE_PIPE)
 		ft_exec_piped(node);
 }
-/*test THIS cases
 
-
-minishell:$ <<end | <<out <<i
-out
-i
-end
-minishell:$ <<end | <<out |<< a
-a
-out
-end
-minishell:$ <<end | <<out |<< a
-end
-minishell:$ <<end | <<out |<< a
-out
-a
-end
-minishell:$ <<end | <<out |<< a
-end
-minishell:$ 
-
-
-
-*/
-
-//TODO: CORRECT MULTIPLE HEREDOCS FOR EXECMD AND EXEC_BUILTIN
+void	heredoc_builtin_here(t_node *node, pid_t pid, int i)
+{
+	if (pid < 0)
+	{
+		perror("Error forking");
+		shell()->status = EXIT_FAILURE;
+		exit_shell(shell()->status);
+	}
+	else if (pid == 0)
+		builtin_heredoc_child(node, i);
+	else
+		parent_control(node, pid);
+}

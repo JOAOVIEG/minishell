@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:06:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 15:29:06 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 16:29:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	error_msg(void)
 	perror("ERROR");
 	end_shell();
 	shell()->status = EXIT_FAILURE;
-	return (-1);
+	exit(shell()->status);
 }
 
 void	*ft_my_realloc(void *ptr, size_t size)
