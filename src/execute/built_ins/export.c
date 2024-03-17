@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 07:22:20 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/17 07:46:33 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	export(char **arg)
 		if (equal)
 		{
 			name = get_var_name(arg[i], equal);
-			value = ft_strdup(arg[i+1]);
+			if (equal +1)
+				value = ft_strdup(equal + 1);
+			else
+				value = ft_strdup(arg[i+1]);
 		}
 		shell()->v_env = update_envl(env, new, name, value);
 	}
