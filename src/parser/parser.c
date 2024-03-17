@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/15 19:03:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:08:14 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	parser(t_shell *shell)
 		make_expansion(shell);
 		get_token_type(shell->parser->tokens);
 		remove_quotes(shell->parser);
+		//print_list(shell->parser->tokens);
 		build_tree(shell);
 	}
 	//reset_parser(shell->parser);

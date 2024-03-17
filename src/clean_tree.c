@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/15 18:57:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:02:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	reset_tree(void)
 
 void	reset_parser_and_tree(void)
 {
+	if (shell()->lexer)
+		reset_lexer(shell()->lexer);
 	if (shell()->parser)
 		reset_parser(shell()->parser);
 	if (shell()->node)
