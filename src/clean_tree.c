@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 12:48:06 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:07:10 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	reset_tree(void)
 {
 	if (shell()->node)
 		free_tree_node(&shell()->node);
-// 	reset_parser(shell()->parser);
+	// reset_parser(shell()->parser);
 }
 
 void	reset_parser_and_tree(void)
@@ -62,7 +62,5 @@ void	reset_parser_and_tree(void)
 	if (shell()->parser)
 		reset_parser(shell()->parser);
 	if (shell()->node)
-		reset_tree();
-	// if (q_lst()->token)
-	// 	free_lst_tokens(q_lst()->token);
+		free_tree_node(&shell()->node);
 }

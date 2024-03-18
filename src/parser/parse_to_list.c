@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 21:02:10 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:16:05 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,21 @@ void	count_pipe_redir(t_parser *parser)
 void	parse_to_list(t_lexer *lexer, t_parser *parser)
 {
 	t_lst_tokens	*head;
+	t_lst_tokens	*q_head;
 	int				i;
 
 	head = NULL;
+	q_head = NULL;
 	i = 0;
 	while (lexer->tokens[i] != NULL)
 	{
 		add_to_end(&head, lexer->tokens[i]);
-		add_to_end(&q_lst()->token, lexer->tokens[i]);
+		add_to_end(&q_head, lexer->tokens[i]);
 		i++;
 	}
 	parser->tokens = head;
+	parser->q_tokens = q_head;
 	get_token_type(parser->tokens);
+	get_token_type(parser->q_tokens);
 	count_pipe_redir(parser);
 }

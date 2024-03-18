@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 12:52:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:26:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*find_quoted_value(char *value)
 	t_lst_tokens	*current;
 	char			*unq_data;
 
-	head = q_lst()->token;
+	head = shell()->parser->q_tokens;
 	current = head;
 	while (current)
 	{
@@ -87,6 +87,8 @@ void	handle_export_with_args(char **arg, t_exp_buff *exp_buff, t_env **new)
 		}
 		else
 			exp_buff->value = ft_strdup("");
+		printf("value: %s\n", exp_buff->value);
+		printf("name: %s\n", exp_buff->name);
 		exp_buff->name = ft_strtrim(exp_buff->name, "_");
 		exp_buff->name = ft_strtrim(exp_buff->name, "=");
 	}

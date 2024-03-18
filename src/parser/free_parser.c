@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:20:44 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/11 18:05:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:07:38 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	reset_parser(t_parser *parser)
 {
 	if (parser->tokens)
 		free_lst_tokens(parser->tokens);
+	if (parser->q_tokens)
+		free_lst_tokens(parser->q_tokens);
 	parser->tokens = NULL;
 	parser->pipe_count = 0;
 	parser->redir_count = 0;
