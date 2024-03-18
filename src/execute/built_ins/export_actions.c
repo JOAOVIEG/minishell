@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   choose_export_action.c                             :+:      :+:    :+:   */
+/*   export_actions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:43:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 20:46:35 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:13:40 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	choose_export_action(t_exp_buff *exp_buff, t_env *env, t_env *new)
 		handle_export_var_error(exp_buff);
 		return (1);
 	}
-	if (ft_strchr(exp_buff->name, '+'))
+	if (exp_buff->name && ft_strchr(exp_buff->name, '+'))
 	{
 		exp_buff->name = ft_strtrim(exp_buff->name, "+");
 		concatonate_and_update(env, new, exp_buff->name, exp_buff->value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utilis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:13:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/08 14:36:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:12:09 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,18 @@ void	free_env(void)
 	while (current)
 	{
 		next = current->next;
-		free(current->name);
-		current->name = NULL;
-		free(current->value);
-		current->value = NULL;
+		if (current->name)
+		{
+			free(current->name);
+			current->name = NULL;
+		}
+		if (current->value)
+		{
+			free(current->value);
+			current->value = NULL;
+		}
 		free(current);
+		current = NULL;
 		current = next;
 	}
 	shell()->v_env = NULL;

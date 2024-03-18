@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 16:36:52 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:01:28 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ char	*find_quoted_value(char *value)
 	current = head;
 	while (current)
 	{
-		if ((current->type == TYPE_ARG && current->data[0] == '\'')
-				|| (current->type == TYPE_ARG && current->data[0] == '"'))
+		if (current->data[0] == '\'' || current->data[0] == '"')
 		{
 			new_value = ft_strdup(current->data);
 			if (new_value[0] == '\'')
@@ -77,10 +76,8 @@ void	handle_export_with_args(char **arg, t_exp_buff *exp_buff, t_env **new)
 		if (exp_buff->name[(find_char_index(exp_buff->name, '=')) + 1] == '\0')
 		{
 			exp_buff->value = ft_strdup(find_quoted_value(arg[2]));
-			printf("value8888888: %s\n", exp_buff->value);
 			if (exp_buff->value[0] == '\'' || exp_buff->value[0] == '\"')
 			{
-				printf("here\n");
 				exp_buff->value = ft_strtrim(exp_buff->value, "'");
 				exp_buff->value = ft_strtrim(exp_buff->value, "\"");
 			}
@@ -92,8 +89,6 @@ void	handle_export_with_args(char **arg, t_exp_buff *exp_buff, t_env **new)
 		}
 		else
 			exp_buff->value = ft_strdup("");
-		printf("value: %s\n", exp_buff->value);
-		printf("name: %s\n", exp_buff->name);
 		exp_buff->name = ft_strtrim(exp_buff->name, "_");
 		exp_buff->name = ft_strtrim(exp_buff->name, "=");
 	}
@@ -109,7 +104,11 @@ void	export(char **arg)
 	init_exp_buff(&exp_buff);
 	env = shell()->v_env;
 	if (!arg[1])
+	{
 		display_exp_var(env);
+		shell()->status = EXIT_SUCCESS;
+		return ;
+	}
 	else if (arg[1] && !arg[2])
 	{
 		exp_buff.equal = get_equal(arg[1]);

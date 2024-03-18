@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 16:06:29 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:47:48 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	parser(t_shell *shell)
 	{
 		make_expansion(shell);
 		get_token_type(shell->parser->tokens);
-		print_list(shell->parser->q_tokens);
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}
