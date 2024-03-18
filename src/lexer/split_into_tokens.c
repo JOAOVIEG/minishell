@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 16:00:51 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:08:02 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	**split_into_tokens(t_lexer *lexer)
 
 	iac = 0;
 	input = preprocess_input(lexer->input);
+	printf("input: %s\n", input);
 	tokens = allocate_memory_for_tokens(lexer->input_size);
 	process_token(tokens, input, &iac);
 	tokens[iac] = NULL;

@@ -5,12 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/18 16:00:19 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/18 16:02:50 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/18 16:03:00 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "../../../includes/minishell.h"
 
@@ -54,7 +52,6 @@ void	reset_tree(void)
 {
 	if (shell()->node)
 		free_tree_node(&shell()->node);
-	// reset_parser(shell()->parser);
 }
 
 void	reset_parser_and_tree(void)
