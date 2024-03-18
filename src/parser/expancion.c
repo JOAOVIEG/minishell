@@ -6,37 +6,37 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:49:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 21:04:36 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:47:44 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	env_var_not_found(t_env_var_replacement *replacement, char *trimmed)
+void	env_n_found(t_env_var_replacement *rplcmnt, char *trimmed)
 {
 	char	*new_data;
 
-	replacement->value = "";
-	new_data = create_env_data(replacement);
-	free((*(replacement->current))->data);
-	(*(replacement->current))->data = new_data;
-	free(replacement->substring);
+	rplcmnt->value = "";
+	new_data = create_env_data(rplcmnt);
+	free((*(rplcmnt->current))->data);
+	(*(rplcmnt->current))->data = new_data;
+	free(rplcmnt->substring);
 	free(trimmed);
 }
 
-void	make_the_replacement(t_env_var_replacement *replacement, char *trimmed)
+void	make_rplcmnt(t_env_var_replacement *rplcmnt, char *trimmed)
 {
 	char	*new_data;
 
-	new_data = create_env_data(replacement);
-	free((*(replacement->current))->data);
-	(*(replacement->current))->data = new_data;
-	if (replacement->substring)
-		free(replacement->substring);
-	if (replacement->end)
-		replacement->end = NULL;
-	if (replacement->start)
-		replacement->start = NULL;
+	new_data = create_env_data(rplcmnt);
+	free((*(rplcmnt->current))->data);
+	(*(rplcmnt->current))->data = new_data;
+	if (rplcmnt->substring)
+		free(rplcmnt->substring);
+	if (rplcmnt->end)
+		rplcmnt->end = NULL;
+	if (rplcmnt->start)
+		rplcmnt->start = NULL;
 	if (trimmed)
 		free(trimmed);
 }
@@ -55,17 +55,17 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 	if (ft_strncmp(trimmed, "?", 1) == 0)
 	{
 		replacement.value = ft_itoa(shell()->status);
-		make_the_replacement(&replacement, trimmed);
+		make_rplcmnt(&replacement, trimmed);
 		free(replacement.value);
 		return ;
 	}
 	else if (find_env_value(env, trimmed))
 	{
 		replacement.value = find_env_value(env, trimmed);
-		make_the_replacement(&replacement, trimmed);
+		make_rplcmnt(&replacement, trimmed);
 		return ;
 	}
-	env_var_not_found(&replacement, trimmed);
+	env_n_found(&replacement, trimmed);
 }
 
 void	replace_env_var_in_token(t_lst_tokens **current, t_env *env)
