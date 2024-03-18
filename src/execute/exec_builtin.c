@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 18:16:47 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 08:14:51 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	parent_control(t_node *node, pid_t pid)
 	if (node->fd_in && node->fd_out)
 		close_fds(node->fd_in, node->fd_out);
 	if (node->fd_in)
-		close(node->fd_in); 
+		close(node->fd_in);
 	if (node->fd_out)
 		close(node->fd_out);
 	waitpid(pid, &status, 0);

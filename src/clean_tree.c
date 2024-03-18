@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 10:10:26 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:57:11 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	reset_parser_and_tree(void)
 		reset_parser(shell()->parser);
 	if (shell()->node)
 		reset_tree();
-	if (q_lst()->token)
-		free_lst_tokens(q_lst()->token);
+	// if (q_lst()->token)
+	// 	free_lst_tokens(q_lst()->token);
 }

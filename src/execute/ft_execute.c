@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 12:29:26 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:23:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ void	ft_exec_piped(t_node *node)
 			shell()->status = WEXITSTATUS(l_status);
 	}
 	right_pid = fork();
+	if (left_pid > 0 && !node->left->cmd->heredoc)
+		parent_pipe_exec_control(node, pipe_end, left_pid);
 	right_node_process(node, pipe_end, right_pid);
 	parent_pipe_exec_control(node, pipe_end, right_pid);
-	if (left_pid > 0 && !node->left->cmd->heredoc)
-	{
-		waitpid(left_pid, &l_status, 0);
-		if (WIFEXITED(l_status))
-			shell()->status = WEXITSTATUS(l_status);
-	}
 }
 
 void	heredoc_check(t_node *node, int i)

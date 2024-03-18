@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/14 17:00:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:57:41 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	cd(char *path)
 		update_oldpwd(oldpwd_var, oldpwd);
 	free(oldpwd);
 }
-
 
 char	*get_home_var(char *path)
 {

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 12:35:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:01:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ t_parser	*init_parser(void)
 void	remove_quotes(t_parser *parser)
 {
 	t_lst_tokens	*current;
-	// t_lst_tokens	*head;
+	t_lst_tokens	*head;
 
-	current = parser->tokens;
+	head = parser->tokens;
+	current = head;
 	while (current)
 	{
 		if (current->type == TYPE_ARG || current->type == TYPE_COMMAND)
@@ -53,7 +54,7 @@ void	remove_quotes(t_parser *parser)
 		}
 		current = current->next;
 	}
-	parser->tokens = current;
+	parser->tokens = head;
 }
 
 void	parser(t_shell *shell)
@@ -66,8 +67,6 @@ void	parser(t_shell *shell)
 		get_token_type(shell->parser->tokens);
 		get_token_type(q_lst()->token);
 		remove_quotes(shell->parser);
-		//print_list(q_lst()->token);
 		build_tree(shell);
 	}
-	// reset_parser(shell->parser);
 }

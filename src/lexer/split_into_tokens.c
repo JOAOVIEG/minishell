@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_into_tokens.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 19:14:28 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:32:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,14 @@ void	process_token(char **tokens, char *input, int *iac)
 			tokens[(*iac)++] = create_token(input, start, i);
 	}
 }
+
 char	*preprocess_input(const char *input)
 {
 	char	*new_input;
 	int		i;
 	int		j;
 
-	new_input = malloc((strlen(input) * 2 + 1) * sizeof(char));
-	if (!new_input)
-		return (NULL);
+	new_input = ft_calloc(ft_strlen(input), sizeof(char));
 	i = 0;
 	j = 0;
 	while (input[i])

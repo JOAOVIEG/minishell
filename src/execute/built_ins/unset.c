@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:20:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/10 13:00:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:57:04 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	unset(char **arg)
 {
 	char	**env;
 	int		i;
-	int 	j;
-	
+	int		j;
+
 	i = 1;
 	env = env_list_to_arr();
 	while (arg[i])
@@ -25,7 +25,8 @@ int	unset(char **arg)
 		j = 0;
 		while (env[j])
 		{
-			if(ft_strnstr(env[j], arg[i], (ft_strchr(env[j], '=') - env[j])) != NULL)
+			if (ft_strnstr(env[j], arg[i], (ft_strchr(env[j], '=')
+						- env[j])) != NULL)
 			{
 				free(env[j]);
 				backshift(env, j);
@@ -42,7 +43,7 @@ int	unset(char **arg)
 
 void	backshift(char **env, int start)
 {
-	int k;
+	int	k;
 
 	k = start;
 	while (env[k])

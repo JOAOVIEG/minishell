@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:13:14 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/05 14:08:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:57:21 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-
 void	env(void)
 {
-	t_env *tmp;
-	
+	t_env	*tmp;
+
 	tmp = shell()->v_env;
 	while (tmp)
 	{

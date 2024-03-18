@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 10:09:27 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:28:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ int	main(int argc, char **argv, char **envp)
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
-		// printf("%d\n", shell()->parser->heredoc_count);
 		if (shell()->node)
 			ft_execute(shell()->node);
+		reset_parser_and_tree();
 	}
-	reset_parser_and_tree();
-	close_fds(shell()->node->fd_in, shell()->node->fd_out);
+	// close_fds(shell()->node->fd_in, shell()->node->fd_out);
 	rl_clear_history();
 	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 12:28:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 15:30:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 08:15:38 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	get_file(t_node *node)
 													STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
-		else 
+		else
 		{
 			node->fd_out = open(node->cmd->file[1], \
 							O_WRONLY | O_CREAT | O_TRUNC, 0644);
