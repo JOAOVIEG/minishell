@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:26:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 21:06:59 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 08:14:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_env	*find_env_var(t_env *env, char *name)
 	}
 	return (NULL);
 }
+
 void	get_var(t_env *new, char *envp, char *equal_pos)
 {
 	new->name = ft_strndup(envp, (equal_pos - envp));

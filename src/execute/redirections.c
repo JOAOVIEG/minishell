@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 20:10:11 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 08:17:05 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	no_cmd_file_redir(t_node *node)
 	i = 0;
 	if (node->cmd->arg[0] == NULL && node->cmd->heredoc)
 	{
-		if (pipe(k_fd) == -1) 
+		if (pipe(k_fd) == -1)
 		{
 			perror("pipe");
 			exit_shell(EXIT_FAILURE);

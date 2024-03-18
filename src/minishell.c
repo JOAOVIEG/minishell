@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/15 18:58:32 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 08:16:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	main(int argc, char **argv, char **envp)
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
-		// printf("%d\n", shell()->parser->heredoc_count);
 		if (shell()->node)
 			ft_execute(shell()->node);
 		reset_parser_and_tree();
