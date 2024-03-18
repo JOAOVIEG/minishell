@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:20:44 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 17:23:42 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:32:35 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,4 @@ void	free_parser(t_parser *parser)
 	}
 	free(parser);
 	parser = NULL;
-
 }

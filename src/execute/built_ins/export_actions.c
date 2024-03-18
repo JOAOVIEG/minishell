@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:43:01 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 17:13:40 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:38:53 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ t_env	*update_envl(t_env *env, t_env *new, char *name, char *value)
 
 int	choose_export_action(t_exp_buff *exp_buff, t_env *env, t_env *new)
 {
+	char	*name;
+	char	*value;
+
 	if (exp_buff->name[0] == '_' && exp_buff->name[1] == '\0')
 	{
 		export_does_nothing(exp_buff);
@@ -81,6 +84,10 @@ int	choose_export_action(t_exp_buff *exp_buff, t_env *env, t_env *new)
 		concatonate_and_update(env, new, exp_buff->name, exp_buff->value);
 	}
 	else
-		shell()->v_env = update_envl(env, new, exp_buff->name, exp_buff->value);
+	{
+		name = exp_buff->name;
+		value = exp_buff->value;
+		shell()->v_env = update_envl(env, new, name, value);
+	}
 	return (0);
 }
