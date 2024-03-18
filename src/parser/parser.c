@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 21:05:22 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:51:18 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	remove_quotes(t_parser *parser)
 	t_lst_tokens	*head;
 
 	head = parser->tokens;
+	current = head;
 	while (current)
 	{
 		if (current->type == TYPE_ARG || current->type == TYPE_COMMAND)

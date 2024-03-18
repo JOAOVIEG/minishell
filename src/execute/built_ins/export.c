@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 20:55:35 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:52:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ void	export(char **arg)
 	t_env		*new;
 	t_exp_buff	exp_buff;
 
+	new = NULL;
 	init_exp_buff(&exp_buff);
 	env = shell()->v_env;
 	if (!arg[1])
 		display_exp_var(env);
 	else if (arg[1] && !arg[2])
 	{
-		new = NULL;
 		exp_buff.equal = get_equal(arg[1]);
 		handle_equal(arg, &exp_buff.name, &exp_buff.value, exp_buff.equal);
 	}

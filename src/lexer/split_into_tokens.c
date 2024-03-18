@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_into_tokens.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 08:23:32 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:49:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*preprocess_input(const char *input)
 	int		i;
 	int		j;
 
-	new_input = ft_calloc_memory(input);
+	new_input = ft_calloc(ft_strlen(input), sizeof(char));
 	i = 0;
 	j = 0;
 	while (input[i])
