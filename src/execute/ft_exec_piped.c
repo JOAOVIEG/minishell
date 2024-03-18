@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:32:30 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/16 23:37:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:15:00 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	execute_right_node(t_node *node, int pipe_end[2])
 	{
 		close(pipe_end[0]);
 		close(node->right->fd_in);
-		dup(STDIN_FILENO);
+		node->right->fd_in = dup(STDIN_FILENO);
 	}
 	else
 		dup2(node->right->fd_in, STDIN_FILENO);
