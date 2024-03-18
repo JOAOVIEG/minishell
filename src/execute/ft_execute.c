@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 16:12:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:16:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,3 +102,5 @@ int	reads_from_stdin(t_node *node)
 		return (1);
 	return (0);
 }
+
+// ls | echo Hello | <<end | pwd | wc -l
