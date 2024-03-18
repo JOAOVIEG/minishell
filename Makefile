@@ -6,12 +6,80 @@ INC_DIR = includes
 SRC_DIR = src
 OBJ_DIR = obj
 		
-SRC = $(wildcard $(SRC_DIR)/*.c) \
-      $(wildcard $(SRC_DIR)/lexer/*.c) \
-      $(wildcard $(SRC_DIR)/parser/*.c) \
-      $(wildcard $(SRC_DIR)/execute/built_ins/*.c) \
-      $(wildcard $(SRC_DIR)/execute/env/*.c) \
-	  $(wildcard $(SRC_DIR)/execute/*.c)
+SRC := $(addprefix $(SRC_DIR)/, \
+    minishell.c \
+    clean_tree.c \
+    end_shell.c \
+) \
+$(addprefix $(SRC_DIR)/lexer/, \
+    create_token.c \
+    free_lexer.c \
+    lexer.c \
+    process_tokens.c \
+    process_tokens_utils.c \
+    split_into_tokens.c \
+) \
+$(addprefix $(SRC_DIR)/parser/, \
+    add_to_history.c \
+    ast.c \
+    buffer_utils.c \
+    build_ast_heredoc.c \
+    build_ast_piped_cmd.c \
+    build_ast_redir_cmd.c \
+    build_ast_simple_cmd.c \
+    build_ast_utils_00.c \
+    build_ast_utils_01.c \
+    build_ast_utils_02.c \
+    expancion.c \
+    expancion_utils.c \
+    expansion_hd.c \
+    free_parser.c \
+    get_token_type.c \
+    grammar.c \
+    grammar_env_var.c \
+    grammar_here_document.c \
+    grammar_quotes.c \
+    grammar_redirection.c \
+    grammar_utils.c.c \
+    handle_signals.c \
+    lst_tokens_utils.c \
+    parser.c \
+    parse_to_list.c \
+    print_tree.c \
+) \
+$(addprefix $(SRC_DIR)/execute/built_ins/, \
+    cd.c \
+    echo.c \
+    env.c \
+    exit.c \
+    export_actions.c \
+    export_actions_utils.c \
+    export_buffer.c \
+    export.c \
+    export_grammar.c \
+    export_utilis.c \
+    pwd.c \
+    unset.c \
+) \
+$(addprefix $(SRC_DIR)/execute/env/, \
+    env_init.c \
+) \
+$(addprefix $(SRC_DIR)/execute/, \
+    exec_builtin1.c \
+    exec_builtin.c \
+    exec_cmd.c \
+    exec_cmd_utilis.c \
+    free_utilis.c \
+    ft_exec_piped.c \
+    ft_execute.c \
+    ft_utilis1.c \
+    ft_utilis2.c \
+    ft_utilis.c \
+    heredoc.c \
+    redirections1.c \
+    redirections.c \
+    simple_cmds_utilis.c \
+)
 
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
