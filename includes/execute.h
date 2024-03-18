@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 13:54:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:26:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,5 @@ int					choose_export_action(t_exp_buff *exp_buff, t_env *env,
 void				concatonate_and_update(t_env *env, t_env *new, char *name,
 						char *value);
 void				handle_export_var_error(t_exp_buff *exp_buff);
+void				updt_envl(t_exp_buff *exp_buff, t_env *env, t_env *new);
 #endif
