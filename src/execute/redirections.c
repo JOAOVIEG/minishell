@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 08:17:05 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:32:54 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	no_cmd_file_redir(t_node *node)
 			heredoc_dad(node, heredoc_pid, k_fd, k);
 	}
 	else if (node->cmd->arg[0] == NULL && node->cmd->file \
-										&& *node->cmd->file)
+							&& *node->cmd->file)
 		create_file(node);
 }
 

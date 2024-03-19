@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 16:10:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:32:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void				parent_exec_control(t_node *node, pid_t pid, char **env);
 void				free_paths(t_node *node);
 void				child_exec_process(t_node *node, char **env);
 void				run_path_process(t_node *node, pid_t pid, char **env);
-void				parent_pipe_exec_control(t_node *node, int pipe_end[2],
-						pid_t right_pid);
+void				parent_pipe_exec_control(t_node *node, int pipe_end[2], \
+					pid_t right_pid, pid_t left_pid);
 void				execute_right_node(t_node *node, int pipe_end[2]);
 void				execute_left_node(t_node *node, int pipe_end[2]);
 void				right_node_process(t_node *node, int pipe_end[2],
@@ -98,8 +98,7 @@ int					count_redir(t_node *node);
 void				append_f(t_node *node, int i);
 char				*append_char_to_buffer(char *buffer, size_t *buffer_size,
 						char ch);
-void				heredoc_dad(t_node *node, pid_t heredoc_pid, int k_fd[2],
-						int k);
+void				heredoc_dad(t_node *node, pid_t heredoc_pid, int k_fd[2], int k);
 void				heredoc_son(t_node *node, int k_fd[2], int k, int i);
 void				fork_check(pid_t heredoc_pid);
 void				create_file(t_node *node);
@@ -129,5 +128,5 @@ int					choose_export_action(t_exp_buff *exp_buff, t_env *env,
 void				concatonate_and_update(t_env *env, t_env *new, char *name,
 						char *value);
 void				handle_export_var_error(t_exp_buff *exp_buff);
-int					reads_from_stdin(t_node *node);
+void				updt_envl(t_exp_buff *exp_buff, t_env *env, t_env *new);
 #endif

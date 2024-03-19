@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 15:54:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:04:44 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,10 @@ typedef struct s_env_var_replacement
 	char						*substring;
 }								t_env_var_replacement;
 
-typedef struct s_quote_lst
-{
-	t_lst_tokens				*token;
-}								t_quote_lst;
-
 typedef struct s_parser
 {
 	t_lst_tokens				*tokens;
+	t_lst_tokens				*q_tokens;
 	int							pipe_count;
 	int							redir_count;
 	int							heredoc_count;
@@ -96,7 +92,6 @@ typedef struct s_parser
 }								t_parser;
 
 t_parser						*init_parser(void);
-t_quote_lst						*q_lst(void);
 
 void							add_to_end(t_lst_tokens **head, char *data);
 

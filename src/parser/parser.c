@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 13:01:15 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:47:48 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_quote_lst	*q_lst(void)
-{
-	static t_quote_lst	quote_lst;
+// t_quote_lst	*q_lst(void)
+// {
+// 	static t_quote_lst	quote_lst;
 
-	return (&quote_lst);
-}
+// 	return (&quote_lst);
+// }
 
 t_parser	*init_parser(void)
 {
@@ -30,6 +30,7 @@ t_parser	*init_parser(void)
 		exit(EXIT_FAILURE);
 	}
 	parser->tokens = NULL;
+	parser->q_tokens = NULL;
 	parser->pipe_count = 0;
 	parser->redir_count = 0;
 	parser->heredoc_count = 0;
@@ -45,13 +46,10 @@ void	remove_quotes(t_parser *parser)
 	current = head;
 	while (current)
 	{
-		if (current->type == TYPE_ARG || current->type == TYPE_COMMAND)
-		{
-			if (current->data[0] == '\'')
-				current->data = ft_strtrim(current->data, "\'");
-			else if (current->data[0] == '"')
-				current->data = ft_strtrim(current->data, "\"");
-		}
+		if (current->data[0] == '\'')
+			current->data = ft_strtrim(current->data, "\'");
+		else if (current->data[0] == '"')
+			current->data = ft_strtrim(current->data, "\"");
 		current = current->next;
 	}
 	parser->tokens = head;
@@ -65,7 +63,6 @@ void	parser(t_shell *shell)
 	{
 		make_expansion(shell);
 		get_token_type(shell->parser->tokens);
-		get_token_type(q_lst()->token);
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}

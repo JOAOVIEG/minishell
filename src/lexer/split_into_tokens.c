@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_into_tokens.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 14:32:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:05:47 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ char	*preprocess_input(const char *input)
 	int		i;
 	int		j;
 
-	new_input = ft_calloc(ft_strlen(input), sizeof(char));
+	new_input = ft_calloc(ft_strlen(input) + 1, sizeof(char));
+	if (!new_input)
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (input[i])
@@ -71,9 +73,7 @@ char	*preprocess_input(const char *input)
 			i += 3;
 		}
 		else
-		{
 			new_input[j++] = input[i++];
-		}
 	}
 	new_input[j] = '\0';
 	return (new_input);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 18:15:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 15:30:02 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/18 16:02:50 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/03/18 16:03:00 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	reset_parser_and_tree(void)
 	if (shell()->parser)
 		reset_parser(shell()->parser);
 	if (shell()->node)
-		reset_tree();
+		free_tree_node(&shell()->node);
 }
