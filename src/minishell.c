@@ -32,7 +32,8 @@ void	read_input(void)
 	shell()->line = readline(rprompt);
 	if (!shell()->line)
 	{
-		ft_putstr_fd("exit\n", 1);
+		if (isatty(0))
+			ft_putstr_fd("exit\n", 2);
 		exit_shell(EXIT_SUCCESS);
 	}
 	else
