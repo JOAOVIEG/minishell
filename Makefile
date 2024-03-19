@@ -76,6 +76,7 @@ $(addprefix $(SRC_DIR)/execute/, \
     ft_utilis2.c \
     ft_utilis.c \
     heredoc.c \
+	heredoc_piped.c \
     redirections1.c \
     redirections.c \
     simple_cmds_utilis.c \

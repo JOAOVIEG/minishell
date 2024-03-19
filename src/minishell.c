@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 15:30:24 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:17:23 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		handle_signal(SIG_DEFAULT);
+		shell()->pipe_call = 0;
 		read_input();
 		add_history(shell()->line);
 		parser(shell());

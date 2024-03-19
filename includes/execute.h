@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 21:32:22 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:15:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,7 @@ void				concatonate_and_update(t_env *env, t_env *new, char *name,
 						char *value);
 void				handle_export_var_error(t_exp_buff *exp_buff);
 void				updt_envl(t_exp_buff *exp_buff, t_env *env, t_env *new);
+
+t_node				*btree_search_item(t_node *root, char *data_ref, int (*cmpf)(char *,
+					char *));
 #endif
