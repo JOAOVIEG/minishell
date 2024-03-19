@@ -1,0 +1,56 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [206]
+|  CMD: ->""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: : command not found$<-
+|
+|--- COMPARED STR:
+| ->: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [207]
+|  CMD: ->" "<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  : command not found$<-
+|
+|--- COMPARED STR:
+| -> : command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -> : command not found$<-
+|
+---------------------------------------------<
+

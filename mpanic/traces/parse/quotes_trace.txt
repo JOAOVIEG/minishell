@@ -1,0 +1,778 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [154]
+|  CMD: ->echo "~"ups<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->~ups$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->~ ups$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [155]
+|  CMD: ->echo '~'ups<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->~ups$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->~ ups$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [156]
+|  CMD: ->echo "'$'"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$'$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [160]
+|  CMD: ->echo "|$USER_|"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->||$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->|william|$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [165]
+|  CMD: ->'''echo' hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [167]
+|  CMD: ->'echo' 'hi'''<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [170]
+|  CMD: ->"""echo" hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [172]
+|  CMD: ->"echo" "hi"""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [175]
+|  CMD: ->'echo' "hi"'' " ' "' "' "" ''''''""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi  '  "  $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi   '   "     $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [176]
+|  CMD: ->echo hi"hi" hi'h"i'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hihi hih"i$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi hi h"i$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [179]
+|  CMD: ->echo "hi"t"hi"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hithi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi t hi$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [180]
+|  CMD: ->" echo"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -> echo: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [181]
+|  CMD: ->' echo'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -> echo: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [182]
+|  CMD: ->""echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [183]
+|  CMD: ->" "echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -> : command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [184]
+|  CMD: ->''echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [185]
+|  CMD: ->' 'echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -> : command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [186]
+|  CMD: ->''''''''''echo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [187]
+|  CMD: ->""""""""""echo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [188]
+|  CMD: ->"e"'c'h"o" hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->e: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [189]
+|  CMD: ->ec""ho hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ec: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [190]
+|  CMD: ->ec""h''o hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ec: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [191]
+|  CMD: ->EcHo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: EcHo: command not found$<-
+|
+|--- COMPARED STR:
+| ->EcHo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->EcHo: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [192]
+|  CMD: ->ECHO hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: ECHO: command not found$<-
+|
+|--- COMPARED STR:
+| ->ECHO: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ECHO: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [193]
+|  CMD: ->"ECHO" hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: ECHO: command not found$<-
+|
+|--- COMPARED STR:
+| ->ECHO: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ECHO: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [194]
+|  CMD: ->'ECHO' hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: ECHO: command not found$<-
+|
+|--- COMPARED STR:
+| ->ECHO: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ECHO: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [198]
+|  CMD: ->echo $" t hi t "<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -> t hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->  t hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [199]
+|  CMD: ->echo $' t hi t '<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -> t hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->  t hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [200]
+|  CMD: ->echo $' r hi t '<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -> r hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->  r hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [201]
+|  CMD: ->echo hi > "fi le"
+| rm "fi le"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [202]
+|  CMD: ->echo hi > 'fi le'
+| rm 'fi le'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [203]
+|  CMD: ->echo $ANA_VAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->. hi, this is the hardest" Ana "test$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->. hi, this is the hardest" Ana "test $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/19 14:26:25 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:35:08 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	ft_exec_piped(t_node *node)
 	pid_t	right_pid;
 	t_node	*sub_node_hd;
 	t_node	*dad_hd;
-	t_node	*ptr_dad;
+	//t_node	*ptr_dad;
 	int		r_status;
 	int		l_status;
 
-	ptr_dad = node;
+	//ptr_dad = node;
 	if (pipe(pipe_end) < 0)
 	{
 		perror("Error at pipe");
@@ -53,7 +53,7 @@ void	ft_exec_piped(t_node *node)
 	{
 		shell()->pipe_call++;
 		dad_hd = find_parent(node, sub_node_hd);
-		ptr_dad = dad_hd;
+		//ptr_dad = dad_hd;
 		left_pid = fork();
 		left_node_process(dad_hd, pipe_end, left_pid);
 		if (left_pid > 0)

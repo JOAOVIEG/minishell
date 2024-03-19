@@ -1,0 +1,135 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [35]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [39]
+|  CMD: ->export TESTVAR
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ERROR env at path: Inappropriate ioctl for device$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [40]
+|  CMD: ->export TESTVAR=
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ERROR finding PATH: Inappropriate ioctl for device$
+| free(): invalid pointer$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [41]
+|  CMD: ->export TESTVAR=""
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ERROR finding PATH: Inappropriate ioctl for device$
+| free(): invalid pointer$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [42]
+|  CMD: ->export TESTVAR="value"
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=value$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ERROR finding PATH: Inappropriate ioctl for device$
+| free(): invalid pointer$<-
+|
+---------------------------------------------<
+
