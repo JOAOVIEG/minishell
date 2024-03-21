@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/19 14:15:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:11:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,15 @@ void				concatonate_and_update(t_env *env, t_env *new, char *name,
 void				handle_export_var_error(t_exp_buff *exp_buff);
 void				updt_envl(t_exp_buff *exp_buff, t_env *env, t_env *new);
 
+
+
+/*heredoc_tree_stuff*/
 t_node				*btree_search_item(t_node *root, char *data_ref, int (*cmpf)(char *,
 					char *));
+int					btree_level_count(t_node *where, t_node *what);
+void				ft_exec_piped_heredoc(t_node *node, t_node *sub_node_hd);
+void				apply_to_node(t_node *root, t_node *target, void(*func)(t_node*));
+void				btree_create_node(t_node **target);
+t_node				*copy_tree(t_node *root);
+char 				**copy_string_array(char **array);
 #endif
