@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:02:50 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 16:03:00 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:32:44 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 void	free_tree_cmd(t_cmd *cmd)
 {
 	if (cmd->arg)
+	{
 		ft_free_str_array(cmd->arg);
-	if (cmd->valid_cmd_path)
-		free(cmd->valid_cmd_path);
+		cmd->arg = NULL;
+	}
 	if (cmd->file)
+	{
 		ft_free_str_array(cmd->file);
+		cmd->file = NULL;
+	}
 	if (cmd->heredoc)
+	{
 		ft_free_str_array(cmd->heredoc);
+		cmd->heredoc = NULL;
+	}
 	free(cmd);
 	cmd = NULL;
 }
@@ -29,7 +36,10 @@ void	free_tree_cmd(t_cmd *cmd)
 void	free_tree_node(t_node **tree_node)
 {
 	if ((*tree_node)->cmd)
+	{
 		free_tree_cmd((*tree_node)->cmd);
+		(*tree_node)->cmd = NULL;
+	}
 	if ((*tree_node)->left)
 		free_tree_node(&(*tree_node)->left);
 	if ((*tree_node)->right)

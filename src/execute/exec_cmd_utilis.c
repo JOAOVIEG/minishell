@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utilis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/12 13:05:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:30:45 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,30 @@ char	*get_cmd(char **cmd_path, char *cmd)
 
 char	*get_path(char **env)
 {
+	char	**tmp;
+
 	if (*env == NULL)
 	{
 		perror("ERROR env at path");
 		free_c_env(env);
 		shell()->status = EXIT_FAILURE;
-		exit_shell(shell()->status);
+		return (NULL);
 	}
 	else
 	{
-		while (*env && ft_strncmp("PATH", *env, 4))
-			env++;
-		if (*env == NULL)
+		tmp = env;
+		while (*tmp && ft_strncmp("PATH", *tmp, 4))
+			tmp++;
+		if (*tmp == NULL)
 		{
-			perror("ERROR finding PATH");
-			free_c_env(env);
+			perror("ERROR env at path");
+			// free_c_env(env);
+			//This line is commented out because is causing a double free error
 			shell()->status = EXIT_FAILURE;
-			exit_shell(shell()->status);
+			return (NULL);
 		}
+		return (*tmp + 5);
 	}
-	return (*env + 5);
 }
 
 char	*validate_cmd(char **cmd_paths, char *cmd)

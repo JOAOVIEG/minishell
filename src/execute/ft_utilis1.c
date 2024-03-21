@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utilis1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 16:17:09 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 20:03:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:21:04 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,23 @@ void	create_file(t_node *node)
 
 void	invalid_cmd_path(t_node *node, char **env)
 {
-	free_c_env(env);
+	if (env)
+		ft_free_str_array(env);
 	shell()->status = 127;
 	status_error(node->cmd->arg[0], "command not found", STDERR_FILENO);
 }
 
 int	no_cmd_check(t_node *node, char **env)
 {
-	if (ft_strcmp(node->cmd->arg[0], ".") == 0
-		|| ft_strcmp(node->cmd->arg[0], "..") == 0)
+	if (ft_strcmp(node->cmd->arg[0], ".") == 0 || ft_strcmp(node->cmd->arg[0],
+			"..") == 0)
 	{
 		invalid_cmd_path(node, env);
 		return (1);
 	}
 	if (input_is_dir(node, env) == 1)
 		return (1);
-	node->cmd->valid_cmd_path = \
-			get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
+	node->cmd->valid_cmd_path = get_cmd(node->cmd->cmd_path, node->cmd->arg[0]);
 	if (node->cmd->valid_cmd_path == NULL)
 	{
 		invalid_cmd_path(node, env);
@@ -69,9 +69,9 @@ int	file_redir(t_node *node, int i)
 
 void	heredoc_cmd_son(t_node *node)
 {
-	int		k;
-	int		j;
-	int		num_heredocs;
+	int	k;
+	int	j;
+	int	num_heredocs;
 
 	k = 1;
 	j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 14:30:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:57:12 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	free_paths(t_node *node)
 {
 	if (node->cmd->cmd_path)
 		free_cmd_paths(node->cmd->cmd_path);
-	if (node->cmd->valid_cmd_path)
-	{
-		free(node->cmd->valid_cmd_path);
-		node->cmd->valid_cmd_path = NULL;
-	}
+	// if (node->cmd->valid_cmd_path)
+	// {
+	// 	free(node->cmd->valid_cmd_path);
+	// 	node->cmd->valid_cmd_path = NULL;
+	// }
+	// This part is commented out because is causing a double free error
 }
 
 void	child_exec_process(t_node *node, char **env)

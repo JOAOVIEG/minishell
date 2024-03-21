@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/19 14:17:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:08:26 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,39 @@ void	read_input(void)
 	{
 		if (isatty(0))
 			ft_putstr_fd("exit\n", 2);
-		exit_shell(EXIT_SUCCESS);
+		exit_shell(shell()->status);
 	}
 	else
 		add_to_history(shell(), shell()->line);
 }
 
+void	run_test_with_c_option(char **argv, char **envp)
+{
+	shell()->v_env = env_cpy(envp);
+	shell()->status = 0;
+	handle_signal(SIG_DEFAULT);
+	shell()->pipe_call = 0;
+	shell()->line = argv[2];
+	add_history(shell()->line);
+	parser(shell());
+	if (shell()->node)
+		ft_execute(shell()->node);
+	reset_parser_and_tree();
+	rl_clear_history();
+	free_lexer(shell()->lexer);
+    free_parser(shell()->parser);
+    free_env();
+
+	exit(shell()->status);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
+	if (argc > 2 && strcmp(argv[1], "-c") == 0)
+	{
+		run_test_with_c_option(argv, envp);
+		return (shell()->status);
+	}
 	if (argc > 1)
 	{
 		if (access(argv[1], F_OK) == -1)
@@ -65,5 +90,5 @@ int	main(int argc, char **argv, char **envp)
 		reset_parser_and_tree();
 	}
 	rl_clear_history();
-	return (EXIT_SUCCESS);
+	return (shell()->status);
 }

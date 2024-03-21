@@ -1,0 +1,71 @@
+< Makefile wc -l < teste.txt OK
+wc -l Makefile <in (in does not exist) OK
+<<end <<ola
+touch nome_do_ficheiro OK
+wc -l < nomedoficheiro 	OK
+mkdir alex OK
+cat makefile > alex (alex e um diretorio) OK
+cd directory director2 (too many argumnts) OK CD null NOT WORKING mas funciona depois de fazer pwd...???
+wc -l Makefile > test <test OK
+<Makefile wc -l >test OK
+< Makefile wc -l | >test OK
+<Makefile wc -l ls>test OK
+echo hello <Makefile >test OK
+echo hello <Makefile  OK
+echo Crazy >test >out OK
+wc -l > test < test OK
+echo -nnnnnnnnnn Ola OK
+echo -n -n -n Ola OK
+echo -n -n -nnnn -n -naaa -n -n hello OK
+chmod 000 nomedoficheiro OK e >nomedoficheiro ou <nomedoficheiro NOK
+../ (is a diretory) OK
+./ (is directory) OK
+.. (command not found) OK
+. (comand not found) OK
+../../Documents/../Desktop/get_next_line (is a directory) OK
+////////
+To test builtins
+env ficheiro (invalid file) NOK
+export var+=content \\ concatonates variable
+export _=content \\ valid but content does not change ok
+
+
+
+export 1var=contetn \\ invalid (cannot start with number) OK
+export 1VAR=invalid  # Variable names cannot start with a number OK
+export VAR-8=invalid  # Variable names cannot contain hyphens OK
+export VAR!0=invalid  # Variable names cannot contain special characters OK
+
+
+export VAR1=value1  ok
+export VAR2="value with spaces" ok
+export VAR3='value with single quotes' ok
+export VAR4="" ok
+export VAR5= ok
+export _VAR6=value6 ok
+export VAR7_VAR7=value7 ok
+
+
+export abc=1234
+unset abc=1234 \\ does not unset abc (has to be unset abc)
+///
+< Makefile cat > out > file1 | ls -l > out | wc < out OK
+echo FIM >> out OK
+>>out wc -l Makefile | << end < Makefile OK
+<< end | wc -l >out OK
+<<end cat >out| cat >out OK
+<<end cat >out OK
+echo <<end >out OK
+<<end | wc -l OK
+<<end | builtins OK
+<<delim | non-builtins OK
+echo hello | <<end OK
+echo hello | <<end pwd OK
+echo Hello | cat >>out OK 
+<< end wc -l <Makefile | >>out (if out exists and as content, its content does not change. Not like >out) SOLVED!
+<<delim echo Hello | wc -l >> out NOK (out should get 1) SOLVED!
+cat << eof 
+sfeg | ls esta ok MAS PERGUNTAR
+Testar com symlinks ln -s Makefile link (files e dirs) (< e > e >>) (lstat)
+
+ver o erro que da quando <naoexiste + ls (executavel)
