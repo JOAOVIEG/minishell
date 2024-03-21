@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:04:00 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 21:01:06 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:06:09 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ bool	command_line(t_parser *parser)
 		return (true);
 	if (parser->tokens->type == TYPE_PIPE)
 	{
-		status_error("|", "Syntax error: unexpected token", STDERR_FILENO);
+		status_error("bash", "syntax error near unexpected token `|'",
+			STDERR_FILENO);
 		shell()->status = 2;
 		return (false);
 	}

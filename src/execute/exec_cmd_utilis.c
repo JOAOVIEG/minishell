@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/21 17:30:45 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:43:23 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_cmd(char **cmd_path, char *cmd)
 		else
 		{
 			perror("Error get_command");
-			shell()->status = 126;
+			shell()->status = 1; //merda
 		}
 	}
 	else
@@ -38,7 +38,7 @@ char	*get_cmd(char **cmd_path, char *cmd)
 		else
 		{
 			perror("Error");
-			shell()->status = 126;
+			shell()->status = 1; //merda
 		}
 	}
 	return (NULL);

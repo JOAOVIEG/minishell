@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/21 17:57:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:42:54 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	child_exec_process(t_node *node, char **env)
 	{
 		free_c_env(env);
 		free_paths(node);
-		exit_shell(126);
+		exit_shell(1);//merda
 	}
 	child_control(node);
 	handle_signal(SIG_DEFAULT);

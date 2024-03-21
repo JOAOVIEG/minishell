@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:27:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 18:27:36 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:34:02 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ t_env	*update_envl(t_env *env, t_env *new, char *name, char *value)
 	else if (value)
 	{
 		new = create_var(new, name, value);
-		new->next = head;
-		head = new;
+		if (new)
+		{
+			new->next = head;
+			head = new;
+		}
 	}
 	return (head);
 }
@@ -70,10 +73,10 @@ void	updt_envl(t_exp_buff *exp_buff, t_env *env, t_env *new)
 {
 	char	*name;
 	char	*value;
-	t_env	*v_env;
 
+	// t_env	*v_env;
 	name = exp_buff->name;
 	value = exp_buff->value;
-	v_env = update_envl(env, new, name, value);
-	shell()->v_env = v_env;
+	shell()->v_env = update_envl(env, new, name, value);
+	// shell()->v_env = v_env;
 }

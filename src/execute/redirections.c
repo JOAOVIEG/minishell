@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/19 13:33:07 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:45:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	input_is_dir(t_node *node, char **env)
 		free_c_env(env);
 		status_error(node->cmd->arg[0], "is a directory", STDERR_FILENO);
 		shell()->status = 126;
-		return (1);
+		return (shell()->status);
 	}
 	return (0);
 }
