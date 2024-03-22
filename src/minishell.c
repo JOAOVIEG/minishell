@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/21 17:08:26 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:14:43 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ void	run_test_with_c_option(char **argv, char **envp)
 	reset_parser_and_tree();
 	rl_clear_history();
 	free_lexer(shell()->lexer);
-    free_parser(shell()->parser);
-    free_env();
-
+	free_parser(shell()->parser);
+	free_env();
 	exit(shell()->status);
 }
 

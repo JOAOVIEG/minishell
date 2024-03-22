@@ -291,7 +291,7 @@
 | [38;5;208mminishell:$ [0m$TMPENVVAR
 | ERROR env at path: Inappropriate ioctl for device
 | Error: No such file or directory
-| mpanic.sh: line 164: 309460 Segmentation fault      (core dumped) ./minishell
+| mpanic.sh: line 164: 72867 Segmentation fault      (core dumped) ./minishell
 |
 ---------------------------------------------<
 

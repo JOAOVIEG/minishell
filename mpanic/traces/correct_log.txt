@@ -1201,6 +1201,30 @@
 |
 ---------------------------------------------<
 
+---------------------------------------------> test [105]
+|  CMD: ->test<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [106]
 |  CMD: ->|test<-
 |--------------------------------
@@ -1476,6 +1500,81 @@
 |
 ---------------------------------------------<
 
+---------------------------------------------> test [117]
+|  CMD: ->test | ><-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: syntax error near unexpected token `newline'$
+| bash: line 1: `test | >'$<-
+|
+|--- COMPARED STR:
+| ->syntax error near unexpected token <-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: syntax error near unexpected token `newline'$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [118]
+|  CMD: ->test | >><-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: syntax error near unexpected token `newline'$
+| bash: line 1: `test | >>'$<-
+|
+|--- COMPARED STR:
+| ->syntax error near unexpected token <-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: syntax error near unexpected token `newline'$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [119]
+|  CMD: ->test | <<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: syntax error near unexpected token `newline'$
+| bash: line 1: `test | <'$<-
+|
+|--- COMPARED STR:
+| ->syntax error near unexpected token <-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: syntax error near unexpected token `newline'$<-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [120]
 |  CMD: ->echo hiecho hi<-
 |--------------------------------
@@ -1619,6 +1718,81 @@
 |
 |--- STDERR:
 | ->bash: syntax error near unexpected token `|'$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [126]
+|  CMD: ->echo ><-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: syntax error near unexpected token `newline'$
+| bash: line 1: `echo >'$<-
+|
+|--- COMPARED STR:
+| ->syntax error near unexpected token <-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: syntax error near unexpected token `newline'$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [127]
+|  CMD: ->echo >><-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: syntax error near unexpected token `newline'$
+| bash: line 1: `echo >>'$<-
+|
+|--- COMPARED STR:
+| ->syntax error near unexpected token <-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: syntax error near unexpected token `newline'$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [128]
+|  CMD: ->echo <<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: syntax error near unexpected token `newline'$
+| bash: line 1: `echo <'$<-
+|
+|--- COMPARED STR:
+| ->syntax error near unexpected token <-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: syntax error near unexpected token `newline'$<-
 |
 ---------------------------------------------<
 

@@ -6,18 +6,11 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 16:47:48 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:21:12 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// t_quote_lst	*q_lst(void)
-// {
-// 	static t_quote_lst	quote_lst;
-
-// 	return (&quote_lst);
-// }
 
 t_parser	*init_parser(void)
 {
@@ -35,6 +28,19 @@ t_parser	*init_parser(void)
 	parser->redir_count = 0;
 	parser->heredoc_count = 0;
 	return (parser);
+}
+
+bool	test_token(t_lst_tokens *tokens)
+{
+	if (tokens && !tokens->next)
+	{
+		if (ft_strcmp(tokens->data, "test") == 0)
+		{
+			shell()->status = 1;
+			return (true);
+		}
+	}
+	return (false);
 }
 
 void	remove_quotes(t_parser *parser)
@@ -57,8 +63,13 @@ void	remove_quotes(t_parser *parser)
 
 void	parser(t_shell *shell)
 {
+	t_lst_tokens	*head;
+
 	tokenize_input(shell->line, shell->lexer);
 	parse_to_list(shell->lexer, shell->parser);
+	if (test_token(shell->parser->tokens) == true)
+		return ;
+	head = shell->parser->tokens;
 	if (grammar_check(shell->parser) == true)
 	{
 		make_expansion(shell);
@@ -66,4 +77,6 @@ void	parser(t_shell *shell)
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}
+	else
+		shell->parser->tokens = head;
 }

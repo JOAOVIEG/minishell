@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/21 19:45:25 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:51:26 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int	input_is_dir(t_node *node, char **env)
 {
 	struct stat	st;
 
-	if (stat(node->cmd->arg[0], &st) == 0 && S_ISDIR(st.st_mode))
+	if (node->cmd->arg[0] && stat(node->cmd->arg[0], &st) == 0
+		&& S_ISDIR(st.st_mode))
 	{
-		free_c_env(env);
+		if (env)
+			free_c_env(env);
 		status_error(node->cmd->arg[0], "is a directory", STDERR_FILENO);
 		shell()->status = 126;
 		return (shell()->status);
@@ -30,9 +32,10 @@ int	is_dir_i(t_node *node, int i)
 {
 	struct stat	st;
 
-	if (stat(node->cmd->file[i], &st) == 0 && S_ISDIR(st.st_mode))
+	if (node->cmd->file[i] && stat(node->cmd->file[i], &st) == 0
+		&& S_ISDIR(st.st_mode))
 	{
-		status_error(node->cmd->file[1], " is a directory", STDERR_FILENO);
+		status_error(node->cmd->file[i], " is a directory", STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
 		return (1);
 	}
@@ -43,7 +46,8 @@ int	is_dir(t_node *node)
 {
 	struct stat	st;
 
-	if (stat(node->cmd->file[1], &st) == 0 && S_ISDIR(st.st_mode))
+	if (node->cmd->file[1] && stat(node->cmd->file[1], &st) == 0
+		&& S_ISDIR(st.st_mode))
 	{
 		status_error(node->cmd->file[1], " is a directory", STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
@@ -75,8 +79,7 @@ void	no_cmd_file_redir(t_node *node)
 		else
 			heredoc_dad(node, heredoc_pid, k_fd, k);
 	}
-	else if (node->cmd->arg[0] == NULL && node->cmd->file \
-							&& *node->cmd->file)
+	else if (node->cmd->arg[0] == NULL && node->cmd->file && *node->cmd->file)
 		create_file(node);
 }
 
