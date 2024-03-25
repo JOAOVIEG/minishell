@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 16:04:44 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:21:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,9 @@ void							init_buffer(t_buffer *buffer);
 void							count_pipe_redir(t_parser *parser);
 
 void							remove_quotes(t_parser *parser);
+bool							str_is_only_whitespace(char *str);
+void							remove_empty_tokens(t_parser *parser);
+bool							test_token(t_lst_tokens *tokens);
 
 // Managing Tokens
 void							parse_to_list(t_lexer *lexer, t_parser *parser);

@@ -6,11 +6,21 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:41:30 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 21:05:37 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:23:15 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	only_empty_quotes(char *str)
+{
+	if (str[0] == '\'' || str[0] == '"')
+	{
+		if (str[2] == '\0')
+			return (true);
+	}
+	return (false);
+}
 
 bool	handle_error(void)
 {

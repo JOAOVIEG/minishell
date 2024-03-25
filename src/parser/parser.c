@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/22 17:21:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:19:39 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,36 +30,7 @@ t_parser	*init_parser(void)
 	return (parser);
 }
 
-bool	test_token(t_lst_tokens *tokens)
-{
-	if (tokens && !tokens->next)
-	{
-		if (ft_strcmp(tokens->data, "test") == 0)
-		{
-			shell()->status = 1;
-			return (true);
-		}
-	}
-	return (false);
-}
 
-void	remove_quotes(t_parser *parser)
-{
-	t_lst_tokens	*current;
-	t_lst_tokens	*head;
-
-	head = parser->tokens;
-	current = head;
-	while (current)
-	{
-		if (current->data[0] == '\'')
-			current->data = ft_strtrim(current->data, "\'");
-		else if (current->data[0] == '"')
-			current->data = ft_strtrim(current->data, "\"");
-		current = current->next;
-	}
-	parser->tokens = head;
-}
 
 void	parser(t_shell *shell)
 {
@@ -74,6 +45,7 @@ void	parser(t_shell *shell)
 	{
 		make_expansion(shell);
 		get_token_type(shell->parser->tokens);
+		remove_empty_tokens(shell->parser);
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}
