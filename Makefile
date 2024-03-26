@@ -8,6 +8,7 @@ OBJ_DIR = obj
 		
 SRC := $(addprefix $(SRC_DIR)/, \
     minishell.c \
+	main_utilis.c \
     clean_tree.c \
     end_shell.c \
 ) \
@@ -79,6 +80,7 @@ $(addprefix $(SRC_DIR)/execute/, \
     ft_utilis.c \
     heredoc.c \
 	heredoc_piped.c \
+	heredoc_piped_utilis.c \
     redirections1.c \
     redirections.c \
     simple_cmds_utilis.c \
