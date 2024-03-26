@@ -6,11 +6,10 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/19 14:17:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:12:47 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../../includes/builtins.h"
 #include "../includes/minishell.h"
 
 t_shell	*shell(void)
@@ -40,19 +39,46 @@ void	read_input(void)
 		add_to_history(shell(), shell()->line);
 }
 
+int	check_heredoc(t_node *node)
+{
+	t_node	*sub_node_hd;
+	int		hd_i;
+	sub_node_hd = btree_search_item(node);
+	hd_i = btree_level_count(node, sub_node_hd);
+	if (node->type == TYPE_PIPE && hd_i > 1 )
+		return (1);
+	if (node->type == TYPE_PIPE && hd_i == 0 )
+		return (2);
+	return (0);
+}
+
+int	reads_from_stdin(t_node *node)
+{
+	char	*cmd;
+
+	cmd = node->cmd->arg[0];
+	if (!cmd)
+		return (0);
+	if (ft_strcmp(cmd, "cat") == 0 || ft_strcmp(cmd, "grep") == 0 \
+		|| ft_strcmp(cmd, "sed") == 0 || ft_strcmp(cmd, "awk") == 0 \
+		|| ft_strcmp(cmd, "sort") == 0 || ft_strcmp(cmd, "uniq") == 0 \
+		|| ft_strcmp(cmd, "cut") == 0 || ft_strcmp(cmd, "paste") == 0 \
+		|| ft_strcmp(cmd, "wc") == 0 || ft_strcmp(cmd, "tr") == 0 \
+		|| ft_strcmp(cmd, "tee") == 0 || ft_strcmp(cmd, "head") == 0 \
+		|| ft_strcmp(cmd, "tail") == 0 || ft_strcmp(cmd, "xargs") == 0 \
+		|| ft_strcmp(cmd, "less") == 0 || ft_strcmp(cmd, "more") == 0)
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc > 1)
-	{
-		if (access(argv[1], F_OK) == -1)
-		{
-			printf("minishell: %s: %s\n", argv[1], strerror(errno));
-			shell()->status = errno;
-			return (shell()->status);
-		}
-	}
+	int	arg_check;
+
+	arg_check = arg_access(argv, argc);
+	if (arg_check != EXIT_SUCCESS)
+		return (shell()->status);
 	shell()->v_env = env_cpy(envp);
-	shell()->status = 0;
 	while (1)
 	{
 		handle_signal(SIG_DEFAULT);
@@ -61,7 +87,12 @@ int	main(int argc, char **argv, char **envp)
 		add_history(shell()->line);
 		parser(shell());
 		if (shell()->node)
-			ft_execute(shell()->node);
+		{
+			if (check_heredoc(shell()->node) == 1)
+				ft_exec_piped_heredoc(shell()->node);
+			else
+				ft_execute(shell()->node);
+		}
 		reset_parser_and_tree();
 	}
 	rl_clear_history();

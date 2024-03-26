@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 19:49:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:08:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	is_builtin(t_node *node)
 	char	*cmd;
 
 	cmd = node->cmd->arg[0];
-	if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
-		|| ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "export") == 0
-		|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
+	if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0 \
+		|| ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "export") == 0 \
+		|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0 \
 		|| ft_strcmp(cmd, "exit") == 0)
 		return (1);
 	return (2);

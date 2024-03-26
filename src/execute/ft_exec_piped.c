@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:32:30 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 21:36:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:27:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,9 @@ void	parent_pipe_exec_control(t_node *node, int pipe_end[2], \
 	int		l_status;
 
 	close(pipe_end[0]);
-	if (node->right->fd_in)
-		close(node->right->fd_in);
 	close(pipe_end[1]);
-	if (node->left->fd_out)
-		close(node->left->fd_out);
-	if (node->left->cmd->heredoc)
-		close(node->left->fd_in);
+	if (node->fd_in && node->fd_out)
+		close_fds(node->fd_in, node->fd_out);
 	waitpid(left_pid, &l_status, 0);
 	waitpid(right_pid, &r_status, 0);
 	if (WIFEXITED(l_status))
@@ -53,8 +49,8 @@ void	execute_left_node(t_node *node, int pipe_end[2])
 	dup2(node->left->fd_out, STDOUT_FILENO);
 	ft_execute(node->left);
 	close(pipe_end[1]);
+	close(node->left->fd_out);
 	exit_shell(shell()->status);
-	
 }
 
 void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid)
@@ -62,7 +58,6 @@ void	right_node_process(t_node *node, int pipe_end[2], pid_t right_pid)
 	if (right_pid < 0)
 	{
 		perror("right fork failed");
-		exit_shell(EXIT_FAILURE);
 	}
 	else if (right_pid == 0)
 	{
@@ -77,7 +72,6 @@ void	left_node_process(t_node *node, int pipe_end[2], pid_t left_pid)
 	if (left_pid < 0)
 	{
 		perror("left fork failed");
-		exit_shell(2);
 	}
 	else if (left_pid == 0)
 	{
