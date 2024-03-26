@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 15:45:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:46:18 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ int	check_heredoc(t_node *node)
 {
 	t_node	*sub_node_hd;
 	int		hd_i;
+
 	sub_node_hd = btree_search_item(node);
 	hd_i = btree_level_count(node, sub_node_hd);
-	if (node->type == TYPE_PIPE && hd_i > 1 )
+	if (node->type == TYPE_PIPE && hd_i > 1)
 		return (1);
-	if (node->type == TYPE_PIPE && hd_i == 0 )
+	if (node->type == TYPE_PIPE && hd_i == 0)
 		return (2);
 	return (0);
 }
@@ -59,13 +60,13 @@ int	reads_from_stdin(t_node *node)
 	cmd = node->cmd->arg[0];
 	if (!cmd)
 		return (0);
-	if (ft_strcmp(cmd, "cat") == 0 || ft_strcmp(cmd, "grep") == 0 \
-		|| ft_strcmp(cmd, "sed") == 0 || ft_strcmp(cmd, "awk") == 0 \
-		|| ft_strcmp(cmd, "sort") == 0 || ft_strcmp(cmd, "uniq") == 0 \
-		|| ft_strcmp(cmd, "cut") == 0 || ft_strcmp(cmd, "paste") == 0 \
-		|| ft_strcmp(cmd, "wc") == 0 || ft_strcmp(cmd, "tr") == 0 \
-		|| ft_strcmp(cmd, "tee") == 0 || ft_strcmp(cmd, "head") == 0 \
-		|| ft_strcmp(cmd, "tail") == 0 || ft_strcmp(cmd, "xargs") == 0 \
+	if (ft_strcmp(cmd, "cat") == 0 || ft_strcmp(cmd, "grep") == 0
+		|| ft_strcmp(cmd, "sed") == 0 || ft_strcmp(cmd, "awk") == 0
+		|| ft_strcmp(cmd, "sort") == 0 || ft_strcmp(cmd, "uniq") == 0
+		|| ft_strcmp(cmd, "cut") == 0 || ft_strcmp(cmd, "paste") == 0
+		|| ft_strcmp(cmd, "wc") == 0 || ft_strcmp(cmd, "tr") == 0
+		|| ft_strcmp(cmd, "tee") == 0 || ft_strcmp(cmd, "head") == 0
+		|| ft_strcmp(cmd, "tail") == 0 || ft_strcmp(cmd, "xargs") == 0
 		|| ft_strcmp(cmd, "less") == 0 || ft_strcmp(cmd, "more") == 0)
 		return (1);
 	return (0);
@@ -92,13 +93,13 @@ void	run_test_with_c_option(char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
+	int	arg_check;
+
 	if (argc > 2 && strcmp(argv[1], "-c") == 0)
 	{
 		run_test_with_c_option(argv, envp);
 		return (shell()->status);
 	}
-	int	arg_check;
-
 	arg_check = arg_access(argv, argc);
 	if (arg_check != EXIT_SUCCESS)
 		return (shell()->status);

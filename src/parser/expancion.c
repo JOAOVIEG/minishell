@@ -6,11 +6,26 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:49:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 09:17:07 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:48:42 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	dollar_sign_isolated(char *str, int index)
+{
+	int	len;
+
+	len = strlen(str);
+	if (index == 0 && is_whitespace(str[index + 1]))
+		return (true);
+	if (index == len - 1 && is_whitespace(str[index - 1]))
+		return (true);
+	if (index > 0 && index < len - 1 && is_whitespace(str[index - 1])
+		&& is_whitespace(str[index + 1]))
+		return (true);
+	return (false);
+}
 
 void	env_n_found(t_env_var_replacement *rplcmnt, char *trimmed)
 {
@@ -47,6 +62,7 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 	char					*trimmed;
 	char					*data_trimmed;
 
+	handle_lonely_dollar(current);
 	replacement.current = current;
 	init_env_var_replacement(current, &replacement);
 	data_trimmed = ft_strtrim(replacement.substring, "$");
