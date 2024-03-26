@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:49:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/18 15:47:44 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 09:17:07 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,5 @@ void	make_expansion(t_shell *shell)
 		}
 		current = current->next;
 	}
+	shell->parser->tokens = head;
 }

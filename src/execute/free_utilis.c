@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:13:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/21 17:24:37 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 09:52:18 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	free_c_env(char **env)
 	i = 0;
 	while (env && env[i])
 	{
-		free(env[i]);
+		if (env[i])
+			free(env[i]);
 		env[i] = NULL;
 		i++;
 	}

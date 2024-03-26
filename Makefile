@@ -47,6 +47,7 @@ $(addprefix $(SRC_DIR)/parser/, \
     parse_to_list.c \
     print_tree.c \
     process_quotes.c \
+    handle_tilde.c \
 ) \
 $(addprefix $(SRC_DIR)/execute/built_ins/, \
     cd.c \

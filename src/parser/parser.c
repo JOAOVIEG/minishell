@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/25 17:19:39 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:21:31 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	parser(t_shell *shell)
 	head = shell->parser->tokens;
 	if (grammar_check(shell->parser) == true)
 	{
+		handle_tilde(shell);
 		make_expansion(shell);
 		get_token_type(shell->parser->tokens);
 		remove_empty_tokens(shell->parser);

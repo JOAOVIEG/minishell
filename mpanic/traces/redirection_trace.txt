@@ -1,0 +1,1939 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [285]
+|  CMD: ->echo hi > file2 > file hi
+| ls
+| cat file
+| rm file file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [286]
+|  CMD: ->echo hi >> file2 > file hi
+| echo hi >> file2 > file hi
+| ls
+| cat file
+| rm file file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [287]
+|  CMD: ->echo hi > file2 >> file hi
+| echo hi > file2 >> file hi
+| ls
+| cat file
+| rm file file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [288]
+|  CMD: ->echo hi > file2 > file hi
+| echo hi > file2 > file hi
+| ls
+| cat file
+| rm file file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [289]
+|  CMD: ->echo hi >> file2 >> file hi
+| echo hi >> file2 >> file hi
+| ls
+| cat file
+| rm file file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [290]
+|  CMD: ->echo hi>file2>file hi
+| ls
+| cat file
+| rm file file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [291]
+|  CMD: ->echo hi>>file2>>file hi
+| ls
+| cat file
+| rm file file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [292]
+|  CMD: ->echo hi > file3 > file2 > file hi
+| echo hii > file3 > file2 > file hii
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hii hii$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hii hii$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [293]
+|  CMD: ->echo hi > file3 >> file2 > file hi
+| echo hii > file3 >> file2 > file hii
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hii hii$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hii hii$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [294]
+|  CMD: ->echo hi > file3 > file2 >> file hi
+| echo hii > file3 > file2 >> file hii
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$
+| hii hii$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hii hii$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [295]
+|  CMD: ->echo hi >> file3 > file2 > file hi
+| echo hii >> file3 > file2 > file hii
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hii hii$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hii hii$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [296]
+|  CMD: ->echo hi >> file3 > file2 >> file hi
+| echo hii >> file3 > file2 >> file hii
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$
+| hii hii$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hii hii$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [297]
+|  CMD: ->echo hi >> file3 >> file2 > file hi
+| echo hii >> file3 >> file2 > file hii
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hii hii$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hii hii$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [298]
+|  CMD: ->echo hi>file3>file2>file hi
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [299]
+|  CMD: ->> file3 echo hi > file2 > file hi
+| > file3 echo hi > file2 > file hi
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [300]
+|  CMD: ->> file3 echo hi > file2 >> file hi
+| > file3 echo hi > file2 >> file hi
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [301]
+|  CMD: ->>> file3 echo hi > file2 > file hi
+| >> file3 echo hi > file2 > file hi
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [302]
+|  CMD: ->> file3 echo hi >> file2 > file hi
+| > file3 echo hi >> file2 > file hi
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [303]
+|  CMD: ->>file3 echo hi>file2>file hi
+| > file3 echo hi > file2 > file hi
+| ls
+| cat file
+| rm file file2 file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| file$
+| file2$
+| file3$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [304]
+|  CMD: ->echo hi >filea>fileb>filec hi
+| echo hi >filea>fileb>filec hi
+| ls
+| cat filec
+| rm filea fileb filec<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [305]
+|  CMD: ->echo hi >filea>>fileb>filec hi
+| echo hi >filea>>fileb>filec hi
+| ls
+| cat filec
+| rm filea fileb filec<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [306]
+|  CMD: ->echo hi >filea>fileb>>filec hi
+| echo hi >filea>fileb>>filec hi
+| ls
+| cat filec
+| rm filea fileb filec<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [307]
+|  CMD: ->echo hi >>filea>fileb>filec hi
+| echo hi >>filea>fileb>filec hi
+| ls
+| cat filec
+| rm filea fileb filec<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| hi hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi hi$
+| hi hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| filea$
+| fileb$
+| filec$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [308]
+|  CMD: ->echo hi > "doble"quote
+| cat doblequote
+| rm doblequote<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi quote$<-
+|
+|--- STDERR:
+| ->cat: doblequote: No such file or directory$
+| rm: cannot remove 'doblequote': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [309]
+|  CMD: ->echo hi >"doble"quote
+| cat doblequote
+| rm doblequote<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi quote$<-
+|
+|--- STDERR:
+| ->cat: doblequote: No such file or directory$
+| rm: cannot remove 'doblequote': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [310]
+|  CMD: ->echo -n hi >>"doble"quote
+| echo -n hi >>"doble"quote
+| cat doblequote
+| rm doblequote<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hihi<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi quotehi quote<-
+|
+|--- STDERR:
+| ->cat: doblequote: No such file or directory$
+| rm: cannot remove 'doblequote': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [311]
+|  CMD: ->echo hi > 'simple'quote
+| cat simplequote
+| rm simplequote<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi quote$<-
+|
+|--- STDERR:
+| ->cat: simplequote: No such file or directory$
+| rm: cannot remove 'simplequote': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [312]
+|  CMD: ->echo hi >'simple'quote
+| cat simplequote
+| rm simplequote<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi quote$<-
+|
+|--- STDERR:
+| ->cat: simplequote: No such file or directory$
+| rm: cannot remove 'simplequote': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [313]
+|  CMD: ->echo -n hi >>'simple'quote
+| echo -n hi >>'simple'quote
+| cat simplequote
+| rm simplequote<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hihi<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi quotehi quote<-
+|
+|--- STDERR:
+| ->cat: simplequote: No such file or directory$
+| rm: cannot remove 'simplequote': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [316]
+|  CMD: ->echo hi > "mixed"'file 'name
+| cat "mixedfile name"
+| rm "mixedfile name"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi file  name$<-
+|
+|--- STDERR:
+| ->cat: 'mixedfile name': No such file or directory$
+| rm: cannot remove 'mixedfile name': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [317]
+|  CMD: ->echo hi >> "mixed"'file 'name
+| echo hi >> "mixed"'file 'name
+| cat "mixedfile name"
+| rm "mixedfile name"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$
+| hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi file  name$
+| hi file  name$<-
+|
+|--- STDERR:
+| ->cat: 'mixedfile name': No such file or directory$
+| rm: cannot remove 'mixedfile name': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [319]
+|  CMD: ->bash 4> outpfile
+| echo hola >&4
+| cat outpfile
+| rm outpfile<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hola$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hola$<-
+|
+|--- STDERR:
+| ->bash: 4: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [320]
+|  CMD: ->echo hi > testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [321]
+|  CMD: ->echo hi >> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [322]
+|  CMD: ->echo hi 2> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [323]
+|  CMD: ->echo hi 2>> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [324]
+|  CMD: ->echo hi > testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [325]
+|  CMD: ->echo hi >> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [326]
+|  CMD: ->echo hi 2> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [327]
+|  CMD: ->echo hi 2>> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->testfolder:  Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [335]
+|  CMD: ->cat < $USER<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: william: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->william: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (2)
+|
+|--- STDOUT:
+| ->bash: syntax error near unexpected token `$'$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [337]
+|  CMD: ->echo hi 2> error_outp < non_exist<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->non_exist: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [338]
+|  CMD: ->echo hi < non_exist > wrong
+| ls
+| rm wrong<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| ->bash: line 1: non_exist: No such file or directory$
+| rm: cannot remove 'wrong': No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->non_exist: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| wrong$<-
+|
+|--- STDERR:
+| ->non_exist: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [339]
+|  CMD: ->< non_exist echo hi > wrong
+| ls
+| rm wrong<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->&4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| ->bash: line 1: non_exist: No such file or directory$
+| rm: cannot remove 'wrong': No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->non_exist: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$
+| &4$
+| cleaner$
+| cleaner.c$
+| doble$
+| echo$
+| minishell$
+| mixed$
+| mpanic.sh$
+| README.md$
+| simple$
+| test$
+| traces$
+| wrong$<-
+|
+|--- STDERR:
+| ->non_exist: No such file or directory$<-
+|
+---------------------------------------------<
+

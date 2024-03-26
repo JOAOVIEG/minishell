@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 10:12:52 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 20:35:20 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:16:38 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *sn1, const char *sn2, size_t nb);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
+char				*ft_strstr(const char *str, const char *cmp);
 char				*ft_strnstr(const char *str, const char *to_find, size_t n);
 char				*ft_strcat(char *dest, const char *src);
 char				*ft_strncat(char *dest, const char *src, size_t n);

@@ -6,22 +6,22 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:14:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/22 16:51:26 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:42:16 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// parser changes
 int	input_is_dir(t_node *node, char **env)
 {
 	struct stat	st;
 
+	(void)env;
 	if (node->cmd->arg[0] && stat(node->cmd->arg[0], &st) == 0
 		&& S_ISDIR(st.st_mode))
 	{
-		if (env)
-			free_c_env(env);
-		status_error(node->cmd->arg[0], "is a directory", STDERR_FILENO);
+		status_error(node->cmd->arg[0], "Is a directory", STDERR_FILENO);
 		shell()->status = 126;
 		return (shell()->status);
 	}
@@ -35,9 +35,9 @@ int	is_dir_i(t_node *node, int i)
 	if (node->cmd->file[i] && stat(node->cmd->file[i], &st) == 0
 		&& S_ISDIR(st.st_mode))
 	{
-		status_error(node->cmd->file[i], " is a directory", STDERR_FILENO);
+		status_error(node->cmd->file[i], " Is a directory", STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
-		return (1);
+		return (shell()->status);
 	}
 	return (0);
 }
@@ -49,9 +49,9 @@ int	is_dir(t_node *node)
 	if (node->cmd->file[1] && stat(node->cmd->file[1], &st) == 0
 		&& S_ISDIR(st.st_mode))
 	{
-		status_error(node->cmd->file[1], " is a directory", STDERR_FILENO);
+		status_error(node->cmd->file[1], " Is a directory", STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
-		return (EXIT_FAILURE);
+		return (shell()->status);
 	}
 	return (EXIT_SUCCESS);
 }

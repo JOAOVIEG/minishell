@@ -1,0 +1,59 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [364]
+|  CMD: ->/Users/nonexist/directory
+| echo $?<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->127$<-
+|
+|--- STDERR:
+| ->bash: line 1: /Users/nonexist/directory: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->/Users/nonexist/directory: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->127$<-
+|
+|--- STDERR:
+| ->Error get_command: No such file or directory$
+| /Users/nonexist/directory: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [365]
+|  CMD: ->/Users/nonexist/directory<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: /Users/nonexist/directory: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->/Users/nonexist/directory: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error get_command: No such file or directory$
+| /Users/nonexist/directory: command not found$<-
+|
+---------------------------------------------<
+

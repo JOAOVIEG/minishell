@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/21 19:42:54 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:41:00 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	parent_exec_control(t_node *node, pid_t pid, char **env)
 {
+	(void)env;
 	parent_control(node, pid);
 	free_c_env(env);
 	if (node->cmd->valid_cmd_path)
@@ -32,6 +33,7 @@ void	free_paths(t_node *node)
 	// This part is commented out because is causing a double free error
 }
 
+// Parser changes
 void	child_exec_process(t_node *node, char **env)
 {
 	handle_signal(SIG_CHILD);
@@ -39,9 +41,10 @@ void	child_exec_process(t_node *node, char **env)
 	close_fds(node->fd_in, node->fd_out);
 	if (execve(node->cmd->valid_cmd_path, node->cmd->arg, env) < 0)
 	{
-		free_c_env(env);
 		free_paths(node);
-		exit_shell(1);//merda
+		if (env)
+			free_c_env(env);
+		exit_shell(shell()->status);
 	}
 	child_control(node);
 	handle_signal(SIG_DEFAULT);
