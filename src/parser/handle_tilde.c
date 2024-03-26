@@ -6,32 +6,11 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 09:22:19 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 13:13:26 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:55:58 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*ft_search_and_replace(const char *str, const char *srch,
-		const char *rplc)
-{
-	char	*new_str;
-	char	*ptr;
-	char	*tmp;
-	int		srch_len;
-
-	new_str = ft_strdup((char *)str);
-	srch_len = ft_strlen(srch);
-	while ((ptr = ft_strstr(new_str, srch)))
-	{
-		tmp = new_str;
-		*ptr = '\0';
-		new_str = ft_strjoin(new_str, rplc);
-		new_str = ft_strjoin(new_str, ptr + srch_len);
-		free(tmp);
-	}
-	return (new_str);
-}
 
 void	process_current(t_lst_tokens *current, t_shell *shell)
 {
