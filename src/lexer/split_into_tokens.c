@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/27 12:21:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:19:41 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,7 @@ char	*preprocess_input(const char *input)
 	j = 0;
 	while (input[i])
 	{
-		if (input[i] == '=' && input[i + 1] == ' ' && (input[i + 2] == '\''
-				|| input[i + 2] == '\"'))
-		{
-			new_input[j++] = '=';
-			new_input[j++] = '_';
-			new_input[j++] = input[i + 2];
-			i += 3;
-		}
-		else
-			new_input = process_escape_sequences(input, new_input, &i, &j);
+		new_input = process_escape_sequences(input, new_input, &i, &j);
 	}
 	new_input[j] = '\0';
 	return (new_input);

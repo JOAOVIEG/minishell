@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/18 08:21:56 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:02:24 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					is_invalid_variable(char *name);
 char				*get_equal(char *arg);
 t_env				*create_var(t_env *new, char *name, char *value);
 char				*get_var_name(char *arg, char *equal);
-t_env				*update_envl(t_env *env, t_env *new, char *name,
+t_env				*update_envl(t_env *env, char *name,
 						char *value);
 char				*get_var_value(t_env *env, char *name);
 void				display_exp_var(t_env *env);
