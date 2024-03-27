@@ -19,7 +19,8 @@ SOURCEFILES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 				ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
 				 ft_lstiter.c ft_lstmap.c ft_free_str_array.c \
 				 ft_calloc_memory.c ft_strcat.c ft_strncat.c  ft_strremove.c\
-				 find_char_index.c  ft_strsub.c  ft_strstr.c ft_search_and_replace.c \
+				 find_char_index.c  ft_strsub.c  ft_strstr.c ft_search_and_replace_all.c \
+				 ft_search_and_replace_first.c \
 			
 
 OBJECTS = $(patsubst %.c,obj/%.o,$(SOURCEFILES))

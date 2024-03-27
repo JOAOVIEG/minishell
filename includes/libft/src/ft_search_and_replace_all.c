@@ -6,13 +6,13 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:54:50 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 14:56:12 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:50:55 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char	*ft_search_and_replace(const char *str, const char *srch,
+char	*ft_search_and_replace_all(const char *str, const char *srch,
 		const char *rplc)
 {
 	char	*new_str;
