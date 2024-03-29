@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:05:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/27 16:06:29 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/29 19:58:48 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ char	*ft_strtok(char *str, const char *delim)
 	i = 0;
 	while (next_token[i])
 	{
-		if (ft_strchr(delim, next_token[i]))
+		if (ft_strstr(next_token + i, delim) == next_token + i)
 		{
 			next_token[i] = '\0';
-			next_token = next_token + i + 1;
+			next_token = next_token + i + ft_strlen(delim);
 			return (token);
 		}
 		i++;

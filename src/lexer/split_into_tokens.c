@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/27 13:19:41 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:12:36 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,21 @@ char	*preprocess_input(const char *input)
 	int		i;
 	int		j;
 
-	new_input = ft_calloc(ft_strlen(input) + 1, sizeof(char));
+	new_input = ft_calloc(ft_strlen(input) + 2, sizeof(char));
 	if (!new_input)
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (input[i])
 	{
-		new_input = process_escape_sequences(input, new_input, &i, &j);
+		if (input[i] == '=' && input[i + 1] == '"')
+		{
+			new_input[j++] = '=';
+			new_input[j++] = '_';
+			i++;
+		}
+		else
+			new_input = process_escape_sequences(input, new_input, &i, &j);
 	}
 	new_input[j] = '\0';
 	return (new_input);
