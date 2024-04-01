@@ -20,6 +20,7 @@
 		"type_traits": "c",
 		"utility": "c",
 		"typeinfo": "c",
-		"string_view": "c"
+		"string_view": "c",
+		"history.h": "c"
 	}
 }

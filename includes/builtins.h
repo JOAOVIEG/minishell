@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/01 15:18:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/01 17:50:36 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+# include <stdbool.h>
 
 typedef struct s_exp_buff	t_exp_buff;
 
@@ -32,20 +34,20 @@ int							to_print(char **cmd);
 void						pwd(void);
 void						env(void);
 void						exit_shell(int status);
-int					ft_in_is_digit(char *in);
-void				ft_exit(char **arg);
+int							ft_in_is_digit(char *in);
+void						ft_exit(char **arg);
 void						free_env(void);
 void						export(char **arg);
 int							is_invalid_variable(char *name);
-char						*get_equal(char *arg);
+bool						verify_env_name(t_exp_buff *data);
 t_env						*create_var(t_env *new, char *name, char *value);
-char						*get_var_name(char *arg, char *equal);
 t_env						*update_envl(t_env *env, t_exp_buff *data);
-char						*get_var_value(t_env *env, char *name);
+t_env						*concatenate_envl(t_env *env_list,
+								t_exp_buff *data);
 void						display_exp_var(t_env *env);
 int							unset(char **arg);
 void						backshift(char **env, int start);
 void						update_env_list(char **env);
-long long int		ft_atol(const char *av);
+long long int				ft_atol(const char *av);
 
 #endif

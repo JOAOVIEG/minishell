@@ -55,8 +55,6 @@ $(addprefix $(SRC_DIR)/execute/built_ins/, \
     echo.c \
     env.c \
     exit.c \
-    export_actions.c \
-    export_actions_utils.c \
     export_buffer.c \
     export.c \
     export_grammar.c \
