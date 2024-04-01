@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expancion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:49:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 17:48:42 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:02:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 	char					*trimmed;
 	char					*data_trimmed;
 
-	handle_lonely_dollar(current);
+	// handle_lonely_dollar(current);
 	replacement.current = current;
 	init_env_var_replacement(current, &replacement);
 	data_trimmed = ft_strtrim(replacement.substring, "$");

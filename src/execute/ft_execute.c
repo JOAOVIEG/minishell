@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/26 16:43:53 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/28 11:58:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_simple_cmds(t_node *node)
 		exec_cmd(node);
 }
 
-/* void	ft_exec_piped(t_node *node)
+void	ft_exec_piped(t_node *node)
 {
 	int		pipe_end[2];
 	int		l_status;
@@ -37,7 +37,10 @@ void	ft_simple_cmds(t_node *node)
 		exit_shell(EXIT_FAILURE);
 	}
 	if ((reads_from_stdin(node->left) == 1 || \
-			reads_from_stdin(node->right) == 1) && check_heredoc(node) == 0)
+			reads_from_stdin(node->right) == 1) || \
+			(node->right->type == TYPE_PIPE && \
+			(reads_from_stdin(node->right->left) == 1 \
+			|| reads_from_stdin(node->right->right) == 1)))
 	{
 		left_pid = fork();
 		left_node_process(node, pipe_end, left_pid);
@@ -68,52 +71,6 @@ void	ft_simple_cmds(t_node *node)
 				shell()->status = WEXITSTATUS(r_status);
 		}
 	}
-} */
-
-void	ft_exec_piped(t_node *node)
-{
-	int		pipe_end[2];
-	pid_t	left_pid;
-	pid_t	right_pid;
-
-	if (pipe(pipe_end) < 0)
-	{
-		perror("Error at pipe");
-		exit_shell(EXIT_FAILURE);
-	}
-	left_pid = fork();
-	if (left_pid == 0)
-	{
-		// This is the left child process.
-		// Close the read end of the pipe.
-		close(pipe_end[0]);
-		// Redirect stdout to the write end of the pipe.
-		dup2(pipe_end[1], STDOUT_FILENO);
-		close(pipe_end[1]);
-		// Execute the left command.
-		ft_execute(node->left);
-		exit(EXIT_SUCCESS);
-	}
-	right_pid = fork();
-	if (right_pid == 0)
-	{
-		// This is the right child process.
-		// Close the write end of the pipe.
-		close(pipe_end[1]);
-		// Redirect stdin to the read end of the pipe.
-		dup2(pipe_end[0], STDIN_FILENO);
-		close(pipe_end[0]);
-		// Execute the right command.
-		ft_execute(node->right);
-		exit(EXIT_SUCCESS);
-	}
-	// This is the parent process.
-	// Close both ends of the pipe.
-	close(pipe_end[0]);
-	close(pipe_end[1]);
-	// Wait for both child processes to finish.
-	waitpid(left_pid, NULL, 0);
-	waitpid(right_pid, NULL, 0);
 }
 
 void	heredoc_check(t_node *node, int i)

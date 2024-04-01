@@ -1,0 +1,35 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [18]
+|  CMD: ->unset PATH
+| EcHo how u launch this without PATH??<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 2: EcHo: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->EcHo: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->ERROR env at path: Inappropriate ioctl for device$
+| Error: No such file or directory$
+| EcHo: command not found$<-
+|
+---------------------------------------------<
+
