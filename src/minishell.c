@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/29 19:03:46 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:39:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,15 @@ int	reads_from_stdin(t_node *node)
 	cmd = node->cmd->arg[0];
 	if (!cmd)
 		return (0);
-	if (ft_strcmp(cmd, "cat") == 0 || ft_strcmp(cmd, "grep") == 0
-		|| ft_strcmp(cmd, "sed") == 0 || ft_strcmp(cmd, "awk") == 0
-		|| ft_strcmp(cmd, "sort") == 0 || ft_strcmp(cmd, "uniq") == 0
-		|| ft_strcmp(cmd, "cut") == 0 || ft_strcmp(cmd, "paste") == 0
-		|| ft_strcmp(cmd, "wc") == 0 || ft_strcmp(cmd, "tr") == 0
-		|| ft_strcmp(cmd, "tee") == 0 || ft_strcmp(cmd, "head") == 0
-		|| ft_strcmp(cmd, "tail") == 0 || ft_strcmp(cmd, "xargs") == 0
-		|| ft_strcmp(cmd, "less") == 0 || ft_strcmp(cmd, "more") == 0)
+	if (ft_strstr(cmd, "cat") != NULL || ft_strstr(cmd, "grep") != NULL
+		|| ft_strstr(cmd, "sed") != NULL || ft_strstr(cmd, "awk") != NULL
+		|| ft_strstr(cmd, "sort") != NULL || ft_strstr(cmd, "uniq") != NULL
+		|| ft_strstr(cmd, "cut") != NULL || ft_strstr(cmd, "paste") != NULL
+		|| ft_strstr(cmd, "wc") != NULL || ft_strstr(cmd, "tr")!= NULL
+		|| ft_strstr(cmd, "tee") != NULL || ft_strstr(cmd, "head") != NULL
+		|| ft_strstr(cmd, "tail") != NULL || ft_strstr(cmd, "xargs") != NULL
+		|| ft_strstr(cmd, "less") != NULL || ft_strstr(cmd, "more") != NULL
+		|| ft_strstr(cmd, "cd") != NULL)
 		return (1);
 	return (0);
 }
@@ -95,11 +96,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	int	arg_check;
 
-	if (argc > 2 && strcmp(argv[1], "-c") == 0)
-	{
-		run_test_with_c_option(argv, envp);
-		return (shell()->status);
-	}
+	// if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
+	// {
+	// 	run_test_with_c_option(argv, envp);
+	// 	return (shell()->status);
+	// }
 	arg_check = arg_access(argv, argc);
 	if (arg_check != EXIT_SUCCESS)
 		return (shell()->status);

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/25 16:56:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/03/28 14:55:50 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	run_builtin(t_node *node)
 	if (ft_strcmp(cmd[0], "export") == 0)
 		export(cmd);
 	if (ft_strcmp(cmd[0], "exit") == 0)
-		exit_shell(0);
+		ft_exit(cmd);
 	if (ft_strcmp(cmd[0], "unset") == 0)
 		unset(cmd);
 	if (ft_strcmp(cmd[0], "env") == 0)

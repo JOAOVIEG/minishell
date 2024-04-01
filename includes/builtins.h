@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/29 17:49:16 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:18:34 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int							to_print(char **cmd);
 void						pwd(void);
 void						env(void);
 void						exit_shell(int status);
+int					ft_in_is_digit(char *in);
+void				ft_exit(char **arg);
 void						free_env(void);
 void						export(char **arg);
 int							is_invalid_variable(char *name);
@@ -44,5 +46,6 @@ void						display_exp_var(t_env *env);
 int							unset(char **arg);
 void						backshift(char **env, int start);
 void						update_env_list(char **env);
+long long int		ft_atol(const char *av);
 
 #endif
