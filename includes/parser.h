@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/29 19:14:59 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:03:50 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,8 @@ void							env_n_found(t_env_var_replacement *rplcmnt,
 									char *trimmed);
 void							init_env_var_replacement(t_lst_tokens **current,
 									t_env_var_replacement *replacement);
-char							*create_env_data(t_env_var_replacement *rplcmnt);
+char							*create_env_data(
+									t_env_var_replacement *rplcmnt);
 char							*find_end_of_env_var(const char *str);
 t_quote_type					env_var_quotes(t_lst_tokens *current);
 
@@ -179,7 +180,8 @@ t_node							*create_new_node(t_lst_tokens **cmd_tokens);
 t_node							*create_node_and_update_tree(t_node **tree_root,
 									t_node **rightmost_node,
 									t_lst_tokens **cmd_tokens);
-t_node							*create_node_and_update_redir_pipe_tree(t_node **tree_root,
+t_node							*create_node_and_update_redir_pipe_tree(
+									t_node **tree_root,
 									t_node **rightmost_node, t_buffer buffer);
 t_node							*new_redir_tree_node(t_buffer buffer);
 t_cmd							*create_cmd(t_lst_tokens *tokens);
@@ -187,7 +189,8 @@ t_lst_tokens					*get_cmd_tokens(t_lst_tokens **current);
 t_lst_tokens					*get_cmd_list(t_lst_tokens **current,
 									t_lst_tokens **cmd_tokens,
 									t_lst_tokens **tail);
-void							build_heredoc_redir_queue(t_lst_tokens **current,
+void							build_heredoc_redir_queue(
+									t_lst_tokens **current,
 									t_token_queue *cmds,
 									t_token_queue *heredocs,
 									t_token_queue *redir_files);
