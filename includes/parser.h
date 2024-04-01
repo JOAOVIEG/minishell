@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 10:20:30 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/29 19:14:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct s_env_var_replacement
 typedef struct s_parser
 {
 	t_lst_tokens				*tokens;
-	t_lst_tokens				*q_tokens;
 	int							pipe_count;
 	int							redir_count;
 	int							heredoc_count;

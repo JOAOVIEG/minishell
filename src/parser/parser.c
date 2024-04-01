@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:18:47 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 10:21:31 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/29 19:20:40 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_parser	*init_parser(void)
 		exit(EXIT_FAILURE);
 	}
 	parser->tokens = NULL;
-	parser->q_tokens = NULL;
 	parser->pipe_count = 0;
 	parser->redir_count = 0;
 	parser->heredoc_count = 0;
@@ -47,6 +46,7 @@ void	parser(t_shell *shell)
 		make_expansion(shell);
 		get_token_type(shell->parser->tokens);
 		remove_empty_tokens(shell->parser);
+		//print_list(shell->parser->tokens);
 		remove_quotes(shell->parser);
 		build_tree(shell);
 	}

@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:17:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/25 17:23:46 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/29 19:12:13 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,24 @@ void	remove_quotes(t_parser *parser)
 {
 	t_lst_tokens	*current;
 	t_lst_tokens	*head;
+	char			*old_data;
 
 	head = parser->tokens;
 	current = head;
 	while (current)
 	{
 		if (current->data[0] == '\'')
+		{
+			old_data = current->data;
 			current->data = ft_strtrim(current->data, "\'");
+			free(old_data);
+		}
 		else if (current->data[0] == '"')
+		{
+			old_data = current->data;
 			current->data = ft_strtrim(current->data, "\"");
+			free(old_data);
+		}
 		current = current->next;
 	}
 	parser->tokens = head;

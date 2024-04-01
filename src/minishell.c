@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/28 11:58:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:39:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	int	arg_check;
 
-	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
-	{
-		run_test_with_c_option(argv, envp);
-		return (shell()->status);
-	}
+	// if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
+	// {
+	// 	run_test_with_c_option(argv, envp);
+	// 	return (shell()->status);
+	// }
 	arg_check = arg_access(argv, argc);
 	if (arg_check != EXIT_SUCCESS)
 		return (shell()->status);

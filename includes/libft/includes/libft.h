@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 10:12:52 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 14:54:16 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:07:34 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,11 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-char				*ft_search_and_replace(const char *str, const char *srch,
-						const char *rplc);
+char				*ft_search_and_replace_all(const char *str,
+						const char *srch, const char *rplc);
+char				*ft_search_and_replace_first(const char *str,
+						const char *srch, const char *rplc);
+char				*ft_strtok(char *str, const char *delim);
 
 // ft_printf
 

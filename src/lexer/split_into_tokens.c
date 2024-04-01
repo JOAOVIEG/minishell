@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:23:43 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/22 19:25:30 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:12:36 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,50 @@ void	process_token(char **tokens, char *input, int *iac)
 	}
 }
 
+char	*process_escape_sequences(const char *input, char *new_input, int *i,
+		int *j)
+{
+	if (input[*i] == '\\' && input[*i + 1] == 'n')
+	{
+		new_input[(*j)++] = '\n';
+		*i += 2;
+	}
+	else if (input[*i] == '\\' && input[*i + 1] == 'r')
+	{
+		new_input[(*j)++] = '\r';
+		*i += 2;
+	}
+	else if (input[*i] == '\\' && input[*i + 1] == 't')
+	{
+		new_input[(*j)++] = '\t';
+		*i += 2;
+	}
+	else
+		new_input[(*j)++] = input[(*i)++];
+	return (new_input);
+}
+
 char	*preprocess_input(const char *input)
 {
 	char	*new_input;
 	int		i;
 	int		j;
 
-	new_input = ft_calloc(ft_strlen(input) + 1, sizeof(char));
+	new_input = ft_calloc(ft_strlen(input) + 2, sizeof(char));
 	if (!new_input)
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (input[i])
 	{
-		if (input[i] == '=' && input[i + 1] == ' ' && (input[i + 2] == '\''
-				|| input[i + 2] == '\"'))
+		if (input[i] == '=' && input[i + 1] == '"')
 		{
 			new_input[j++] = '=';
 			new_input[j++] = '_';
-			new_input[j++] = input[i + 2];
-			i += 3;
+			i++;
 		}
 		else
-			new_input[j++] = input[i++];
+			new_input = process_escape_sequences(input, new_input, &i, &j);
 	}
 	new_input[j] = '\0';
 	return (new_input);

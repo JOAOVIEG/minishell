@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 09:22:19 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 14:55:58 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:55:05 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	process_current(t_lst_tokens *current, t_shell *shell)
 		}
 		else if (ft_strstr(current->data, "~/"))
 		{
-			new_data = ft_search_and_replace(current->data, "~",
+			new_data = ft_search_and_replace_all(current->data, "~",
 					find_env_value(shell->v_env, "HOME"));
 			free(current->data);
 			current->data = new_data;

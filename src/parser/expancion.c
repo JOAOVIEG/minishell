@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:49:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/26 18:02:46 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:19:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ bool	dollar_sign_isolated(char *str, int index)
 	int	len;
 
 	len = strlen(str);
-	if (index == 0 && is_whitespace(str[index + 1]))
+	if (index == 0 && !ft_isalnum(str[index + 1]) && str[index + 1] != '?')
 		return (true);
-	if (index == len - 1 && is_whitespace(str[index - 1]))
+	if ((index == len - 1 && !ft_isalnum(str[index - 1])) || (index == len - 1
+			&& ft_isalnum(str[index - 1])))
 		return (true);
-	if (index > 0 && index < len - 1 && is_whitespace(str[index - 1])
-		&& is_whitespace(str[index + 1]))
+	if (index > 0 && index < len - 1 && !ft_isalnum(str[index - 1])
+		&& !ft_isalnum(str[index + 1]))
 		return (true);
 	return (false);
 }
@@ -62,7 +63,6 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 	char					*trimmed;
 	char					*data_trimmed;
 
-	// handle_lonely_dollar(current);
 	replacement.current = current;
 	init_env_var_replacement(current, &replacement);
 	data_trimmed = ft_strtrim(replacement.substring, "$");
@@ -87,7 +87,16 @@ void	replace_with_env_var(t_lst_tokens **current, t_env *env)
 void	replace_env_var_in_token(t_lst_tokens **current, t_env *env)
 {
 	while (ft_strchr((*current)->data, '$'))
-		replace_with_env_var(current, env);
+	{
+		if (dollar_sign_isolated((*current)->data,
+				find_char_index((*current)->data, '$')) && !(*current)->next)
+			(*current)->data = ft_search_and_replace_first((*current)->data,
+					"$", "OnlyDollar");
+		else
+			replace_with_env_var(current, env);
+	}
+	(*current)->data = ft_search_and_replace_all((*current)->data, "OnlyDollar",
+			"$");
 }
 
 void	make_expansion(t_shell *shell)
