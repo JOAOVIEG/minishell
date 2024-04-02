@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:51:40 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/22 16:11:28 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:50:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ bool	grammar_redirection(t_parser *parser)
 	if (parser->tokens->type == TYPE_REDIRECT)
 	{
 		parser->tokens = parser->tokens->next;
-		if (!parser->tokens || parser->tokens->type != TYPE_ARG)
+		if (!parser->tokens || (parser->tokens->type != TYPE_ARG
+				&& parser->tokens->type != TYPE_ENV_VAR))
 		{
 			redirection_error(parser->tokens);
 			return (false);

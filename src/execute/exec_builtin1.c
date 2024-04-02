@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 14:41:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:57:43 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	open_append_to(t_node *node, int i)
 	}
 	else
 	{
-		node->fd_out = open(node->cmd->file[i], \
-						O_WRONLY | O_CREAT | O_APPEND, 0644);
+		node->fd_out = open(node->cmd->file[i], O_WRONLY | O_CREAT | O_APPEND,
+				0644);
 		if (node->fd_out < 0)
 		{
-			status_error(node->cmd->file[i], "Permission denied", \
-													STDERR_FILENO);
+			status_error(node->cmd->file[i], "Permission denied",
+				STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 			return (node->fd_out);
 		}
@@ -45,15 +45,16 @@ int	open_file_from(t_node *node, int i)
 		node->fd_in = open(node->cmd->file[i], O_RDONLY);
 		if (node->fd_in < 0)
 		{
-			status_error(node->cmd->file[i], "Permission denied", \
-													STDERR_FILENO);
+			status_error(node->cmd->file[i], "Permission denied",
+				STDERR_FILENO);
 			shell()->status = EXIT_FAILURE;
 		}
 	}
 	else
 	{
-		status_error(node->cmd->file[i], "No such file or directory", \
-														STDERR_FILENO);
+		node->cmd->file[i] = ft_strjoin("bash: ", node->cmd->file[i]); //for message be exactly the same as bash
+		status_error(node->cmd->file[i], "No such file or directory",
+			STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;
 		return (-1);
 	}
