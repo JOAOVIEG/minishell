@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/17 20:57:41 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:27:20 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,31 @@ void	cd(char *path)
 	char	*oldpwd;
 	t_env	*pwd;
 	t_env	*oldpwd_var;
+	int		print_dir;
 
+	print_dir = 0;
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		perror("getcwd");
-	if (!path)
-		path = get_home_var(path);
+	 if (!path || strcmp(path, "-") == 0)
+    {
+		if (!path)
+			print_dir = 0;
+		else
+			print_dir = 1;
+        oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
+        if (oldpwd_var && oldpwd_var->value)
+            path = oldpwd_var->value;
+        else
+            path = get_home_var(path);
+    }
 	if (chdir(path) == -1)
 	{
 		perror("cd");
 		shell()->status = 1;
 	}
+	else if (print_dir)
+		printf("%s\n", path);
 	pwd = find_env_var(shell()->v_env, "PWD");
 	oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
 	if (pwd)

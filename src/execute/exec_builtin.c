@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/28 14:55:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:18:11 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	run_builtin(t_node *node)
 	cmd = node->cmd->arg;
 	if (ft_strcmp(cmd[0], "cd") == 0)
 	{
-		if (!cmd[2])
+		if (!cmd[1] || (cmd[1] && !cmd[2]))
 			cd(cmd[1]);
 		else
 		{
