@@ -33,6 +33,7 @@ $(addprefix $(SRC_DIR)/parser/, \
     build_ast_utils_02.c \
     expancion.c \
     expancion_utils.c \
+    expancion_utils2.c \
     expansion_hd.c \
     free_parser.c \
     get_token_type.c \
@@ -64,6 +65,7 @@ $(addprefix $(SRC_DIR)/execute/built_ins/, \
 ) \
 $(addprefix $(SRC_DIR)/execute/env/, \
     env_init.c \
+    env_list_to_arr.c \
 ) \
 $(addprefix $(SRC_DIR)/execute/, \
     exec_builtin1.c \

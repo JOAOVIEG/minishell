@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/01 16:03:50 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/02 09:56:18 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void							remove_empty_tokens(t_parser *parser);
 bool							test_token(t_lst_tokens *tokens);
 bool							only_empty_quotes(char *str);
 void							handle_tilde(t_shell *shell);
+bool							dollar_sign_isolated(char *str, int index);
 
 // Managing Tokens
 void							parse_to_list(t_lexer *lexer, t_parser *parser);

@@ -1,0 +1,100 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expancion_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 09:54:59 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/04/02 09:57:38 by wiferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+bool	dollar_sign_isolated(char *str, int index)
+{
+	int	len;
+
+	len = strlen(str);
+	if (index == 0 && !ft_isalnum(str[index + 1]) && str[index + 1] != '?')
+		return (true);
+	if ((index == len - 1 && !ft_isalnum(str[index - 1])) || (index == len - 1
+			&& ft_isalnum(str[index - 1])))
+		return (true);
+	if (index > 0 && index < len - 1 && !ft_isalnum(str[index - 1])
+		&& !ft_isalnum(str[index + 1]))
+		return (true);
+	return (false);
+}
+
+void	env_n_found(t_env_var_replacement *rplcmnt, char *trimmed)
+{
+	char	*new_data;
+
+	rplcmnt->value = "";
+	new_data = create_env_data(rplcmnt);
+	free((*(rplcmnt->current))->data);
+	(*(rplcmnt->current))->data = new_data;
+	free(rplcmnt->substring);
+	free(trimmed);
+}
+
+void	make_rplcmnt(t_env_var_replacement *rplcmnt, char *trimmed)
+{
+	char	*new_data;
+
+	new_data = create_env_data(rplcmnt);
+	free((*(rplcmnt->current))->data);
+	(*(rplcmnt->current))->data = new_data;
+	if (rplcmnt->substring)
+		free(rplcmnt->substring);
+	if (rplcmnt->end)
+		rplcmnt->end = NULL;
+	if (rplcmnt->start)
+		rplcmnt->start = NULL;
+	if (trimmed)
+		free(trimmed);
+}
+
+void	replace_with_env_var(t_lst_tokens **current, t_env *env)
+{
+	t_env_var_replacement	replacement;
+	char					*trimmed;
+	char					*data_trimmed;
+
+	replacement.current = current;
+	init_env_var_replacement(current, &replacement);
+	data_trimmed = ft_strtrim(replacement.substring, "$");
+	trimmed = ft_strdup(data_trimmed);
+	free(data_trimmed);
+	if (ft_strncmp(trimmed, "?", 1) == 0)
+	{
+		replacement.value = ft_itoa(shell()->status);
+		make_rplcmnt(&replacement, trimmed);
+		free(replacement.value);
+		return ;
+	}
+	else if (find_env_value(env, trimmed))
+	{
+		replacement.value = find_env_value(env, trimmed);
+		make_rplcmnt(&replacement, trimmed);
+		return ;
+	}
+	env_n_found(&replacement, trimmed);
+}
+
+void	replace_env_var_in_token(t_lst_tokens **current, t_env *env)
+{
+	while (ft_strchr((*current)->data, '$'))
+	{
+		if (dollar_sign_isolated((*current)->data,
+				find_char_index((*current)->data, '$')) && !(*current)->next)
+			(*current)->data = ft_search_and_replace_first((*current)->data,
+					"$", "OnlyDollar");
+		else
+			replace_with_env_var(current, env);
+	}
+	(*current)->data = ft_search_and_replace_all((*current)->data, "OnlyDollar",
+			"$");
+}

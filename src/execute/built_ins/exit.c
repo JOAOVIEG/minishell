@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:58:07 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/01 13:17:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:34:13 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ int	ft_in_is_digit(char *in)
 	}
 	return (1);
 }
+
 long long int	ft_atol(const char *av)
 {
-	int			sign;
+	int				sign;
 	long long int	integer;
 
 	sign = 1;

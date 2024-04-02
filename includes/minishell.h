@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/19 14:16:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:08:08 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_shell
 t_env						*find_env_var(t_env *env, char *name);
 t_env						*env_cpy(char **envp);
 void						check_new_malloc(t_env *new);
-void						new_var(t_env **head, t_env *tail, t_env *new);
+void						new_var(t_env **head, t_env **tail, t_env *new);
 void						get_var(t_env *new, char *envp, char *equal_pos);
 void						ignore_signals(void);
 void						read_input(void);

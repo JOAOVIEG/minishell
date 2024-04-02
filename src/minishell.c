@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/01 16:39:19 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:01:04 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	reads_from_stdin(t_node *node)
 		|| ft_strstr(cmd, "sed") != NULL || ft_strstr(cmd, "awk") != NULL
 		|| ft_strstr(cmd, "sort") != NULL || ft_strstr(cmd, "uniq") != NULL
 		|| ft_strstr(cmd, "cut") != NULL || ft_strstr(cmd, "paste") != NULL
-		|| ft_strstr(cmd, "wc") != NULL || ft_strstr(cmd, "tr")!= NULL
+		|| ft_strstr(cmd, "wc") != NULL || ft_strstr(cmd, "tr") != NULL
 		|| ft_strstr(cmd, "tee") != NULL || ft_strstr(cmd, "head") != NULL
 		|| ft_strstr(cmd, "tail") != NULL || ft_strstr(cmd, "xargs") != NULL
 		|| ft_strstr(cmd, "less") != NULL || ft_strstr(cmd, "more") != NULL
@@ -96,11 +96,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	int	arg_check;
 
-	// if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
-	// {
-	// 	run_test_with_c_option(argv, envp);
-	// 	return (shell()->status);
-	// }
+	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
+	{
+		run_test_with_c_option(argv, envp);
+		return (shell()->status);
+	}
 	arg_check = arg_access(argv, argc);
 	if (arg_check != EXIT_SUCCESS)
 		return (shell()->status);

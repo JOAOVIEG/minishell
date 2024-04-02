@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:26:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/21 16:41:25 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:33:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ void	get_var(t_env *new, char *envp, char *equal_pos)
 	new->next = NULL;
 }
 
-void	new_var(t_env **head, t_env *tail, t_env *new)
+void	new_var(t_env **head, t_env **tail, t_env *new)
 {
-	if (tail)
-		tail->next = new;
+	if (*tail)
+		(*tail)->next = new;
 	else
 		*head = new;
+	*tail = new;
 }
 
 void	check_new_malloc(t_env *new)
@@ -66,8 +67,7 @@ t_env	*env_cpy(char **envp)
 			if (equal_pos)
 			{
 				get_var(new, *envp, equal_pos);
-				new_var(&head, tail, new);
-				tail = new;
+				new_var(&head, &tail, new);
 			}
 			else
 				free(new);
@@ -75,46 +75,4 @@ t_env	*env_cpy(char **envp)
 		envp++;
 	}
 	return (head);
-}
-
-char	**env_list_to_arr(void)
-{
-	int		count;
-	int		i;
-	t_env	*current;
-	char	**envp;
-	char	*tmp;
-
-	count = 0;
-	i = 0;
-	current = shell()->v_env;
-	while (current != NULL)
-	{
-		count++;
-		current = current->next;
-	}
-	envp = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!envp)
-	{
-		perror("malloc envp");
-		exit(EXIT_FAILURE);
-	}
-	current = shell()->v_env;
-	while (i < count)
-	{
-		tmp = ft_strjoin(current->name, "=");
-		envp[i] = ft_strjoin(tmp, current->value);
-		if (!envp[i])
-		{
-			perror("malloc envp[i]");
-			free_c_env(envp);
-			exit(EXIT_FAILURE);
-		}
-		free(tmp);
-		i++;
-		current = current->next;
-	}
-	tmp = NULL;
-	envp[i] = NULL;
-	return (envp);
 }
