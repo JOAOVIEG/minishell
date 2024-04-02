@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/26 10:41:00 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:46:52 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,13 @@ void	status_error(char *what, char *message, int fd)
 {
 	char	*str;
 	char	*temp;
-
+	char	*m;
+		
 	temp = ft_strjoin(what, ": ");
 	str = ft_strjoin(temp, message);
 	free(temp);
-	ft_putendl_fd(str, fd);
+	m = ft_strjoin("minishell: ", str);
 	free(str);
+	ft_putendl_fd(m, fd);
+	free(m);
 }
