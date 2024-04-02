@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:58:07 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 10:34:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/02 20:17:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,32 @@ void	exit_shell(int status)
 int	ft_in_is_digit(char *in)
 {
 	size_t	i;
-	int		flag;
 
 	i = 0;
-	flag = 0;
 	if (!ft_isdigit(in[i]) && in[i] != '-' && in[i] != '+')
 	{
 		shell()->status = 2;
 		return (0);
 	}
-	i++;
-	if (in[i] == '-')
+	else if ((in[i] == '-' && !in[i + 1]) || (in[i] == '+' && !in[i + 1]))
 	{
-		flag = 1;
-		i++;
+		shell()->status = 2;
+		return (0);
 	}
+	else if (in[i] == '-' && in[i + 1] == '-' && !in[i + 2])
+	{
+		shell()->status = 0;
+		return (1);
+	}
+	else if (in[i] == '-' && in[i + 1] == '-' && in[i + 2])
+	{
+		shell()->status = 2;
+		return (0);
+	}
+	i++;
 	while (in[i])
 	{
-		if (flag)
-		{
-			shell()->status = 2;
-			return (0);
-		}
-		else if (!ft_isdigit(in[i]))
+		if (!ft_isdigit(in[i]))
 		{
 			shell()->status = 2;
 			return (0);
@@ -78,18 +81,26 @@ long long int	ft_atol(const char *av)
 
 void	ft_exit(char **arg)
 {
+	char	*str;
+
 	if (!arg[1])
 		shell()->status = EXIT_SUCCESS;
 	else if (!arg[2])
 	{
 		if (!ft_in_is_digit(arg[1]))
-			status_error(arg[1], "numeric argument required", STDERR_FILENO);
+		{
+			printf("exit\n");
+			str = ft_strjoin(arg[1], ": numeric argument required");
+			status_error("exit", str, STDERR_FILENO);
+		}
 		else
 			shell()->status = ft_atol(arg[1]);
 	}
 	else
 	{
-		status_error("minishell", "too many arguments", STDERR_FILENO);
+		printf("exit\n");
+		str = ft_strjoin(arg[1], ": too many arguments");
+		status_error("exit", str, STDERR_FILENO);
 		shell()->status = 1;
 	}
 	exit_shell(shell()->status);
