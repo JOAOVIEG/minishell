@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/02 20:25:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:42:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	free_paths(t_node *node)
 {
 	if (node->cmd->cmd_path)
 		free_cmd_paths(node->cmd->cmd_path);
-	// if (node->cmd->valid_cmd_path)
-	// {
-	// 	free(node->cmd->valid_cmd_path);
-	// 	node->cmd->valid_cmd_path = NULL;
-	// }
+	if (node->cmd->valid_cmd_path)
+	{
+		free(node->cmd->valid_cmd_path);
+		node->cmd->valid_cmd_path = NULL;
+	}
 	// This part is commented out because is causing a double free error
 }
 
@@ -47,6 +47,7 @@ void	child_exec_process(t_node *node, char **env)
 		exit_shell(shell()->status);
 	}
 	child_control(node);
+	free_paths(node);
 	handle_signal(SIG_DEFAULT);
 }
 
