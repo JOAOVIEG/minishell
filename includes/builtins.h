@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/03 15:24:05 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:24:30 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int							ft_in_is_digit(char *in);
 void						ft_exit(char **arg);
 void						free_env(void);
 void						export(char **arg);
+char						**process_env_variables(char **args);
 t_exp_buff					*get_exp_data(char *args);
 t_exp_buff					*init_exp_data(char **args, char **delimiter);
 int							is_invalid_variable(char *name);

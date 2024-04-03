@@ -60,6 +60,7 @@ $(addprefix $(SRC_DIR)/execute/built_ins/, \
     export.c \
     export_grammar.c \
     export_utilis.c \
+    export_process_var.c \
     pwd.c \
     unset.c \
 ) \

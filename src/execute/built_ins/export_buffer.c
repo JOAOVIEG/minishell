@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:39:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/03 15:23:57 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:30:06 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ void	clean_exp_buff(t_exp_buff *exp_buff)
 	exp_buff = NULL;
 }
 
+void	assign_exp_data(t_exp_buff *data, char *arg, char *delim)
+{
+	data->name = ft_strtok(arg, delim);
+	data->value = ft_strtok(NULL, delim);
+	data->equal = ft_strdup(delim);
+}
+
 t_exp_buff	*get_exp_data(char *arg)
 {
 	t_exp_buff	*data;
@@ -42,17 +49,9 @@ t_exp_buff	*get_exp_data(char *arg)
 	}
 	init_exp_buff(data);
 	if (ft_strstr(arg, "+="))
-	{
-		data->name = ft_strtok(arg, "+=");
-		data->value = ft_strtok(NULL, "+=");
-		data->equal = ft_strdup("+=");
-	}
+		assign_exp_data(data, arg, "+=");
 	else if (ft_strchr(arg, '='))
-	{
-		data->name = ft_strtok(arg, "=");
-		data->value = ft_strtok(NULL, "=");
-		data->equal = ft_strdup("=");
-	}
+		assign_exp_data(data, arg, "=");
 	else
 	{
 		data->name = arg;
