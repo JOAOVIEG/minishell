@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 10:01:04 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:52:58 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	reads_from_stdin(t_node *node)
 		|| ft_strstr(cmd, "tee") != NULL || ft_strstr(cmd, "head") != NULL
 		|| ft_strstr(cmd, "tail") != NULL || ft_strstr(cmd, "xargs") != NULL
 		|| ft_strstr(cmd, "less") != NULL || ft_strstr(cmd, "more") != NULL
-		|| ft_strstr(cmd, "cd") != NULL)
+		|| ft_strstr(cmd, "cd") != NULL || ft_strstr(cmd, "sleep") != NULL)
 		return (1);
 	return (0);
 }
