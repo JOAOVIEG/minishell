@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:39:32 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 09:51:37 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:11:14 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@ void	init_exp_buff(t_exp_buff *exp_buff)
 
 void	clean_exp_buff(t_exp_buff *exp_buff)
 {
-	if (exp_buff->name)
-	{
-		free(exp_buff->name);
-		exp_buff->name = NULL;
-	}
-	if (exp_buff->value)
-	{
-		free(exp_buff->value);
-		exp_buff->value = NULL;
-	}
 	if (exp_buff->equal)
 	{
 		free(exp_buff->equal);
@@ -44,14 +34,14 @@ void	handle_general_case(t_exp_buff *data, char **args)
 {
 	if (ft_strstr(args[1], "+="))
 	{
-		data->name = ft_strdup(ft_strtok(args[1], "+="));
-		data->value = ft_strdup(ft_strtok(NULL, "+="));
+		data->name = ft_strtok(args[1], "+=");
+		data->value = ft_strtok(NULL, "+=");
 		data->equal = ft_strdup("+=");
 	}
 	else if (ft_strchr(args[1], '='))
 	{
-		data->name = ft_strdup(ft_strtok(args[1], "="));
-		data->value = ft_strdup(ft_strtok(NULL, "="));
+		data->name = ft_strtok(args[1], "=");
+		data->value = ft_strtok(NULL, "=");
 		data->equal = ft_strdup("=");
 	}
 }
@@ -62,14 +52,14 @@ void	hanle_special_case(t_exp_buff *data, char **args)
 	{
 		if (ft_strstr(args[1], "+="))
 		{
-			data->name = ft_strdup(ft_strtok(args[1], "+=_"));
-			data->value = ft_strdup(args[2]);
+			data->name = ft_strtok(args[1], "+=_");
+			data->value = args[2];
 			data->equal = ft_strdup("+=");
 		}
 		else if (ft_strchr(args[1], '='))
 		{
-			data->name = ft_strdup(ft_strtok(args[1], "=_"));
-			data->value = ft_strdup(args[2]);
+			data->name = ft_strtok(args[1], "=_");
+			data->value = args[2];
 			data->equal = ft_strdup("=");
 		}
 	}

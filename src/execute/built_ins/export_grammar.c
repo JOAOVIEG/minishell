@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:53:44 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/01 17:21:04 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/03 11:50:11 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ int	is_invalid_variable(char *name)
 
 bool	verify_env_name(t_exp_buff *data)
 {
-	char	*err_msg;
-
 	if (is_invalid_variable(data->name))
 	{
-		data->name = ft_strjoin(data->name, data->equal);
-		data->name = ft_strjoin(data->name, data->value);
-		err_msg = ft_strdup("bash: export: `%s': not a valid identifier\n");
-		if (!err_msg)
-		{
-			perror("Error allocating memory for error message\n");
-			exit(EXIT_FAILURE);
-		}
-		err_msg = ft_search_and_replace_all(err_msg, "%s", data->name);
-		ft_putstr_fd(err_msg, STDERR_FILENO);
-		free(err_msg);
+		ft_putstr_fd("bash: export: `", STDERR_FILENO);
+		ft_putstr_fd(data->name, STDERR_FILENO);
+		if (data->equal)
+			ft_putstr_fd(data->equal, STDERR_FILENO);
+		if (data->value)
+			ft_putstr_fd(data->value, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		return (false);
 	}
 	return (true);
