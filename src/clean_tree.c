@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:02:50 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/01 15:44:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:05:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ void	free_tree_cmd(t_cmd *cmd)
 	{
 		ft_free_str_array(cmd->heredoc);
 		cmd->heredoc = NULL;
+	}
+	if (cmd->valid_cmd_path)
+	{
+		free(cmd->valid_cmd_path);
+		cmd->valid_cmd_path = NULL;
+	}
+	if (cmd->cmd_path)
+	{
+		ft_free_str_array(cmd->cmd_path);
+		cmd->cmd_path = NULL;
 	}
 	free(cmd);
 	cmd = NULL;
@@ -72,4 +82,6 @@ void	reset_parser_and_tree(void)
 		reset_parser(shell()->parser);
 	if (shell()->node)
 		free_tree_node(&shell()->node);
+	// if (shell()->env_arr)
+	// 	free_c_env(shell()->env_arr);
 }

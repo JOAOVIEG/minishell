@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 10:01:04 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:56:32 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	run_test_with_c_option(char **argv, char **envp)
 	shell()->v_env = env_cpy(envp);
 	shell()->status = 0;
 	handle_signal(SIG_DEFAULT);
-	shell()->pipe_call = 0;
 	shell()->line = argv[2];
 	add_history(shell()->line);
 	parser(shell());
@@ -96,24 +95,25 @@ int	main(int argc, char **argv, char **envp)
 {
 	int	arg_check;
 
-	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
-	{
-		run_test_with_c_option(argv, envp);
-		return (shell()->status);
-	}
+	// if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
+	// {
+	// 	run_test_with_c_option(argv, envp);
+	// 	return (shell()->status);
+	// }
 	arg_check = arg_access(argv, argc);
 	if (arg_check != EXIT_SUCCESS)
 		return (shell()->status);
 	shell()->v_env = env_cpy(envp);
+	shell()->heredoced = false;
 	while (1)
 	{
 		handle_signal(SIG_DEFAULT);
-		shell()->pipe_call = 0;
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
 		if (shell()->node)
 		{
+			shell()->heredoced = false;
 			if (check_heredoc(shell()->node) == 1)
 				ft_exec_piped_heredoc(shell()->node);
 			else
@@ -122,5 +122,5 @@ int	main(int argc, char **argv, char **envp)
 		reset_parser_and_tree();
 	}
 	rl_clear_history();
-	return (shell()->status);
+	return (EXIT_SUCCESS);
 }

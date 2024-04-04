@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:57:59 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/02 10:57:43 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:52:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	open_file_from(t_node *node, int i)
 	}
 	else
 	{
-		node->cmd->file[i] = ft_strjoin("bash: ", node->cmd->file[i]); //for message be exactly the same as bash
 		status_error(node->cmd->file[i], "No such file or directory",
 			STDERR_FILENO);
 		shell()->status = EXIT_FAILURE;

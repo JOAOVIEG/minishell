@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:49:54 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/03 14:16:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:50:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	parent_control(t_node *node, pid_t pid)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell()->status = WEXITSTATUS(status);
-	free_paths(node);
 	handle_signal(SIG_DEFAULT);
 }
 
@@ -65,7 +64,6 @@ void	child_control(t_node *node)
 		close(node->fd_in);
 	if (node->fd_out)
 		close(node->fd_out);
-	free_paths(node);
 	exit_shell(shell()->status);
 }
 

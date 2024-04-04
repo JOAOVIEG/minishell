@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/14 14:24:42 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:43:55 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,7 @@ void	end_shell(void)
 		free_history(shell()->history);
 	if (shell()->v_env)
 		free_env();
+	if (shell()->env_arr)
+		free_c_env(shell()->env_arr);
+	
 }
