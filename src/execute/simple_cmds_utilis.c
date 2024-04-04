@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/03 17:26:46 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:19:23 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,22 @@ void	exec_builtin(t_node *node)
 
 void	exec_cmd(t_node *node)
 {
-	char	**env;
 	pid_t	pid;
 	int		i;
 
 	i = 0;
-	env = env_list_to_arr();
-	check_path(env, node);
+	shell()->env_arr = env_list_to_arr();
+	check_path(shell()->env_arr, node);
 	if (node->cmd->heredoc)
-		heredoc_here(node, env, i);
+		heredoc_here(node, shell()->env_arr, i);
 	else
 	{
 		if (file_redir(node, i) == 1)
 			return ;
-		if (no_cmd_check(node, env) == 1)
+		if (no_cmd_check(node, shell()->env_arr) == 1)
 			return ;
 		pid = fork();
 		assign_fds(node);
-		run_path_process(node, pid, env);
+		run_path_process(node, pid, shell()->env_arr);
 	}
 }

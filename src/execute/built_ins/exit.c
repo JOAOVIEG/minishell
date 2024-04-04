@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:58:07 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 20:17:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:00:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	ft_exit(char **arg)
 		printf("exit\n");
 		str = ft_strjoin(arg[1], ": too many arguments");
 		status_error("exit", str, STDERR_FILENO);
+		free(str);
 		shell()->status = 1;
 	}
 	exit_shell(shell()->status);

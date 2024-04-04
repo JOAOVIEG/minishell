@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 10:08:08 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:26:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ typedef struct s_shell
 {
 	t_env					*v_env;
 	int						status;
-	int						pipe_call;
+	bool					heredoced;
 	char					*line;
+	char					**env_arr;
 	t_node					*node;
 	t_lexer					*lexer;
 	t_parser				*parser;
