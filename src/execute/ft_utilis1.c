@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 16:17:09 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/25 16:58:41 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:33:22 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	create_file(t_node *node)
 
 void	invalid_cmd_path(t_node *node, char **env)
 {
-	if (env)
-		ft_free_str_array(env);
+	(void)env;
+	// if (env)
+	// 	ft_free_str_array(env);
 	shell()->status = 127;
 	if (str_is_only_whitespace(node->cmd->arg[0]) && node->cmd->arg[1])
 		node->cmd->arg[0] = ft_strjoin(node->cmd->arg[0], node->cmd->arg[1]);

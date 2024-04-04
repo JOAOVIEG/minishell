@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utilis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/03 14:01:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:36:44 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ char	*get_path(char **env)
 		if (*tmp == NULL)
 		{
 			perror("ERROR env at path");
-			// free_c_env(env);
-			//This line is commented out because is causing a double free error
 			shell()->status = EXIT_FAILURE;
 			return (NULL);
 		}
@@ -94,6 +92,5 @@ char	*validate_cmd(char **cmd_paths, char *cmd)
 		free(tmp2);
 		i++;
 	}
-	free_cmd_paths(cmd_paths);
 	return (NULL);
 }
