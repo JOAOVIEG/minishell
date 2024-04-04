@@ -1,14 +1,21 @@
 #!/bin/bash
 
-# Define the test function
 run_test() {
-	echo "Running test: $1"
-	valgrind --suppressions=../readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt .././minishell -c "$1"
-	if grep -q "definitely lost: [1-9]" valgrind-out.txt; then
-		echo "$1 caused a memory leak. See below for details:" >>leak_tests.txt
-		grep -A4 "definitely lost: [1-9]" valgrind-out.txt >>leak_tests.txt
-	fi
-	echo
+    echo "Running test: $1"
+    valgrind --suppressions=../readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt .././minishell -c "$1"
+    if grep -q "definitely lost: [1-9]" valgrind-out.txt; then
+        echo "$1 caused a definitely lost memory leak. See below for details:" >>leak_tests.txt
+        grep -A4 "definitely lost: [1-9]" valgrind-out.txt >>leak_tests.txt
+    fi
+    if grep -q "indirectly lost: [1-9]" valgrind-out.txt; then
+        echo "$1 caused an indirectly lost memory leak. See below for details:" >>leak_tests.txt
+        grep -A4 "indirectly lost: [1-9]" valgrind-out.txt >>leak_tests.txt
+    fi
+    if grep -q "possibly lost: [1-9]" valgrind-out.txt; then
+        echo "$1 caused a possibly lost memory leak. See below for details:" >>leak_tests.txt
+        grep -A4 "possibly lost: [1-9]" valgrind-out.txt >>leak_tests.txt
+    fi
+    echo
 }
 
 clean_up() {
