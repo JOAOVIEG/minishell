@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 16:27:21 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:25:45 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,13 @@ void	run_test_with_c_option(char **argv, char **envp)
 	add_history(shell()->line);
 	parser(shell());
 	if (shell()->node)
-		ft_execute(shell()->node);
+	{
+		shell()->heredoced = false;
+		if (check_heredoc(shell()->node) == 1)
+			ft_exec_piped_heredoc(shell()->node);
+		else
+			ft_execute(shell()->node);
+	}
 	reset_parser_and_tree();
 	rl_clear_history();
 	free_lexer(shell()->lexer);

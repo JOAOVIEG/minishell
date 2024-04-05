@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/04 16:36:44 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:11:03 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_cmd(char **cmd_path, char *cmd)
 	{
 		if (access(cmd, F_OK) == 0)
 		{
-			path_cpy = ft_strdup(cmd); 
+			path_cpy = ft_strdup(cmd);
 			return (path_cpy);
 		}
 		else

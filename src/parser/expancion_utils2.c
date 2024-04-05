@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:54:59 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 09:57:38 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:09:45 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	make_rplcmnt(t_env_var_replacement *rplcmnt, char *trimmed)
 
 	new_data = create_env_data(rplcmnt);
 	free((*(rplcmnt->current))->data);
-	(*(rplcmnt->current))->data = new_data;
+	(*(rplcmnt->current))->data = ft_strdup(new_data);
+	free(new_data);
 	if (rplcmnt->substring)
 		free(rplcmnt->substring);
 	if (rplcmnt->end)

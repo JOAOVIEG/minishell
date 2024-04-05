@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:20:44 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/29 19:15:22 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:55:26 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	delete_node(t_lst_tokens *node)
 	free(node->data);
 	node->data = NULL;
 	free(node);
+	node = NULL;
 }
 
 void	free_lst_tokens(t_lst_tokens *tokens)

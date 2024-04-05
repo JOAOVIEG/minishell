@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/03/26 13:12:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:21:51 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void				parent_exec_control(t_node *node, pid_t pid, char **env);
 void				free_paths(t_node *node);
 void				child_exec_process(t_node *node, char **env);
 void				run_path_process(t_node *node, pid_t pid, char **env);
-void				parent_pipe_exec_control(t_node *node, int pipe_end[2], \
-					pid_t right_pid, pid_t left_pid);
+void				parent_pipe_exec_control(t_node *node, int pipe_end[2],
+						pid_t right_pid, pid_t left_pid);
 void				execute_right_node(t_node *node, int pipe_end[2]);
 void				execute_left_node(t_node *node, int pipe_end[2]);
 void				right_node_process(t_node *node, int pipe_end[2],
@@ -98,7 +98,8 @@ int					count_redir(t_node *node);
 void				append_f(t_node *node, int i);
 char				*append_char_to_buffer(char *buffer, size_t *buffer_size,
 						char ch);
-void				heredoc_dad(t_node *node, pid_t heredoc_pid, int k_fd[2], int k);
+void				heredoc_dad(t_node *node, pid_t heredoc_pid, int k_fd[2],
+						int k);
 void				heredoc_son(t_node *node, int k_fd[2], int k, int i);
 void				fork_check(pid_t heredoc_pid);
 void				create_file(t_node *node);
@@ -137,9 +138,10 @@ t_node				*btree_search_item(t_node *root);
 int					btree_level_count(t_node *where, t_node *what);
 void				ft_exec_piped_heredoc(t_node *node);
 t_node				*apply_to_node(t_node *root, t_node *target);
-void				btree_create_node(t_node **target, char *redir, char *file2);
+void				btree_create_node(t_node **target, char *redir,
+						char *file2);
 t_node				*copy_tree(t_node *root);
-char 				**copy_string_array(char **array);
+char				**copy_string_array(char **array);
 int					check_heredoc(t_node *node);
 void				my_free_tree(t_node *root);
 void				apply_recur(t_node *root, t_node *target);

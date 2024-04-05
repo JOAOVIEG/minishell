@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/02 14:27:20 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:07:32 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ void	cd(char *path)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		perror("getcwd");
-	 if (!path || strcmp(path, "-") == 0)
-    {
+	if (!path || strcmp(path, "-") == 0)
+	{
 		if (!path)
 			print_dir = 0;
 		else
 			print_dir = 1;
-        oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
-        if (oldpwd_var && oldpwd_var->value)
-            path = oldpwd_var->value;
-        else
-            path = get_home_var(path);
-    }
+		oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
+		if (oldpwd_var && oldpwd_var->value)
+			path = oldpwd_var->value;
+		else
+			path = get_home_var(path);
+	}
 	if (chdir(path) == -1)
 	{
 		perror("cd");

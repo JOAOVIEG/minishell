@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:02:50 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 16:05:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:19:51 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,18 @@
 void	free_tree_cmd(t_cmd *cmd)
 {
 	if (cmd->arg)
-	{
 		ft_free_str_array(cmd->arg);
-		cmd->arg = NULL;
-	}
 	if (cmd->file)
-	{
 		ft_free_str_array(cmd->file);
-		cmd->file = NULL;
-	}
 	if (cmd->heredoc)
-	{
 		ft_free_str_array(cmd->heredoc);
-		cmd->heredoc = NULL;
-	}
 	if (cmd->valid_cmd_path)
 	{
 		free(cmd->valid_cmd_path);
 		cmd->valid_cmd_path = NULL;
 	}
 	if (cmd->cmd_path)
-	{
 		ft_free_str_array(cmd->cmd_path);
-		cmd->cmd_path = NULL;
-	}
 	free(cmd);
 	cmd = NULL;
 }
@@ -82,6 +70,4 @@ void	reset_parser_and_tree(void)
 		reset_parser(shell()->parser);
 	if (shell()->node)
 		free_tree_node(&shell()->node);
-	// if (shell()->env_arr)
-	// 	free_c_env(shell()->env_arr);
 }

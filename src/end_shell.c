@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_shell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 15:43:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:21:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,4 @@ void	end_shell(void)
 		free_env();
 	if (shell()->env_arr)
 		free_c_env(shell()->env_arr);
-	
 }
