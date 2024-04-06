@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:08:02 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/02 09:56:18 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:34:57 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct s_buffer
 
 typedef struct s_env_var_replacement
 {
-	t_lst_tokens				**current;
 	char						*start;
 	char						*end;
 	char						*value;
@@ -152,15 +151,15 @@ void							replace_with_env_var(t_lst_tokens **current,
 char							*find_env_value(t_env *env, char *trimmed);
 void							make_rplcmnt(t_env_var_replacement *rplcmnt,
 									char *trimmed);
-void							env_n_found(t_env_var_replacement *rplcmnt,
-									char *trimmed);
-void							init_env_var_replacement(t_lst_tokens **current,
+char							*env_n_found(t_env_var_replacement *rplcmnt,
+									char *data);
+void							init_env_var_replacement(char *data,
 									t_env_var_replacement *replacement);
-char							*create_env_data(
-									t_env_var_replacement *rplcmnt);
+char							*create_env_data(t_env_var_replacement *replacement,
+									char *data);
 char							*find_end_of_env_var(const char *str);
 t_quote_type					env_var_quotes(t_lst_tokens *current);
-
+char							*get_replaceded_data(t_lst_tokens **current);
 // AST Building
 void							build_tree(t_shell *shell);
 void							build_tree_simple_command(t_shell *shell);
@@ -181,8 +180,7 @@ t_node							*create_new_node(t_lst_tokens **cmd_tokens);
 t_node							*create_node_and_update_tree(t_node **tree_root,
 									t_node **rightmost_node,
 									t_lst_tokens **cmd_tokens);
-t_node							*create_node_and_update_redir_pipe_tree(
-									t_node **tree_root,
+t_node							*create_node_and_update_redir_pipe_tree(t_node **tree_root,
 									t_node **rightmost_node, t_buffer buffer);
 t_node							*new_redir_tree_node(t_buffer buffer);
 t_cmd							*create_cmd(t_lst_tokens *tokens);
@@ -190,8 +188,7 @@ t_lst_tokens					*get_cmd_tokens(t_lst_tokens **current);
 t_lst_tokens					*get_cmd_list(t_lst_tokens **current,
 									t_lst_tokens **cmd_tokens,
 									t_lst_tokens **tail);
-void							build_heredoc_redir_queue(
-									t_lst_tokens **current,
+void							build_heredoc_redir_queue(t_lst_tokens **current,
 									t_token_queue *cmds,
 									t_token_queue *heredocs,
 									t_token_queue *redir_files);

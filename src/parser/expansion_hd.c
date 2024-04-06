@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:03:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/17 21:04:58 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:39:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ bool	has_env_var(char *str)
 void	make_expansion_hd(char **buffer)
 {
 	t_lst_tokens	*token;
+	char			*rep_data;
+
 
 	token = malloc(sizeof(t_lst_tokens));
 	token->data = *buffer;
@@ -29,7 +31,9 @@ void	make_expansion_hd(char **buffer)
 	token->next = NULL;
 	if (has_env_var(*buffer))
 	{
-		replace_env_var_in_token(&token, shell()->v_env);
+		rep_data = get_replaceded_data(&token);
+		free(token->data);
+		token->data = rep_data;
 		*buffer = token->data;
 	}
 	free(token);

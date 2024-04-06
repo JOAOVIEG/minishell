@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:54:59 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/05 18:09:45 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:45:18 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,74 +28,12 @@ bool	dollar_sign_isolated(char *str, int index)
 	return (false);
 }
 
-void	env_n_found(t_env_var_replacement *rplcmnt, char *trimmed)
+char	*env_n_found(t_env_var_replacement *rplcmnt, char *data)
 {
 	char	*new_data;
 
 	rplcmnt->value = "";
-	new_data = create_env_data(rplcmnt);
-	free((*(rplcmnt->current))->data);
-	(*(rplcmnt->current))->data = new_data;
-	free(rplcmnt->substring);
-	free(trimmed);
+	new_data = create_env_data(rplcmnt, data);
+	return (new_data);
 }
 
-void	make_rplcmnt(t_env_var_replacement *rplcmnt, char *trimmed)
-{
-	char	*new_data;
-
-	new_data = create_env_data(rplcmnt);
-	free((*(rplcmnt->current))->data);
-	(*(rplcmnt->current))->data = ft_strdup(new_data);
-	free(new_data);
-	if (rplcmnt->substring)
-		free(rplcmnt->substring);
-	if (rplcmnt->end)
-		rplcmnt->end = NULL;
-	if (rplcmnt->start)
-		rplcmnt->start = NULL;
-	if (trimmed)
-		free(trimmed);
-}
-
-void	replace_with_env_var(t_lst_tokens **current, t_env *env)
-{
-	t_env_var_replacement	replacement;
-	char					*trimmed;
-	char					*data_trimmed;
-
-	replacement.current = current;
-	init_env_var_replacement(current, &replacement);
-	data_trimmed = ft_strtrim(replacement.substring, "$");
-	trimmed = ft_strdup(data_trimmed);
-	free(data_trimmed);
-	if (ft_strncmp(trimmed, "?", 1) == 0)
-	{
-		replacement.value = ft_itoa(shell()->status);
-		make_rplcmnt(&replacement, trimmed);
-		free(replacement.value);
-		return ;
-	}
-	else if (find_env_value(env, trimmed))
-	{
-		replacement.value = find_env_value(env, trimmed);
-		make_rplcmnt(&replacement, trimmed);
-		return ;
-	}
-	env_n_found(&replacement, trimmed);
-}
-
-void	replace_env_var_in_token(t_lst_tokens **current, t_env *env)
-{
-	while (ft_strchr((*current)->data, '$'))
-	{
-		if (dollar_sign_isolated((*current)->data,
-				find_char_index((*current)->data, '$')) && !(*current)->next)
-			(*current)->data = ft_search_and_replace_first((*current)->data,
-					"$", "OnlyDollar");
-		else
-			replace_with_env_var(current, env);
-	}
-	(*current)->data = ft_search_and_replace_all((*current)->data, "OnlyDollar",
-			"$");
-}

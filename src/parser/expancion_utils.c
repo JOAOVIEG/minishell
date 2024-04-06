@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:56:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/05 17:31:49 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:50:37 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,22 @@ char	*find_end_of_env_var(const char *str)
 	return ((char *)s);
 }
 
-char	*create_env_data(t_env_var_replacement *replacement)
+char	*create_env_data(t_env_var_replacement *replacement, char *data)
 {
 	char	*new_data;
 
-	new_data = ft_calloc(ft_strlen((*replacement->current)->data)
-			- ft_strlen(replacement->substring) + ft_strlen(replacement->value)
-			+ 1, sizeof(char));
-	ft_strncpy(new_data, (*replacement->current)->data, replacement->start
-		- (*replacement->current)->data);
+	new_data = ft_calloc(ft_strlen(data) - ft_strlen(replacement->substring)
+			+ ft_strlen(replacement->value) + 1, sizeof(char));
+	ft_strncpy(new_data, data, replacement->start - data);
 	ft_strcat(new_data, replacement->value);
-	ft_strncat(new_data, replacement->end, (*replacement->current)->data
-		+ ft_strlen((*replacement->current)->data) - replacement->end);
+	ft_strncat(new_data, replacement->end, data + ft_strlen(data)
+		- replacement->end);
 	return (new_data);
 }
 
-void	init_env_var_replacement(t_lst_tokens **current,
-		t_env_var_replacement *replacement)
+void	init_env_var_replacement(char *data, t_env_var_replacement *replacement)
 {
-	replacement->current = current;
-	replacement->start = ft_strchr((*current)->data, '$');
+	replacement->start = ft_strchr(data, '$');
 	replacement->end = find_end_of_env_var(replacement->start);
 	if (!replacement->end)
 		replacement->end = replacement->start + ft_strlen(replacement->start);
