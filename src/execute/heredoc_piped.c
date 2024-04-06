@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 09:51:36 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/06 16:43:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:47:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,39 +108,39 @@ char	**copy_string_array(char **array)
 	return (new_array);
 }
 
-void free_tree(t_node *root)
-{
-    if (root == NULL)
-        return;
-    free_tree(root->left);
-	root->left = NULL;
-    free_tree(root->right);
-	root->right = NULL;
-    free_string_array(root->cmd->arg);
-    free_string_array(root->cmd->file);
-    free_string_array(root->cmd->heredoc);
-    free(root->cmd);
-	root->cmd = NULL;
-    free(root);
-	root = NULL;
-}
+// void free_tree(t_node *root)
+// {
+//     if (root == NULL)
+//         return;
+//     free_tree(root->left);
+// 	root->left = NULL;
+//     free_tree(root->right);
+// 	root->right = NULL;
+//     free_string_array(root->cmd->arg);
+//     free_string_array(root->cmd->file);
+//     free_string_array(root->cmd->heredoc);
+//     free(root->cmd);
+// 	root->cmd = NULL;
+//     free(root);
+// 	root = NULL;
+// }
 
-void free_string_array(char **array)
-{
-    int i = 0;
-    if (array == NULL)
-        return;
+// void free_string_array(char **array)
+// {
+//     int i = 0;
+//     if (array == NULL)
+//         return;
 
-    while (array[i] != NULL)
-    {
-        free(array[i]);
-		array[i] = NULL;
-        i++;
-    }
+//     while (array[i] != NULL)
+//     {
+//         free(array[i]);
+// 		array[i] = NULL;
+//         i++;
+//     }
 
-    free(array);
-	array = NULL;
-}
+//     free(array);
+// 	array = NULL;
+// }
 
 void	ft_exec_piped_heredoc(t_node *node)
 {
