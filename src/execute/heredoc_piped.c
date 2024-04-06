@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_piped.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 09:51:36 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/05 16:12:06 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:43:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	btree_create_node(t_node **target, char *redir, char *file2)
 	}
 	(*target)->cmd->arg = NULL;
 	(*target)->cmd->file = (char **)malloc(sizeof(char *) * 2);
-		// Allocate space for 2 pointers
 	if ((*target)->cmd->file == NULL)
 	{
 		status_error("minishell", "No memory", STDERR_FILENO);
@@ -68,14 +67,17 @@ t_node	*copy_tree(t_node *root)
 		status_error("minishell", "No memory", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
+	new_node->cmd = root->cmd;
 	new_node->cmd->arg = copy_string_array(root->cmd->arg);
 	new_node->cmd->file = copy_string_array(root->cmd->file);
 	new_node->cmd->heredoc = copy_string_array(root->cmd->heredoc);
 	new_node->type = root->type;
 	new_node->fd_in = root->fd_in;
 	new_node->fd_out = root->fd_out;
-	new_node->left = copy_tree(root->left);
-	new_node->right = copy_tree(root->right);
+	if (root->left)
+		new_node->left = copy_tree(root->left);
+	if (root->right)
+		new_node->right = copy_tree(root->right);
 	return (new_node);
 }
 
@@ -106,6 +108,40 @@ char	**copy_string_array(char **array)
 	return (new_array);
 }
 
+void free_tree(t_node *root)
+{
+    if (root == NULL)
+        return;
+    free_tree(root->left);
+	root->left = NULL;
+    free_tree(root->right);
+	root->right = NULL;
+    free_string_array(root->cmd->arg);
+    free_string_array(root->cmd->file);
+    free_string_array(root->cmd->heredoc);
+    free(root->cmd);
+	root->cmd = NULL;
+    free(root);
+	root = NULL;
+}
+
+void free_string_array(char **array)
+{
+    int i = 0;
+    if (array == NULL)
+        return;
+
+    while (array[i] != NULL)
+    {
+        free(array[i]);
+		array[i] = NULL;
+        i++;
+    }
+
+    free(array);
+	array = NULL;
+}
+
 void	ft_exec_piped_heredoc(t_node *node)
 {
 	t_node	*sub_hd_root;
@@ -120,6 +156,6 @@ void	ft_exec_piped_heredoc(t_node *node)
 	new_sub_hd = btree_search_item(new_tree);
 	new_tree = apply_to_node(new_tree, new_sub_hd);
 	shell()->heredoced = true;
-	ft_execute(new_tree);
-	unlink("temp");
+	ft_execute(new_tree);	
+// 	unlink("temp");
 }

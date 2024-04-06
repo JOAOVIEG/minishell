@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/05 16:21:51 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:41:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void				btree_create_node(t_node **target, char *redir,
 						char *file2);
 t_node				*copy_tree(t_node *root);
 char				**copy_string_array(char **array);
+// void				free_tree(t_node *root);
+// void				free_string_array(char **array);
 int					check_heredoc(t_node *node);
 void				my_free_tree(t_node *root);
 void				apply_recur(t_node *root, t_node *target);

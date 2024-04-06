@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:32:30 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/03 14:26:41 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:09:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_right_node(t_node *node, int pipe_end[2])
 	close(node->right->fd_in);
 	close(pipe_end[0]);
 	free_paths(node);
-	reset_parser_and_tree();
+	// reset_parser_and_tree();
 	exit_shell(shell()->status);
 }
 
@@ -53,7 +53,7 @@ void	execute_left_node(t_node *node, int pipe_end[2])
 	close(pipe_end[1]);
 	close(node->left->fd_out);
 	free_paths(node);
-	reset_parser_and_tree();
+	// reset_parser_and_tree();
 	exit_shell(shell()->status);
 }
 

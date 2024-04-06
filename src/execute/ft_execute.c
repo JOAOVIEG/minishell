@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/05 16:09:54 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:53:56 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_exec_piped(t_node *node)
 	else if (shell()->heredoced == true && (reads_from_stdin(node->left) == 1
 			|| reads_from_stdin(node->right) == 1))
 	{
+		shell()->heredoced = false;
 		left_pid = fork();
 		left_node_process(node, pipe_end, left_pid);
 		right_pid = fork();
@@ -63,8 +64,8 @@ void	ft_exec_piped(t_node *node)
 		left_node_process(node, pipe_end, left_pid);
 		if (left_pid > 0)
 		{
-			close(pipe_end[1]);
-			close(pipe_end[0]);
+			// close(pipe_end[1]);
+			// close(pipe_end[0]);
 			waitpid(left_pid, &l_status, 0);
 			if (WIFEXITED(l_status))
 				shell()->status = WEXITSTATUS(l_status);
