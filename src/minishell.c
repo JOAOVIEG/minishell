@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/06 16:41:26 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:48:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv, char **envp)
 		return (shell()->status);
 	shell()->v_env = env_cpy(envp);
 	shell()->heredoced = false;
-	// shell()->new_tree = NULL;
+	shell()->new_tree = NULL;
 	while (1)
 	{
 		handle_signal(SIG_DEFAULT);

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:22:51 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/06 16:41:15 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:55:47 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_shell
 	char					*line;
 	char					**env_arr;
 	t_node					*node;
-	// t_node					*new_tree;
+	t_node					*new_tree;
 	t_lexer					*lexer;
 	t_parser				*parser;
 	t_history_entry			*history;
