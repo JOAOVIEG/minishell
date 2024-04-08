@@ -6,61 +6,11 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:49:48 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/06 20:01:13 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:03:01 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// char	*process_replaceded_data(char *data)
-// {
-// 	char					*rep_data;
-// 	t_env_var_replacement	replacement;
-// 	char					*trimmed;
-
-// 	init_env_var_replacement(data, &replacement);
-// 	trimmed = ft_strtrim(replacement.substring, "$");
-// 	if (ft_strncmp(trimmed, "?", 1) == 0)
-// 	{
-// 		replacement.value = ft_itoa(shell()->status);
-// 		rep_data = create_env_data(&replacement, data);
-// 		if (replacement.substring)
-// 			free(replacement.substring);
-// 		if (replacement.value)
-// 			free(replacement.value);
-// 		if (replacement.end)
-// 			replacement.end = NULL;
-// 		if (replacement.start)
-// 			replacement.start = NULL;
-// 		if (trimmed)
-// 			free(trimmed);
-// 		return (rep_data);
-// 	}
-// 	else if (find_env_value(shell()->v_env, trimmed))
-// 	{
-// 		replacement.value = find_env_value(shell()->v_env, trimmed);
-// 		rep_data = create_env_data(&replacement, data);
-// 		if (replacement.substring)
-// 			free(replacement.substring);
-// 		if (replacement.end)
-// 			replacement.end = NULL;
-// 		if (replacement.start)
-// 			replacement.start = NULL;
-// 		if (trimmed)
-// 			free(trimmed);
-// 		return (rep_data);
-// 	}
-// 	rep_data = env_n_found(&replacement, data);
-// 	if (replacement.substring)
-// 		free(replacement.substring);
-// 	if (replacement.end)
-// 		replacement.end = NULL;
-// 	if (replacement.start)
-// 		replacement.start = NULL;
-// 	if (trimmed)
-// 		free(trimmed);
-// 	return (rep_data);
-// }
 
 void	clean_env_replacement(t_env_var_replacement *rep, char *trimmed)
 {
@@ -71,7 +21,7 @@ void	clean_env_replacement(t_env_var_replacement *rep, char *trimmed)
 	if (rep->end)
 		rep->end = NULL;
 	if (rep->start)
-		rep->start= NULL;
+		rep->start = NULL;
 }
 
 char	*process_replaceded_data(char *data)

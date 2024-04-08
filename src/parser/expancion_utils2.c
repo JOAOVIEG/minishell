@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:54:59 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/06 19:45:18 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:05:27 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ char	*env_n_found(t_env_var_replacement *rplcmnt, char *data)
 	new_data = create_env_data(rplcmnt, data);
 	return (new_data);
 }
-

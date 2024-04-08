@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/05 16:25:45 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:08:25 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,39 +73,10 @@ int	reads_from_stdin(t_node *node)
 	return (0);
 }
 
-void	run_test_with_c_option(char **argv, char **envp)
-{
-	shell()->v_env = env_cpy(envp);
-	shell()->status = 0;
-	handle_signal(SIG_DEFAULT);
-	shell()->line = argv[2];
-	add_history(shell()->line);
-	parser(shell());
-	if (shell()->node)
-	{
-		shell()->heredoced = false;
-		if (check_heredoc(shell()->node) == 1)
-			ft_exec_piped_heredoc(shell()->node);
-		else
-			ft_execute(shell()->node);
-	}
-	reset_parser_and_tree();
-	rl_clear_history();
-	free_lexer(shell()->lexer);
-	free_parser(shell()->parser);
-	free_env();
-	exit(shell()->status);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	int	arg_check;
 
-	if (argc > 2 && ft_strcmp(argv[1], "-c") == 0)
-	{
-		run_test_with_c_option(argv, envp);
-		return (shell()->status);
-	}
 	arg_check = arg_access(argv, argc);
 	if (arg_check != EXIT_SUCCESS)
 		return (shell()->status);

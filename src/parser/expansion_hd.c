@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:03:18 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/06 19:39:19 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:04:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	make_expansion_hd(char **buffer)
 {
 	t_lst_tokens	*token;
 	char			*rep_data;
-
 
 	token = malloc(sizeof(t_lst_tokens));
 	token->data = *buffer;
