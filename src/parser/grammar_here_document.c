@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 18:52:50 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/03/21 20:40:27 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/04/09 09:54:52 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void	hd_error(t_lst_tokens *token)
 				token->data);
 	}
 	else
-		printf("bash: syntax error near unexpected token `%c'\n",
-			token->data[0]);
+	{
+		ft_putstr_fd("bash: syntax error near unexpected token `",
+			STDERR_FILENO);
+		ft_putstr_fd(token->data, STDERR_FILENO);
+		ft_putstr_fd("'\n", STDERR_FILENO);
+	}
 	shell()->status = 2;
 }
 
@@ -36,8 +40,7 @@ bool	grammar_here_document(t_parser *parser)
 {
 	if (!parser->tokens)
 	{
-		status_error("",
-			"Syntax error: unexpected end of input after here document",
+		ft_putstr_fd("bash: syntax error: unexpected end of file\n",
 			STDERR_FILENO);
 		shell()->status = 2;
 		return (false);
@@ -47,7 +50,14 @@ bool	grammar_here_document(t_parser *parser)
 		parser->tokens = parser->tokens->next;
 		if (!parser->tokens || parser->tokens->type != TYPE_ARG)
 		{
-			hd_error(parser->tokens);
+			if (parser->tokens)
+				hd_error(parser->tokens);
+			else
+			{
+				ft_putstr_fd("bash: syntax error: unexpected end of file\n",
+					STDERR_FILENO);
+				shell()->status = 2;
+			}
 			return (false);
 		}
 		parser->tokens = parser->tokens->next;
