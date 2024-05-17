@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_cmds_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:18:50 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/04 16:19:23 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:34:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
