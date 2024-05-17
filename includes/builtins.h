@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/17 15:19:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:01:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void						env(void);
 void						exit_shell(int status);
 int							ft_in_is_digit(char *in);
 void						ft_exit(char **arg);
+int							handle_digit(char *in, int i);
 void						free_env(void);
 void						export(char **arg);
 char						**process_env_variables(char **args);
