@@ -77,6 +77,7 @@ $(addprefix $(SRC_DIR)/execute/, \
     free_utilis.c \
     ft_exec_piped.c \
     ft_execute.c \
+	tree_process.c \
     ft_utilis1.c \
     ft_utilis2.c \
     ft_utilis.c \
