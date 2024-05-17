@@ -53,6 +53,7 @@ $(addprefix $(SRC_DIR)/parser/, \
 ) \
 $(addprefix $(SRC_DIR)/execute/built_ins/, \
     cd.c \
+	cd_utilis.c \
     echo.c \
     env.c \
     exit.c \

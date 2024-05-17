@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/03 16:24:30 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:19:59 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_env
 }							t_env;
 
 void						cd(char *path);
+void						pwd_handle(char *oldpwd, t_env *oldpwd_var);
+int							print_flag_handle(char *path);
 char						*get_home_var(char *path);
 void						update_pwd(t_env *pwd);
 void						update_oldpwd(t_env *oldpwd_var, char *oldpwd);
