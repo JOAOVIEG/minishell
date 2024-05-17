@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/08 15:41:37 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:12:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,10 @@ void				handle_export_var_error(t_exp_buff *exp_buff);
 void				updt_envl(t_exp_buff *exp_buff, t_env *env, t_env *new);
 int					reads_from_stdin(t_node *node);
 int					arg_access(char **argv, int argc);
-
+char				*handle_path(char **cmd_path, char *cmd);
+void				right_tree_handle(t_node *node, int *pipe_end);
+void				left_tree_handle(t_node *node, int *pipe_end);
+void				handle_pipe_construct(int *pipe_end);
 /*piped heredoc functions*/
 t_node				*btree_search_item(t_node *root);
 int					btree_level_count(t_node *where, t_node *what);
