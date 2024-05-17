@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:30:49 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/08 15:20:15 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:42:32 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	ft_exec_piped(t_node *node)
 		perror("Error at pipe");
 		exit_shell(EXIT_FAILURE);
 	}
-	if ((reads_from_stdin(node->left) == 1
-				|| reads_from_stdin(node->right) == 1)
-			|| (node->right->type == TYPE_PIPE
-				&& (reads_from_stdin(node->right->left) == 1
-					|| reads_from_stdin(node->right->right) == 1)))
+	if ((reads_from_stdin(node->left) == 1 \
+		|| reads_from_stdin(node->right) == 1) \
+		|| (node->right->type == TYPE_PIPE \
+		&& (reads_from_stdin(node->right->left) == 1 \
+		|| reads_from_stdin(node->right->right) == 1)))
 	{
 		left_pid = fork();
 		left_node_process(node, pipe_end, left_pid);
@@ -48,16 +48,6 @@ void	ft_exec_piped(t_node *node)
 		right_node_process(node, pipe_end, right_pid);
 		parent_pipe_exec_control(node, pipe_end, right_pid, left_pid);
 	}
-	// else if (shell()->heredoced == true && (reads_from_stdin(node->left) == 1
-	// 		|| reads_from_stdin(node->right) == 1))
-	// {
-	// 	shell()->heredoced = false;
-	// 	left_pid = fork();
-	// 	left_node_process(node, pipe_end, left_pid);
-	// 	right_pid = fork();
-	// 	right_node_process(node, pipe_end, right_pid);
-	// 	parent_pipe_exec_control(node, pipe_end, right_pid, left_pid);
-	// }
 	else
 	{
 		left_pid = fork();
