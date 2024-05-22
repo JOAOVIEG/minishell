@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:27:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 17:23:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:05:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ t_node	*apply_to_node(t_node *root, t_node *target)
 	if (root->right == target)
 	{
 		free_tree_node(&root->right->left);
+		root->right->left = NULL;
 		free_tree_node(&root->right->right);
+		root->right->right = NULL;
+		free_tree_node(&root->right);
+		root->right = NULL;
 		btree_create_node(&new_node, ">", "tmp");
 		root->right = new_node;
 	}

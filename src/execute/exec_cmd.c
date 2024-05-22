@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 10:06:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/17 18:32:49 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:16:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,20 @@ void	parent_exec_control(t_node *node, pid_t pid, char **env)
 void	free_paths(t_node *node)
 {
 	if (node->cmd->cmd_path)
+	{
 		free_cmd_paths(node->cmd->cmd_path);
+		node->cmd->cmd_path = NULL;
+	}
 	if (node->cmd->valid_cmd_path)
 	{
 		free(node->cmd->valid_cmd_path);
 		node->cmd->valid_cmd_path = NULL;
 	}
 	if (node->cmd->path)
+	{
 		free(node->cmd->path);
+		node->cmd->path = NULL;
+	}
 }
 
 void	child_exec_process(t_node *node, char **env)

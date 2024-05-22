@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 09:51:36 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 17:22:19 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:45:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_exec_piped_heredoc(t_node *node)
 	else
 	{
 		sub_hd_root = find_parent(node, sub_node_hd);
-		new_t_handle(node, sub_node_hd);
+		new_t_handle(node, sub_hd_root);
 	}
 }
 

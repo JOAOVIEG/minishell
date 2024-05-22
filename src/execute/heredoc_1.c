@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:57:10 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 17:23:21 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:36:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	btree_create_node(t_node **target, char *redir, char *file2)
 		exit_shell(EXIT_FAILURE);
 	}
 	(*target)->cmd->arg = (char **)malloc(sizeof(char *) * 2);
-	(*target)->cmd->arg[0] = "cat";
+	(*target)->cmd->arg[0] = ft_strdup("cat");
 	(*target)->cmd->arg[1] = NULL;
 	(*target)->cmd->file = (char **)malloc(sizeof(char *) * 3);
 	if ((*target)->cmd->file == NULL)
@@ -43,12 +43,13 @@ void	btree_create_node(t_node **target, char *redir, char *file2)
 
 void	apply_tmp_file(t_node **target, char *redir, char *file2)
 {
-	(*target)->cmd->file[0] = redir;
-	(*target)->cmd->file[1] = file2;
+	(*target)->cmd->file[0] = ft_strdup(redir);
+	(*target)->cmd->file[1] = ft_strdup(file2);
 	(*target)->cmd->file[2] = NULL;
 	(*target)->cmd->heredoc = NULL;
 	(*target)->cmd->valid_cmd_path = NULL;
 	(*target)->cmd->path = NULL;
+	(*target)->cmd->cmd_path = NULL;
 	(*target)->fd_in = STDIN_FILENO;
 	(*target)->fd_out = STDOUT_FILENO;
 }

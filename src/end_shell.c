@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/05/22 16:50:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:01:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	end_shell(void)
 		free_parser(shell()->parser);
 	if (shell()->node)
 		free_tree_node(&shell()->node);
+	if (shell()->new_tree)
+		free_tree_node(&shell()->new_tree);
 	if (shell()->history)
 		free_history(shell()->history);
 	if (shell()->v_env)

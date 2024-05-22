@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/05/22 16:10:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:53:00 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ int	check_heredoc(t_node *node)
 {
 	t_node	*sub_node_hd;
 	int		hd_i;
-	int		n_i;
 
 	sub_node_hd = btree_search_item(node);
 	hd_i = btree_level_count(node, sub_node_hd);
-	n_i = 1;
 	if (node->type == TYPE_PIPE && hd_i >= 1)
 		return (1);
 	if (node->type == TYPE_PIPE && hd_i == 0)
