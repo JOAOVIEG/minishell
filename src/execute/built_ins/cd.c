@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/05 16:07:32 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:34:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	cd(char *path)
 {
 	char	*oldpwd;
-	t_env	*pwd;
 	t_env	*oldpwd_var;
 	int		print_dir;
 
@@ -25,10 +24,7 @@ void	cd(char *path)
 		perror("getcwd");
 	if (!path || strcmp(path, "-") == 0)
 	{
-		if (!path)
-			print_dir = 0;
-		else
-			print_dir = 1;
+		print_dir = print_flag_handle(path);
 		oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
 		if (oldpwd_var && oldpwd_var->value)
 			path = oldpwd_var->value;
@@ -42,34 +38,5 @@ void	cd(char *path)
 	}
 	else if (print_dir)
 		printf("%s\n", path);
-	pwd = find_env_var(shell()->v_env, "PWD");
-	oldpwd_var = find_env_var(shell()->v_env, "OLDPWD");
-	if (pwd)
-		update_pwd(pwd);
-	if (oldpwd_var)
-		update_oldpwd(oldpwd_var, oldpwd);
-	free(oldpwd);
-}
-
-char	*get_home_var(char *path)
-{
-	path = find_env_var(shell()->v_env, "HOME")->value;
-	if (!path)
-	{
-		shell()->status = errno;
-		return (strerror(errno));
-	}
-	return (path);
-}
-
-void	update_pwd(t_env *pwd)
-{
-	free(pwd->value);
-	pwd->value = getcwd(NULL, 0);
-}
-
-void	update_oldpwd(t_env *oldpwd_var, char *oldpwd)
-{
-	free(oldpwd_var->value);
-	oldpwd_var->value = ft_strdup(oldpwd);
+	pwd_handle(oldpwd, oldpwd_var);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:58:07 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/04 15:00:06 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:59:54 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int	ft_in_is_digit(char *in)
 		return (0);
 	}
 	i++;
+	return (handle_digit(in, i));
+}
+
+int	handle_digit(char *in, int i)
+{
 	while (in[i])
 	{
 		if (!ft_isdigit(in[i]))

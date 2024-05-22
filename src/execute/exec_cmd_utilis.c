@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_utilis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/05 16:11:03 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:32:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ char	*get_cmd(char **cmd_path, char *cmd)
 			shell()->status = 1;
 		}
 	}
+	return (handle_path(cmd_path, cmd));
+}
+
+char	*handle_path(char **cmd_path, char *cmd)
+{
+	if (cmd_path)
+		return (validate_cmd(cmd_path, cmd));
 	else
 	{
-		if (cmd_path)
-			return (validate_cmd(cmd_path, cmd));
-		else
-		{
-			perror("Error");
-			shell()->status = 1;
-		}
+		perror("Error");
+		shell()->status = 1;
 	}
 	return (NULL);
 }

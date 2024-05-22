@@ -53,6 +53,7 @@ $(addprefix $(SRC_DIR)/parser/, \
 ) \
 $(addprefix $(SRC_DIR)/execute/built_ins/, \
     cd.c \
+	cd_utilis.c \
     echo.c \
     env.c \
     exit.c \
@@ -76,6 +77,7 @@ $(addprefix $(SRC_DIR)/execute/, \
     free_utilis.c \
     ft_exec_piped.c \
     ft_execute.c \
+	tree_process.c \
     ft_utilis1.c \
     ft_utilis2.c \
     ft_utilis.c \
@@ -119,7 +121,7 @@ re: fclean all
 
 valgrind: re $(NAME)
 	@cat readline.supp  >  /dev/null
-	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes   ./$(NAME)
+	@valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes  --trace-children=yes ./$(NAME)
 
 run: re
 	@./$(NAME)

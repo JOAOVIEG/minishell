@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/04/08 16:08:25 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/22 09:00:34 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 		return (shell()->status);
 	shell()->v_env = env_cpy(envp);
 	shell()->heredoced = false;
+	shell()->new_tree = NULL;
 	while (1)
 	{
 		handle_signal(SIG_DEFAULT);
