@@ -84,6 +84,8 @@ $(addprefix $(SRC_DIR)/execute/, \
     heredoc.c \
 	heredoc_piped.c \
 	heredoc_piped_utilis.c \
+	heredoc_1.c \
+	heredoc_2.c \
     redirections1.c \
     redirections.c \
     simple_cmds_utilis.c \

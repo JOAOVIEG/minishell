@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 09:51:36 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 16:58:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:22:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	ft_exec_piped_heredoc(t_node *node)
 {
 	t_node	*sub_hd_root;
 	t_node	*sub_node_hd;
-
 	int		i;
 
 	i = 1;
@@ -93,12 +92,14 @@ void	new_t_handle(t_node *node, t_node *sub_node)
 {
 	t_node	*new_sub_hd;
 	t_node	*new_sub_hd_root;
+	t_node	*new_node;
 
 	ft_execute(sub_node);
-	shell()->new_tree = copy_tree(node);
-	new_sub_hd = btree_search_item(shell()->new_tree);
-	new_sub_hd_root = find_parent(shell()->new_tree, new_sub_hd);
-	shell()->new_tree = apply_to_node(shell()->new_tree, new_sub_hd_root);
+	new_node = copy_tree(node);
+	new_sub_hd = btree_search_item(new_node);
+	new_sub_hd_root = find_parent(new_node, new_sub_hd);
+	new_node = apply_to_node(new_node, new_sub_hd_root);
+	shell()->new_tree = new_node;
 	ft_execute(shell()->new_tree);
 	unlink("tmp");
 }

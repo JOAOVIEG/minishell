@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 16:44:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:29:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,4 +154,5 @@ void				apply_tmp_file(t_node **target, char *redir, char *file2);
 int					btree_level_count_total(t_node *root);
 bool				is_rightmost(t_node *node, int lvs, int i);
 void				new_t_handle(t_node *node, t_node *sub_node);
+void				handle_assign(t_node *new_node, t_node *root);
 #endif

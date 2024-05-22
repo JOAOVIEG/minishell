@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:26:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/03 16:35:45 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:27:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	choose_exp_action(t_exp_buff *exp_data)
 {
+	t_env	*env_list;
+
+	env_list = shell()->v_env;
 	if (ft_strcmp(exp_data->equal, "+=") == 0)
-		shell()->v_env = concatenate_envl(shell()->v_env, exp_data);
+		env_list = concatenate_envl(env_list, exp_data);
 	else if (ft_strcmp(exp_data->equal, "=") == 0)
-		shell()->v_env = update_envl(shell()->v_env, exp_data);
+		env_list = update_envl(env_list, exp_data);
+	shell()->v_env = env_list;
 	shell()->status = EXIT_SUCCESS;
 }
 
