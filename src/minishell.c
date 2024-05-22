@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/05/22 09:00:34 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:10:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int	check_heredoc(t_node *node)
 {
 	t_node	*sub_node_hd;
 	int		hd_i;
+	int		n_i;
 
 	sub_node_hd = btree_search_item(node);
 	hd_i = btree_level_count(node, sub_node_hd);
-	if (node->type == TYPE_PIPE && hd_i > 1)
+	n_i = 1;
+	if (node->type == TYPE_PIPE && hd_i >= 1)
 		return (1);
 	if (node->type == TYPE_PIPE && hd_i == 0)
 		return (2);
@@ -81,7 +83,6 @@ int	main(int argc, char **argv, char **envp)
 	if (arg_check != EXIT_SUCCESS)
 		return (shell()->status);
 	shell()->v_env = env_cpy(envp);
-	shell()->heredoced = false;
 	shell()->new_tree = NULL;
 	while (1)
 	{
@@ -91,7 +92,6 @@ int	main(int argc, char **argv, char **envp)
 		parser(shell());
 		if (shell()->node)
 		{
-			shell()->heredoced = false;
 			if (check_heredoc(shell()->node) == 1)
 				ft_exec_piped_heredoc(shell()->node);
 			else

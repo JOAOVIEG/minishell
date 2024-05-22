@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:21:37 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/17 17:12:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:18:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,4 +151,6 @@ int					check_heredoc(t_node *node);
 void				my_free_tree(t_node *root);
 void				apply_recur(t_node *root, t_node *target);
 void				apply_tmp_file(t_node **target, char *redir, char *file2);
+int					btree_level_count_total(t_node *root);
+bool				is_rightmost(t_node *node, int lvs, int i);
 #endif
