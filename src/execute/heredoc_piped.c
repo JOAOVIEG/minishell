@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_piped.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 09:51:36 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 16:04:07 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:14:42 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,36 +55,36 @@ void	apply_tmp_file(t_node **target, char *redir, char *file2)
 
 t_node	*copy_tree(t_node *root)
 {
-    t_node	*new_node;
+	t_node	*new_node;
 
-    if (root == NULL)
-        return (NULL);
-    new_node = (t_node *)malloc(sizeof(t_node));
-    if (new_node == NULL)
-    {
-        status_error("minishell", "No memory", STDERR_FILENO);
-        exit_shell(EXIT_FAILURE);
-    }
-    ft_memset(new_node, 0, sizeof(t_node));
-    new_node->cmd = (t_cmd *)malloc(sizeof(t_cmd));
-    if (new_node->cmd == NULL)
-    {
-        status_error("minishell", "No memory", STDERR_FILENO);
-        exit(EXIT_FAILURE);
-    }
-    ft_memset(new_node->cmd, 0, sizeof(t_cmd));
-    (*new_node->cmd) = (*root->cmd);
-    new_node->cmd->arg = copy_string_array(root->cmd->arg);
-    new_node->cmd->file = copy_string_array(root->cmd->file);
-    new_node->cmd->heredoc = copy_string_array(root->cmd->heredoc);
-    new_node->type = root->type;
-    new_node->fd_in = root->fd_in;
-    new_node->fd_out = root->fd_out;
-    if (root->left)
-        new_node->left = copy_tree(root->left);
-    if (root->right)
-        new_node->right = copy_tree(root->right);
-    return (new_node);
+	if (root == NULL)
+		return (NULL);
+	new_node = (t_node *)malloc(sizeof(t_node));
+	if (new_node == NULL)
+	{
+		status_error("minishell", "No memory", STDERR_FILENO);
+		exit_shell(EXIT_FAILURE);
+	}
+	ft_memset(new_node, 0, sizeof(t_node));
+	new_node->cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	if (new_node->cmd == NULL)
+	{
+		status_error("minishell", "No memory", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+	ft_memset(new_node->cmd, 0, sizeof(t_cmd));
+	(*new_node->cmd) = (*root->cmd);
+	new_node->cmd->arg = copy_string_array(root->cmd->arg);
+	new_node->cmd->file = copy_string_array(root->cmd->file);
+	new_node->cmd->heredoc = copy_string_array(root->cmd->heredoc);
+	new_node->type = root->type;
+	new_node->fd_in = root->fd_in;
+	new_node->fd_out = root->fd_out;
+	if (root->left)
+		new_node->left = copy_tree(root->left);
+	if (root->right)
+		new_node->right = copy_tree(root->right);
+	return (new_node);
 }
 
 char	**copy_string_array(char **array)
@@ -114,34 +114,36 @@ char	**copy_string_array(char **array)
 	return (new_array);
 }
 
-void free_tree(t_node **root)
+void	free_tree(t_node **root)
 {
-    if (*root == NULL)
-        return;
-    if ((*root)->left)
-        free_tree(&(*root)->left);
-    if ((*root)->right)
-        free_tree(&(*root)->right);
-    free_string_array(&(*root)->cmd->arg);
-    free_string_array(&(*root)->cmd->heredoc);
-    free_string_array(&(*root)->cmd->file);
-    free((*root)->cmd);
-    free(*root);
-    *root = NULL;
+	if (*root == NULL)
+		return ;
+	if ((*root)->left)
+		free_tree(&(*root)->left);
+	if ((*root)->right)
+		free_tree(&(*root)->right);
+	free_string_array(&(*root)->cmd->arg);
+	free_string_array(&(*root)->cmd->heredoc);
+	free_string_array(&(*root)->cmd->file);
+	free((*root)->cmd);
+	free(*root);
+	*root = NULL;
 }
 
-void free_string_array(char ***array_ptr)
+void	free_string_array(char ***array_ptr)
 {
-    int i = 0;
-    if (*array_ptr == NULL)
-        return;
+	int	i;
 
-    while ((*array_ptr)[i] != NULL) {
-        free((*array_ptr)[i]);
-        i++;
-    }
-    free(*array_ptr);
-    *array_ptr = NULL;
+	i = 0;
+	if (*array_ptr == NULL)
+		return ;
+	while ((*array_ptr)[i] != NULL)
+	{
+		free((*array_ptr)[i]);
+		i++;
+	}
+	free(*array_ptr);
+	*array_ptr = NULL;
 }
 
 void	ft_exec_piped_heredoc(t_node *node)
@@ -150,7 +152,9 @@ void	ft_exec_piped_heredoc(t_node *node)
 	t_node	*sub_node_hd;
 	t_node	*new_sub_hd;
 	t_node	*new_sub_hd_root;
-	int		i = 1;
+	int		i;
+
+	i = 1;
 	sub_node_hd = btree_search_item(node);
 	if (is_rightmost(node, btree_level_count_total(node), i))
 	{
@@ -175,4 +179,3 @@ void	ft_exec_piped_heredoc(t_node *node)
 		unlink("tmp");
 	}
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_piped_utilis.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:27:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 16:02:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:14:06 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	btree_level_count(t_node *where, t_node *what)
 bool	is_rightmost(t_node *node, int lvs, int i)
 {
 	bool	value;
-	
+
 	if (node == NULL)
 		return (false);
 	if (node->cmd->heredoc != NULL && i == lvs)
@@ -59,17 +59,17 @@ bool	is_rightmost(t_node *node, int lvs, int i)
 	return (is_rightmost(node->right, lvs, i));
 }
 
-int btree_level_count_total(t_node *root)
+int	btree_level_count_total(t_node *root)
 {
 	int	right_height;
 
-    if (root == NULL)
-        return (0);
-    else
-    {
-        right_height = btree_level_count_total(root->right);
-        	return(right_height + 1);
-    }
+	if (root == NULL)
+		return (0);
+	else
+	{
+		right_height = btree_level_count_total(root->right);
+		return (right_height + 1);
+	}
 }
 
 t_node	*apply_to_node(t_node *root, t_node *target)
@@ -82,7 +82,6 @@ t_node	*apply_to_node(t_node *root, t_node *target)
 	{
 		free_tree_node(&root->right->left);
 		free_tree_node(&root->right->right);
-		// free_tree
 		btree_create_node(&new_node, ">", "tmp");
 		root->right = new_node;
 	}
