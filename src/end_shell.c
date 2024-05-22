@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:36:14 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/05/22 15:51:49 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:50:34 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,4 @@ void	end_shell(void)
 		free_env();
 	if (shell()->env_arr)
 		free_c_env(shell()->env_arr);
-	// if (shell()->new_tree)
-	// 	free_tree(&shell()->new_tree);
 }

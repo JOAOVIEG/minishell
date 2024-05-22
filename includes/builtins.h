@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:57:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/17 16:01:06 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:55:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_env
 }							t_env;
 
 void						cd(char *path);
+void						cd_error(void);
 void						pwd_handle(char *oldpwd, t_env *oldpwd_var);
 int							print_flag_handle(char *path);
 char						*get_home_var(char *path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 11:16:42 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:55:05 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ void	cd(char *path)
 			path = get_home_var(path);
 	}
 	if (chdir(path) == -1)
-	{
-		perror("cd");
-		shell()->status = 1;
-	}
+		cd_error();
 	else if (print_dir)
 		printf("%s\n", path);
 	pwd_handle(oldpwd, oldpwd_var);
+}
+
+void	cd_error(void)
+{
+	perror("cd");
+	shell()->status = 1;
 }
