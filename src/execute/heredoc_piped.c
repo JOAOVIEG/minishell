@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_piped.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 09:51:36 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/08 17:22:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:18:31 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	apply_tmp_file(t_node **target, char *redir, char *file2)
 {
 	(*target)->cmd->file[0] = redir;
 	(*target)->cmd->file[1] = file2;
-	(*target)->cmd->file[2] = '\0';
+	(*target)->cmd->file[2] = NULL;
 	(*target)->cmd->heredoc = NULL;
 	(*target)->cmd->valid_cmd_path = NULL;
 	(*target)->fd_in = STDIN_FILENO;
@@ -120,7 +120,7 @@ void free_tree(t_node **root)
     free_tree(&(*root)->right);
     free_string_array(&(*root)->cmd->arg);
     free_string_array(&(*root)->cmd->heredoc);
-    free(&(*root)->cmd);
+    free((*root)->cmd);
     free(*root);
 	*root = NULL;
 }

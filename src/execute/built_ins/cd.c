@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:02:27 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/17 15:34:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:16:42 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	cd(char *path)
 
 	print_dir = 0;
 	oldpwd = getcwd(NULL, 0);
+	oldpwd_var = NULL;
 	if (!oldpwd)
 		perror("getcwd");
 	if (!path || strcmp(path, "-") == 0)
