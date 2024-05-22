@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 09:51:36 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/22 16:14:42 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:42:19 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ void	ft_exec_piped_heredoc(t_node *node)
 		new_sub_hd_root = find_parent(shell()->new_tree, new_sub_hd);
 		shell()->new_tree = apply_to_node(shell()->new_tree, new_sub_hd_root);
 		ft_execute(shell()->new_tree);
-		free_tree(&shell()->new_tree);
 		unlink("tmp");
 	}
 }
