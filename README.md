@@ -28,4 +28,9 @@ The `cmd` node type is itself a structure of arrays: `args` to hold the command 
 
 The simpliest case is a single command.
 
-![simple_node](/home/jpcvieg/Desktop/minishell/simple_node.png)
+![simple_node](simple_node.png)
+
+For example: `echo Hello World!`
+
+![simple_example](simple_example.png)
+
