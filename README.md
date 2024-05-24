@@ -41,7 +41,7 @@ The `child nodes` of this `root` go down left and right. A generic case `cmd1 | 
 
 Similliarly to the diagram for the simple commands showed above, `cmd2` as `arg[0] = cmd2` `file[0] = "<"` `file[1] = "in` and the same for the other variables in the example, with the respective values.
 
-# Important functions and usage
+# (Some) Important functions and usage
 
 | Functions |               Usage                  |
 | --------- | ------------------------------------ |
@@ -54,4 +54,16 @@ Similliarly to the diagram for the simple commands showed above, `cmd2` as `arg[
 | isatty()  | Tests whether a file descriptor refers to a terminal. |
 | readline() | Reads a line from the terminal and returns it, useful for interactive command line programs. |
 
+# Documentation
 
+This minishell implementation was inspired greatly by the following documentation:
+
+[bash](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
+
+[Parsing](https://medium.com/basecs/leveling-up-ones-parsing-game-with-asts-d7a6fc2400ff)
+
+[Minishell: Building a mini-bash](https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218)
+
+
+
+![minishell](minishell.png)
