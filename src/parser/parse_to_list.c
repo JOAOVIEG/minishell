@@ -6,25 +6,11 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:41:27 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/20 08:34:43 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/29 19:15:50 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	print_list(t_lst_tokens *head)
-{
-	t_lst_tokens	*current;
-
-	current = head;
-	printf("List of tokens:\n");
-	while (current != NULL)
-	{
-		printf("token: %s\n", current->data);
-		printf("type: %d\n", current->type);
-		current = current->next;
-	}
-}
 
 t_lst_tokens	*new_node(char *data)
 {
@@ -71,9 +57,12 @@ void	count_pipe_redir(t_parser *parser)
 			parser->pipe_count++;
 		else if (current->type == TYPE_REDIRECT)
 			parser->redir_count++;
+		else if (current->type == TYPE_HEREDOC)
+			parser->heredoc_count++;
 		current = current->next;
 	}
 }
+
 void	parse_to_list(t_lexer *lexer, t_parser *parser)
 {
 	t_lst_tokens	*head;
@@ -89,6 +78,4 @@ void	parse_to_list(t_lexer *lexer, t_parser *parser)
 	parser->tokens = head;
 	get_token_type(parser->tokens);
 	count_pipe_redir(parser);
-	// print_list(parser->tokens);
-	free_lexer_tokens(lexer);
 }

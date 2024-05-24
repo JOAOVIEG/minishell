@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:43:55 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/18 16:37:10 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/15 07:23:24 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*ft_strndup(const char *s, size_t n)
 	size_t	len;
 	char	*new;
 	size_t	i;
+
 	len = 0;
 	i = 0;
 	while (len < n && s[len])

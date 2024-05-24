@@ -1,45 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_tokens_ultils.c                                :+:      :+:    :+:   */
+/*   expansion_hd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 17:04:13 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 17:36:28 by wiferrei         ###   ########.fr       */
+/*   Created: 2024/03/17 21:03:18 by wiferrei          #+#    #+#             */
+/*   Updated: 2024/04/08 16:04:59 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	lst_tokenadd_back(t_lst_tokens **lst, t_lst_tokens **tail,
-		t_lst_tokens *new)
+bool	has_env_var(char *str)
 {
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		*tail = new;
-	}
-	else
-	{
-		(*tail)->next = new;
-		*tail = new;
-	}
+	if (ft_strchr(str, '$'))
+		return (true);
+	return (false);
 }
 
-int	lst_token_size(t_lst_tokens *tokens)
+void	make_expansion_hd(char **buffer)
 {
-	int count;
-	t_lst_tokens *current;
+	t_lst_tokens	*token;
+	char			*rep_data;
 
-	count = 0;
-	current = tokens;
-	while (current != NULL)
+	token = malloc(sizeof(t_lst_tokens));
+	token->data = *buffer;
+	token->type = TYPE_HEREDOC;
+	token->next = NULL;
+	if (has_env_var(*buffer))
 	{
-		count++;
-		current = current->next;
+		rep_data = get_replaceded_data(&token);
+		free(token->data);
+		token->data = rep_data;
+		*buffer = token->data;
 	}
-	return (count);
+	free(token);
 }
