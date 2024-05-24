@@ -56,7 +56,7 @@ Similliarly to the diagram for the simple commands showed above, `cmd2` as `arg[
 
 # Documentation
 
-This minishell implementation was inspired greatly by the following documentation:
+This minishell implementation was inspired mostly by the following documentation:
 
 [bash](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
 
