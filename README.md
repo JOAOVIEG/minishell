@@ -38,3 +38,16 @@ More complex cases involve pipes. A node of type pipe does not have a command bu
 The `child nodes` of this `root` go down left and right. A generic case `cmd1 | <in cmd2 | <<hd | >out `is parsed as below:
 
 ![complex_example](complex_example.png)
+
+Similliarly to the diagram for the simple commands showed above, `cmd2` as `arg[0] = cmd2` `file[0] = "<"` `file[1] = "in` and the same for the other variables in the example, with the respective values.
+
+# Important functions and usage
+
+| Functions |               Usage                  |
+| --------- | ------------------------------------ |
+| pipe()    | Creates a pipe between parent and child processes for inter-process communication. |
+| waitpid() | Suspends the calling process until the specified process changes state. Useful for process synchronization. |
+| execve()  | Replaces the current process image with a new process image. It's used to run a new program. |
+| dup2()    | Duplicates a file descriptor, making the old and new file descriptors point to the same file. Useful for redirection. |
+
+
