@@ -34,3 +34,7 @@ For example: `echo Hello World!`
 
 ![simple_example](simple_example.png)
 
+More complex cases involve pipes. A node of type pipe does not have a command but it is itself an empy node with its fds assigned properly.
+The `child nodes` of this `root` go down left and right. A generic case `cmd1 | <in cmd2 | <<hd | >out `is parsed as below:
+
+![complex_example](complex_example.png)
