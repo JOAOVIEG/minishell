@@ -39,7 +39,7 @@ The `child nodes` of this `root` go down left and right. A generic case `cmd1 | 
 
 ![complex_example](complex_example.png)
 
-Similliarly to the diagram for the simple commands showed above, `cmd2` as `arg[0] = cmd2` `file[0] = "<"` `file[1] = "in` and the same for the commands and its variables in the example, with the respective values.
+Similliarly to the diagram for the simple commands showed above, `cmd2` as `arg[0] = cmd2` `file[0] = "<"` `file[1] = "in"` and the same for the other commands and its variables in the example, with the respective values.
 
 # (Some) Important functions and usage
 
