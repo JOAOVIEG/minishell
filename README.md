@@ -49,5 +49,9 @@ Similliarly to the diagram for the simple commands showed above, `cmd2` as `arg[
 | waitpid() | Suspends the calling process until the specified process changes state. Useful for process synchronization. |
 | execve()  | Replaces the current process image with a new process image. It's used to run a new program. |
 | dup2()    | Duplicates a file descriptor, making the old and new file descriptors point to the same file. Useful for redirection. |
+| signal()  | Sets a function to handle a signal. A signal is a software interrupt delivered to a process. |
+| sigaction() | Allows to examine and change a signal action. It's more reliable for signal handling than signal(). |
+| isatty()  | Tests whether a file descriptor refers to a terminal. |
+| readline() | Reads a line from the terminal and returns it, useful for interactive command line programs. |
 
 
