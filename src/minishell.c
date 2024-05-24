@@ -6,11 +6,10 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:24 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/22 10:39:32 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:52:31 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/builtins.h"
 #include "../includes/minishell.h"
 
 t_shell	*shell(void)
@@ -24,45 +23,79 @@ t_shell	*shell(void)
 	return (&minishell);
 }
 
-void	ignore_signals(void)
-{
-	shell()->signal_set = true;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
-
 void	read_input(void)
 {
-	shell()->line = readline("minishell>");
+	char	*rprompt;
+
+	rprompt = "\001\033[38;5;208m\002minishell:$ \001\033[0m\002";
+	shell()->line = readline(rprompt);
 	if (!shell()->line)
 	{
-		write_history(".msh_hist");
-		rl_clear_history();
-		end_shell();
+		if (isatty(0))
+			ft_putstr_fd("exit\n", 2);
+		exit_shell(shell()->status);
 	}
+	else
+		add_to_history(shell(), shell()->line);
+}
+
+int	check_heredoc(t_node *node)
+{
+	t_node	*sub_node_hd;
+	int		hd_i;
+
+	sub_node_hd = btree_search_item(node);
+	hd_i = btree_level_count(node, sub_node_hd);
+	if (node->type == TYPE_PIPE && hd_i > 1)
+		return (1);
+	if (node->type == TYPE_PIPE && hd_i == 0)
+		return (2);
+	return (0);
+}
+
+int	reads_from_stdin(t_node *node)
+{
+	char	*cmd;
+
+	cmd = node->cmd->arg[0];
+	if (!cmd)
+		return (0);
+	if (ft_strstr(cmd, "cat") != NULL || ft_strstr(cmd, "grep") != NULL
+		|| ft_strstr(cmd, "sed") != NULL || ft_strstr(cmd, "awk") != NULL
+		|| ft_strstr(cmd, "sort") != NULL || ft_strstr(cmd, "uniq") != NULL
+		|| ft_strstr(cmd, "cut") != NULL || ft_strstr(cmd, "paste") != NULL
+		|| ft_strstr(cmd, "wc") != NULL || ft_strstr(cmd, "tr") != NULL
+		|| ft_strstr(cmd, "tee") != NULL || ft_strstr(cmd, "head") != NULL
+		|| ft_strstr(cmd, "tail") != NULL || ft_strstr(cmd, "xargs") != NULL
+		|| ft_strstr(cmd, "less") != NULL || ft_strstr(cmd, "more") != NULL
+		|| ft_strstr(cmd, "cd") != NULL || ft_strstr(cmd, "sleep") != NULL)
+		return (1);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc > 1)
-	{
-		if (access(argv[1], F_OK) == -1)
-		{
-			printf("minishell: %s: %s\n", argv[1], strerror(errno));
-			return (EXIT_FAILURE);
-		}
-	}
+	int	arg_check;
+
+	arg_check = arg_access(argv, argc);
+	if (arg_check != EXIT_SUCCESS)
+		return (shell()->status);
 	shell()->v_env = env_cpy(envp);
-	shell()->status = 0;
-	ignore_signals();
+	shell()->new_tree = NULL;
 	while (1)
 	{
+		handle_signal(SIG_DEFAULT);
 		read_input();
 		add_history(shell()->line);
 		parser(shell());
-		ft_execute(shell()->node);
-		reset_tree();
+		if (shell()->node)
+		{
+			if (check_heredoc(shell()->node) == 1)
+				ft_exec_piped_heredoc(shell()->node);
+			else
+				ft_execute(shell()->node);
+		}
+		reset_parser_and_tree();
 	}
 	rl_clear_history();
 	return (EXIT_SUCCESS);

@@ -6,61 +6,75 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 11:31:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/16 11:47:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:32:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	check_path(char **env, t_node *node)
 {
 	node->cmd->path = get_path(env);
 	if (node->cmd->path)
-		node->cmd->cmd_path = ft_split(node->cmd->path, \
-			':');
+		node->cmd->cmd_path = ft_split(node->cmd->path, ':');
 }
 
-char *get_cmd(char **cmd_path, char *cmd)
+char	*get_cmd(char **cmd_path, char *cmd)
 {
-	if (*cmd && cmd[0] == '/')
+	char	*path_cpy;
+
+	if ((*cmd && cmd[0] == '/') || ft_strncmp(cmd, "./", 2) == 0)
 	{
 		if (access(cmd, F_OK) == 0)
-			return (cmd);
+		{
+			path_cpy = ft_strdup(cmd);
+			return (path_cpy);
+		}
 		else
+		{
 			perror("Error get_command");
+			shell()->status = 1;
+		}
 	}
+	return (handle_path(cmd_path, cmd));
+}
+
+char	*handle_path(char **cmd_path, char *cmd)
+{
+	if (cmd_path)
+		return (validate_cmd(cmd_path, cmd));
 	else
 	{
-		if (cmd_path)
-			return (validate_cmd(cmd_path, cmd));
-		else
-			perror ("Error");
+		perror("Error");
+		shell()->status = 1;
 	}
 	return (NULL);
 }
 
 char	*get_path(char **env)
 {
+	char	**tmp;
+
 	if (*env == NULL)
 	{
 		perror("ERROR env at path");
-		// free_env();
 		free_c_env(env);
-		exit(EXIT_FAILURE);
+		shell()->status = EXIT_FAILURE;
+		return (NULL);
 	}
 	else
 	{
-		while (*env && ft_strncmp("PATH", *env, 4))
-			env++;
-		if (*env == NULL)
+		tmp = env;
+		while (*tmp && ft_strncmp("PATH", *tmp, 4))
+			tmp++;
+		if (*tmp == NULL)
 		{
-			perror("ERROR finding PATH");
-			// free_env();
-			free_c_env(env);
-			exit(EXIT_FAILURE);
+			perror("ERROR env at path");
+			shell()->status = EXIT_FAILURE;
+			return (NULL);
 		}
+		return (*tmp + 5);
 	}
-	return (*env + 5);
 }
 
 char	*validate_cmd(char **cmd_paths, char *cmd)
@@ -80,7 +94,5 @@ char	*validate_cmd(char **cmd_paths, char *cmd)
 		free(tmp2);
 		i++;
 	}
-	printf("%s: command not found\n", cmd);
-	free_cmd_paths(cmd_paths);
 	return (NULL);
 }

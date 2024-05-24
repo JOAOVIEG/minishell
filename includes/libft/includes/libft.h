@@ -6,7 +6,7 @@
 /*   By: wiferrei <wiferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 10:12:52 by wiferrei          #+#    #+#             */
-/*   Updated: 2024/02/14 16:31:50 by wiferrei         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:07:34 by wiferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,24 @@ int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
+int					find_char_index(char *str, char c);
+
+char				*ft_strsub(char const *s, unsigned int start, size_t len);
 
 size_t				ft_strlen(const char *str);
 size_t				ft_strlen_nl(const char *s);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
 int					ft_strcmp(const char *s1, const char *s2);
-int					ft_strncmp(const char *s1, char *s2, size_t n);
+int					ft_strncmp(const char *sn1, const char *sn2, size_t nb);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
+char				*ft_strstr(const char *str, const char *cmp);
 char				*ft_strnstr(const char *str, const char *to_find, size_t n);
-void				ft_error_handler(char *message);
+char				*ft_strcat(char *dest, const char *src);
+char				*ft_strncat(char *dest, const char *src, size_t n);
+char				*ft_strremove(char *str, char *chars);
+// void				ft_error_handler(char *message);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 
@@ -91,6 +98,11 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+char				*ft_search_and_replace_all(const char *str,
+						const char *srch, const char *rplc);
+char				*ft_search_and_replace_first(const char *str,
+						const char *srch, const char *rplc);
+char				*ft_strtok(char *str, const char *delim);
 
 // ft_printf
 
