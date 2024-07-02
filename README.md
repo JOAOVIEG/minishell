@@ -1,8 +1,10 @@
 # Usage and installation
 This program is a simple version of bash (Bourne-Again SHell). To use it run the following:
-```git clone git@github.com:JOAOVIEG/minishell.git minishell```
-```cd minishell```
-```make run```
+```
+git clone git@github.com:JOAOVIEG/minishell.git minishell
+cd minishell
+make run
+```
 
 Feel free to compare with the bash terminal.
 ![sample_shell](sample_shell.png)
