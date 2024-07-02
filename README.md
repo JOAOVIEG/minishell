@@ -1,6 +1,11 @@
 # Usage and installation
-This program is a simple version of bash (Bourne-Again SHell). To use it clone the repo, `cd` to its directory and run `make run`. 
+This program is a simple version of bash (Bourne-Again SHell). To use it run the following:
+```git clone git@github.com:JOAOVIEG/minishell.git minishell```
+```cd minishell```
+```make run```
+
 Feel free to compare with the bash terminal.
+![sample_shell](sample_shell.png)
 
 # Basic Introduction
 A shell is simply a macro processor that executes commands. The term macro processor means functionality where text and symbols are
